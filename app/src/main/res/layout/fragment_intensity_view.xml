@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+
+    <LinearLayout android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/grad"
+            android:scaleType="fitXY"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:layout_alignParentRight="true"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_marginLeft="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/rostro5"
+            android:id="@+id/faceView"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/indicatorView"
+            android:layout_marginRight="80dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/n5"
+            android:layout_alignParentRight="true"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
