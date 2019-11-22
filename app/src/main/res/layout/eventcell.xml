@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:gravity="center_vertical"
     android:paddingLeft="12dp"
-    android:background="#444"
+    android:background="#555"
     android:focusable="false"
     android:focusableInTouchMode="false"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:text="Sintoma"
             android:textColor="#fff"
             android:focusable="false"
