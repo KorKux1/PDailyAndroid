@@ -7,11 +7,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 
-import co.edu.icesi.pdailyandroid.DashBoard;
 import co.edu.icesi.pdailyandroid.R;
-import co.edu.icesi.pdailyandroid.broadcastreceivers.ActionReceiver;
 
 
 public class NotificationUtils {
@@ -41,4 +39,46 @@ public class NotificationUtils {
         manager.notify(id, builder.build());
     }
 
+    public static void createBigNotification(Context context, int id, String title, String msg, String textBlock, Intent intentAction) {
+        NotificationManager manager;
+        manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel canal = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, CHANNEL_IMPORTANCE);
+            manager.createNotificationChannel(canal);
+        }
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,1,intentAction, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat
+                .Builder(context, CHANNEL_ID)
+                .setContentTitle(title)
+                .setContentText(msg)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(textBlock))
+                .setAutoCancel(true);
+
+        manager.notify(id, builder.build());
+    }
+
+    public static Notification createSimpleNotification(Context context, int id, String title, String msg) {
+        NotificationManager manager;
+        manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel canal = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, CHANNEL_IMPORTANCE);
+            manager.createNotificationChannel(canal);
+        }
+        NotificationCompat.Builder builder = new NotificationCompat
+                .Builder(context, CHANNEL_ID)
+                .setContentTitle(title)
+                .setContentText(msg)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setDefaults(Notification.FLAG_FOREGROUND_SERVICE)
+                .setVibrate(new long[]{0L})
+                .setPriority(NotificationCompat.PRIORITY_MIN)
+                .setAutoCancel(true);
+
+        manager.notify(id, builder.build());
+        return builder.build();
+    }
 }

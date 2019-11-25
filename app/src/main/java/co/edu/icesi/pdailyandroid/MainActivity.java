@@ -1,11 +1,9 @@
 package co.edu.icesi.pdailyandroid;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-
-import co.edu.icesi.pdailyandroid.services.MQTTService;
 
 public class MainActivity extends AppCompatActivity {
 

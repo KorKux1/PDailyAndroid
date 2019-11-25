@@ -8,10 +8,15 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.communication.MQTTClientST;
+import co.edu.icesi.pdailyandroid.database.DataHandler;
 import co.edu.icesi.pdailyandroid.interfaces.INotification;
 import co.edu.icesi.pdailyandroid.model.NotificationFoodFollowUp;
 import co.edu.icesi.pdailyandroid.services.MQTTService;
@@ -60,13 +65,17 @@ public class NotificationsAdapter extends BaseAdapter {
             notificationDate.setText(noti.getDate().split(" ")[0]+"\n"+noti.getDate().split(" ")[1]);
             notificationButton.setText("SI");
             notificationButton.setOnClickListener(
-                    (v)-> MQTTClientST.publish(MQTTService.FOOD_TOPIC+MQTTService.clientId,
-                            "{\"id\":\"8dd588bb-c8de-4f0f-900a-6a38af2865b5\",\"name\":\"confirmado\",\"date\":\"20/11/2019 14:29:01\"}")
+                    (v)-> {
+                        String date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
+                        noti.setDate(date);
+                        noti.setName("confirmado");
+                        MQTTClientST.getInstance().publish(MQTTService.FOOD_TOPIC+MQTTService.clientId, new Gson().toJson(noti));
+                        DataHandler.getInstance(parent.getContext()).deleteFoodNotification(noti);
+                        notifications.remove(noti);
+                        notifyDataSetChanged();
+                    }
             );
         }
-
-
-
         return row;
     }
 

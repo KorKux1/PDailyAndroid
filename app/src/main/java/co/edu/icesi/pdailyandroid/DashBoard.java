@@ -2,19 +2,19 @@ package co.edu.icesi.pdailyandroid;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import java.io.Serializable;
-
-import co.edu.icesi.pdailyandroid.model.NotificationFoodFollowUp;
 import co.edu.icesi.pdailyandroid.services.MQTTService;
+import co.edu.icesi.pdailyandroid.services.MQTTWorker;
 import co.edu.icesi.pdailyandroid.viewcontrollers.BinnacleFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.EventFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.FoodFragment;
@@ -23,7 +23,6 @@ import co.edu.icesi.pdailyandroid.viewcontrollers.OthersFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.ProfileFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.RoutineFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.SupportFragment;
-import co.edu.icesi.pdailyandroid.viewmodel.SimpleNotification;
 
 public class DashBoard extends AppCompatActivity {
 
@@ -79,18 +78,20 @@ public class DashBoard extends AppCompatActivity {
         analizeIntent();
         SharedPreferences sp = getSharedPreferences("user",MODE_PRIVATE);
         sp.edit().putString("clienteid","1234567890").apply();
+
         Intent i = new Intent(this, MQTTService.class);
-        startService(i);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(i);
+        }else{
+            startService(i);
+        }
+
+        //MQTTWorker.connectToBroker(this);
+
     }
 
     private void analizeIntent() {
         if(getIntent().getExtras() != null){
-            Serializable obj = getIntent().getExtras().getSerializable("notification");
-            if(obj instanceof NotificationFoodFollowUp){
-                NotificationFoodFollowUp notifood = (NotificationFoodFollowUp) obj;
-                ((BinnacleFragment) binFragment).addNotification(notifood);
-            }
-
             String fragment = getIntent().getExtras().getString("fragment");
             if(fragment.equals("binnacle")) {
                 load(binFragment);
