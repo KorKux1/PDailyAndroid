@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.edu.icesi.pdailyandroid">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".modals.RangeHourModal" android:theme="@style/Theme.Transparent"></activity>
+        <receiver
+            android:name=".broadcastreceivers.ActionReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
+        <service
+            android:name=".services.MQTTService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".modals.RangeHourModal"
+            android:theme="@style/Theme.Transparent" />
         <activity android:name=".gamecontrols.WormGame" />
         <activity android:name=".gamecontrols.BananaGame" />
         <activity android:name=".DashBoard" />

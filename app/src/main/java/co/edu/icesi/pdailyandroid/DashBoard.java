@@ -1,5 +1,6 @@
 package co.edu.icesi.pdailyandroid;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import co.edu.icesi.pdailyandroid.services.MQTTService;
 import co.edu.icesi.pdailyandroid.viewcontrollers.BinnacleFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.EventFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.FoodFragment;
@@ -17,6 +19,8 @@ import co.edu.icesi.pdailyandroid.viewcontrollers.OthersFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.ProfileFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.RoutineFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.SupportFragment;
+import co.edu.icesi.pdailyandroid.viewmodel.NotificationLevoTakenViewModel;
+import co.edu.icesi.pdailyandroid.viewmodel.NotificationViewModel;
 
 public class DashBoard extends AppCompatActivity {
 
@@ -68,6 +72,24 @@ public class DashBoard extends AppCompatActivity {
         routineFragment = new RoutineFragment();
         supportFragment = new SupportFragment();
         eventFragment = new EventFragment();
+
+        if(getIntent().getExtras() != null){
+
+
+            NotificationViewModel notification = (NotificationViewModel) getIntent().getExtras().getSerializable("notification");
+            if(notification instanceof NotificationLevoTakenViewModel){
+                ((BinnacleFragment) binFragment).addNotification(notification);
+            }
+
+            String fragment = getIntent().getExtras().getString("fragment");
+            if(fragment.equals("binnacle")) {
+                load(binFragment);
+            }
+
+        }
+
+        Intent i = new Intent(this, MQTTService.class);
+        startService(i);
     }
 
     public void doDashboardAction(View sender) {

@@ -7,10 +7,11 @@
 
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout18"
         android:layout_width="0dp"
-        android:layout_height="436dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:background="#555"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +46,7 @@
                     android:layout_marginBottom="4dp"
                     android:text="Horas"
                     android:textColor="#fff"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toTopOf="@+id/othersHour"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -112,20 +113,20 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/textView27"
+                    android:id="@+id/textView27s"
                     android:layout_width="201dp"
                     android:layout_height="31dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:text="Fecha inicial"
                     android:textColor="#fff"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toTopOf="@+id/othersHour"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@+id/othersHour2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/othersHour"
+                    android:id="@+id/othersHour2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -280,4 +281,14 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout16" />
 
     </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edit"
+        android:translationX="-25dp"
+        android:translationY="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout18"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout18" />
 </android.support.constraint.ConstraintLayout>
