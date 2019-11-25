@@ -5,21 +5,24 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import java.io.UnsupportedEncodingException;
 
 import co.edu.icesi.pdailyandroid.broadcastreceivers.ActionReceiver;
 import co.edu.icesi.pdailyandroid.communication.MQTTClientST;
+import co.edu.icesi.pdailyandroid.model.NotificationFoodFollowUp;
 import co.edu.icesi.pdailyandroid.util.NotificationUtils;
-import co.edu.icesi.pdailyandroid.viewmodel.NotificationLevoTakenViewModel;
 
 public class MQTTService extends Service implements IMqttMessageListener {
 
-    public static final String BROKER = "tcp://mqtt.eclipse.org:1883";
-    public static final String clientId = "1143848900";
-    private MqttClient client;
+    public static String clientId = null;
+    public static final String FOOD_TOPIC = "pdaily/food/";
+    private MqttClient client = null;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -36,13 +39,26 @@ public class MQTTService extends Service implements IMqttMessageListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+
+        clientId = this.getSharedPreferences("user",MODE_PRIVATE).getString("clienteid",null);
+        Log.e(">>>",""+clientId);
+        if(clientId == null) return START_NOT_STICKY;
+
+
         if (client != null) {
+            new Thread(
+                    ()-> {
+                        MQTTClientST.reconectIfDisconnected();
+                        MQTTClientST.suscribeToTopic(FOOD_TOPIC+clientId, this);
+                    }
+            ).start();
             return START_STICKY;
         }
 
         new Thread(()->{
             MQTTClientST.connectToBrokerWithID("1143848901");
-            MQTTClientST.suscribeToTopic("alfa", this);
+            MQTTClientST.suscribeToTopic(FOOD_TOPIC+clientId, this);
+            Log.e(">>>","Sucribed to " + FOOD_TOPIC+clientId);
         }).start();
 
         return START_STICKY;
@@ -50,11 +66,17 @@ public class MQTTService extends Service implements IMqttMessageListener {
 
     @Override
     public void messageArrived(String topic, MqttMessage msg) {
-        if (topic.equals("alfa")) {
-            Intent intentAction = new Intent(this, ActionReceiver.class);
-            NotificationLevoTakenViewModel model = new NotificationLevoTakenViewModel("Titulo", new String(msg.getPayload()), "03/12/2019 14:12:00", "SI");
-            intentAction.putExtra("model", model);
-            NotificationUtils.createNotification(this, 1, model.getNotificationTitle(), model.getNotificationDescription(), intentAction);
+        Log.e(">>>","Receiver from topic: " + topic);
+        try {
+            if (topic.equals(FOOD_TOPIC + clientId)) {
+                String json = new String(msg.getPayload(), "UTF-8").trim();
+                NotificationFoodFollowUp obj = new Gson().fromJson(json, NotificationFoodFollowUp.class);
+                Intent intentAction = new Intent(this, ActionReceiver.class);
+                intentAction.putExtra("model", obj);
+                NotificationUtils.createNotification(this, 1, "Alimentación", obj.getName(), intentAction);
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 }

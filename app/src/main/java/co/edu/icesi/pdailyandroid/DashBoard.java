@@ -1,6 +1,7 @@
 package co.edu.icesi.pdailyandroid;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import java.io.Serializable;
+
+import co.edu.icesi.pdailyandroid.model.NotificationFoodFollowUp;
 import co.edu.icesi.pdailyandroid.services.MQTTService;
 import co.edu.icesi.pdailyandroid.viewcontrollers.BinnacleFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.EventFragment;
@@ -19,8 +23,7 @@ import co.edu.icesi.pdailyandroid.viewcontrollers.OthersFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.ProfileFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.RoutineFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.SupportFragment;
-import co.edu.icesi.pdailyandroid.viewmodel.NotificationLevoTakenViewModel;
-import co.edu.icesi.pdailyandroid.viewmodel.NotificationViewModel;
+import co.edu.icesi.pdailyandroid.viewmodel.SimpleNotification;
 
 public class DashBoard extends AppCompatActivity {
 
@@ -73,12 +76,19 @@ public class DashBoard extends AppCompatActivity {
         supportFragment = new SupportFragment();
         eventFragment = new EventFragment();
 
+        analizeIntent();
+        SharedPreferences sp = getSharedPreferences("user",MODE_PRIVATE);
+        sp.edit().putString("clienteid","1234567890").apply();
+        Intent i = new Intent(this, MQTTService.class);
+        startService(i);
+    }
+
+    private void analizeIntent() {
         if(getIntent().getExtras() != null){
-
-
-            NotificationViewModel notification = (NotificationViewModel) getIntent().getExtras().getSerializable("notification");
-            if(notification instanceof NotificationLevoTakenViewModel){
-                ((BinnacleFragment) binFragment).addNotification(notification);
+            Serializable obj = getIntent().getExtras().getSerializable("notification");
+            if(obj instanceof NotificationFoodFollowUp){
+                NotificationFoodFollowUp notifood = (NotificationFoodFollowUp) obj;
+                ((BinnacleFragment) binFragment).addNotification(notifood);
             }
 
             String fragment = getIntent().getExtras().getString("fragment");
@@ -87,9 +97,6 @@ public class DashBoard extends AppCompatActivity {
             }
 
         }
-
-        Intent i = new Intent(this, MQTTService.class);
-        startService(i);
     }
 
     public void doDashboardAction(View sender) {

@@ -33,12 +33,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/notificationDate"
+                android:id="@+id/notificationdate"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="10/12/2019 6:50:00"
                 android:textColor="#fff"
                 android:textSize="16sp"
+                android:gravity="right"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

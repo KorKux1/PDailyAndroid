@@ -4,9 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import java.io.Serializable;
+
 import co.edu.icesi.pdailyandroid.DashBoard;
-import co.edu.icesi.pdailyandroid.viewmodel.NotificationLevoTakenViewModel;
-import co.edu.icesi.pdailyandroid.viewmodel.NotificationViewModel;
+import co.edu.icesi.pdailyandroid.model.NotificationFoodFollowUp;
+import co.edu.icesi.pdailyandroid.viewmodel.SimpleNotification;
 
 public class ActionReceiver extends BroadcastReceiver {
 
@@ -14,12 +16,17 @@ public class ActionReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         context.sendBroadcast(it);
+        Serializable obj = intent.getExtras().getSerializable("model");
 
-        NotificationViewModel model = (NotificationViewModel) intent.getExtras().getSerializable("model");
-        Intent i = new Intent(context, DashBoard.class);
-        i.putExtra("fragment","binnacle");
-        i.putExtra("notification",model);
-        context.startActivity(i);
+        if(obj instanceof NotificationFoodFollowUp){
+            NotificationFoodFollowUp notifood = (NotificationFoodFollowUp) obj;
+            Intent i = new Intent(context, DashBoard.class);
+            i.putExtra("fragment","binnacle");
+            i.putExtra("notification",notifood);
+            context.startActivity(i);
+        }
+
+
 
     }
 }
