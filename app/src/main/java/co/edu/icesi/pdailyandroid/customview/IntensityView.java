@@ -16,6 +16,7 @@ import co.edu.icesi.pdailyandroid.R;
 public class IntensityView extends Fragment {
 
     private float initY = 0;
+    private View root;
 
     public IntensityView() {
         // Required empty public constructor
@@ -27,10 +28,10 @@ public class IntensityView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_intensity_view, container, false);
+        root = inflater.inflate(R.layout.fragment_intensity_view, container, false);
 
-        ImageView faceView = v.findViewById(R.id.faceView);
-        ImageView indicatorView = v.findViewById(R.id.indicatorView);
+        ImageView faceView = root.findViewById(R.id.faceView);
+        ImageView indicatorView = root.findViewById(R.id.indicatorView);
         faceView.setOnTouchListener(
                 (view, event) -> {
                     switch (event.getAction()) {
@@ -42,7 +43,7 @@ public class IntensityView extends Fragment {
 
                             float faceHeight = faceView.getHeight();
                             float indicatorHeight = indicatorView.getHeight();
-                            float height = v.getHeight();
+                            float height = root.getHeight();
 
 
                             faceView.setY(view.getY() + event.getY() - initY);
@@ -116,8 +117,16 @@ public class IntensityView extends Fragment {
                     return true;
                 }
         );
+        deselect();
+        return root;
+    }
 
-        return v;
+    public void deselect(){
+        if(root!= null) root.setAlpha(0.5f);
+    }
+
+    public void select(){
+        if(root!= null) root.setAlpha(1.0f);
     }
 
 

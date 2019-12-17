@@ -53,4 +53,10 @@ public class BinnacleFragment extends Fragment {
 
     }
 
+    public void updateTable() {
+        if(adapter != null){
+            getAllInfo();
+        }
+    }
+
 }

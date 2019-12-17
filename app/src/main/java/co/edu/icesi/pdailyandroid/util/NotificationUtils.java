@@ -61,13 +61,14 @@ public class NotificationUtils {
         manager.notify(id, builder.build());
     }
 
-    public static Notification createSimpleNotification(Context context, int id, String title, String msg) {
+    public static Notification createSimpleNotification(Context context, int id, String title, String msg, Intent intentAction) {
         NotificationManager manager;
         manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel canal = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, CHANNEL_IMPORTANCE);
             manager.createNotificationChannel(canal);
         }
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,1,intentAction, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat
                 .Builder(context, CHANNEL_ID)
                 .setContentTitle(title)
@@ -76,6 +77,7 @@ public class NotificationUtils {
                 .setDefaults(Notification.FLAG_FOREGROUND_SERVICE)
                 .setVibrate(new long[]{0L})
                 .setPriority(NotificationCompat.PRIORITY_MIN)
+                .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
         manager.notify(id, builder.build());

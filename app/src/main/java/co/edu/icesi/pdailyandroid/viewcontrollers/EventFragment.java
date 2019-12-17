@@ -15,6 +15,8 @@ import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.EventsAdapter;
 import co.edu.icesi.pdailyandroid.customview.IntensityView;
 import co.edu.icesi.pdailyandroid.modals.RangeHourModal;
+import co.edu.icesi.pdailyandroid.model.Event;
+import co.edu.icesi.pdailyandroid.temporals.EventTemporal;
 import co.edu.icesi.pdailyandroid.viewmodel.EventViewModel;
 
 
@@ -22,6 +24,7 @@ public class EventFragment extends Fragment {
 
     private ListView eventsTable;
     private ArrayList<EventViewModel> events;
+    ArrayList<EventViewModel> out;
     private EventsAdapter adapter;
     private Fragment intensityView;
 
@@ -50,7 +53,7 @@ public class EventFragment extends Fragment {
                     EventViewModel event = adapter.select(position);
                     view.setAlpha(0);
                     view.animate().alpha(1);
-                    Intent i = new Intent(getActivity(), RangeHourModal.class);
+                    Intent i = new Intent(getContext(), RangeHourModal.class);
                     i.putExtra("event",event);
                     startActivity(i);
                 }
@@ -60,10 +63,10 @@ public class EventFragment extends Fragment {
     }
 
     private ArrayList<EventViewModel> createArray() {
-        ArrayList<EventViewModel> out = new ArrayList<>();
-        EventViewModel s1 = new EventViewModel("Congelamiento", true);
+        out = new ArrayList<>();
+        EventViewModel s1 = new EventViewModel("Congelamiento", false);
         EventViewModel s2 = new EventViewModel("Lentificación", false);
-        EventViewModel s3 = new EventViewModel("Discinesias", true);
+        EventViewModel s3 = new EventViewModel("Discinesias", false);
         EventViewModel s4 = new EventViewModel("Temblor", false);
         EventViewModel s5 = new EventViewModel("Tropezones", false);
         EventViewModel s6 = new EventViewModel("Caídas", false);
@@ -76,5 +79,31 @@ public class EventFragment extends Fragment {
         return out;
     }
 
-
+    public void refreshList() {
+        for(int i = 0; i< EventTemporal.events.size() ; i++){
+            Event event = EventTemporal.events.get(i);
+            switch (event.getName()){
+                case "Congelamiento":
+                    out.get(0).setEvaluated(true);
+                    break;
+                case "Lentificación":
+                    out.get(1).setEvaluated(true);
+                    break;
+                case "Discinesias":
+                    out.get(2).setEvaluated(true);
+                    break;
+                case "Temblor":
+                    out.get(3).setEvaluated(true);
+                    break;
+                case "Tropezones":
+                    out.get(4).setEvaluated(true);
+                    break;
+                case "Caídas":
+                    out.get(5).setEvaluated(true);
+                    break;
+            }
+        }
+        adapter.notifyDataSetChanged();
+        ( (IntensityView) intensityView ).select();
+    }
 }

@@ -1,19 +1,32 @@
 package co.edu.icesi.pdailyandroid.modals;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import co.edu.icesi.pdailyandroid.R;
+import co.edu.icesi.pdailyandroid.dialogs.HourDialog;
+import co.edu.icesi.pdailyandroid.model.Event;
+import co.edu.icesi.pdailyandroid.temporals.EventTemporal;
 import co.edu.icesi.pdailyandroid.viewmodel.EventViewModel;
 
-public class RangeHourModal extends AppCompatActivity {
+public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHourChoose {
 
     private ImageView modalImage;
     private EventViewModel event;
     private TextView titleEvent;
+
+    private TextView fromhour;
+    private TextView tohour;
+    private Button nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +37,38 @@ public class RangeHourModal extends AppCompatActivity {
 
         modalImage = findViewById(R.id.modalImage);
         titleEvent = findViewById(R.id.titleEvent);
+        nextButton = findViewById(R.id.nextButton);
+
+        fromhour = findViewById(R.id.fromhour);
+        tohour = findViewById(R.id.tohour);
+
+        fromhour.setOnClickListener(
+            (v)->{
+                HourDialog dialog = new HourDialog();
+                dialog.setOriginView(v);
+                dialog.setOnHourChooseListener(this);
+                dialog.show(getSupportFragmentManager(), "hourDialog");
+            }
+        );
+
+        tohour.setOnClickListener(
+                (v)->{
+                    HourDialog dialog = new HourDialog();
+                    dialog.setOriginView(v);
+                    dialog.setOnHourChooseListener(this);
+                    dialog.show(getSupportFragmentManager(), "hourDialog");
+                }
+        );
+
+        nextButton.setOnClickListener(
+                (v)->{
+                    finish();
+                    Intent intent = new Intent(this, BodySelectorModal.class);
+                    startActivity(intent);
+                    EventTemporal.createTemp();
+                    EventTemporal.events.add( new Event(titleEvent.getText().toString(), fromhour.getText().toString(), tohour.getText().toString()) );
+                }
+        );
 
         titleEvent.setText(event.getName());
         switch (event.getName()){
@@ -66,7 +111,6 @@ public class RangeHourModal extends AppCompatActivity {
 
 
                     while (sequence) {
-                        Log.e(">>>","atrapado!");
                     }
                     sequence = true;
 
@@ -78,7 +122,6 @@ public class RangeHourModal extends AppCompatActivity {
 
                     runOnUiThread(()->{
                         String name = prefix+""+contador;
-                        Log.e(">>>","frame: "+name);
                         int drawableResourceId = this.getResources().getIdentifier(name, "drawable", this.getPackageName());
                         modalImage.setImageResource(drawableResourceId);
                         sequence = false;
@@ -95,5 +138,12 @@ public class RangeHourModal extends AppCompatActivity {
         animLive = false;
         sequence = false;
         super.onPause();
+    }
+
+    @Override
+    public void onHour(View view, String hour, Date datetime) {
+        Log.e(">>>>>",hour);
+        TextView destinationView = (TextView) view;
+        destinationView.setText(hour);
     }
 }

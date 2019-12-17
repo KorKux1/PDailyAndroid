@@ -69,7 +69,6 @@ public class NotificationsAdapter extends BaseAdapter {
                         String date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
                         noti.setDate(date);
                         noti.setName("confirmado");
-                        MQTTClientST.getInstance().publish(MQTTService.FOOD_TOPIC+MQTTService.clientId, new Gson().toJson(noti));
                         DataHandler.getInstance(parent.getContext()).deleteFoodNotification(noti);
                         notifications.remove(noti);
                         notifyDataSetChanged();
