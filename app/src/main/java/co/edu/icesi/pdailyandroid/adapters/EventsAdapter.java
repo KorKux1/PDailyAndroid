@@ -1,6 +1,7 @@
 package co.edu.icesi.pdailyandroid.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import co.edu.icesi.pdailyandroid.viewmodel.EventViewModel;
 public class EventsAdapter extends BaseAdapter {
 
     private ArrayList<EventViewModel> events;
+    private int markedPosition = -1;
 
     public EventsAdapter(ArrayList<EventViewModel> events) {
         this.events = events;
@@ -49,11 +51,27 @@ public class EventsAdapter extends BaseAdapter {
         }else{
             symptomEvaluatedSign.setVisibility(View.GONE);
         }
+        if(this.markedPosition == position){
+            row.setBackgroundColor(Color.rgb(150,150,150));
+        }
         return row;
     }
 
     public EventViewModel select(int position) {
 
         return events.get(position);
+    }
+
+    public void mark(int position) {
+        this.markedPosition = position;
+        notifyDataSetChanged();
+    }
+
+    public boolean isAnyItemSelected() {
+        return markedPosition != -1;
+    }
+
+    public String getNameOfItemMarked() {
+        return events.get(markedPosition).getName();
     }
 }

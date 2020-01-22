@@ -251,14 +251,6 @@ public class DashBoard extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if( eventFragment.isVisible() ){
-            ( (EventFragment) eventFragment).refreshList();
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         unregisterReceiver(updateUIReciver);
         super.onDestroy();

@@ -6,15 +6,12 @@ public class Event {
     private String name;
     private String from;
     private String to;
+    private int intensity;
 
     public Event() {
+        intensity = 1;
     }
 
-    public Event(String name, String from, String to) {
-        this.name = name;
-        this.from = from;
-        this.to = to;
-    }
 
     public String getName() {
         return name;
@@ -38,5 +35,13 @@ public class Event {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public int getIntensity() {
+        return intensity;
+    }
+
+    public void setIntensity(int intensity) {
+        this.intensity = intensity;
     }
 }

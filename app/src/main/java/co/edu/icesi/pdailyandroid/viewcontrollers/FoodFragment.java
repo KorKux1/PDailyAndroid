@@ -5,11 +5,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.Date;
 
 import co.edu.icesi.pdailyandroid.R;
+import co.edu.icesi.pdailyandroid.dialogs.HourDialog;
 
 
-public class FoodFragment extends Fragment {
+public class FoodFragment extends Fragment implements View.OnClickListener, HourDialog.OnHourChoose {
 
 
     public FoodFragment() {
@@ -20,9 +25,29 @@ public class FoodFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food, container, false);
+        View root = inflater.inflate(R.layout.fragment_food, container, false);
+        root.findViewById(R.id.breakfast_hour).setOnClickListener(this);
+        root.findViewById(R.id.lunch_hour).setOnClickListener(this);
+        root.findViewById(R.id.dinner_hour).setOnClickListener(this);
+        return root;
     }
 
+    @Override
+    public void onClick(View v) {
+        showHourDialog(v);
+    }
 
+    public void showHourDialog(View v){
+        HourDialog dialog = new HourDialog();
+        dialog.setOriginView(v);
+        dialog.setHour( ( (TextView) v ).getText().toString() );
+        dialog.setOnHourChooseListener(this);
+        dialog.show(getActivity().getSupportFragmentManager(), "hourDialog");
+    }
+
+    @Override
+    public void onHour(View view, String hour, Date datetime) {
+        TextView tv = (TextView) view;
+        tv.setText(hour);
+    }
 }

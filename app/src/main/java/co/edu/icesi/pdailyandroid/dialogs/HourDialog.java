@@ -21,11 +21,17 @@ public class HourDialog extends DialogFragment {
 
     private TimePicker picker;
     private Button okButton;
-    private View origin;
+    private String hour;
     private OnHourChoose onHourChooseListener;
+    private View originView;
 
-    public void setOriginView(View origin){
-        this.origin = origin;
+
+    public void setHour(String hour){
+        this.hour = hour;
+    }
+
+    public void setOriginView(View originView){
+        this.originView = originView;
     }
 
 
@@ -33,9 +39,7 @@ public class HourDialog extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
-        String texto = ((TextView) origin).getText().toString();
-        String textoMod = texto.substring(0, texto.length()-3);
+        String textoMod = hour.substring(0, hour.length()-3);
         String[] time = textoMod.split(":");
 
 
@@ -44,7 +48,7 @@ public class HourDialog extends DialogFragment {
         okButton = view.findViewById(R.id.okButton);
 
 
-        picker.setHour( texto.contains("PM")?Integer.parseInt(time[0])+12 : Integer.parseInt(time[0]) );
+        picker.setHour( hour.contains("PM")?(hour.contains("12")? 12 : Integer.parseInt(time[0])+12 ): Integer.parseInt(time[0]) );
         picker.setMinute( Integer.parseInt(time[1]) );
 
         okButton.setOnClickListener((v)->{
@@ -57,7 +61,7 @@ public class HourDialog extends DialogFragment {
             cal.set(Calendar.HOUR_OF_DAY, hour);
             cal.set(Calendar.SECOND, 0);
             Date outdate = cal.getTime();
-            onHourChooseListener.onHour(origin, output, outdate);
+            onHourChooseListener.onHour(originView, output, outdate);
             this.dismiss();
         });
 

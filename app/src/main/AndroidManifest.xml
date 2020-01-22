@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".modals.BodySelectorModal"
+            android:name=".dialogs.BodyDialog"
             android:theme="@style/Theme.Transparent"></activity>
 
         <receiver
@@ -29,18 +29,20 @@
             android:name=".modals.RangeHourModal"
             android:theme="@style/Theme.Transparent" />
         <activity android:name=".gamecontrols.WormGame" />
-        <activity android:name=".gamecontrols.BananaGame" />
+        <activity android:name=".gamecontrols.BananaGame">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".DashBoard"
             android:launchMode="singleInstance">
 
         </activity>
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.Date;
 
 import co.edu.icesi.pdailyandroid.R;
+import co.edu.icesi.pdailyandroid.dialogs.BodyDialog;
 import co.edu.icesi.pdailyandroid.dialogs.HourDialog;
 import co.edu.icesi.pdailyandroid.model.Event;
 import co.edu.icesi.pdailyandroid.temporals.EventTemporal;
@@ -46,6 +47,7 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
             (v)->{
                 HourDialog dialog = new HourDialog();
                 dialog.setOriginView(v);
+                dialog.setHour( ( (TextView) v ).getText().toString() );
                 dialog.setOnHourChooseListener(this);
                 dialog.show(getSupportFragmentManager(), "hourDialog");
             }
@@ -55,6 +57,7 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
                 (v)->{
                     HourDialog dialog = new HourDialog();
                     dialog.setOriginView(v);
+                    dialog.setHour( ( (TextView) v ).getText().toString() );
                     dialog.setOnHourChooseListener(this);
                     dialog.show(getSupportFragmentManager(), "hourDialog");
                 }
@@ -62,11 +65,13 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
 
         nextButton.setOnClickListener(
                 (v)->{
+                    Intent i = new Intent();
+                    i.putExtra("title", titleEvent.getText().toString());
+                    i.putExtra("from", fromhour.getText().toString());
+                    i.putExtra("to", tohour.getText().toString());
+
+                    setResult(RESULT_OK, i);
                     finish();
-                    Intent intent = new Intent(this, BodySelectorModal.class);
-                    startActivity(intent);
-                    EventTemporal.createTemp();
-                    EventTemporal.events.add( new Event(titleEvent.getText().toString(), fromhour.getText().toString(), tohour.getText().toString()) );
                 }
         );
 

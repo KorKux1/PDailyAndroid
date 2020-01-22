@@ -1,5 +1,6 @@
 package co.edu.icesi.pdailyandroid.viewcontrollers;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -14,13 +15,18 @@ import java.util.ArrayList;
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.EventsAdapter;
 import co.edu.icesi.pdailyandroid.customview.IntensityView;
+import co.edu.icesi.pdailyandroid.dialogs.BodyDialog;
 import co.edu.icesi.pdailyandroid.modals.RangeHourModal;
 import co.edu.icesi.pdailyandroid.model.Event;
 import co.edu.icesi.pdailyandroid.temporals.EventTemporal;
 import co.edu.icesi.pdailyandroid.viewmodel.EventViewModel;
 
 
-public class EventFragment extends Fragment {
+public class EventFragment extends Fragment implements IntensityView.onValueListener {
+
+    private static final int HOUR_MODAL_CALLBACK = 100;
+    private static final int BODY_MODAL_CALLBACK = 101;
+
 
     private ListView eventsTable;
     private ArrayList<EventViewModel> events;
@@ -44,6 +50,7 @@ public class EventFragment extends Fragment {
         eventsTable.setAdapter(adapter);
 
         intensityView = new IntensityView();
+        ((IntensityView) intensityView).setListener(this);
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.intensityViewFrame, intensityView);
         ft.commit();
@@ -53,9 +60,20 @@ public class EventFragment extends Fragment {
                     EventViewModel event = adapter.select(position);
                     view.setAlpha(0);
                     view.animate().alpha(1);
-                    Intent i = new Intent(getContext(), RangeHourModal.class);
-                    i.putExtra("event",event);
-                    startActivity(i);
+
+                    if( event.isEvaluated() ) {
+                        ( (IntensityView) intensityView ).select();
+                        adapter.mark(position);
+                        String key = adapter.getNameOfItemMarked();
+                        Event ev = EventTemporal.events.get(key);
+                        ( (IntensityView) intensityView ).setValue(ev.getIntensity());
+                    }else{
+                        ( (IntensityView) intensityView ).deselect();
+                        ( (IntensityView) intensityView ).setValue(1);
+                        Intent i = new Intent(getContext(), RangeHourModal.class);
+                        i.putExtra("event", event);
+                        startActivityForResult(i, HOUR_MODAL_CALLBACK);
+                    }
                 }
         );
 
@@ -80,30 +98,81 @@ public class EventFragment extends Fragment {
     }
 
     public void refreshList() {
-        for(int i = 0; i< EventTemporal.events.size() ; i++){
-            Event event = EventTemporal.events.get(i);
+        if (EventTemporal.events == null) return;
+
+
+
+
+        for(String key : EventTemporal.events.keySet()){
+            Event event = EventTemporal.events.get(key);
             switch (event.getName()){
                 case "Congelamiento":
                     out.get(0).setEvaluated(true);
+                    adapter.mark(0);
                     break;
                 case "Lentificación":
                     out.get(1).setEvaluated(true);
+                    adapter.mark(1);
                     break;
                 case "Discinesias":
                     out.get(2).setEvaluated(true);
+                    adapter.mark(2);
                     break;
                 case "Temblor":
                     out.get(3).setEvaluated(true);
+                    adapter.mark(3);
                     break;
                 case "Tropezones":
                     out.get(4).setEvaluated(true);
+                    adapter.mark(4);
                     break;
                 case "Caídas":
                     out.get(5).setEvaluated(true);
+                    adapter.mark(5);
                     break;
             }
         }
-        adapter.notifyDataSetChanged();
         ( (IntensityView) intensityView ).select();
+    }
+
+
+    //CONTROL DE FLUJO DE QUESTIONARIO
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == HOUR_MODAL_CALLBACK){
+            if(resultCode == Activity.RESULT_OK){
+
+                EventTemporal.createTemp();
+
+                Event ev = new Event();
+                ev.setName(data.getExtras().get("title").toString() );
+                ev.setFrom(data.getExtras().get("from").toString());
+                ev.setTo(data.getExtras().get("to").toString());
+                EventTemporal.events.put( ev.getName(), ev );
+
+
+
+                Intent i = new Intent(getActivity(), BodyDialog.class);
+                i.putExtra("name", data.getExtras().get("title").toString());
+                startActivityForResult(i, BODY_MODAL_CALLBACK);
+            }else{
+
+            }
+        } else if(requestCode == BODY_MODAL_CALLBACK){
+            if(resultCode == Activity.RESULT_OK){
+                refreshList();
+            }else{
+                String name = data.getExtras().getString("name");
+                EventTemporal.deleteEvent(name);
+            }
+        }
+    }
+
+    @Override
+    public void onValue(int value) {
+        if(adapter.isAnyItemSelected()){
+            String name = adapter.getNameOfItemMarked();
+            EventTemporal.events.get(name).setIntensity(value);
+        }
     }
 }

@@ -17,6 +17,16 @@ public class IntensityView extends Fragment {
 
     private float initY = 0;
     private View root;
+    private int value;
+    private int height;
+    private int faceHeight;
+    private int indicatorHeight;
+
+    private ImageView faceView;
+    private ImageView indicatorView;
+
+    private onValueListener listener;
+
 
     public IntensityView() {
         // Required empty public constructor
@@ -30,8 +40,10 @@ public class IntensityView extends Fragment {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_intensity_view, container, false);
 
-        ImageView faceView = root.findViewById(R.id.faceView);
-        ImageView indicatorView = root.findViewById(R.id.indicatorView);
+        faceView = root.findViewById(R.id.faceView);
+        indicatorView = root.findViewById(R.id.indicatorView);
+
+
         faceView.setOnTouchListener(
                 (view, event) -> {
                     switch (event.getAction()) {
@@ -41,9 +53,7 @@ public class IntensityView extends Fragment {
                         case MotionEvent.ACTION_MOVE:
 
 
-                            float faceHeight = faceView.getHeight();
-                            float indicatorHeight = indicatorView.getHeight();
-                            float height = root.getHeight();
+
 
 
                             faceView.setY(view.getY() + event.getY() - initY);
@@ -59,67 +69,86 @@ public class IntensityView extends Fragment {
                                 indicatorView.setY(faceView.getY() + faceHeight / 2 - indicatorHeight / 2);
                             }
 
+                            value = 11 - 1 - (int) (9 * (faceView.getY()+faceHeight / 4) / (height - faceHeight));
 
-                            int value = 11 - 1 - (int) (9 * (faceView.getY()+faceHeight / 4) / (height - faceHeight));
-
-                            Log.e(">>>", "" + value);
-
-
-                            switch (value) {
-                                case 1:
-                                    indicatorView.setImageResource(R.drawable.n1);
-                                    faceView.setImageResource(R.drawable.rostro1);
-                                    break;
-                                case 2:
-                                    indicatorView.setImageResource(R.drawable.n2);
-                                    faceView.setImageResource(R.drawable.rostro2);
-                                    break;
-                                case 3:
-                                    indicatorView.setImageResource(R.drawable.n3);
-                                    faceView.setImageResource(R.drawable.rostro3);
-                                    break;
-                                case 4:
-                                    indicatorView.setImageResource(R.drawable.n4);
-                                    faceView.setImageResource(R.drawable.rostro4);
-                                    break;
-                                case 5:
-                                    indicatorView.setImageResource(R.drawable.n5);
-                                    faceView.setImageResource(R.drawable.rostro5);
-                                    break;
-                                case 6:
-                                    indicatorView.setImageResource(R.drawable.n6);
-                                    faceView.setImageResource(R.drawable.rostro6);
-                                    break;
-                                case 7:
-                                    indicatorView.setImageResource(R.drawable.n7);
-                                    faceView.setImageResource(R.drawable.rostro7);
-                                    break;
-                                case 8:
-                                    indicatorView.setImageResource(R.drawable.n8);
-                                    faceView.setImageResource(R.drawable.rostro8);
-                                    break;
-                                case 9:
-                                    indicatorView.setImageResource(R.drawable.n9);
-                                    faceView.setImageResource(R.drawable.rostro9);
-                                    break;
-                                case 10:
-                                    indicatorView.setImageResource(R.drawable.n10);
-                                    faceView.setImageResource(R.drawable.rostro10);
-                                    break;
-
-                            }
+                            refreshView();
 
                             break;
                         case MotionEvent.ACTION_UP:
-
+                            listener.onValue(value);
                             break;
                     }
                     return true;
                 }
         );
         deselect();
+
+
+        root.post(()->{
+            faceHeight = faceView.getHeight();
+            indicatorHeight = indicatorView.getHeight();
+            height = root.getHeight();
+        });
         return root;
     }
+
+    private void refreshView() {
+        switch (value) {
+            case 1:
+                indicatorView.setImageResource(R.drawable.n1);
+                faceView.setImageResource(R.drawable.rostro1);
+                break;
+            case 2:
+                indicatorView.setImageResource(R.drawable.n2);
+                faceView.setImageResource(R.drawable.rostro2);
+                break;
+            case 3:
+                indicatorView.setImageResource(R.drawable.n3);
+                faceView.setImageResource(R.drawable.rostro3);
+                break;
+            case 4:
+                indicatorView.setImageResource(R.drawable.n4);
+                faceView.setImageResource(R.drawable.rostro4);
+                break;
+            case 5:
+                indicatorView.setImageResource(R.drawable.n5);
+                faceView.setImageResource(R.drawable.rostro5);
+                break;
+            case 6:
+                indicatorView.setImageResource(R.drawable.n6);
+                faceView.setImageResource(R.drawable.rostro6);
+                break;
+            case 7:
+                indicatorView.setImageResource(R.drawable.n7);
+                faceView.setImageResource(R.drawable.rostro7);
+                break;
+            case 8:
+                indicatorView.setImageResource(R.drawable.n8);
+                faceView.setImageResource(R.drawable.rostro8);
+                break;
+            case 9:
+                indicatorView.setImageResource(R.drawable.n9);
+                faceView.setImageResource(R.drawable.rostro9);
+                break;
+            case 10:
+                indicatorView.setImageResource(R.drawable.n10);
+                faceView.setImageResource(R.drawable.rostro10);
+                break;
+
+        }
+    }
+
+
+    public void setValue(int value){
+        this.value = value;
+        float y = -1/9f * ((value -10)*(height - faceHeight) + 2.25f*faceHeight) + faceHeight/4;
+        faceView.setY( y );
+        indicatorView.setY(y + faceHeight / 2 - indicatorHeight / 2);
+        refreshView();
+    }
+
+
+
 
     public void deselect(){
         if(root!= null) root.setAlpha(0.5f);
@@ -129,5 +158,14 @@ public class IntensityView extends Fragment {
         if(root!= null) root.setAlpha(1.0f);
     }
 
+
+
+    public interface onValueListener{
+        void onValue(int value);
+    }
+
+    public void setListener(onValueListener listener){
+        this.listener = listener;
+    }
 
 }

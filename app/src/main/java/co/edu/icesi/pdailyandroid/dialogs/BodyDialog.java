@@ -1,8 +1,9 @@
-package co.edu.icesi.pdailyandroid.modals;
+package co.edu.icesi.pdailyandroid.dialogs;
 
 import androidx.appcompat.app.AppCompatActivity;
 import co.edu.icesi.pdailyandroid.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,11 +11,12 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-public class BodySelectorModal extends AppCompatActivity {
+public class BodyDialog extends AppCompatActivity {
 
     private Button turnButton;
     private Button finishButton;
     private ImageView bodyImage;
+    private String name;
 
     private boolean bodyIsFront = false;
 
@@ -25,6 +27,8 @@ public class BodySelectorModal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_body_selector_modal);
+
+        name = getIntent().getExtras().get("name").toString();
 
         turnButton = findViewById(R.id.turnButton);
         finishButton = findViewById(R.id.finishButton);
@@ -39,6 +43,8 @@ public class BodySelectorModal extends AppCompatActivity {
         });
 
         finishButton.setOnClickListener((v)->{
+            Intent i = new Intent();
+            setResult(RESULT_OK, i);
             finish();
         });
     }
@@ -129,4 +135,11 @@ public class BodySelectorModal extends AppCompatActivity {
         findViewById(R.id.indicator9).setVisibility(View.GONE);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent();
+        i.putExtra("name", name);
+        setResult(RESULT_CANCELED, i);
+        finish();
+    }
 }
