@@ -29,10 +29,75 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
     private TextView tohour;
     private Button nextButton;
 
+    private int[] congelamiento, temblor, tropezones;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_range_hour_modal);
+
+        congelamiento = new int[19];
+        congelamiento[0] = R.drawable.con0;
+        congelamiento[1] = R.drawable.con1;
+        congelamiento[2] = R.drawable.con2;
+        congelamiento[3] = R.drawable.con3;
+        congelamiento[4] = R.drawable.con4;
+        congelamiento[5] = R.drawable.con5;
+        congelamiento[6] = R.drawable.con6;
+        congelamiento[7] = R.drawable.con7;
+        congelamiento[8] = R.drawable.con8;
+        congelamiento[9] = R.drawable.con9;
+        congelamiento[10] = R.drawable.con10;
+        congelamiento[11] = R.drawable.con11;
+        congelamiento[12] = R.drawable.con12;
+        congelamiento[13] = R.drawable.con13;
+        congelamiento[14] = R.drawable.con14;
+        congelamiento[15] = R.drawable.con15;
+        congelamiento[16] = R.drawable.con16;
+        congelamiento[17] = R.drawable.con17;
+        congelamiento[18] = R.drawable.con18;
+
+        temblor = new int[19];
+        temblor[0] = R.drawable.tem0;
+        temblor[1] = R.drawable.tem1;
+        temblor[2] = R.drawable.tem2;
+        temblor[3] = R.drawable.tem3;
+        temblor[4] = R.drawable.tem4;
+        temblor[5] = R.drawable.tem5;
+        temblor[6] = R.drawable.tem6;
+        temblor[7] = R.drawable.tem7;
+        temblor[8] = R.drawable.tem8;
+        temblor[9] = R.drawable.tem9;
+        temblor[10] = R.drawable.tem10;
+        temblor[11] = R.drawable.tem11;
+        temblor[12] = R.drawable.tem12;
+        temblor[13] = R.drawable.tem13;
+        temblor[14] = R.drawable.tem14;
+        temblor[15] = R.drawable.tem15;
+        temblor[16] = R.drawable.tem16;
+        temblor[17] = R.drawable.tem17;
+        temblor[18] = R.drawable.tem18;
+
+        tropezones = new int[19];
+        tropezones[0] = R.drawable.tro0;
+        tropezones[1] = R.drawable.tro1;
+        tropezones[2] = R.drawable.tro2;
+        tropezones[3] = R.drawable.tro3;
+        tropezones[4] = R.drawable.tro4;
+        tropezones[5] = R.drawable.tro5;
+        tropezones[6] = R.drawable.tro6;
+        tropezones[7] = R.drawable.tro7;
+        tropezones[8] = R.drawable.tro8;
+        tropezones[9] = R.drawable.tro9;
+        tropezones[10] = R.drawable.tro10;
+        tropezones[11] = R.drawable.tro11;
+        tropezones[12] = R.drawable.tro12;
+        tropezones[13] = R.drawable.tro13;
+        tropezones[14] = R.drawable.tro14;
+        tropezones[15] = R.drawable.tro15;
+        tropezones[16] = R.drawable.tro16;
+        tropezones[17] = R.drawable.tro17;
+        tropezones[18] = R.drawable.tro18;
 
         event = (EventViewModel) getIntent().getExtras().getSerializable("event");
 
@@ -78,22 +143,22 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
         titleEvent.setText(event.getName());
         switch (event.getName()){
             case "Congelamiento":
-                runAnimation("con");
+                runAnimation(congelamiento);
                 break;
             case "Lentificación":
-                runAnimation("con");
+                runAnimation(congelamiento);
                 break;
             case "Discinesias":
-                runAnimation("con");
+                runAnimation(temblor);
                 break;
             case "Temblor":
-                runAnimation("tem");
+                runAnimation(temblor);
                 break;
             case "Tropezones":
-                runAnimation("tro");
+                runAnimation(tropezones);
                 break;
             case "Caídas":
-                runAnimation("con");
+                runAnimation(tropezones);
                 break;
         }
 
@@ -102,46 +167,34 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
 
     private int contador = 0;
     private boolean animLive = true;
-    private boolean sequence = false;
 
-    public void runAnimation(String prefix) {
-        Log.e(">>>","Animation started!");
-        sequence = false;
+    public void runAnimation(int[] array) {
         new Thread(() -> {
-            try {
-                while (animLive) {
+                try {
+                    while (animLive) {
 
+                        runOnUiThread(() -> {
+                            modalImage.setImageResource(array[(contador<0 && contador>array.length)?0:contador]);
+                        });
 
-                    Thread.sleep(20);
+                        Thread.sleep(80);
 
-
-                    while (sequence) {
+                        contador += 1;
+                        if (contador >= array.length) {
+                            contador = 0;
+                            Thread.sleep(500);
+                        }
                     }
-                    sequence = true;
-
-                    contador += 1;
-                    if (contador >= 19) {
-                        contador = 0;
-                        Thread.sleep(500);
-                    }
-
-                    runOnUiThread(()->{
-                        String name = prefix+""+contador;
-                        int drawableResourceId = this.getResources().getIdentifier(name, "drawable", this.getPackageName());
-                        modalImage.setImageResource(drawableResourceId);
-                        sequence = false;
-                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
+            }).start();
+
     }
 
     @Override
     protected void onPause() {
         animLive = false;
-        sequence = false;
         super.onPause();
     }
 

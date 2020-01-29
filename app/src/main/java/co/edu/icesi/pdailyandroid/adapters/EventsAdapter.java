@@ -74,4 +74,14 @@ public class EventsAdapter extends BaseAdapter {
     public String getNameOfItemMarked() {
         return events.get(markedPosition).getName();
     }
+
+    public int getPositionOf(String name) {
+        int index = -1;
+        for(int i=0 ; i<events.size() ; i++){
+            if(events.get(i).getName().equals(name)){
+                index = i;
+            }
+        }
+        return index;
+    }
 }

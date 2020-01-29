@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -60,20 +61,31 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
                     EventViewModel event = adapter.select(position);
                     view.setAlpha(0);
                     view.animate().alpha(1);
+                    adapter.mark(position);
 
                     if( event.isEvaluated() ) {
                         ( (IntensityView) intensityView ).select();
-                        adapter.mark(position);
                         String key = adapter.getNameOfItemMarked();
                         Event ev = EventTemporal.events.get(key);
                         ( (IntensityView) intensityView ).setValue(ev.getIntensity());
                     }else{
                         ( (IntensityView) intensityView ).deselect();
                         ( (IntensityView) intensityView ).setValue(1);
-                        Intent i = new Intent(getContext(), RangeHourModal.class);
-                        i.putExtra("event", event);
-                        startActivityForResult(i, HOUR_MODAL_CALLBACK);
                     }
+                }
+        );
+
+        eventsTable.setOnItemLongClickListener(
+                (parent, view, position, id) -> {
+                    EventViewModel event = adapter.select(position);
+                    view.setAlpha(0);
+                    view.animate().alpha(1);
+                    ( (IntensityView) intensityView ).deselect();
+                    ( (IntensityView) intensityView ).setValue(1);
+                    Intent i = new Intent(getContext(), RangeHourModal.class);
+                    i.putExtra("event", event);
+                    startActivityForResult(i, HOUR_MODAL_CALLBACK);
+                    return true;
                 }
         );
 
@@ -160,12 +172,22 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
             }
         } else if(requestCode == BODY_MODAL_CALLBACK){
             if(resultCode == Activity.RESULT_OK){
+                String name = data.getExtras().getString("name");
                 refreshList();
+                selectOnList(name);
             }else{
                 String name = data.getExtras().getString("name");
                 EventTemporal.deleteEvent(name);
             }
         }
+    }
+
+    private void selectOnList(String name) {
+        ( (IntensityView) intensityView ).select();
+        adapter.mark(adapter.getPositionOf(name));
+        String key = adapter.getNameOfItemMarked();
+        Event ev = EventTemporal.events.get(key);
+        ( (IntensityView) intensityView ).setValue(ev.getIntensity());
     }
 
     @Override

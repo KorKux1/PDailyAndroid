@@ -44,6 +44,7 @@ public class BodyDialog extends AppCompatActivity {
 
         finishButton.setOnClickListener((v)->{
             Intent i = new Intent();
+            i.putExtra("name", name);
             setResult(RESULT_OK, i);
             finish();
         });

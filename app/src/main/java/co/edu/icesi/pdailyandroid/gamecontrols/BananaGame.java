@@ -39,7 +39,7 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
         status.setObserver(this);
 
         bananaFrames = new int[22];
-        handFrames = new int[18];
+        handFrames = new int[35];
 
         bananaFrames[0] = R.drawable.banana1;
         bananaFrames[1] = R.drawable.banana2;
@@ -83,6 +83,26 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
         handFrames[16] = R.drawable.one17;
         handFrames[17] = R.drawable.one18;
 
+        handFrames[18] = R.drawable.one17;
+        handFrames[19] = R.drawable.one16;
+        handFrames[20] = R.drawable.one15;
+        handFrames[21] = R.drawable.one14;
+        handFrames[22] = R.drawable.one13;
+        handFrames[23] = R.drawable.one12;
+        handFrames[24] = R.drawable.one11;
+        handFrames[25] = R.drawable.one10;
+        handFrames[26] = R.drawable.one09;
+        handFrames[27] = R.drawable.one08;
+        handFrames[28] = R.drawable.one07;
+        handFrames[29] = R.drawable.one06;
+        handFrames[30] = R.drawable.one05;
+        handFrames[31] = R.drawable.one04;
+        handFrames[32] = R.drawable.one03;
+        handFrames[33] = R.drawable.one02;
+        handFrames[34] = R.drawable.one01;
+
+
+
         bananita.setOnTouchListener((v, event) -> {
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN:
@@ -91,6 +111,8 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
                     if(frame>=bananaFrames.length-1){
                         frame = bananaFrames.length-1;
                     }
+                    status.increaseRightPoints();
+                    status.increaseLeftPoints();
                     break;
                 case MotionEvent.ACTION_UP:
 
@@ -141,6 +163,10 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
                 break;
 
             case BananaGameStatus.GAME_WON_LEFT:
+                status.notifyFinish();
+                break;
+
+            case BananaGameStatus.GAME_FINISHED:
                 status.notifyInit();
                 break;
 
@@ -170,6 +196,7 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
     public void onGameInit() {
         frame = 0;
         runOnUiThread(()-> {
+            findViewById(R.id.resultsContainer).setVisibility(View.GONE);
             findViewById(R.id.tryagain).setVisibility(View.GONE);
             findViewById(R.id.buttonContainer).setVisibility(View.VISIBLE);
             bananita.setVisibility(View.GONE);
@@ -179,6 +206,8 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
     @Override
     public void onGameStartRight() {
+        status.restoreRightPoints();
+
         new Thread(
                 () -> {
                     frame = 0;
@@ -223,6 +252,7 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
     @Override
     public void onGameStartLeft() {
+        status.restoreLeftPoints();
         new Thread(
                 () -> {
                     frame = 0;
@@ -267,12 +297,18 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
     @Override
     public void onGameInstructionsRight() {
+        handFrame = 0;
         new Thread(
                 ()->{
                     runOnUiThread(()->{
+                        findViewById(R.id.tryagain).setVisibility(View.GONE);
+                        bananita.setVisibility(View.GONE);
+                        bananita.setBackgroundResource(bananaFrames[0]);
                         findViewById(R.id.buttonContainer).setVisibility(View.GONE);
                         instructionSprite.setVisibility(View.VISIBLE);
                         instructionText.setVisibility(View.VISIBLE);
+                        instructionSprite.setScaleX(1);
+                        instructionText.setText("Use el dedo índice\nde la mano derecha");
                     });
 
                     while( status.isInInstructionsRight() ){
@@ -292,7 +328,7 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
                         if(handFrame >= handFrames.length){
                             handFrame=0;
                             try {
-                                Thread.sleep(2000);
+                                Thread.sleep(1000);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -304,11 +340,13 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
     @Override
     public void onGameInstructionsLeft() {
+        handFrame = 0;
         new Thread(
                 ()->{
                     runOnUiThread(()->{
                         findViewById(R.id.tryagain).setVisibility(View.GONE);
                         bananita.setVisibility(View.GONE);
+                        bananita.setBackgroundResource(bananaFrames[0]);
                         findViewById(R.id.buttonContainer).setVisibility(View.GONE);
                         instructionSprite.setVisibility(View.VISIBLE);
                         instructionText.setVisibility(View.VISIBLE);
@@ -341,6 +379,20 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
                     }
                 }
         ).start();
+    }
+
+    @Override
+    public void onGameFinish() {
+        runOnUiThread(()->{
+            ((Button) findViewById(R.id.tryagain)).setText("Intentarlo de nuevo");
+            bananita.setVisibility(View.GONE);
+            findViewById(R.id.resultsContainer).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.rightTouchesText)).setText(""+status.getRightTouches());
+            ((TextView) findViewById(R.id.leftTouchesText)).setText(""+status.getLeftTouches());
+
+            ((TextView) findViewById(R.id.rightTimeText)).setText(""+status.getRightDuration());
+            ((TextView) findViewById(R.id.leftTimeText)).setText(""+status.getLeftDuration());
+        });
     }
 
 

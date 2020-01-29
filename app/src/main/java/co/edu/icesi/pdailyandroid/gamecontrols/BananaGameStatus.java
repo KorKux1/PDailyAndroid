@@ -10,10 +10,21 @@ public class BananaGameStatus {
     static final int INGAMELEFT = 104;
     static final int INSTRUCTIONS_RIGHT = 105;
     static final int INSTRUCTIONS_LEFT = 106;
+    static final int GAME_FINISHED = 107;
 
     private int gameState = GAME_INIT;
 
     private OnGameStatusObserver observer;
+
+
+    private int rightTouches = 0;
+    private int leftTouches = 0;
+
+    private long startRightTime;
+    private long startLeftTime;
+
+    private long rightTime = 0;
+    private long leftTime = 0;
 
     public void setObserver(OnGameStatusObserver observer){
         this.observer = observer;
@@ -53,11 +64,13 @@ public class BananaGameStatus {
 
     public void notifyVictoryRight() {
         gameState = GAME_WON_RIGHT;
+        rightTime = System.currentTimeMillis() - startRightTime;
         observer.onGameWonRight();
     }
 
     public void notifyVictoryLeft() {
         gameState = GAME_WON_LEFT;
+        leftTime = System.currentTimeMillis() - startLeftTime;
         observer.onGameWonLeft();
     }
 
@@ -65,6 +78,50 @@ public class BananaGameStatus {
         gameState = INGAMELEFT;
         observer.onGameStartLeft();
     }
+
+    public void notifyFinish() {
+        gameState = GAME_FINISHED;
+        observer.onGameFinish();
+    }
+
+    public void increaseRightPoints() {
+        if(gameState == INGAMERIGHT){
+            rightTouches++;
+            if(rightTouches == 1) startRightTime = System.currentTimeMillis();
+        }
+    }
+
+    public void restoreRightPoints() {
+        rightTouches = 0;
+    }
+
+    public int getRightTouches() {
+        return rightTouches;
+    }
+
+    public int getLeftTouches() {
+        return leftTouches;
+    }
+
+    public void increaseLeftPoints() {
+        if(gameState == INGAMELEFT){
+            leftTouches++;
+            if(leftTouches == 1) startLeftTime = System.currentTimeMillis();
+        }
+    }
+
+    public void restoreLeftPoints() {
+        leftTouches = 0;
+    }
+
+    public long getRightDuration() {
+        return rightTime;
+    }
+
+    public long getLeftDuration() {
+        return leftTime;
+    }
+
 
     public interface OnGameStatusObserver{
         void onGameWonRight();
@@ -74,5 +131,6 @@ public class BananaGameStatus {
         void onGameStartLeft();
         void onGameInstructionsRight();
         void onGameInstructionsLeft();
+        void onGameFinish();
     }
 }

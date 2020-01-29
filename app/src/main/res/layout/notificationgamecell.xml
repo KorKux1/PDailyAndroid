@@ -100,5 +100,5 @@
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout20"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout20"
-        app:srcCompat="@drawable/comidaactivo" />
+        app:srcCompat="@drawable/eventosactivo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

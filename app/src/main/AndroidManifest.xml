@@ -28,13 +28,13 @@
         <activity
             android:name=".modals.RangeHourModal"
             android:theme="@style/Theme.Transparent" />
-        <activity android:name=".gamecontrols.WormGame" />
-        <activity android:name=".gamecontrols.BananaGame">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".gamecontrols.WormGame">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
+
+        </activity>
+        <activity android:name=".gamecontrols.BananaGame">
+
         </activity>
         <activity
             android:name=".DashBoard"
@@ -42,7 +42,11 @@
 
         </activity>
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

@@ -7,18 +7,33 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import co.edu.icesi.pdailyandroid.R;
 
-public class WormGame extends AppCompatActivity {
+public class WormGame extends AppCompatActivity implements WormGameStatus.OnGameStatusObserver{
 
     private ImageView gusanito;
+    private TextView timerText;
 
     private int[] normalStateFrames;
     private int[] exploteStateFrames;
     private ConstraintLayout root;
+    private Button gameStartButton;
+    private WormGameStatus status;
+    private Button tryAgainButton;
+
+    private TextView errorsText;
+    private TextView pointsText;
+    private TextView reactionText;
+
+    private RelativeLayout gameContainer;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -26,8 +41,18 @@ public class WormGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worm_game);
 
+        status = new WormGameStatus();
+        status.setObserver(this);
+
+        errorsText = findViewById(R.id.errorsText);
+        pointsText = findViewById(R.id.pointsText);
+        reactionText = findViewById(R.id.reactionText);
         gusanito = findViewById(R.id.gusanito);
+        gameContainer = findViewById(R.id.gameContainer);
+        timerText = findViewById(R.id.timerText);
+        tryAgainButton = findViewById(R.id.tryAgainButton);
         root = findViewById(R.id.root);
+        gameStartButton = findViewById(R.id.gameStartButton);
         normalStateFrames = new int[23];
         normalStateFrames[0] = R.drawable.gusano0;
         normalStateFrames[1] = R.drawable.gusano1;
@@ -68,6 +93,7 @@ public class WormGame extends AppCompatActivity {
         gusanito.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+                    if(isNormalState) status.increasePoints();
                     isNormalState = false;
                     break;
 
@@ -77,25 +103,52 @@ public class WormGame extends AppCompatActivity {
             return true;
         });
 
-        initializeGame();
+        gameStartButton.setOnClickListener(
+                (v)->{
+                    status.notifyGameStart();
+                }
+        );
+
+        tryAgainButton.setOnClickListener(
+                (v) -> {
+                    status.notifyGameInit();
+                }
+        );
+
+
+        View.OnClickListener listener = (v) -> {
+            status.increaseErrors();
+        };
+        gameContainer.setOnClickListener(listener);
+        timerText.setOnClickListener(listener);
+
     }
 
 
     private int frame = 0;
-    private boolean signal = false;
     private boolean isNormalState = true;
 
 
-    private void initializeGame() {
+    @Override
+    public void onGameInit() {
+        findViewById(R.id.mainContainer).setVisibility(View.VISIBLE);
+        findViewById(R.id.resultsContainer).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onGameStart() {
+        status.addTimeStamp();
+        findViewById(R.id.mainContainer).setVisibility(View.GONE);
+        findViewById(R.id.gameContainer).setVisibility(View.VISIBLE);
+
         new Thread(
                 () -> {
-                    while (true) {
+                    while (status.getGameState() == WormGameStatus.INGAME) {
 
 
-                        while (isNormalState) {
+                        while (isNormalState && status.getGameState() == WormGameStatus.INGAME) {
                             runOnUiThread(() -> {
                                 gusanito.setBackgroundResource(normalStateFrames[frame]);
-                                signal = false;
                             });
 
                             frame++;
@@ -104,32 +157,26 @@ public class WormGame extends AppCompatActivity {
                             }
 
                             try {
-                                Thread.sleep(50);
+                                Thread.sleep(25);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
 
                         frame = 0;
-                        signal = false;
 
-                        while (!isNormalState) {
-                            while (signal) {
-                            }
-                            signal = true;
+                        while (!isNormalState && status.getGameState() == WormGameStatus.INGAME) {
+
                             runOnUiThread(() -> {
                                 if (!isNormalState && frame>=0 && frame<exploteStateFrames.length) {
                                     gusanito.setBackgroundResource(exploteStateFrames[frame]);
-                                    Log.e(">>>", "Explote: " + frame);
                                 }
-                                signal = false;
+
                             });
                             frame++;
                             if (frame >= exploteStateFrames.length) {
                                 isNormalState = true;
                                 frame = 0;
-
-
                                 runOnUiThread(()->{
                                     gusanito.setVisibility(View.GONE);
                                 });
@@ -142,18 +189,60 @@ public class WormGame extends AppCompatActivity {
 
                                 runOnUiThread(
                                         () -> {
-                                            double areaX = (root.getWidth()-gusanito.getWidth())*Math.random();
-                                            gusanito.setX((int) areaX);
-                                            double areaY = (root.getHeight()-gusanito.getHeight())*Math.random();
-                                            gusanito.setY((int) areaY);
+                                            //double areaX = (gameContainer.getWidth()-gusanito.getWidth()-60)*Math.random();
+                                            //double areaY = (gusanito.getHeight()/2+60) + (gameContainer.getHeight()- 1.7*(gusanito.getHeight()) )*Math.random();
+
+                                            float limMinX = 0;
+                                            float limMaxX = gameContainer.getWidth()-gusanito.getWidth()-60;
+                                            float limMinY = gusanito.getHeight()/2+60;
+                                            float limMaxY = (float) ((gusanito.getHeight()/2+60) + (gameContainer.getHeight()- 1.7*(gusanito.getHeight())));
+
+                                            Log.e(">>>","X"+limMinX);
+                                            Log.e(">>>","X"+limMaxX);
+                                            Log.e(">>>","Y"+limMinY);
+                                            Log.e(">>>","Y"+limMaxY);
+
+                                            int radio = 300;
+
+
+                                            ArrayList<float[]> coords = new ArrayList<>();
+                                            for(double angle=0 ; angle<2*Math.PI ; angle = angle + 0.015){
+                                                double x = radio * Math.cos(angle);
+                                                double y = radio * Math.sin(angle);
+                                                float newX = (float) (gusanito.getX()+x);
+                                                float newY = (float) (gusanito.getY()+y);
+
+                                                if(newX>limMinX && newX<limMaxX && newY>limMinY && newY<limMaxY){
+                                                    coords.add(new float[]{newX,newY});
+                                                }
+                                            }
+
+                                            /*
+                                            do {
+                                                double angle = Math.random() * 2 * Math.PI;
+                                                double x = radio * Math.cos(angle);
+                                                double y = radio * Math.sin(angle);
+                                                newX = (float) (gusanito.getX()+x);
+                                                newY = (float) (gusanito.getY()+y);
+                                                Log.e(">>>","NEWX"+newX);
+                                                Log.e(">>>","NEWY"+newY);
+                                            }while (newX<limMinX || newX>limMaxX || newY<limMinY || newY>limMaxY);
+                                            */
+
+                                            int coordRandom = (int)(Math.random()*coords.size());
+                                            gusanito.setX(coords.get(coordRandom)[0]);
+                                            gusanito.setY(coords.get(coordRandom)[1]);
+
+
                                             gusanito.setBackgroundResource(normalStateFrames[0]);
                                             gusanito.setVisibility(View.VISIBLE);
+                                            status.addTimeStamp();
                                         }
                                 );
                                 break;
                             }
                             try {
-                                Thread.sleep(100);
+                                Thread.sleep(25);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -163,5 +252,38 @@ public class WormGame extends AppCompatActivity {
                     }
                 }
         ).start();
+
+
+        new Thread(
+                ()->{
+                    while(status.getGameState() == WormGameStatus.INGAME) {
+                        runOnUiThread(
+                                () -> {
+                                    timerText.setText("" + status.getGameTime());
+                                    status.decreaseGameTime();
+                                }
+                        );
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).start();
+    }
+
+    @Override
+    public void onGameOver() {
+        runOnUiThread(
+                ()->{
+                    findViewById(R.id.resultsContainer).setVisibility(View.VISIBLE);
+                    findViewById(R.id.gameContainer).setVisibility(View.GONE);
+                    errorsText.setText(""+status.getErrors());
+                    pointsText.setText(""+status.getPoints());
+                    reactionText.setText(""+status.calculateMean());
+                }
+        );
+
     }
 }
