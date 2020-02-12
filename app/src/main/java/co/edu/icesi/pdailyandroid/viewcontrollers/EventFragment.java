@@ -185,7 +185,7 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
                 ev.setFrom(data.getExtras().getLong("from"));
                 ev.setTo(data.getExtras().getLong("to"));
                 EventTemporal.events.put( ev.getName(), ev );
-                
+
                 Intent i = new Intent(getActivity(), BodyDialog.class);
                 i.putExtra("name", data.getExtras().get("title").toString());
                 startActivityForResult(i, BODY_MODAL_CALLBACK);
@@ -226,6 +226,6 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
 
     @Override
     public void onResponse(String response) {
-        Log.e(">>>",response);
+        Log.e("<<<",response);
     }
 }
