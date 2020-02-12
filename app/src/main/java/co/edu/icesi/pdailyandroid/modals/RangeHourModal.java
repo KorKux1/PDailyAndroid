@@ -10,13 +10,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import co.edu.icesi.pdailyandroid.R;
-import co.edu.icesi.pdailyandroid.dialogs.BodyDialog;
 import co.edu.icesi.pdailyandroid.dialogs.HourDialog;
-import co.edu.icesi.pdailyandroid.model.Event;
-import co.edu.icesi.pdailyandroid.temporals.EventTemporal;
+import co.edu.icesi.pdailyandroid.util.DateUtils;
 import co.edu.icesi.pdailyandroid.viewmodel.EventViewModel;
 
 public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHourChoose {
@@ -25,16 +24,34 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
     private EventViewModel event;
     private TextView titleEvent;
 
+    private Calendar calendarFrom;
+    private Calendar calendarTo;
+
     private TextView fromhour;
     private TextView tohour;
-    private Button nextButton;
+    private Button nextButton, backButton;
 
-    private int[] congelamiento, temblor, tropezones;
+    private int[] congelamiento, temblor, tropezones, lentificacion, discinesias, caidas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_range_hour_modal);
+
+        modalImage = findViewById(R.id.modalImage);
+        titleEvent = findViewById(R.id.titleEvent);
+        nextButton = findViewById(R.id.nextButton);
+        fromhour = findViewById(R.id.fromhour);
+        tohour = findViewById(R.id.tohour);
+
+        calendarFrom = Calendar.getInstance();
+        calendarTo = Calendar.getInstance();
+        calendarTo.add(Calendar.MINUTE, 10);
+
+        fromhour.setText( DateUtils.getHourInString(calendarFrom) );
+        tohour.setText( DateUtils.getHourInString(calendarTo) );
+
+        backButton = findViewById(R.id.backButton);
 
         congelamiento = new int[19];
         congelamiento[0] = R.drawable.con0;
@@ -99,17 +116,93 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
         tropezones[17] = R.drawable.tro17;
         tropezones[18] = R.drawable.tro18;
 
+        lentificacion = new int[36];
+        lentificacion[0] = R.drawable.len1;
+        lentificacion[1] = R.drawable.len2;
+        lentificacion[2] = R.drawable.len3;
+        lentificacion[3] = R.drawable.len4;
+        lentificacion[4] = R.drawable.len5;
+        lentificacion[5] = R.drawable.len6;
+        lentificacion[6] = R.drawable.len7;
+        lentificacion[7] = R.drawable.len8;
+        lentificacion[8] = R.drawable.len9;
+        lentificacion[9] = R.drawable.len10;
+        lentificacion[10] = R.drawable.len11;
+        lentificacion[11] = R.drawable.len12;
+        lentificacion[12] = R.drawable.len13;
+        lentificacion[13] = R.drawable.len14;
+        lentificacion[14] = R.drawable.len15;
+        lentificacion[15] = R.drawable.len16;
+        lentificacion[16] = R.drawable.len17;
+        lentificacion[17] = R.drawable.len18;
+        lentificacion[18] = R.drawable.len19;
+        lentificacion[19] = R.drawable.len20;
+        lentificacion[20] = R.drawable.len21;
+        lentificacion[21] = R.drawable.len22;
+        lentificacion[22] = R.drawable.len23;
+        lentificacion[23] = R.drawable.len24;
+        lentificacion[24] = R.drawable.len25;
+        lentificacion[25] = R.drawable.len26;
+        lentificacion[26] = R.drawable.len27;
+        lentificacion[27] = R.drawable.len28;
+        lentificacion[28] = R.drawable.len29;
+        lentificacion[29] = R.drawable.len30;
+        lentificacion[30] = R.drawable.len31;
+        lentificacion[31] = R.drawable.len32;
+        lentificacion[32] = R.drawable.len33;
+        lentificacion[33] = R.drawable.len34;
+        lentificacion[34] = R.drawable.len35;
+        lentificacion[35] = R.drawable.len36;
+
+        discinesias = new int[19];
+        discinesias[0] = R.drawable.dis0;
+        discinesias[1] = R.drawable.dis1;
+        discinesias[2] = R.drawable.dis2;
+        discinesias[3] = R.drawable.dis3;
+        discinesias[4] = R.drawable.dis4;
+        discinesias[5] = R.drawable.dis5;
+        discinesias[6] = R.drawable.dis6;
+        discinesias[7] = R.drawable.dis7;
+        discinesias[8] = R.drawable.dis8;
+        discinesias[9] = R.drawable.dis9;
+        discinesias[10] = R.drawable.dis10;
+        discinesias[11] = R.drawable.dis11;
+        discinesias[12] = R.drawable.dis12;
+        discinesias[13] = R.drawable.dis13;
+        discinesias[14] = R.drawable.dis14;
+        discinesias[15] = R.drawable.dis15;
+        discinesias[16] = R.drawable.dis16;
+        discinesias[17] = R.drawable.dis17;
+        discinesias[18] = R.drawable.dis18;
+
+        caidas = new int[19];
+        caidas[0] = R.drawable.cai0;
+        caidas[1] = R.drawable.cai1;
+        caidas[2] = R.drawable.cai2;
+        caidas[3] = R.drawable.cai3;
+        caidas[4] = R.drawable.cai4;
+        caidas[5] = R.drawable.cai5;
+        caidas[6] = R.drawable.cai6;
+        caidas[7] = R.drawable.cai7;
+        caidas[8] = R.drawable.cai8;
+        caidas[9] = R.drawable.cai9;
+        caidas[10] = R.drawable.cai10;
+        caidas[11] = R.drawable.cai11;
+        caidas[12] = R.drawable.cai12;
+        caidas[13] = R.drawable.cai13;
+        caidas[14] = R.drawable.cai14;
+        caidas[15] = R.drawable.cai15;
+        caidas[16] = R.drawable.cai16;
+        caidas[17] = R.drawable.cai17;
+        caidas[18] = R.drawable.cai18;
+        
+
         event = (EventViewModel) getIntent().getExtras().getSerializable("event");
 
-        modalImage = findViewById(R.id.modalImage);
-        titleEvent = findViewById(R.id.titleEvent);
-        nextButton = findViewById(R.id.nextButton);
-
-        fromhour = findViewById(R.id.fromhour);
-        tohour = findViewById(R.id.tohour);
 
         fromhour.setOnClickListener(
             (v)->{
+                animPause = true;
                 HourDialog dialog = new HourDialog();
                 dialog.setOriginView(v);
                 dialog.setHour( ( (TextView) v ).getText().toString() );
@@ -120,6 +213,7 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
 
         tohour.setOnClickListener(
                 (v)->{
+                    animPause = true;
                     HourDialog dialog = new HourDialog();
                     dialog.setOriginView(v);
                     dialog.setHour( ( (TextView) v ).getText().toString() );
@@ -132,11 +226,16 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
                 (v)->{
                     Intent i = new Intent();
                     i.putExtra("title", titleEvent.getText().toString());
-                    i.putExtra("from", fromhour.getText().toString());
-                    i.putExtra("to", tohour.getText().toString());
-
+                    i.putExtra("from", calendarFrom.getTime().getTime());
+                    i.putExtra("to", calendarTo.getTime().getTime());
                     setResult(RESULT_OK, i);
                     finish();
+                }
+        );
+
+        backButton.setOnClickListener(
+                (v)->{
+                    onBackPressed();
                 }
         );
 
@@ -146,10 +245,10 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
                 runAnimation(congelamiento);
                 break;
             case "Lentificación":
-                runAnimation(congelamiento);
+                runAnimation(lentificacion);
                 break;
             case "Discinesias":
-                runAnimation(temblor);
+                runAnimation(discinesias);
                 break;
             case "Temblor":
                 runAnimation(temblor);
@@ -158,7 +257,7 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
                 runAnimation(tropezones);
                 break;
             case "Caídas":
-                runAnimation(tropezones);
+                runAnimation(caidas);
                 break;
         }
 
@@ -167,6 +266,7 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
 
     private int contador = 0;
     private boolean animLive = true;
+    private boolean animPause = false;
 
     public void runAnimation(int[] array) {
         new Thread(() -> {
@@ -174,16 +274,17 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
                     while (animLive) {
 
                         runOnUiThread(() -> {
-                            modalImage.setImageResource(array[(contador<0 && contador>array.length)?0:contador]);
+                            modalImage.setImageResource(array[contador]);
                         });
 
-                        Thread.sleep(80);
+                        Thread.sleep(100);
 
                         contador += 1;
                         if (contador >= array.length) {
                             contador = 0;
                             Thread.sleep(500);
                         }
+                        while(animPause){}
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -199,9 +300,19 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
     }
 
     @Override
-    public void onHour(View view, String hour, Date datetime) {
-        Log.e(">>>>>",hour);
+    public void onHour(View view, Date datetime) {
+        animPause = false;
         TextView destinationView = (TextView) view;
-        destinationView.setText(hour);
+        switch (view.getId()){
+            case R.id.fromhour:
+                calendarFrom.setTime(datetime);
+                destinationView.setText(DateUtils.getHourInString(calendarFrom));
+                break;
+            case R.id.tohour:
+                calendarTo.setTime(datetime);
+                destinationView.setText(DateUtils.getHourInString(calendarTo));
+                break;
+        }
+
     }
 }

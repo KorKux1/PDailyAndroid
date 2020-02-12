@@ -1,12 +1,15 @@
 package co.edu.icesi.pdailyandroid.model;
 
+import java.util.ArrayList;
+
 import androidx.annotation.Nullable;
 
 public class Event {
     private String name;
-    private String from;
-    private String to;
+    private long from;
+    private long to;
     private int intensity;
+    private ArrayList<String> bodyParts;
 
     public Event() {
         intensity = 1;
@@ -21,19 +24,19 @@ public class Event {
         this.name = name;
     }
 
-    public String getFrom() {
+    public long getFrom() {
         return from;
     }
 
-    public void setFrom(String from) {
+    public void setFrom(long from) {
         this.from = from;
     }
 
-    public String getTo() {
+    public long getTo() {
         return to;
     }
 
-    public void setTo(String to) {
+    public void setTo(long to) {
         this.to = to;
     }
 
@@ -43,5 +46,13 @@ public class Event {
 
     public void setIntensity(int intensity) {
         this.intensity = intensity;
+    }
+
+    public ArrayList<String> getBodyParts() {
+        return bodyParts;
+    }
+
+    public void setBodyParts(ArrayList<String> bodyParts) {
+        this.bodyParts = bodyParts;
     }
 }

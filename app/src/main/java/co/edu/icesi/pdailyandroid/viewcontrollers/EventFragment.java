@@ -5,25 +5,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.EventsAdapter;
 import co.edu.icesi.pdailyandroid.customview.IntensityView;
-import co.edu.icesi.pdailyandroid.dialogs.BodyDialog;
+import co.edu.icesi.pdailyandroid.modals.BodyDialog;
+import co.edu.icesi.pdailyandroid.dto.EventDTO;
 import co.edu.icesi.pdailyandroid.modals.RangeHourModal;
 import co.edu.icesi.pdailyandroid.model.Event;
+import co.edu.icesi.pdailyandroid.services.WebserviceConsumer;
 import co.edu.icesi.pdailyandroid.temporals.EventTemporal;
 import co.edu.icesi.pdailyandroid.viewmodel.EventViewModel;
 
 
-public class EventFragment extends Fragment implements IntensityView.onValueListener {
+public class EventFragment extends Fragment implements IntensityView.onValueListener, WebserviceConsumer.OnResponseListener {
 
     private static final int HOUR_MODAL_CALLBACK = 100;
     private static final int BODY_MODAL_CALLBACK = 101;
@@ -31,9 +38,11 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
 
     private ListView eventsTable;
     private ArrayList<EventViewModel> events;
-    ArrayList<EventViewModel> out;
+    private ArrayList<EventViewModel> out;
     private EventsAdapter adapter;
     private Fragment intensityView;
+    private Button saveBtn;
+
 
     public EventFragment() {
         events = createArray();
@@ -56,13 +65,14 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
         ft.replace(R.id.intensityViewFrame, intensityView);
         ft.commit();
 
+        saveBtn = v.findViewById(R.id.saveBtn);
+
         eventsTable.setOnItemClickListener(
                 (parent, view, position, id) -> {
                     EventViewModel event = adapter.select(position);
                     view.setAlpha(0);
                     view.animate().alpha(1);
                     adapter.mark(position);
-
                     if( event.isEvaluated() ) {
                         ( (IntensityView) intensityView ).select();
                         String key = adapter.getNameOfItemMarked();
@@ -89,6 +99,21 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
                 }
         );
 
+        saveBtn.setOnClickListener(
+                (view) -> {
+                    if(saveBtn.getVisibility() == View.VISIBLE){
+                        ArrayList<Event> events = EventTemporal.getAllEvents();
+                        ArrayList<EventDTO> eventDTOS = new ArrayList<>();
+                        for(int i=0 ; i<events.size() ; i++){
+                            EventDTO dto = EventDTO.transformToDTO(events.get(i));
+                            eventDTOS.add(dto);
+                        }
+                        WebserviceConsumer consumer = new WebserviceConsumer();
+                        consumer.postEvents(eventDTOS);
+                    }
+                }
+        );
+
         return v;
     }
 
@@ -111,7 +136,6 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
 
     public void refreshList() {
         if (EventTemporal.events == null) return;
-
 
 
 
@@ -157,13 +181,11 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
                 EventTemporal.createTemp();
 
                 Event ev = new Event();
-                ev.setName(data.getExtras().get("title").toString() );
-                ev.setFrom(data.getExtras().get("from").toString());
-                ev.setTo(data.getExtras().get("to").toString());
+                ev.setName(data.getExtras().getString("title"));
+                ev.setFrom(data.getExtras().getLong("from"));
+                ev.setTo(data.getExtras().getLong("to"));
                 EventTemporal.events.put( ev.getName(), ev );
-
-
-
+                
                 Intent i = new Intent(getActivity(), BodyDialog.class);
                 i.putExtra("name", data.getExtras().get("title").toString());
                 startActivityForResult(i, BODY_MODAL_CALLBACK);
@@ -173,6 +195,10 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
         } else if(requestCode == BODY_MODAL_CALLBACK){
             if(resultCode == Activity.RESULT_OK){
                 String name = data.getExtras().getString("name");
+                String bodyList = data.getExtras().getString("bodyList");
+                ArrayList<String> bodyArray = new Gson().fromJson(bodyList, new TypeToken<ArrayList<String>>(){}.getType());
+                EventTemporal.events.get( name ).setBodyParts(bodyArray);
+                saveBtn.setVisibility(View.VISIBLE);
                 refreshList();
                 selectOnList(name);
             }else{
@@ -196,5 +222,10 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
             String name = adapter.getNameOfItemMarked();
             EventTemporal.events.get(name).setIntensity(value);
         }
+    }
+
+    @Override
+    public void onResponse(String response) {
+        Log.e(">>>",response);
     }
 }

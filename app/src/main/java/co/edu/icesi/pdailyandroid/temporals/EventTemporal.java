@@ -16,6 +16,15 @@ public class EventTemporal {
         }
     }
 
+    public static ArrayList<Event> getAllEvents(){
+        ArrayList<Event> out = new ArrayList<>();
+        for(String key : events.keySet()){
+            Event event = events.get(key);
+            out.add(event);
+        }
+        return out;
+    }
+
     public static void deleteTemp(){
         events = null;
     }

@@ -40,20 +40,21 @@
             android:clickable="true"
             android:divider="@null"
             android:dividerHeight="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/button2"
+            app:layout_constraintBottom_toTopOf="@+id/saveBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/saveBtn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:background="#315EB7"
             android:text="Guardar"
             android:textColor="#fff"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/eventsTable" />

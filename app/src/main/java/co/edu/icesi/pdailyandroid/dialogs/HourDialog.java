@@ -61,7 +61,7 @@ public class HourDialog extends DialogFragment {
             cal.set(Calendar.HOUR_OF_DAY, hour);
             cal.set(Calendar.SECOND, 0);
             Date outdate = cal.getTime();
-            onHourChooseListener.onHour(originView, output, outdate);
+            onHourChooseListener.onHour(originView, outdate);
             this.dismiss();
         });
 
@@ -73,7 +73,7 @@ public class HourDialog extends DialogFragment {
     }
 
     public interface OnHourChoose{
-        void onHour(View view, String hour, Date datetime);
+        void onHour(View view, Date datetime);
     }
 
 }

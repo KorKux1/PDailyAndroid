@@ -12,6 +12,7 @@
 
         <ImageView
             android:layout_marginLeft="40dp"
+            android:scaleY="-1"
             android:src="@drawable/grad"
             android:scaleType="fitXY"
             android:layout_width="60dp"
@@ -30,7 +31,7 @@
             android:layout_marginLeft="40dp"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/rostro1"
+            android:src="@drawable/rostro10"
             android:id="@+id/faceView"/>
 
     </LinearLayout>
@@ -45,7 +46,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginBottom="20dp"
-            android:src="@drawable/n1"
+            android:src="@drawable/n10"
             android:layout_alignParentRight="true"/>
 
     </LinearLayout>

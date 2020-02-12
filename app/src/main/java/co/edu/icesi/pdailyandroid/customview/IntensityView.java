@@ -17,7 +17,7 @@ public class IntensityView extends Fragment {
 
     private float initY = 0;
     private View root;
-    private int value;
+    private int value=10;
     private int height;
     private int faceHeight;
     private int indicatorHeight;
@@ -52,10 +52,6 @@ public class IntensityView extends Fragment {
                             break;
                         case MotionEvent.ACTION_MOVE:
 
-
-
-
-
                             faceView.setY(view.getY() + event.getY() - initY);
                             indicatorView.setY(faceView.getY() + faceHeight / 2 - indicatorHeight / 2);
 
@@ -69,7 +65,7 @@ public class IntensityView extends Fragment {
                                 indicatorView.setY(faceView.getY() + faceHeight / 2 - indicatorHeight / 2);
                             }
 
-                            value = 11 - 1 - (int) (9 * (faceView.getY()+faceHeight / 4) / (height - faceHeight));
+                            value = 11-(11 - 1 - (int) (9 * (faceView.getY()+faceHeight / 4) / (height - faceHeight)));
 
                             refreshView();
 
@@ -141,7 +137,7 @@ public class IntensityView extends Fragment {
 
     public void setValue(int value){
         this.value = value;
-        float y = -1/9f * ((value -10)*(height - faceHeight) + 2.25f*faceHeight) + faceHeight/4;
+        float y = -1/9f * (((11-value) -10)*(height - faceHeight) + 2.25f*faceHeight) + faceHeight/4;
         faceView.setY( y );
         indicatorView.setY(y + faceHeight / 2 - indicatorHeight / 2);
         refreshView();

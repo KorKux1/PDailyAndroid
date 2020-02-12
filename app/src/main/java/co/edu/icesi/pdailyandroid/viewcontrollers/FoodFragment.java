@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.dialogs.HourDialog;
+import co.edu.icesi.pdailyandroid.util.DateUtils;
 
 
 public class FoodFragment extends Fragment implements View.OnClickListener, HourDialog.OnHourChoose {
@@ -46,8 +48,10 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
     }
 
     @Override
-    public void onHour(View view, String hour, Date datetime) {
+    public void onHour(View view, Date datetime) {
         TextView tv = (TextView) view;
-        tv.setText(hour);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(datetime);
+        tv.setText(DateUtils.getHourInString(calendar));
     }
 }
