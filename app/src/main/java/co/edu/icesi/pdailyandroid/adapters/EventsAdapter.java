@@ -52,6 +52,7 @@ public class EventsAdapter extends BaseAdapter {
             symptomEvaluatedSign.setVisibility(View.GONE);
         }
         if(this.markedPosition == position){
+            
             row.setBackgroundColor(Color.rgb(150,150,150));
         }
         return row;
