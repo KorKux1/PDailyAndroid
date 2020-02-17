@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.EventsAdapter;
 import co.edu.icesi.pdailyandroid.customview.IntensityView;
-import co.edu.icesi.pdailyandroid.modals.BodyDialog;
+import co.edu.icesi.pdailyandroid.modals.BodyModal;
 import co.edu.icesi.pdailyandroid.dto.EventDTO;
 import co.edu.icesi.pdailyandroid.modals.RangeHourModal;
 import co.edu.icesi.pdailyandroid.model.Event;
@@ -109,6 +109,7 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
                             eventDTOS.add(dto);
                         }
                         WebserviceConsumer consumer = new WebserviceConsumer();
+                        consumer.setListener(this);
                         consumer.postEvents(eventDTOS);
                     }
                 }
@@ -186,7 +187,7 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
                 ev.setTo(data.getExtras().getLong("to"));
                 EventTemporal.events.put( ev.getName(), ev );
 
-                Intent i = new Intent(getActivity(), BodyDialog.class);
+                Intent i = new Intent(getActivity(), BodyModal.class);
                 i.putExtra("name", data.getExtras().get("title").toString());
                 startActivityForResult(i, BODY_MODAL_CALLBACK);
             }else{

@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-public class BodyDialog extends AppCompatActivity {
+public class BodyModal extends AppCompatActivity {
 
 
     private static final String PIERNA_IZQUIERDA_FRONTAL = "6b3f6738-b471-40d5-acd9-3d8dfd7e3854";
