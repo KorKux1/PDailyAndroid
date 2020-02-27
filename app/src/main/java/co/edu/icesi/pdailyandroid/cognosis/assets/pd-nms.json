@@ -1,0 +1,215 @@
+{
+  "form_id": 2,
+  "form_name": "PD-NMS",
+  "form_description": "Escal de síntomas no motores",
+  "form_language": "ES",
+  "form_questions": [
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado babeo o salivación excesiva?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado dificultad para tragar comidas o bebidas (Atoramiento)?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado vómito o náuseas?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado estreñimiento?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado urgencia con incontinencia urinaria?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha tenido problemas para organizar sus actividades diarias?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado visión doble?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado problemas para recordar donde guarda las cosas o compromisos que tenía que hacer?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado pierde el hilo de lo que hace o conversa?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado desorientación en lugares conocidos?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha visto personas , animales o bultos (alucinaciones) que no están ahí?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha tenido problemas menores al conducir o parquear?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Se ha sentido muy triste o deprimido?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado sentimiento de ansiedad, miedo o pánico?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado conductas compulsivas como hipersexualidad, compras desmedidas, tendencia al juego o a coleccionar?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado sensación de mareo o debilidad al ponerse de pie después de haber estado sentado o acostado?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Se ha tropezado al caminar?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado caídas mientras camina?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado excesivo sueño durante el día?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado dificultad para quedarse o mantenerse dormido por la noche?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado pesadillas durante el sueño con movimientos corporales intensos?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado caídas de la cama durante la noche?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "B",
+      "question_options": [
+        "SI",
+        "NO"
+      ],
+      "question_text": "¿Ha presentado sensación desagradable o de inquietud en las piernas durante el reposo que calma con el movimiento?",
+      "question_ideal": "NO"
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "form_id": 1,
+  "form_name": "PD-CFRS",
+  "form_description": "Escala de calificación funcional cognitiva",
+  "form_language": "ES",
+  "form_questions": [
+    {
+      "question_type": "A",
+      "question_options": [
+        "NO",
+        "ALGUNAS VECES",
+        "LA MAYORÍA DE LAS VECES",
+        "NUNCA HE MANEJADO DINERO"
+      ],
+      "question_text": "¿Has tenido problemas para manejar su propio dinero? Por ejemplo: verificar el cambio, calcular el dinero necesario para ir a comprar comestibles, etc.",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NO",
+        "ALGUNAS VECES",
+        "LA MAYORÍA DE LAS VECES",
+        "NUNCA HE MANEJADO LA ECONOMÍA DEL HOGAR"
+      ],
+      "question_text": "¿Has tenido problemas para manejar la economía doméstica? Por ejemplo: control de finanzas, cuentas bancarias, ahorro de dinero, etc.",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NO",
+        "ALGUNAS VECES",
+        "LA MAYORÍA DE LAS VECES",
+        "NO TENGO VACACIONES NO ME REHUNO CON AMIGOS O NI FAMILIA"
+      ],
+      "question_text": "¿Has tenido problemas para organizar sus vacaciones o reunirse con familiares o amigos?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NO",
+        "ALGUNAS VECES",
+        "LA MAYORÍA DE LAS VECES",
+        "NO TENGO CORREO, NUNCA HE MANEJADO CITAS MEDICAS O FACTURAS"
+      ],
+      "question_text": "¿Ha tenido problemas para manejar el correo personal, citas médicas o facturas?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NO",
+        "ALGUNAS VECES",
+        "LA MAYORÍA DE LAS VECES",
+        "NUNCA HE MANEJADO MIS MEDICAMENTOS"
+      ],
+      "question_text": "¿Ha tenido problemas para controlar las dosis y el tiempo que tiene para tomar sus propios medicamentos?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NO",
+        "ALGUNAS VECES",
+        "LA MAYORÍA DE LAS VECES",
+        "NO REALIZO ACTIVIDADES"
+      ],
+      "question_text": "¿Ha tenido problemas para organizar sus actividades diarias?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NO",
+        "ALGUNAS VECES",
+        "LA MAYORÍA DE LAS VECES",
+        "NO TENGO APARATOS ELECTRONICOS"
+      ],
+      "question_text": "¿Ha tenido alguna dificultad para entender cómo manejar los aparatos eléctricos del hogar?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NO",
+        "ALGUNAS VECES",
+        "LA MAYORÍA DE LAS VECES",
+        "NO USO TRANSPORTE PUBLICO"
+      ],
+      "question_text": "¿Ha tenido problemas para saber cómo usar el transporte público para llegar a un lugar específico?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NO",
+        "ALGUNAS VECES",
+        "LA MAYORÍA DE LAS VECES",
+        "NUNCA HE RESULETO EVENTOS IMPROVISTOS"
+      ],
+      "question_text": "¿Ha tenido problemas resolviendo eventos imprevistos?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NO",
+        "ALGUNAS VECES",
+        "LA MAYORÍA DE LAS VECES",
+        "NUNCA HE EXPLICADO LAS COSAS QUE QUIERO DECIR"
+      ],
+      "question_text": "¿Ha tenido problemas para explicar las cosas que quiere decir?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NO",
+        "ALGUNAS VECES",
+        "LA MAYORÍA DE LAS VECES",
+        "NO SE LEER"
+      ],
+      "question_text": "¿Ha tenido problemas para entender lo que lee: libros, revistas o el periódico?",
+      "question_ideal": "NO"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NO",
+        "ALGUNAS VECES",
+        "LA MAYORÍA DE LAS VECES",
+        "NO TENGO CELULAR"
+      ],
+      "question_text": "¿Ha tenido problemas para entender cómo manejar el teléfono celular?",
+      "question_ideal": "NO"
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.edu.icesi.pdailyandroid">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".services.App"
         android:allowBackup="true"
@@ -10,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".surveys.Encuesta1">
+        <activity android:name=".FormActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,30 +22,25 @@
         <activity
             android:name=".modals.BodyModal"
             android:theme="@style/Theme.Transparent" />
-
         <activity
             android:name=".modals.RangeHourModal"
             android:theme="@style/Theme.Transparent" />
-
-        <activity android:name=".gamecontrols.WormGame"></activity>
-
-        <activity android:name=".gamecontrols.BananaGame"></activity>
+        <activity android:name=".gamecontrols.WormGame" />
+        <activity android:name=".gamecontrols.BananaGame" />
         <activity
             android:name=".DashBoard"
-            android:launchMode="singleInstance"></activity>
-        <activity android:name=".MainActivity">
+            android:launchMode="singleInstance" />
+        <activity android:name=".MainActivity"></activity>
 
-        </activity>
         <receiver
             android:name=".broadcastreceivers.ActionReceiver"
             android:exported="false" />
+
         <service android:name=".services.FCMService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
