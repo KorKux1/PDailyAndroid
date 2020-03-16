@@ -5,64 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/TextPlaceHolder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/PragmaticaW05-Bold"
-        android:text="Test: "
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/TextFormDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/PragmaticaW05-Regular"
-        android:text="hola mundo"
-        android:textColor="#C4C4C4"
-        app:layout_constraintStart_toEndOf="@+id/TextPlaceHolder"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/TextFormName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/PragmaticaW05-Italic"
-        android:text="hola"
-        android:textColor="#C4C4C4"
-        android:textStyle="italic"
-        app:layout_constraintStart_toEndOf="@+id/TextPlaceHolder"
-        app:layout_constraintTop_toBottomOf="@+id/TextFormDescription" />
-
-    <TextView
-        android:id="@+id/TextFormTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/PragmaticaW05-Regular"
-        android:text="/00"
-        android:textColor="#C4C4C4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/TextFormQNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/PragmaticaW05-Bold"
-        android:text="1"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/TextFormTotal"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat"
         android:layout_width="match_parent"
@@ -74,10 +16,10 @@
         tools:layout_editor_absoluteX="0dp">
 
         <TextView
-            android:id="@+id/Text"
+            android:id="@+id/TextFormQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/PragmaticaW05-Bold"
+            android:fontFamily="@font/pragmaticaw05_bold"
             android:text="¿Has tenido problemas para manejar su propio dinero? Por ejemplo: verificar el cambio, calcular el dinero necesario para ir a comprar comestibles, etc."
             android:textAlignment="center"
             android:textColor="#000000"
@@ -90,79 +32,90 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat"
+        tools:layout_editor_absoluteX="10dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/linearLayoutCompat3"
+            android:id="@+id/linearLayoutCompat2"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toStartOf="@+id/linearLayoutCompat4"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:id="@+id/ButtonAnswer1"
+                android:id="@+id/ButtonAnswerOne"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
+                android:layout_gravity="center"
                 android:backgroundTint="#F1F1F1"
                 android:ellipsize="none"
-                android:fontFamily="@font/PragmaticaW05-Bold"
+                android:fontFamily="@font/pragmaticaw05_bold"
                 android:text="NO"
-                android:textSize="24sp"
+                android:textAlignment="center"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/ButtonAnswer3"
+                android:id="@+id/ButtonAnswerThree"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
+                android:layout_gravity="center"
                 android:backgroundTint="#F1F1F1"
                 android:ellipsize="none"
-                android:fontFamily="@font/PragmaticaW05-Bold"
+                android:fontFamily="@font/pragmaticaw05_bold"
                 android:text="NO"
-                android:textSize="24sp"
+                android:textAlignment="center"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
-
         </androidx.appcompat.widget.LinearLayoutCompat>
+
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayoutCompat4"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat2"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:id="@+id/ButtonAnswer2"
+                android:id="@+id/ButtonAnswerTwo"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
+                android:layout_gravity="center"
                 android:backgroundTint="#F1F1F1"
                 android:ellipsize="none"
-                android:fontFamily="@font/PragmaticaW05-Bold"
+                android:fontFamily="@font/pragmaticaw05_bold"
                 android:text="NO"
-                android:textSize="24sp"
+                android:textAlignment="center"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/ButtonAnswer4"
+                android:id="@+id/ButtonAnswerFour"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
+                android:layout_gravity="center"
                 android:backgroundTint="#F1F1F1"
                 android:ellipsize="none"
-                android:fontFamily="@font/PragmaticaW05-Bold"
+                android:fontFamily="@font/pragmaticaw05_bold"
                 android:text="NO"
-                android:textSize="24sp"
+                android:textAlignment="center"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
