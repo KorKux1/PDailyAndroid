@@ -142,9 +142,9 @@ public class HTTPSWebUtilDomi {
     public String POSTrequest(String url, String json) throws IOException {
 
         URL page = new URL(url);
-        HttpsURLConnection connection = (HttpsURLConnection) page.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) page.openConnection();
         connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/json-patch+json");
+        connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setRequestProperty("pdaily-tenant",PDAILY_PASSWORD);
         connection.setDoInput(true);
@@ -159,15 +159,16 @@ public class HTTPSWebUtilDomi {
         writer.write(query);
         writer.flush();
 
-        if (("" + connection.getResponseCode()).startsWith("2")) {
-            return connection.getResponseMessage();
-        } else {
-            byte[] buffer = new byte[4096];
-            if (connection.getErrorStream() != null) {
-                connection.getErrorStream().read(buffer);
-                throw new IOException(new String(buffer).trim());
-            } else throw new IOException("ERROR");
+        BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = is.read(buffer)) != -1) {
+            bytes.write(buffer, 0, bytesRead);
         }
+        is.close();
+        connection.disconnect();
+        return new String(bytes.toByteArray(), StandardCharsets.UTF_8);
 
     }
 }

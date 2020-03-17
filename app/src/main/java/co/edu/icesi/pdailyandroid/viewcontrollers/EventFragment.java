@@ -18,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.EventsAdapter;
 import co.edu.icesi.pdailyandroid.customview.IntensityView;
@@ -38,10 +39,9 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
 
     private ListView eventsTable;
     private ArrayList<EventViewModel> events;
-    private ArrayList<EventViewModel> out;
     private EventsAdapter adapter;
     private Fragment intensityView;
-    private Button saveBtn;
+    private CircularProgressButton saveBtn;
 
 
     public EventFragment() {
@@ -66,6 +66,7 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
         ft.commit();
 
         saveBtn = v.findViewById(R.id.saveBtn);
+
 
         eventsTable.setOnItemClickListener(
                 (parent, view, position, id) -> {
@@ -102,6 +103,7 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
         saveBtn.setOnClickListener(
                 (view) -> {
                     if(saveBtn.getVisibility() == View.VISIBLE){
+                        saveBtn.startAnimation();
                         ArrayList<Event> events = EventTemporal.getAllEvents();
                         ArrayList<EventDTO> eventDTOS = new ArrayList<>();
                         for(int i=0 ; i<events.size() ; i++){
@@ -119,7 +121,7 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
     }
 
     private ArrayList<EventViewModel> createArray() {
-        out = new ArrayList<>();
+        ArrayList<EventViewModel> out = new ArrayList<>();
         EventViewModel s1 = new EventViewModel("Congelamiento", false);
         EventViewModel s2 = new EventViewModel("Lentificación", false);
         EventViewModel s3 = new EventViewModel("Discinesias", false);
@@ -138,33 +140,31 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
     public void refreshList() {
         if (EventTemporal.events == null) return;
 
-
-
         for(String key : EventTemporal.events.keySet()){
             Event event = EventTemporal.events.get(key);
             switch (event.getName()){
                 case "Congelamiento":
-                    out.get(0).setEvaluated(true);
+                    events.get(0).setEvaluated(true);
                     adapter.mark(0);
                     break;
                 case "Lentificación":
-                    out.get(1).setEvaluated(true);
+                    events.get(1).setEvaluated(true);
                     adapter.mark(1);
                     break;
                 case "Discinesias":
-                    out.get(2).setEvaluated(true);
+                    events.get(2).setEvaluated(true);
                     adapter.mark(2);
                     break;
                 case "Temblor":
-                    out.get(3).setEvaluated(true);
+                    events.get(3).setEvaluated(true);
                     adapter.mark(3);
                     break;
                 case "Tropezones":
-                    out.get(4).setEvaluated(true);
+                    events.get(4).setEvaluated(true);
                     adapter.mark(4);
                     break;
                 case "Caídas":
-                    out.get(5).setEvaluated(true);
+                    events.get(5).setEvaluated(true);
                     adapter.mark(5);
                     break;
             }
@@ -228,5 +228,30 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
     @Override
     public void onResponse(String response) {
         Log.e("<<<",response);
+        getActivity().runOnUiThread(()->{
+            restoreEventBox();
+            saveBtn.animate().alpha(0).scaleX(0).scaleY(0).withEndAction(
+                    ()->{
+                        saveBtn.setVisibility(View.INVISIBLE);
+                        saveBtn.setScaleX(1);
+                        saveBtn.setScaleY(1);
+                        saveBtn.setAlpha(1);
+                        saveBtn.revertAnimation();
+                    }
+            );
+
+        });
+
     }
+
+    public void restoreEventBox() {
+        EventTemporal.events = null;
+
+        for(int i=0 ; i<events.size() ; i++){
+            events.get(i).setEvaluated(false);
+        }
+        adapter.mark(-1);
+        ( (IntensityView) intensityView ).deselect();
+    }
+
 }

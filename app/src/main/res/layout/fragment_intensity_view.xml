@@ -13,7 +13,7 @@
         <ImageView
             android:layout_marginLeft="40dp"
             android:scaleY="-1"
-            android:src="@drawable/grad"
+            android:src="@drawable/gradauto"
             android:scaleType="fitXY"
             android:layout_width="60dp"
             android:layout_height="match_parent"

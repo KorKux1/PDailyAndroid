@@ -7,6 +7,9 @@ public class WormGameStatus {
     static final int INIT_GAME = 0;
     static final int INGAME = 1;
     static final int GAME_OVER = 2;
+    static final int GAME_INSTRUCTIONS_RIGHT = 3;
+    static final int GAME_INSTRUCTIONS_LEFT = 4;
+
     private int gameState = INIT_GAME;
 
     private OnGameStatusObserver observer;
@@ -29,6 +32,7 @@ public class WormGameStatus {
         gameState = INGAME;
         observer.onGameStart();
     }
+
 
     public void notifyGameInit() {
         resetGameTime();
@@ -62,8 +66,21 @@ public class WormGameStatus {
         return acu/(size/2);
     }
 
+    public void notifyGameInstructionsRight() {
+        gameState = GAME_INSTRUCTIONS_RIGHT;
+        observer.onGameInstructionsRight();
+    }
+
+    public void notifyGameInstructionsLeft() {
+        gameState = GAME_INSTRUCTIONS_LEFT;
+        observer.onGameInstructionsLeft();
+    }
+
+
     public interface OnGameStatusObserver{
         void onGameInit();
+        void onGameInstructionsRight();
+        void onGameInstructionsLeft();
         void onGameStart();
         void onGameOver();
     }

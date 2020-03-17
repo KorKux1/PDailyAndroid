@@ -116,7 +116,6 @@ public class DashBoard extends AppCompatActivity {
 
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.hello.action");
-
         updateUIReciver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {

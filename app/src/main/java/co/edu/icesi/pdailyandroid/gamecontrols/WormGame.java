@@ -6,8 +6,10 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,7 +27,9 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
     private int[] normalStateFrames;
     private int[] exploteStateFrames;
     private ConstraintLayout root;
-    private Button gameStartButton;
+
+    private ImageButton buttonder, buttonizq;
+
     private WormGameStatus status;
     private Button tryAgainButton;
 
@@ -34,7 +38,10 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
     private TextView reactionText;
 
     private RelativeLayout gameContainer;
+    private WormGameSurface instructionsSprite;
 
+
+    
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,7 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
         status = new WormGameStatus();
         status.setObserver(this);
 
+        instructionsSprite = findViewById(R.id.instructionsSprite);
         errorsText = findViewById(R.id.errorsText);
         pointsText = findViewById(R.id.pointsText);
         reactionText = findViewById(R.id.reactionText);
@@ -52,7 +60,14 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
         timerText = findViewById(R.id.timerText);
         tryAgainButton = findViewById(R.id.tryAgainButton);
         root = findViewById(R.id.root);
-        gameStartButton = findViewById(R.id.gameStartButton);
+
+        buttonder = findViewById(R.id.buttonder);
+        buttonizq = findViewById(R.id.buttonizq);
+
+
+
+      
+        
         normalStateFrames = new int[23];
         normalStateFrames[0] = R.drawable.gusano0;
         normalStateFrames[1] = R.drawable.gusano1;
@@ -103,15 +118,28 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
             return true;
         });
 
-        gameStartButton.setOnClickListener(
-                (v)->{
-                    status.notifyGameStart();
-                }
-        );
-
         tryAgainButton.setOnClickListener(
                 (v) -> {
                     status.notifyGameInit();
+                }
+        );
+
+        buttonder.setOnClickListener(
+                (v)->{
+                    status.notifyGameInstructionsRight();
+                }
+        );
+
+        buttonizq.setOnClickListener(
+                (v)->{
+                    status.notifyGameInstructionsLeft();
+                }
+        );
+
+        instructionsSprite.setOnClickListener(
+                (v)->{
+                    instructionsSprite.pause();
+                    status.notifyGameStart();
                 }
         );
 
@@ -133,18 +161,108 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
     public void onGameInit() {
         findViewById(R.id.mainContainer).setVisibility(View.VISIBLE);
         findViewById(R.id.resultsContainer).setVisibility(View.GONE);
+        findViewById(R.id.instructionsContainer).setVisibility(View.GONE);
+        findViewById(R.id.gameContainer).setVisibility(View.GONE);
     }
 
     @Override
-    public void onGameStart() {
-        status.addTimeStamp();
+    public void onGameInstructionsRight() {
         findViewById(R.id.mainContainer).setVisibility(View.GONE);
+        findViewById(R.id.resultsContainer).setVisibility(View.GONE);
+        findViewById(R.id.instructionsContainer).setVisibility(View.VISIBLE);
+        findViewById(R.id.gameContainer).setVisibility(View.GONE);
+        instructionsSprite.setSide(WormGameSurface.RIGHT);
+        instructionsSprite.start();
+        /*
+        handFrame = 0;
+        instructionsSprite.setBackgroundResource(handFramesRight[handFrame]);
+        new Thread(
+                ()->{
+
+                    while( status.getGameState() == WormGameStatus.GAME_INSTRUCTIONS_RIGHT ){
+
+                        runOnUiThread(
+                                () -> {
+                                    instructionsSprite.setBackgroundResource(handFramesRight[(handFrame>=handFramesRight.length || handFrame<0) ? 0 : handFrame]);
+                                }
+                        );
+
+                        try {
+                            Thread.sleep(40);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        handFrame ++;
+                        if(handFrame >= handFramesRight.length){
+                            handFrame=0;
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+        ).start();
+        */
+
+    }
+
+    @Override
+    public void onGameInstructionsLeft() {
+        findViewById(R.id.mainContainer).setVisibility(View.GONE);
+        findViewById(R.id.resultsContainer).setVisibility(View.GONE);
+        findViewById(R.id.instructionsContainer).setVisibility(View.VISIBLE);
+        findViewById(R.id.gameContainer).setVisibility(View.GONE);
+        instructionsSprite.setSide(WormGameSurface.LEFT);
+        instructionsSprite.start();
+
+        /*
+        handFrame = 0;
+        instructionsSprite.setBackgroundResource(handFrames[handFrame]);
+        new Thread(
+                ()->{
+
+                    while( status.getGameState() == WormGameStatus.GAME_INSTRUCTIONS_LEFT ){
+
+                        runOnUiThread(
+                                () -> {
+                                    instructionsSprite.setBackgroundResource(handFrames[(handFrame>=handFrames.length || handFrame<0) ? 0 : handFrame]);
+                                }
+                        );
+
+                        try {
+                            Thread.sleep(40);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        handFrame ++;
+                        if(handFrame >= handFrames.length){
+                            handFrame=0;
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+        ).start();
+         */
+    }
+
+
+    @Override
+    public void onGameStart() {
+        findViewById(R.id.mainContainer).setVisibility(View.GONE);
+        findViewById(R.id.resultsContainer).setVisibility(View.GONE);
+        findViewById(R.id.instructionsContainer).setVisibility(View.GONE);
         findViewById(R.id.gameContainer).setVisibility(View.VISIBLE);
 
+        status.addTimeStamp();
         new Thread(
                 () -> {
                     while (status.getGameState() == WormGameStatus.INGAME) {
-
 
                         while (isNormalState && status.getGameState() == WormGameStatus.INGAME) {
                             runOnUiThread(() -> {
@@ -254,6 +372,7 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
         ).start();
 
 
+
         new Thread(
                 ()->{
                     while(status.getGameState() == WormGameStatus.INGAME) {
@@ -271,14 +390,24 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
                     }
                 }
         ).start();
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        instructionsSprite.pause();
+        super.onPause();
     }
 
     @Override
     public void onGameOver() {
+        findViewById(R.id.mainContainer).setVisibility(View.GONE);
+        findViewById(R.id.resultsContainer).setVisibility(View.VISIBLE);
+        findViewById(R.id.instructionsContainer).setVisibility(View.GONE);
+        findViewById(R.id.gameContainer).setVisibility(View.GONE);
         runOnUiThread(
                 ()->{
-                    findViewById(R.id.resultsContainer).setVisibility(View.VISIBLE);
-                    findViewById(R.id.gameContainer).setVisibility(View.GONE);
                     errorsText.setText(""+status.getErrors());
                     pointsText.setText(""+status.getPoints());
                     reactionText.setText(""+status.calculateMean());

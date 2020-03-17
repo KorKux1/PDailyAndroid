@@ -147,11 +147,15 @@ public class IntensityView extends Fragment {
 
 
     public void deselect(){
-        if(root!= null) root.setAlpha(0.1f);
+        if(root!= null) {
+            root.animate().alpha(0.1f);
+        }
     }
 
     public void select(){
-        if(root!= null) root.setAlpha(1.0f);
+        if(root!= null){
+            root.animate().alpha(1f);
+        }
     }
 
 

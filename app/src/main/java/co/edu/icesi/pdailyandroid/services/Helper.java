@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import co.edu.icesi.pdailyandroid.R;
+import co.edu.icesi.pdailyandroid.app.App;
 
 
 public final class Helper {

@@ -18,12 +18,14 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
 
     private ImageView bananita;
-    private ImageView instructionSprite;
+    private BananaGameSurface instructionSprite;
     private TextView instructionText;
     private int[] bananaFrames;
-    private int[] handFrames;
+
 
     private BananaGameStatus status;
+
+    private boolean leftFirst = false;
 
 
 
@@ -33,13 +35,13 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banana_game);
         bananita = findViewById(R.id.bananita);
-        instructionSprite = findViewById(R.id.instructionSprite);
+        instructionSprite = findViewById(R.id.instructionsSprite);
         instructionText = findViewById(R.id.instructionText);
         status = new BananaGameStatus();
         status.setObserver(this);
 
         bananaFrames = new int[22];
-        handFrames = new int[35];
+
 
         bananaFrames[0] = R.drawable.banana1;
         bananaFrames[1] = R.drawable.banana2;
@@ -64,45 +66,6 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
         bananaFrames[20] = R.drawable.banana21;
         bananaFrames[21] = R.drawable.banana22;
 
-        handFrames[0] = R.drawable.one01;
-        handFrames[1] = R.drawable.one02;
-        handFrames[2] = R.drawable.one03;
-        handFrames[3] = R.drawable.one04;
-        handFrames[4] = R.drawable.one05;
-        handFrames[5] = R.drawable.one06;
-        handFrames[6] = R.drawable.one07;
-        handFrames[7] = R.drawable.one08;
-        handFrames[8] = R.drawable.one09;
-        handFrames[9] = R.drawable.one10;
-        handFrames[10] = R.drawable.one11;
-        handFrames[11] = R.drawable.one12;
-        handFrames[12] = R.drawable.one13;
-        handFrames[13] = R.drawable.one14;
-        handFrames[14] = R.drawable.one15;
-        handFrames[15] = R.drawable.one16;
-        handFrames[16] = R.drawable.one17;
-        handFrames[17] = R.drawable.one18;
-
-        handFrames[18] = R.drawable.one17;
-        handFrames[19] = R.drawable.one16;
-        handFrames[20] = R.drawable.one15;
-        handFrames[21] = R.drawable.one14;
-        handFrames[22] = R.drawable.one13;
-        handFrames[23] = R.drawable.one12;
-        handFrames[24] = R.drawable.one11;
-        handFrames[25] = R.drawable.one10;
-        handFrames[26] = R.drawable.one09;
-        handFrames[27] = R.drawable.one08;
-        handFrames[28] = R.drawable.one07;
-        handFrames[29] = R.drawable.one06;
-        handFrames[30] = R.drawable.one05;
-        handFrames[31] = R.drawable.one04;
-        handFrames[32] = R.drawable.one03;
-        handFrames[33] = R.drawable.one02;
-        handFrames[34] = R.drawable.one01;
-
-
-
         bananita.setOnTouchListener((v, event) -> {
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN:
@@ -123,6 +86,7 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
         instructionSprite.setOnClickListener(
                 (v) -> {
+                    instructionSprite.pause();
                     switch (status.getStatus()) {
                         case BananaGameStatus.INSTRUCTIONS_LEFT:
                             status.notifyGameStartLeft();
@@ -147,8 +111,14 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
     }
 
-    public void goToInstructions(View view){
+    public void goToInstructionsRight(View view){
+        leftFirst = false;
         status.notifyGameInstructionsRight();
+    }
+
+    public void goToInstructionsLeft(View view){
+        leftFirst = true;
+        status.notifyGameInstructionsLeft();
     }
 
 
@@ -159,11 +129,19 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
         switch (status.getStatus()){
 
             case BananaGameStatus.GAME_WON_RIGHT:
-                status.notifyGameInstructionsLeft();
+                if(leftFirst){
+                    status.notifyFinish();
+                }else{
+                    status.notifyGameInstructionsLeft();
+                }
                 break;
 
             case BananaGameStatus.GAME_WON_LEFT:
-                status.notifyFinish();
+                if(leftFirst){
+                    status.notifyGameInstructionsRight();
+                }else{
+                    status.notifyFinish();
+                }
                 break;
 
             case BananaGameStatus.GAME_FINISHED:
@@ -179,16 +157,24 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
     @Override
     public void onGameWonRight() {
         runOnUiThread(()->{
+            findViewById(R.id.gameContainer).setVisibility(View.VISIBLE);
+            findViewById(R.id.resultsContainer).setVisibility(View.GONE);
+            findViewById(R.id.buttonContainer).setVisibility(View.GONE);
+            findViewById(R.id.instructionsContainer).setVisibility(View.GONE);
+            findViewById(R.id.gameOverContainer).setVisibility(View.VISIBLE);
             ((Button) findViewById(R.id.tryagain)).setText("Continuar");
-            findViewById(R.id.tryagain).setVisibility(View.VISIBLE);
         });
     }
 
     @Override
     public void onGameWonLeft() {
         runOnUiThread(()->{
+            findViewById(R.id.gameContainer).setVisibility(View.VISIBLE);
+            findViewById(R.id.resultsContainer).setVisibility(View.GONE);
+            findViewById(R.id.buttonContainer).setVisibility(View.GONE);
+            findViewById(R.id.instructionsContainer).setVisibility(View.GONE);
+            findViewById(R.id.gameOverContainer).setVisibility(View.VISIBLE);
             ((Button) findViewById(R.id.tryagain)).setText("Finalizar");
-            findViewById(R.id.tryagain).setVisibility(View.VISIBLE);
         });
     }
 
@@ -196,11 +182,11 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
     public void onGameInit() {
         frame = 0;
         runOnUiThread(()-> {
+            findViewById(R.id.gameContainer).setVisibility(View.GONE);
             findViewById(R.id.resultsContainer).setVisibility(View.GONE);
-            findViewById(R.id.tryagain).setVisibility(View.GONE);
             findViewById(R.id.buttonContainer).setVisibility(View.VISIBLE);
-            bananita.setVisibility(View.GONE);
-
+            findViewById(R.id.instructionsContainer).setVisibility(View.GONE);
+            findViewById(R.id.gameOverContainer).setVisibility(View.GONE);
         });
     }
 
@@ -208,17 +194,18 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
     public void onGameStartRight() {
         status.restoreRightPoints();
 
+        runOnUiThread(()->{
+            findViewById(R.id.gameContainer).setVisibility(View.VISIBLE);
+            findViewById(R.id.resultsContainer).setVisibility(View.GONE);
+            findViewById(R.id.buttonContainer).setVisibility(View.GONE);
+            findViewById(R.id.instructionsContainer).setVisibility(View.GONE);
+            findViewById(R.id.gameOverContainer).setVisibility(View.GONE);
+        });
+
         new Thread(
                 () -> {
                     frame = 0;
-                    runOnUiThread(()->{
-                        findViewById(R.id.instructionText).setVisibility(View.GONE);
-                        findViewById(R.id.instructionSprite).setVisibility(View.GONE);
-                        findViewById(R.id.buttonContainer).setVisibility(View.GONE);
-                        bananita.setVisibility(View.VISIBLE);
-                    });
-
-                    while (true) {
+                    while (status.getStatus() == BananaGameStatus.INGAMERIGHT) {
                         while(bananita.getVisibility() == View.GONE){}
 
                         runOnUiThread(
@@ -252,18 +239,19 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
     @Override
     public void onGameStartLeft() {
+        runOnUiThread(()->{
+            findViewById(R.id.gameContainer).setVisibility(View.VISIBLE);
+            findViewById(R.id.resultsContainer).setVisibility(View.GONE);
+            findViewById(R.id.buttonContainer).setVisibility(View.GONE);
+            findViewById(R.id.instructionsContainer).setVisibility(View.GONE);
+            findViewById(R.id.gameOverContainer).setVisibility(View.GONE);
+        });
+
         status.restoreLeftPoints();
         new Thread(
                 () -> {
                     frame = 0;
-                    runOnUiThread(()->{
-                        findViewById(R.id.instructionText).setVisibility(View.GONE);
-                        findViewById(R.id.instructionSprite).setVisibility(View.GONE);
-                        findViewById(R.id.buttonContainer).setVisibility(View.GONE);
-                        bananita.setVisibility(View.VISIBLE);
-                    });
-
-                    while (true) {
+                    while (status.getStatus() == BananaGameStatus.INGAMELEFT) {
                         while(bananita.getVisibility() == View.GONE){}
 
                         runOnUiThread(
@@ -297,96 +285,45 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
     @Override
     public void onGameInstructionsRight() {
-        handFrame = 0;
-        new Thread(
-                ()->{
-                    runOnUiThread(()->{
-                        findViewById(R.id.tryagain).setVisibility(View.GONE);
-                        bananita.setVisibility(View.GONE);
-                        bananita.setBackgroundResource(bananaFrames[0]);
-                        findViewById(R.id.buttonContainer).setVisibility(View.GONE);
-                        instructionSprite.setVisibility(View.VISIBLE);
-                        instructionText.setVisibility(View.VISIBLE);
-                        instructionSprite.setScaleX(1);
-                        instructionText.setText("Use el dedo índice\nde la mano derecha");
-                    });
 
-                    while( status.isInInstructionsRight() ){
+        findViewById(R.id.gameContainer).setVisibility(View.GONE);
+        findViewById(R.id.resultsContainer).setVisibility(View.GONE);
+        findViewById(R.id.buttonContainer).setVisibility(View.GONE);
+        findViewById(R.id.instructionsContainer).setVisibility(View.VISIBLE);
+        findViewById(R.id.gameOverContainer).setVisibility(View.GONE);
 
-                        runOnUiThread(
-                                () -> {
-                                    instructionSprite.setBackgroundResource(handFrames[(handFrame>=handFrames.length || handFrame<0) ? 0 : handFrame]);
-                                }
-                        );
-
-                        try {
-                            Thread.sleep(50);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        handFrame ++;
-                        if(handFrame >= handFrames.length){
-                            handFrame=0;
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }
-        ).start();
+        instructionSprite.setSide(BananaGameSurface.RIGHT);
+        instructionSprite.start();
     }
 
     @Override
     public void onGameInstructionsLeft() {
-        handFrame = 0;
-        new Thread(
-                ()->{
-                    runOnUiThread(()->{
-                        findViewById(R.id.tryagain).setVisibility(View.GONE);
-                        bananita.setVisibility(View.GONE);
-                        bananita.setBackgroundResource(bananaFrames[0]);
-                        findViewById(R.id.buttonContainer).setVisibility(View.GONE);
-                        instructionSprite.setVisibility(View.VISIBLE);
-                        instructionText.setVisibility(View.VISIBLE);
-                        instructionSprite.setScaleX(-1);
-                        instructionText.setText("Use el dedo índice\nde la mano izquierda");
-                    });
+        findViewById(R.id.gameContainer).setVisibility(View.GONE);
+        findViewById(R.id.resultsContainer).setVisibility(View.GONE);
+        findViewById(R.id.buttonContainer).setVisibility(View.GONE);
+        findViewById(R.id.instructionsContainer).setVisibility(View.VISIBLE);
+        findViewById(R.id.gameOverContainer).setVisibility(View.GONE);
 
-                    while( status.isInInstructionsLeft() ){
+        instructionSprite.setSide(BananaGameSurface.LEFT);
+        instructionSprite.start();
+    }
 
-                        runOnUiThread(
-                                () -> {
-                                    instructionSprite.setBackgroundResource(handFrames[(handFrame>=handFrames.length || handFrame<0) ? 0 : handFrame]);
-                                }
-                        );
-
-                        try {
-                            Thread.sleep(50);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        handFrame ++;
-                        if(handFrame >= handFrames.length){
-                            handFrame=0;
-                            try {
-                                Thread.sleep(2000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }
-        ).start();
+    @Override
+    protected void onPause() {
+        instructionSprite.pause();
+        super.onPause();
     }
 
     @Override
     public void onGameFinish() {
         runOnUiThread(()->{
-            ((Button) findViewById(R.id.tryagain)).setText("Intentarlo de nuevo");
-            bananita.setVisibility(View.GONE);
+            findViewById(R.id.gameContainer).setVisibility(View.GONE);
             findViewById(R.id.resultsContainer).setVisibility(View.VISIBLE);
+            findViewById(R.id.buttonContainer).setVisibility(View.GONE);
+            findViewById(R.id.instructionsContainer).setVisibility(View.GONE);
+            findViewById(R.id.gameOverContainer).setVisibility(View.VISIBLE);
+
+            ((Button) findViewById(R.id.tryagain)).setText("Intentarlo de nuevo");
             ((TextView) findViewById(R.id.rightTouchesText)).setText(""+status.getRightTouches());
             ((TextView) findViewById(R.id.leftTouchesText)).setText(""+status.getLeftTouches());
 
