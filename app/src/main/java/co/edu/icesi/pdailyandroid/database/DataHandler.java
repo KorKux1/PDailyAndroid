@@ -39,11 +39,40 @@ public class DataHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS food");
     }
 
-    public void insertFoodNotification(NotificationFoodFollowUp notification){
+    //---CRUD FOOD NOTIFICATIONS---//
+
+    private void insertFoodNotification(NotificationFoodFollowUp notification){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO food(id,name,date) VALUES('"+notification.getId()+"','"+notification.getName()+"','"+notification.getDate()+"')");
         db.close();
     }
+
+    private void updateFoodNotification(NotificationFoodFollowUp notification){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE food SET name='"+notification.getName()+"', date='"+notification.getDate()+"' WHERE id='"+notification.getId()+"'");
+        db.close();
+    }
+
+    private boolean notificationExists(NotificationFoodFollowUp notification){
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM food WHERE id='" + notification.getId() + "'",null);
+        if(cursor.getCount()>=1){
+            db.close();
+            return true;
+        }else{
+            db.close();
+            return false;
+        }
+    }
+
+    private void deleteFoodNotification(NotificationFoodFollowUp notification) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM food WHERE id='"+notification.getId()+"'");
+        db.close();
+    }
+
+    //***CRUD FOOD NOTIFICATIONS***//
+
 
     public ArrayList<NotificationFoodFollowUp> getAllFoodNotifications(){
         ArrayList<NotificationFoodFollowUp> out = new ArrayList<>();
@@ -62,26 +91,12 @@ public class DataHandler extends SQLiteOpenHelper {
         return out;
     }
 
-    public boolean notificationExists(NotificationFoodFollowUp notification){
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM food WHERE id='" + notification.getId() + "'",null);
-
-        Log.e(">>>","Filas: "+cursor.getCount());
-        if(cursor.getCount()>=1){
-            Log.e(">>>","Ya existe!");
-            db.close();
-            return true;
+    public void insertOrUpdateFoodNotification(NotificationFoodFollowUp notification){
+        if( notificationExists(notification) ){
+            updateFoodNotification(notification);
         }else{
-            Log.e(">>>","No existe!");
-            db.close();
-            return false;
+            insertFoodNotification(notification);
         }
-    }
-
-    public void deleteFoodNotification(NotificationFoodFollowUp notification) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM food WHERE id='"+notification.getId()+"'");
-        db.close();
     }
 
     public int getNotificationCount() {

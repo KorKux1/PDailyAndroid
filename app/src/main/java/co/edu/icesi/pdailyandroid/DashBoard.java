@@ -114,6 +114,7 @@ public class DashBoard extends AppCompatActivity {
         sp.edit().putString("clienteid","1234567890").apply();
 
 
+        /*
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.hello.action");
         updateUIReciver = new BroadcastReceiver() {
@@ -123,6 +124,7 @@ public class DashBoard extends AppCompatActivity {
             }
         };
         registerReceiver(updateUIReciver,filter);
+        */
 
 
 

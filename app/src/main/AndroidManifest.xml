@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="co.edu.icesi.pdailyandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,6 +21,7 @@
         <receiver
             android:name=".broadcastreceivers.ActionReceiver"
             android:exported="false" />
+
         <receiver android:process=":remote" android:name=".broadcastreceivers.AlarmReceiver"></receiver>
 
         <service android:name=".services.FCMService">
@@ -42,7 +44,8 @@
         <activity
             android:name=".DashBoard"
             android:screenOrientation="portrait"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            tools:ignore="LockedOrientationActivity">
 
         </activity>
         <activity android:name=".MainActivity">

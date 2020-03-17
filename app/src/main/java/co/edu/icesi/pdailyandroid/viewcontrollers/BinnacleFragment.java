@@ -46,10 +46,10 @@ public class BinnacleFragment extends Fragment {
 
         DataHandler db = DataHandler.getInstance(getContext());
 
-        //ArrayList<NotificationFoodFollowUp> info = db.getAllFoodNotifications();
+        ArrayList<NotificationFoodFollowUp> foodFollowUps = db.getAllFoodNotifications();
 
         ArrayList<INotification> info = new ArrayList<>();
-        info.add( new NotificationFoodFollowUp(UUID.randomUUID().toString(), "¿Ya almorzaste?", "29/01/2020 15:01:00") );
+        info.addAll(foodFollowUps);
         info.add( new NotificationGame(NotificationGame.BANANA_GAME_ID, "Vamos a jugar con la banana", "29/01/2020 14:31:00"));
         info.add( new NotificationGame(NotificationGame.WORM_GAME_ID, "Vamos a jugar con los gusanos", "29/01/2020 11:26:00"));
 
