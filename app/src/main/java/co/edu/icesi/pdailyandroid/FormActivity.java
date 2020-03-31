@@ -25,62 +25,52 @@ import co.edu.icesi.pdailyandroid.util.JsonReaderUtils;
 
 public class FormActivity extends AppCompatActivity {
 
-    String json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "pd-cfrs.json");
-    Gson gson = new Gson();
-    Type form_type = new TypeToken<Form>() {
-    }.getType();
+    String json_form;
+    Gson gson;
     LinearLayout fragmentContainer;
     int index = 0;
     Form form;
+    Button previous;
+    Button next;
+
+    TextView formDescription;
+    TextView formName;
+    TextView formQNumber;
+    TextView formTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
+
+        previous = findViewById(R.id.ButtonPrevious);
+        next = findViewById(R.id.ButtonNext);
+        fragmentContainer = findViewById(R.id.fragmentContainer);
+        formDescription = findViewById(R.id.TextFormDescription);
+        formName = findViewById(R.id.TextFormName);
+        formQNumber = findViewById(R.id.TextFormQNumber);
+        formTotal = findViewById(R.id.TextFormTotal);
+
+        gson = new Gson();
+
+        json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "pd-cfrs.json");
         Log.i("data", json_form);
 
-        form = gson.fromJson(json_form, form_type);
+        form = gson.fromJson(json_form, Form.class);
 
         Log.i("JSON OBJECT", form.toString());
 
 
-//        switch (form.getForm_questions()[index].getQuestion_type()) {
-//            case "A":
-//
-//                break;
-//        }
+        //Cargar por primera vez
         updateFragmentTypeA(form, index);
-    }
 
 
-    protected void onStart(){
-        super.onStart();
-        setContentView(R.layout.activity_form);
-        updateFragmentTypeA(form, index);
-    }
-
-
-    protected void onResume() {
-        super.onResume();
-        setContentView(R.layout.activity_form);
-
-        Button previous = findViewById(R.id.ButtonPrevious);
-        Button next = findViewById(R.id.ButtonNext);
-
-
-        if (index == 0) {
-            previous.setVisibility(View.GONE);
-        }
-
-
-        if (index + 1 == form.getForm_questions().length) {
-            next.setVisibility(View.GONE);
-        }
-
+        //ACCION DE LOS BOTONES
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 index = index - 1;
+                updateButtons();
                 switch (form.getForm_questions()[index].getQuestion_type()) {
                     case "A":
                         updateFragmentTypeA(form, index);
@@ -103,6 +93,7 @@ public class FormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 index = index + 1;
+                updateButtons();
                 Log.i("yeeeeeeeeeeeeees", Integer.valueOf(index).toString());
 
                 switch (form.getForm_questions()[index].getQuestion_type()) {
@@ -120,13 +111,18 @@ public class FormActivity extends AppCompatActivity {
         });
     }
 
-    protected void updateFragmentTypeA(Form form, int index) {
-        fragmentContainer = findViewById(R.id.fragmentContainer);
-        TextView formDescription = findViewById(R.id.TextFormDescription);
-        TextView formName = findViewById(R.id.TextFormName);
-        TextView formQNumber = findViewById(R.id.TextFormQNumber);
-        TextView formTotal = findViewById(R.id.TextFormTotal);
 
+
+    private void updateButtons(){
+        if (index == 0) {
+            previous.setVisibility(View.GONE);
+        }
+        if (index + 1 == form.getForm_questions().length) {
+            next.setVisibility(View.GONE);
+        }
+    }
+
+    protected void updateFragmentTypeA(Form form, int index) {
         TypeA typeA = new TypeA();
         formDescription.setText(form.getForm_description());
         formName.setText(form.getForm_name());

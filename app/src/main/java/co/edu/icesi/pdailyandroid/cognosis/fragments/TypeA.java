@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.time.temporal.Temporal;
+
 import co.edu.icesi.pdailyandroid.R;
+import co.edu.icesi.pdailyandroid.cognosis.temporal.TestTemporal;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +65,24 @@ public class TypeA extends Fragment {
         answerTwo.setText(this.answerTwo);
         answerThree.setText(this.answerThree);
         answerFour.setText(this.answerFour);
+
+
+        //Por ejemplo pueden almacenar la respuesta usando el objeto singleton
+        answerOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestTemporal.getInstance().getAnswers().add(index,answerOne.getText().toString() );
+                //Aquí pueden ir insertando las respuestas, usando el índice deben controlar que
+                //los índices concuerdan con las respuestas
+
+                //Con esto miran en la consola si efectivamente las respuestas se almacenan
+                for(int i=0 ; i<TestTemporal.getInstance().getAnswers().size() ; i++){
+                    Log.e(">>>["+i+"]",""+TestTemporal.getInstance().getAnswers().get(i));
+                }
+
+            }
+        });
+
 
         return view;
     }
