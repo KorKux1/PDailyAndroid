@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "957669611479",
+    "firebase_url": "https://pdailyandroid.firebaseio.com",
+    "project_id": "pdailyandroid",
+    "storage_bucket": "pdailyandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957669611479:android:983709ad6757135f7e9d92",
+        "android_client_info": {
+          "package_name": "co.edu.icesi.pdailyandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957669611479-q3dpdkmag4h944ek37h159oa980n2k0q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.edu.icesi.pdailyandroid",
+            "certificate_hash": "868a48c0ab14bb95b7fa0355704abcea45066a33"
+          }
+        },
+        {
+          "client_id": "957669611479-sv6bcj4ls1tsclp4lk9frunh1nisd7je.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCO0C9E9jnll9Ss9PE7u-W6iOf2KBA3HB0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957669611479-sv6bcj4ls1tsclp4lk9frunh1nisd7je.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
