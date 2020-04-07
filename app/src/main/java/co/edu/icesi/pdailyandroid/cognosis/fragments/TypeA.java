@@ -99,7 +99,7 @@ public class TypeA extends Fragment {
                 aThree = false;
                 aFour = false;
 
-                answerOne.setBackgroundColor(Color.rgb(0,188,209));
+                uiUpdateClicked(answerOne);
 
 
             }
@@ -114,6 +114,11 @@ public class TypeA extends Fragment {
 
     private void answerSelect() {
 
+    }
+
+    private void uiUpdateClicked(Button a){
+        a.setTextColor(Color.rgb(255,255,255));
+        a.setBackgroundColor(Color.rgb(0,188,209));
     }
 
 
