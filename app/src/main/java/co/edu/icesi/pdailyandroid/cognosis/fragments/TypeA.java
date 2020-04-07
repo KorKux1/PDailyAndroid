@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.time.temporal.Temporal;
@@ -99,9 +100,57 @@ public class TypeA extends Fragment {
                 aThree = false;
                 aFour = false;
 
+                uiUpdateClickedSelect(answerOne);
+                uiUpdateClicked(answerTwo);
+                uiUpdateClicked(answerThree);
+                uiUpdateClicked(answerFour);
+
+            }
+        });
+
+        answerTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aOne = false;
+                aTwo = true;
+                aThree = false;
+                aFour = false;
+
+                uiUpdateClickedSelect(answerTwo);
                 uiUpdateClicked(answerOne);
+                uiUpdateClicked(answerThree);
+                uiUpdateClicked(answerFour);
+            }
+        });
+
+        answerThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aOne = false;
+                aTwo = false;
+                aThree = true;
+                aFour = false;
+
+                uiUpdateClickedSelect(answerThree);
+                uiUpdateClicked(answerOne);
+                uiUpdateClicked(answerTwo);
+                uiUpdateClicked(answerFour);
+            }
+        });
 
 
+        answerFour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aOne = false;
+                aTwo = false;
+                aThree = false;
+                aFour = true;
+
+                uiUpdateClickedSelect(answerFour);
+                uiUpdateClicked(answerOne);
+                uiUpdateClicked(answerTwo);
+                uiUpdateClicked(answerThree);
             }
         });
 
@@ -109,17 +158,22 @@ public class TypeA extends Fragment {
         return view;
     }
 
-
     //Lógica de la respues correcta o seleccionada
 
     private void answerSelect() {
 
     }
 
-    private void uiUpdateClicked(Button a){
-        a.setTextColor(Color.rgb(255,255,255));
-        a.setBackgroundColor(Color.rgb(0,188,209));
+    private void uiUpdateClickedSelect(Button a){
+            a.setTextColor(Color.rgb(255, 255, 255));
+            a.setBackgroundColor(Color.rgb(0, 188, 209));
     }
+
+    private void uiUpdateClicked(Button a){
+            a.setTextColor(Color.rgb(0, 0, 0));
+            a.setBackgroundColor(Color.rgb(250, 250, 250));
+    }
+
 
 
     public void setFormQuestion(String formQuestion) {
