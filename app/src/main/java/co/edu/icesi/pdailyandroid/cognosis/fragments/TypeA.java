@@ -1,6 +1,7 @@
 package co.edu.icesi.pdailyandroid.cognosis.fragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.cognosis.temporal.TestTemporal;
@@ -26,18 +28,28 @@ public class TypeA extends Fragment {
 //    private String text;
 //    private String ideal;
 
-    private  String formQuestion;
+    private String formQuestion;
 
-    private  String answerOne;
-    private  String answerTwo;
-    private  String answerThree;
-    private  String answerFour;
+    private String answerOne;
+    private String answerTwo;
+    private String answerThree;
+    private String answerFour;
+
+    private int aSelect;
+    private ArrayList<Integer> aTotal;
 
     private int formTotalNumber;
     private int index;
+    private boolean aOne, aTwo, aThree, aFour;
 
     public TypeA() {
         // Required empty public constructor
+        aSelect = 0;
+        aTotal = new ArrayList<Integer>();
+        aOne = false;
+        aTwo = false;
+        aThree = false;
+        aFour = false;
     }
 
 
@@ -71,14 +83,24 @@ public class TypeA extends Fragment {
         answerOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TestTemporal.getInstance().getAnswers().add(index,answerOne.getText().toString() );
+//_______________________________________________________________________________________________________________________________________________________________________
+//                TestTemporal.getInstance().getAnswers().add(index, answerOne.getText().toString());
                 //Aquí pueden ir insertando las respuestas, usando el índice deben controlar que
                 //los índices concuerdan con las respuestas
 
                 //Con esto miran en la consola si efectivamente las respuestas se almacenan
-                for(int i=0 ; i<TestTemporal.getInstance().getAnswers().size() ; i++){
-                    Log.e(">>>["+i+"]",""+TestTemporal.getInstance().getAnswers().get(i));
-                }
+//                for (int i = 0; i < TestTemporal.getInstance().getAnswers().size(); i++) {
+////                    Log.e(">>>[" + i + "]", "" + TestTemporal.getInstance().getAnswers().get(i));
+////                }
+//_______________________________________________________________________________________________________________________________________________________________________
+
+                aOne = true;
+                aTwo = false;
+                aThree = false;
+                aFour = false;
+
+                answerOne.setBackgroundColor(Color.rgb(0,188,209));
+
 
             }
         });
@@ -86,6 +108,14 @@ public class TypeA extends Fragment {
 
         return view;
     }
+
+
+    //Lógica de la respues correcta o seleccionada
+
+    private void answerSelect() {
+
+    }
+
 
     public void setFormQuestion(String formQuestion) {
         this.formQuestion = formQuestion;
