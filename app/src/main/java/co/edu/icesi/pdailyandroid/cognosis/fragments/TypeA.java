@@ -45,8 +45,7 @@ public class TypeA extends Fragment {
 
     public TypeA() {
         // Required empty public constructor
-        aSelect = 0;
-        aTotal = new ArrayList<Integer>();
+
         aOne = false;
         aTwo = false;
         aThree = false;
@@ -151,6 +150,7 @@ public class TypeA extends Fragment {
                 uiUpdateClicked(answerOne);
                 uiUpdateClicked(answerTwo);
                 uiUpdateClicked(answerThree);
+
             }
         });
 
@@ -173,6 +173,7 @@ public class TypeA extends Fragment {
             a.setTextColor(Color.rgb(0, 0, 0));
             a.setBackgroundColor(Color.rgb(250, 250, 250));
     }
+
 
 
 
@@ -202,5 +203,25 @@ public class TypeA extends Fragment {
 
     public void setFormTotalNumber(int formTotalNumber) {
         this.formTotalNumber = formTotalNumber;
+    }
+
+    public int getFormTotalNumber() {
+        return formTotalNumber;
+    }
+
+    public boolean isaOne() {
+        return aOne;
+    }
+
+    public boolean isaTwo() {
+        return aTwo;
+    }
+
+    public boolean isaThree() {
+        return aThree;
+    }
+
+    public boolean isaFour() {
+        return aFour;
     }
 }
