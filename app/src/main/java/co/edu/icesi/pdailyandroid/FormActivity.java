@@ -125,7 +125,6 @@ public class FormActivity extends AppCompatActivity {
                 } else {
                     next.setEnabled(false);
                 }
-
                 Log.i("FFFF","KKKKKKKKKKKK");
 
             }
