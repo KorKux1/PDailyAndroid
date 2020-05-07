@@ -1,9 +1,9 @@
 package co.edu.icesi.pdailyandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import java.util.stream.*;
 
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,11 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import androidx.fragment.app.FragmentManager;
@@ -30,6 +26,9 @@ public class FormActivity extends AppCompatActivity {
 
     private int aSelect;
     private int[] aTotal;
+    private int scoreFinal;
+    int score;
+
 
 
     private TypeA typeA;
@@ -40,11 +39,13 @@ public class FormActivity extends AppCompatActivity {
     private Form form;
     private Button previous;
     private  Button next;
+    private  boolean buttonSelect;
 
     private TextView formDescription;
     private TextView formName;
     private TextView formQNumber;
     private  TextView formTotal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +73,12 @@ public class FormActivity extends AppCompatActivity {
         //Cargar por primera vez
         updateFragmentTypeA(form, index);
 
+        updateListener();
+
         aSelect = 0;
         aTotal = new int[typeA.getFormTotalNumber()];
-
-
+        Log.i("IINDEEEX", Integer.valueOf(index+1).toString());
+        Log.i("FOOOORMM", Integer.valueOf(form.getForm_questions().length).toString());
 
         //ACCION DE LOS BOTONES
         previous.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +86,6 @@ public class FormActivity extends AppCompatActivity {
             public void onClick(View v) {
                 index = index - 1;
                 updateButtons();
-                Log.i("yeeeeeeeeeeeeees", Integer.valueOf(index).toString());
                 switch (form.getForm_questions()[index].getQuestion_type()) {
                     case "A":
                         updateFragmentTypeA(form, index);
@@ -105,35 +107,43 @@ public class FormActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                index = index + 1;
+                if (index+1  < form.getForm_questions().length){
+                    index = index + 1;
+                    score = index;
+                }
+
                 socreEvaluation();
                 updateButtons();
-                Log.i("yeeeeeeeeeeeeees", Integer.valueOf(index).toString());
+
+
+
 
                 switch (form.getForm_questions()[index].getQuestion_type()) {
                     case "A":
                         updateFragmentTypeA(form, index);
                         break;
                 }
-                if(typeA.isaOne() || typeA.isaTwo() || typeA.isaThree() || typeA.isaFour()){
+
                     if (index > 0) {
                         previous.setVisibility(View.VISIBLE);
-                    }
-                    if (index + 1 == form.getForm_questions().length) {
-                        next.setVisibility(View.GONE);
-                    }
-                } else {
-                    next.setEnabled(false);
                 }
-                Log.i("FFFF","KKKKKKKKKKKK");
 
             }
         });
 
     }
 
-    public void setNext(Button next) {
-        this.next = next;
+
+    private  void  updateListener(){
+        typeA.setListener(new TypeA.FragmentListener(){
+            @Override
+            public void onButtonSelected(Boolean b) {
+                buttonSelect=b;
+                if (buttonSelect){
+                    next.setEnabled(true);
+                }
+            }
+        });
     }
 
     private void socreEvaluation(){
@@ -151,20 +161,46 @@ public class FormActivity extends AppCompatActivity {
             aSelect = 0;
         }
 
-        aTotal[index-1] = aSelect;
+        if (score  < form.getForm_questions().length){
 
-        Log.i("SELECT", Integer.valueOf(aSelect).toString());
-        Log.i("ARRAY", Arrays.toString(aTotal));
+            aTotal[score-1] = aSelect;
+
+            if (score == form.getForm_questions().length-1){
+                score +=1;
+            }
+        }
+
+
+
+        if (next.getText().equals("Finalizar")){
+            aTotal[score-1] = aSelect;
+            scoreFinal= Arrays.stream(aTotal).sum();
+
+            Log.i("ARRAYYYY", Arrays.toString(aTotal));
+            Log.i("SUMAAAAA", Integer.valueOf(scoreFinal).toString());
+        }else {
+            Log.i("ARRAY", Arrays.toString(aTotal));
+            Log.i("SCOOOORE", Integer.valueOf(score).toString());
+            Log.i("IINDEEEX", Integer.valueOf(index).toString());
+            Log.i("FOOOORMM", Integer.valueOf(form.getForm_questions().length).toString());
+        }
+
+
+
     }
 
 
     private void updateButtons(){
-        next.setEnabled(false);
+
+            next.setEnabled(false);
+
+
         if (index == 0) {
             previous.setVisibility(View.GONE);
         }
         if (index + 1 == form.getForm_questions().length) {
-            next.setVisibility(View.GONE);
+            next.setText("Finalizar");
+
         }
     }
 
@@ -189,11 +225,13 @@ public class FormActivity extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragmentContainer, typeA);
         transaction.commit();
-
+        updateListener();
     }
 
 
 
-
-
 }
+
+
+
+

@@ -11,15 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 
-import java.time.temporal.Temporal;
 import java.util.ArrayList;
 
 import co.edu.icesi.pdailyandroid.R;
-import co.edu.icesi.pdailyandroid.cognosis.temporal.TestTemporal;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +24,7 @@ public class TypeA extends Fragment {
 
 //    private String text;
 //    private String ideal;
-
+    private FragmentListener listener;
     private String formQuestion;
 
     private String answerOne;
@@ -50,6 +46,8 @@ public class TypeA extends Fragment {
         aTwo = false;
         aThree = false;
         aFour = false;
+        this.listener = null;
+
     }
 
 
@@ -104,6 +102,12 @@ public class TypeA extends Fragment {
                 uiUpdateClicked(answerThree);
                 uiUpdateClicked(answerFour);
 
+
+                if (listener!= null){
+                    listener.onButtonSelected(aOne);
+                    Log.i("listeneeeeeeeeeeeeeer", String.valueOf(listener));
+                }
+
             }
         });
 
@@ -119,6 +123,11 @@ public class TypeA extends Fragment {
                 uiUpdateClicked(answerOne);
                 uiUpdateClicked(answerThree);
                 uiUpdateClicked(answerFour);
+
+                if (listener!= null){
+                    listener.onButtonSelected(aTwo);
+                    Log.i("listeneeeeeeeeeeeeeer", String.valueOf(listener));
+                }
             }
         });
 
@@ -134,6 +143,11 @@ public class TypeA extends Fragment {
                 uiUpdateClicked(answerOne);
                 uiUpdateClicked(answerTwo);
                 uiUpdateClicked(answerFour);
+
+                if (listener!= null){
+                    listener.onButtonSelected(aThree);
+                    Log.i("listeneeeeeeeeeeeeeer", String.valueOf(listener));
+                }
             }
         });
 
@@ -150,7 +164,10 @@ public class TypeA extends Fragment {
                 uiUpdateClicked(answerOne);
                 uiUpdateClicked(answerTwo);
                 uiUpdateClicked(answerThree);
-
+                if (listener!= null){
+                    listener.onButtonSelected(aFour);
+                    Log.i("listeneeeeeeeeeeeeeer", String.valueOf(listener));
+                }
             }
         });
 
@@ -167,6 +184,7 @@ public class TypeA extends Fragment {
     private void uiUpdateClickedSelect(Button a){
             a.setTextColor(Color.rgb(255, 255, 255));
             a.setBackgroundColor(Color.rgb(0, 188, 209));
+
     }
 
     private void uiUpdateClicked(Button a){
@@ -224,4 +242,15 @@ public class TypeA extends Fragment {
     public boolean isaFour() {
         return aFour;
     }
+
+    public void setListener(FragmentListener listener) {
+        this.listener = listener;
+    }
+
+
+    public interface FragmentListener {
+         void onButtonSelected(Boolean b);
+
+    }
+
 }
