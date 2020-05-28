@@ -2,6 +2,7 @@ package co.edu.icesi.pdailyandroid.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,22 +10,20 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import co.edu.icesi.pdailyandroid.R;
-import co.edu.icesi.pdailyandroid.communication.MQTTClientST;
-import co.edu.icesi.pdailyandroid.database.DataHandler;
-import co.edu.icesi.pdailyandroid.gamecontrols.BananaGame;
-import co.edu.icesi.pdailyandroid.gamecontrols.WormGame;
-import co.edu.icesi.pdailyandroid.interfaces.INotification;
-import co.edu.icesi.pdailyandroid.model.NotificationFoodFollowUp;
-import co.edu.icesi.pdailyandroid.model.NotificationGame;
-import co.edu.icesi.pdailyandroid.services.MQTTService;
-import co.edu.icesi.pdailyandroid.viewmodel.SimpleNotification;
+import co.edu.icesi.pdailyandroid.app.App;
+import co.edu.icesi.pdailyandroid.localdatabase.DataHandler;
+import co.edu.icesi.pdailyandroid.games.BananaGame;
+import co.edu.icesi.pdailyandroid.games.WormGame;
+import co.edu.icesi.pdailyandroid.model.datatype.INotification;
+import co.edu.icesi.pdailyandroid.model.dto.FoodEventDTO;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFoodFollowUp;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationGame;
+import co.edu.icesi.pdailyandroid.services.WebserviceConsumer;
+import co.edu.icesi.pdailyandroid.util.Constants;
 
 public class NotificationsAdapter extends BaseAdapter {
 
@@ -66,11 +65,22 @@ public class NotificationsAdapter extends BaseAdapter {
 
             notificationtitle.setText("Alimentación");
             notificationmessage.setText(noti.getName());
-            notificationDate.setText(noti.getDate().split(" ")[0]+"\n"+noti.getDate().split(" ")[1]);
+            notificationDate.setText(noti.getDate());
             notificationButton.setText("SI");
             notificationButton.setOnClickListener(
                     (v)-> {
                         notifications.remove(noti);
+                        DataHandler.getInstance(App.getAppContext()).deleteFoodNotification(noti);
+                        WebserviceConsumer consumer = new WebserviceConsumer();
+                        consumer.postFood(
+                            new FoodEventDTO(
+                                    null,
+                                    Constants.patientID,
+                                    Calendar.getInstance().getTime().getTime()
+                            )
+                        ).withEndAction(response -> {
+                            Log.e(">>>",""+response);
+                        }).execute();
                         notifyDataSetChanged();
                     }
             );

@@ -1,50 +1,77 @@
 package co.edu.icesi.pdailyandroid.services;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
-import androidx.core.app.NotificationCompat;
-import co.edu.icesi.pdailyandroid.MainActivity;
-import co.edu.icesi.pdailyandroid.R;
-import co.edu.icesi.pdailyandroid.broadcastreceivers.ActionReceiver;
-import co.edu.icesi.pdailyandroid.database.DataHandler;
-import co.edu.icesi.pdailyandroid.model.NotificationFoodFollowUp;
+import org.json.JSONObject;
+
+import java.util.UUID;
+
+import co.edu.icesi.pdailyandroid.localdatabase.DataHandler;
+import co.edu.icesi.pdailyandroid.model.dto.FoodDTO;
+import co.edu.icesi.pdailyandroid.model.dto.GenericDTO;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFoodFollowUp;
+import co.edu.icesi.pdailyandroid.receivers.broadcast.ActionReceiver;
 import co.edu.icesi.pdailyandroid.util.NotificationUtils;
 
 public class FCMService extends FirebaseMessagingService {
 
+    public static int countId = 0;
+
+    public FCMService(){}
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
+        Log.e(">>> FROM",remoteMessage.getFrom());
+
+        JSONObject object = new JSONObject(remoteMessage.getData());
+        String json = object.toString();
+        Log.e(">>> DATA",json);
+        Intent intentAction = new Intent(this, ActionReceiver.class);
+        NotificationUtils.createSimpleNotification(this, countId, "Alfa", remoteMessage.getData()+"", intentAction);
+        countId++;
+
+        Gson gson = new Gson();
+        GenericDTO generic = gson.fromJson(json, GenericDTO.class);
+        switch (generic.getType()){
+            case "food":
+                FoodDTO foodDTO = gson.fromJson(json, FoodDTO.class);
+                NotificationFoodFollowUp foodFollowUp = new NotificationFoodFollowUp(
+                        foodDTO.getId(),
+                        "Ya comió?",
+                        "Julio"
+                );
+                DataHandler.getInstance(this).insertFoodNotification(foodFollowUp);
+                break;
+        }
+
+        /*
         if (remoteMessage.getNotification() != null) {
             Log.d(">>>", "Message Notification Body: " + remoteMessage.getNotification().getBody());
 
 
-            String json = remoteMessage.getNotification().getBody();
-            NotificationFoodFollowUp obj = new Gson().fromJson(json, NotificationFoodFollowUp.class);
-            DataHandler.getInstance(this).insertFoodNotification(obj);
+            //String json = remoteMessage.getNotification().getBody();
+            //NotificationFoodFollowUp obj = new Gson().fromJson(json, NotificationFoodFollowUp.class);
+            //DataHandler.getInstance(this).insertFoodNotification(obj);
 
-            Intent intentAction = new Intent(this, ActionReceiver.class);
-            intentAction.putExtra("model", obj);
-            int messagesCount = DataHandler.getInstance(this).getNotificationCount();
-            String textBlock = DataHandler.getInstance(this).getBlockOfNotifications();
-            NotificationUtils.createBigNotification(this, 1, "Atención", "Tiene " + messagesCount + " mensajes", "Tiene " + messagesCount + " mensajes:\n" + textBlock, intentAction);
+
+            //intentAction.putExtra("model", obj);
+            //int messagesCount = DataHandler.getInstance(this).getNotificationCount();
+            //String textBlock = DataHandler.getInstance(this).getBlockOfNotifications();
+
 
             Intent local = new Intent();
             local.setAction("com.hello.action");
             this.sendBroadcast(local);
         }
+        */
+
 
     }
 

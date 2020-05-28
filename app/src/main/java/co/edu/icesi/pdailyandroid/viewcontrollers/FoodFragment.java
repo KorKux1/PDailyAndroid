@@ -7,29 +7,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.Date;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.app.App;
-import co.edu.icesi.pdailyandroid.broadcastreceivers.ActionReceiver;
-import co.edu.icesi.pdailyandroid.broadcastreceivers.AlarmReceiver;
-import co.edu.icesi.pdailyandroid.dialogs.HourDialog;
+import co.edu.icesi.pdailyandroid.receivers.broadcast.AlarmReceiver;
+import co.edu.icesi.pdailyandroid.misc.dialogs.HourDialog;
 import co.edu.icesi.pdailyandroid.util.DateUtils;
 import co.edu.icesi.pdailyandroid.util.PendingIntentUtils;
-
-import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
 
 public class FoodFragment extends Fragment implements View.OnClickListener, HourDialog.OnHourChoose {

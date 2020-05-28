@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gamecontrols.WormGame"
+    tools:context=".games.WormGame"
     android:background="#FFF"
     android:id="@+id/root">
 
@@ -50,7 +50,7 @@
         android:visibility="gone"
         tools:layout_editor_absoluteY="56dp">
 
-        <co.edu.icesi.pdailyandroid.gamecontrols.WormGameSurface
+        <co.edu.icesi.pdailyandroid.games.WormGameSurface
             android:id="@+id/instructionsSprite"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -65,11 +65,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/instructionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:text="Use la mano izquierda"
+            android:textAlignment="center"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@+id/instructionsSprite"
             app:layout_constraintEnd_toEndOf="@+id/instructionsSprite"

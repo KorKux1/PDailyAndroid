@@ -5,13 +5,23 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
+import java.util.HashMap;
+import java.util.UUID;
+
 import co.edu.icesi.pdailyandroid.R;
-import co.edu.icesi.pdailyandroid.gamecontrols.BananaGame;
-import co.edu.icesi.pdailyandroid.gamecontrols.WormGame;
+import co.edu.icesi.pdailyandroid.games.BananaGame;
+import co.edu.icesi.pdailyandroid.games.WormGame;
+import co.edu.icesi.pdailyandroid.model.dto.FcmDTO;
+import co.edu.icesi.pdailyandroid.model.dto.FoodDTO;
+import co.edu.icesi.pdailyandroid.services.HTTPSWebUtilDomi;
+import co.edu.icesi.pdailyandroid.util.Constants;
 
 public class SupportFragment extends Fragment {
 
@@ -25,16 +35,21 @@ public class SupportFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_support, container, false);
-        v.findViewById(R.id.gusanoButton).setOnClickListener(
+        v.findViewById(R.id.pushDebug).setOnClickListener(
                 view -> {
-                    Intent i = new Intent(getContext(), WormGame.class);
-                    startActivity(i);
-                }
-        );
-        v.findViewById(R.id.bananaButton).setOnClickListener(
-                view -> {
-                    Intent i = new Intent(getContext(), BananaGame.class);
-                    startActivity(i);
+                    new Thread(
+                            ()->{
+                                HTTPSWebUtilDomi util = new HTTPSWebUtilDomi();
+                                FcmDTO fcmDTO = new FcmDTO(
+                                        "/topics/"+Constants.patientID,
+                                        new FoodDTO(UUID.randomUUID().toString(),"food","12345")
+                                );
+                                String json = new Gson().toJson(fcmDTO);
+                                Log.e(">>>",json);
+                                util.POSTtoFCM(Constants.API_KEY, json);
+                            }
+                    ).start();
+
                 }
         );
         return v;

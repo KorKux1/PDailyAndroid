@@ -8,14 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.NotificationsAdapter;
-import co.edu.icesi.pdailyandroid.database.DataHandler;
-import co.edu.icesi.pdailyandroid.interfaces.INotification;
-import co.edu.icesi.pdailyandroid.model.NotificationFoodFollowUp;
-import co.edu.icesi.pdailyandroid.model.NotificationGame;
+import co.edu.icesi.pdailyandroid.localdatabase.DataHandler;
+import co.edu.icesi.pdailyandroid.model.datatype.INotification;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFoodFollowUp;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationGame;
 
 
 public class BinnacleFragment extends Fragment {

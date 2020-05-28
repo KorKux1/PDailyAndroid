@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -21,17 +20,17 @@ import java.util.ArrayList;
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.EventsAdapter;
-import co.edu.icesi.pdailyandroid.customview.IntensityView;
+import co.edu.icesi.pdailyandroid.misc.customview.IntensityView;
 import co.edu.icesi.pdailyandroid.modals.BodyModal;
-import co.edu.icesi.pdailyandroid.dto.EventDTO;
+import co.edu.icesi.pdailyandroid.model.dto.EventDTO;
 import co.edu.icesi.pdailyandroid.modals.RangeHourModal;
-import co.edu.icesi.pdailyandroid.model.Event;
+import co.edu.icesi.pdailyandroid.model.viewmodel.Event;
 import co.edu.icesi.pdailyandroid.services.WebserviceConsumer;
-import co.edu.icesi.pdailyandroid.temporals.EventTemporal;
+import co.edu.icesi.pdailyandroid.model.temporals.EventTemporal;
 import co.edu.icesi.pdailyandroid.viewmodel.EventViewModel;
 
 
-public class EventFragment extends Fragment implements IntensityView.onValueListener, WebserviceConsumer.OnResponseListener {
+public class EventFragment extends Fragment implements IntensityView.onValueListener{
 
     private static final int HOUR_MODAL_CALLBACK = 100;
     private static final int BODY_MODAL_CALLBACK = 101;
@@ -104,6 +103,7 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
                 (view) -> {
                     if(saveBtn.getVisibility() == View.VISIBLE){
                         saveBtn.startAnimation();
+
                         ArrayList<Event> events = EventTemporal.getAllEvents();
                         ArrayList<EventDTO> eventDTOS = new ArrayList<>();
                         for(int i=0 ; i<events.size() ; i++){
@@ -111,8 +111,23 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
                             eventDTOS.add(dto);
                         }
                         WebserviceConsumer consumer = new WebserviceConsumer();
-                        consumer.setListener(this);
-                        consumer.postEvents(eventDTOS);
+                        consumer.postEvents(eventDTOS).withEndAction(
+                                response -> {
+                                    getActivity().runOnUiThread(()->{
+                                        restoreEventBox();
+                                        saveBtn.animate().alpha(0).scaleX(0).scaleY(0).withEndAction(
+                                                ()->{
+                                                    saveBtn.setVisibility(View.INVISIBLE);
+                                                    saveBtn.setScaleX(1);
+                                                    saveBtn.setScaleY(1);
+                                                    saveBtn.setAlpha(1);
+                                                    saveBtn.revertAnimation();
+                                                }
+                                        );
+
+                                    });
+                                }
+                        ).execute();
                     }
                 }
         );
@@ -225,24 +240,7 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
         }
     }
 
-    @Override
-    public void onResponse(String response) {
-        Log.e("<<<",response);
-        getActivity().runOnUiThread(()->{
-            restoreEventBox();
-            saveBtn.animate().alpha(0).scaleX(0).scaleY(0).withEndAction(
-                    ()->{
-                        saveBtn.setVisibility(View.INVISIBLE);
-                        saveBtn.setScaleX(1);
-                        saveBtn.setScaleY(1);
-                        saveBtn.setAlpha(1);
-                        saveBtn.revertAnimation();
-                    }
-            );
 
-        });
-
-    }
 
     public void restoreEventBox() {
         EventTemporal.events = null;

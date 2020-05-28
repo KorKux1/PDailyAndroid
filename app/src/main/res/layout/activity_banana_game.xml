@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context=".gamecontrols.BananaGame">
+    tools:context=".games.BananaGame">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -281,7 +281,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <co.edu.icesi.pdailyandroid.gamecontrols.BananaGameSurface
+        <co.edu.icesi.pdailyandroid.games.BananaGameSurface
             android:id="@+id/instructionsSprite"
             android:layout_width="0dp"
             android:layout_height="0dp"

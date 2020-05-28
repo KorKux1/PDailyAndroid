@@ -16,15 +16,17 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".modals.BodyModal"
-            android:theme="@style/Theme.Transparent"></activity>
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"></activity>
 
         <receiver
-            android:name=".broadcastreceivers.ActionReceiver"
+            android:name=".receivers.broadcast.ActionReceiver"
             android:exported="false" />
 
-        <receiver android:process=":remote" android:name=".broadcastreceivers.AlarmReceiver"></receiver>
+        <receiver android:process=":remote" android:name=".receivers.broadcast.AlarmReceiver"></receiver>
 
-        <service android:name=".services.FCMService">
+        <service android:name=".services.FCMService" android:enabled="true" android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -32,13 +34,19 @@
 
         <activity
             android:name=".modals.RangeHourModal"
-            android:theme="@style/Theme.Transparent" />
-        <activity android:name=".gamecontrols.WormGame">
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".games.WormGame"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
 
 
 
         </activity>
-        <activity android:name=".gamecontrols.BananaGame">
+        <activity android:name=".games.BananaGame"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
 
         </activity>
         <activity
@@ -48,7 +56,9 @@
             tools:ignore="LockedOrientationActivity">
 
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

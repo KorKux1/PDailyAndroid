@@ -1,47 +1,42 @@
 package co.edu.icesi.pdailyandroid.services;
 
-import android.annotation.SuppressLint;
 
-import java.io.BufferedInputStream;
+import android.util.Log;
+
+import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
-
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-/**
- * Created by Juliana on 20/08/2015.
- */
 public class HTTPSWebUtilDomi {
 
-    private static final String PDAILY_PASSWORD = "F8523E75-9070-4A60-991A-BF22A46F0866";
+    private OnResponseListener listener;
 
-    HTTPSWebUtilDomi() {
+    public HTTPSWebUtilDomi() {
         try {
             TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
                 public X509Certificate[] getAcceptedIssuers() {
                     return null;
                 }
 
-                @SuppressLint("TrustAllX509TrustManager")
                 public void checkClientTrusted(X509Certificate[] certs, String authType) {
                 }
 
-                @SuppressLint("TrustAllX509TrustManager")
                 public void checkServerTrusted(X509Certificate[] certs, String authType) {
                 }
             }
@@ -52,123 +47,235 @@ public class HTTPSWebUtilDomi {
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 
             // Install the all-trusting host verifier
-            HttpsURLConnection.setDefaultHostnameVerifier((hostname, arg1) -> !hostname.equalsIgnoreCase("www.icesi.edu.co"));
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, SSLSession sslSession) {
+                    return true;
+                    //Use la variable hostname para retornar true en caso de que
+                    //concuerde con la página que usted está intentando consultar
+                }
+            });
             //HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
         } catch (NoSuchAlgorithmException | KeyManagementException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    public static String HTTPPOSTrequest(String url, String json) throws IOException {
-        URL page = new URL(url);
-        HttpURLConnection connection = (HttpURLConnection) page.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type","application/json");
-        connection.setRequestProperty("pdaily-tenant",PDAILY_PASSWORD);
-        connection.setDoInput(true);
-        connection.setDoOutput(true);
-
-        OutputStream os = connection.getOutputStream();
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
-
-        writer.write(json);
-        writer.flush();
-
-        InputStream is = connection.getInputStream();
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        byte[] buffer = new byte[4096];
-        int bytesRead;
-
-        while ((bytesRead = is.read(buffer)) != -1) {
-            bytes.write(buffer, 0, bytesRead);
-        }
-        is.close();
-        writer.close();
-        os.close();
-        connection.disconnect();
-
-        return new String(bytes.toByteArray(), StandardCharsets.UTF_8);
+    public void setListener(OnResponseListener listener) {
+        this.listener = listener;
     }
 
-    public String PUTrequest(String url, String json) throws Exception {
-        URL page = new URL(url);
-        HttpsURLConnection connection = (HttpsURLConnection) page.openConnection();
-        connection.setRequestMethod("PUT");
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("pdaily-tenant",PDAILY_PASSWORD);
-        connection.setDoOutput(true);
-
-        OutputStream os = connection.getOutputStream();
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
-
-        writer.write(json);
-        writer.flush();
-
-        BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        byte[] buffer = new byte[4096];
-        int bytesRead;
-
-        while ((bytesRead = is.read(buffer)) != -1) {
-            bytes.write(buffer, 0, bytesRead);
+    public void GETrequest(int callbackID, String url) {
+        try {
+            URL page = new URL(url);
+            HttpsURLConnection connection = (HttpsURLConnection) page.openConnection();
+            InputStream is = connection.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                baos.write(buffer, 0, bytesRead);
+            }
+            is.close();
+            baos.close();
+            connection.disconnect();
+            String response = new String(baos.toByteArray(), "UTF-8");
+            if (listener != null) listener.onResponse(callbackID, response);
+        }catch (IOException ex){
+            ex.printStackTrace();
         }
-        is.close();
-        writer.close();
-        os.close();
-        connection.disconnect();
-
-        return new String(bytes.toByteArray(), StandardCharsets.UTF_8);
     }
 
-    public String GETrequest(String url) throws IOException {
-        URL page = new URL(url);
-        HttpsURLConnection connection = (HttpsURLConnection) page.openConnection();
-        connection.setRequestProperty("pdaily-tenant",PDAILY_PASSWORD);
-        BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        byte[] buffer = new byte[4096];
-        int bytesRead;
-        while ((bytesRead = is.read(buffer)) != -1) {
-            bytes.write(buffer, 0, bytesRead);
+    public String syncPOSTRequest(String url, String json){
+        try {
+            URL page = new URL(url);
+            HttpsURLConnection connection = (HttpsURLConnection) page.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json-patch+json");
+            connection.setRequestProperty("accept", "application/json");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            OutputStream os = connection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+
+            writer.write(json);
+            writer.flush();
+
+            InputStream is = connection.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                baos.write(buffer, 0, bytesRead);
+            }
+            is.close();
+            baos.close();
+            os.close();
+            connection.disconnect();
+            String response = new String(baos.toByteArray(), "UTF-8");
+            return response;
+        }catch (IOException ex){
+            ex.printStackTrace();
+            return null;
         }
-        is.close();
-        connection.disconnect();
-        return new String(bytes.toByteArray(), StandardCharsets.UTF_8);
+    }
+
+    public void POSTrequest(int callbackID, String url, String json) {
+        try {
+            URL page = new URL(url);
+            HttpsURLConnection connection = (HttpsURLConnection) page.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json-patch+json");
+            connection.setRequestProperty("accept", "application/json");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            OutputStream os = connection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+
+            writer.write(json);
+            writer.flush();
+
+            InputStream is = connection.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                baos.write(buffer, 0, bytesRead);
+            }
+            is.close();
+            baos.close();
+            os.close();
+            connection.disconnect();
+            String response = new String(baos.toByteArray(), "UTF-8");
+            if (listener != null) listener.onResponse(callbackID, response);
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void PUTrequest(int callbackID, String url, String json) {
+        try {
+            URL page = new URL(url);
+            HttpsURLConnection connection = (HttpsURLConnection) page.openConnection();
+            connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+
+            OutputStream os = connection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+
+            writer.write(json);
+            writer.flush();
+
+            InputStream is = connection.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                baos.write(buffer, 0, bytesRead);
+            }
+            is.close();
+            baos.close();
+            os.close();
+            connection.disconnect();
+            String response = new String(baos.toByteArray(), "UTF-8");
+            if (listener != null) listener.onResponse(callbackID, response);
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
 
     }
 
+    public void DELETErequest(int callbackID, String url) {
+        try {
+            URL page = new URL(url);
+            HttpsURLConnection connection = (HttpsURLConnection) page.openConnection();
+            connection.setRequestMethod("DELETE");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
 
-    public String POSTrequest(String url, String json) throws IOException {
+            InputStream is = connection.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int bytesRead;
 
-        URL page = new URL(url);
-        HttpURLConnection connection = (HttpURLConnection) page.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Accept", "application/json");
-        connection.setRequestProperty("pdaily-tenant",PDAILY_PASSWORD);
-        connection.setDoInput(true);
-        connection.setDoOutput(true);
-        //connection.connect();
+            while ((bytesRead = is.read(buffer)) != -1) {
+                baos.write(buffer, 0, bytesRead);
+            }
+            is.close();
+            baos.close();
+            connection.disconnect();
 
-        String query = json;
-
-        OutputStream os = connection.getOutputStream();
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
-
-        writer.write(query);
-        writer.flush();
-
-        BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        byte[] buffer = new byte[4096];
-        int bytesRead;
-        while ((bytesRead = is.read(buffer)) != -1) {
-            bytes.write(buffer, 0, bytesRead);
+            String response = new String(baos.toByteArray(), "UTF-8");
+            if (listener != null) listener.onResponse(callbackID, response);
+        }catch (IOException ex){
+            ex.printStackTrace();
         }
-        is.close();
-        connection.disconnect();
-        return new String(bytes.toByteArray(), StandardCharsets.UTF_8);
 
+    }
+
+    public void POSTtoFCM(String API_KEY, String data){
+        try {
+            URL page = new URL("https://fcm.googleapis.com/fcm/send");
+            HttpsURLConnection connection = (HttpsURLConnection) page.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("Authorization", "key="+API_KEY);
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            OutputStream os = connection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+
+            writer.write(data);
+            writer.flush();
+
+            InputStream is = connection.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                baos.write(buffer, 0, bytesRead);
+            }
+            is.close();
+            baos.close();
+            os.close();
+            connection.disconnect();
+            String response = new String(baos.toByteArray(), "UTF-8");
+            Log.e(">>>",response);
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void saveURLImageOnFile(String url, File file) {
+        try {
+            URL page = new URL(url);
+            HttpsURLConnection connection = (HttpsURLConnection) page.openConnection();
+            InputStream is = connection.getInputStream();
+            FileOutputStream fos = new FileOutputStream(file);
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                fos.write(buffer, 0, bytesRead);
+            }
+            is.close();
+            fos.close();
+            connection.disconnect();
+            Log.e(">>>","Foto descargada!");
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public interface OnResponseListener {
+        void onResponse(int callbackID, String response);
     }
 }

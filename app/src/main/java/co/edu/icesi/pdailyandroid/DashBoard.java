@@ -1,31 +1,19 @@
 package co.edu.icesi.pdailyandroid;
-
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import co.edu.icesi.pdailyandroid.util.Constants;
 import co.edu.icesi.pdailyandroid.viewcontrollers.BinnacleFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.EventFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.FoodFragment;
@@ -62,7 +50,6 @@ public class DashBoard extends AppCompatActivity {
     private Fragment supportFragment;
     private Fragment eventFragment;
 
-    private BroadcastReceiver updateUIReciver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,21 +58,18 @@ public class DashBoard extends AppCompatActivity {
 
 
         FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w(">>>", "getInstanceId failed", task.getException());
-                            return;
-                        }
-
-                        // Get new Instance ID token
-                        String token = task.getResult().getToken();
-
-                        // Log and toast
-                        Log.e(">>>", "Token: "+token);
-
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w(">>>", "getInstanceId failed", task.getException());
+                        return;
                     }
+
+                    // Get new Instance ID token
+                    String token = task.getResult().getToken();
+
+                    // Log and toast
+                    Log.e(">>>", "Token: "+token);
+
                 });
 
 
@@ -129,17 +113,17 @@ public class DashBoard extends AppCompatActivity {
 
 
         String clientId = this.getSharedPreferences("user", MODE_PRIVATE).getString("clienteid", null);
-        FirebaseMessaging.getInstance().subscribeToTopic(FOOD_TOPIC+clientId)
+        FirebaseMessaging.getInstance().subscribeToTopic(Constants.patientID)
         //FirebaseMessaging.getInstance().subscribeToTopic("1143848922/#")
                 .addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
                         Log.e(">>>", "Fail");
                     } else {
-                        Log.e(">>>", "Suscribed");
+                        Log.e(">>>", "Suscribed to "+Constants.patientID);
                     }
                 });
 
-
+        load(profileFragment);
     }
 
     private void analizeIntent() {
@@ -253,7 +237,7 @@ public class DashBoard extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(updateUIReciver);
+//        unregisterReceiver(updateUIReciver);
         super.onDestroy();
     }
 }

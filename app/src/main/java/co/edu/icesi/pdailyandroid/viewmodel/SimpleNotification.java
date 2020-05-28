@@ -2,7 +2,7 @@ package co.edu.icesi.pdailyandroid.viewmodel;
 
 import java.io.Serializable;
 
-import co.edu.icesi.pdailyandroid.model.NotificationFoodFollowUp;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFoodFollowUp;
 
 public class SimpleNotification implements Serializable {
 

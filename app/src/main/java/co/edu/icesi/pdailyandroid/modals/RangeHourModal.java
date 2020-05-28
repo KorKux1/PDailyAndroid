@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,7 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import co.edu.icesi.pdailyandroid.R;
-import co.edu.icesi.pdailyandroid.dialogs.HourDialog;
+import co.edu.icesi.pdailyandroid.misc.dialogs.HourDialog;
 import co.edu.icesi.pdailyandroid.util.DateUtils;
 import co.edu.icesi.pdailyandroid.viewmodel.EventViewModel;
 
