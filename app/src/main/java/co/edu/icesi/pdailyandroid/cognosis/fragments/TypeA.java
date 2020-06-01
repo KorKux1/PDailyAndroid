@@ -21,9 +21,6 @@ import co.edu.icesi.pdailyandroid.R;
  * A simple {@link Fragment} subclass.
  */
 public class TypeA extends Fragment {
-
-//    private String text;
-//    private String ideal;
     private FragmentListener listener;
     private String formQuestion;
 
@@ -32,22 +29,17 @@ public class TypeA extends Fragment {
     private String answerThree;
     private String answerFour;
 
-    private int aSelect;
-    private ArrayList<Integer> aTotal;
-
     private int formTotalNumber;
     private int index;
     private boolean aOne, aTwo, aThree, aFour;
 
     public TypeA() {
-        // Required empty public constructor
-
         aOne = false;
         aTwo = false;
         aThree = false;
         aFour = false;
-        this.listener = null;
 
+        this.listener = null;
     }
 
 
@@ -182,9 +174,8 @@ public class TypeA extends Fragment {
     }
 
     private void uiUpdateClickedSelect(Button a){
-            a.setTextColor(Color.rgb(255, 255, 255));
-            a.setBackgroundColor(Color.rgb(0, 188, 209));
-
+        a.setTextColor(Color.rgb(255, 255, 255));
+        a.setBackgroundColor(Color.rgb(0, 188, 209));
     }
 
     private void uiUpdateClicked(Button a){
