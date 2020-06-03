@@ -60,8 +60,8 @@ public class TypeB extends Fragment {
                 aOne = true;
                 aTwo = false;
 
-                uiUpdateClickedSelect (answerOne);
-                uiUpdateClicked (answerTwo);
+                uiUpdateClickedSelect (answerTwo);
+                uiUpdateClicked (answerOne);
 
                 if (listener != null){
                     listener.onButtonSelected(aOne);
@@ -76,11 +76,11 @@ public class TypeB extends Fragment {
                 aOne = false;
                 aTwo = true;
 
-                uiUpdateClickedSelect (answerTwo);
-                uiUpdateClicked (answerOne);
+                uiUpdateClickedSelect (answerOne);
+                uiUpdateClicked (answerTwo);
 
                 if (listener != null){
-                    listener.onButtonSelected(aOne);
+                    listener.onButtonSelected(aTwo);
                     Log.i("LISTENER_BUTTON", String.valueOf(listener));
                 }
             }
