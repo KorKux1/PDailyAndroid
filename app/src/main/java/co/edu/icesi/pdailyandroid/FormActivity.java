@@ -74,11 +74,12 @@ public class FormActivity extends AppCompatActivity {
 //        json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "pd-nms.json");
 //        json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "pd-cfrs.json");
         json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "PD-Unified FVL.json");
-        Log.i("data", json_form);
+        Log.i("DATA", json_form);
+        Log.i("EXTRA_FILENAME", getIntent().getStringExtra("EXTRA_FILENAME"));
 
         form = gson.fromJson(json_form, Form.class);
 
-        Log.i("JSON OBJECT", form.toString());
+        Log.i("JSON_OBJECT", form.toString());
         updateButtons();
 
         //Cargar por primera vez el cuestionario
@@ -368,7 +369,7 @@ if (typeB != null){
         typeC.setAnswerTwo(form.getForm_questions()[index].getQuestion_options()[1]);
         typeC.setAnswerThree(form.getForm_questions()[index].getQuestion_options()[2]);
         typeC.setAnswerFour(form.getForm_questions()[index].getQuestion_options()[3]);
-        typeC.setAnswerFour(form.getForm_questions()[index].getQuestion_options()[4]);
+        typeC.setAnswerFive(form.getForm_questions()[index].getQuestion_options()[4]);
 
         typeC.setIndex(index);
         typeC.setFormTotalNumber(form.getForm_questions().length);
