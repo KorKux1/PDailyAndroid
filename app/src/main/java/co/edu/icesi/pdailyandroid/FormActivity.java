@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Collections;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -34,7 +35,7 @@ public class FormActivity extends AppCompatActivity {
     private int scoreFinal;
     int score;
 
-
+    private String formSelected;
     private String type;
 
     private TypeA typeA;
@@ -44,7 +45,7 @@ public class FormActivity extends AppCompatActivity {
     private String json_form;
     private Gson gson;
     private LinearLayout fragmentContainer;
-    private int index = 32;
+    private int index = 0;
     private Form form;
     private Button previous;
     private Button next;
@@ -69,11 +70,24 @@ public class FormActivity extends AppCompatActivity {
         formQNumber = findViewById(R.id.TextFormQNumber);
         formTotal = findViewById(R.id.TextFormTotal);
 
+        formSelected = getIntent().getStringExtra("EXTRA_FILENAME");
+
         gson = new Gson();
 
-//        json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "pd-nms.json");
-//        json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "pd-cfrs.json");
-        json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "PD-Unified FVL.json");
+        switch (formSelected){
+            case "PD-NMS":
+                json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "pd-nms.json");
+                break;
+
+            case "PD-CFRS":
+                json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "pd-cfrs.json");
+                break;
+
+            case "PD-Unified FVL":
+                json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "PD-Unified FVL.json");
+                break;
+        }
+
         Log.i("DATA", json_form);
         Log.i("EXTRA_FILENAME", getIntent().getStringExtra("EXTRA_FILENAME"));
 

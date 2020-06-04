@@ -14,6 +14,18 @@
       "question_ideal": "NO"
     },
     {
+      "question_type": "C",
+      "question_options": [
+        "NUNCA",
+        "UNA VEZ AL MES",
+        "UNA VEZ A LA SEMANA",
+        "UNA VEZ AL DÍA",
+        "CADA VEZ QUE CAMINA"
+      ],
+      "question_text": "¿Siente que sus pies se quedan pegados al piso mientras camina, o al dar la vuelta o cuando está intentando iniciar la marcha (congelamiento)?",
+      "question_ideal": "NUNCA"
+    },
+    {
       "question_type": "B",
       "question_options": [
         "SI",
@@ -342,18 +354,6 @@
       ],
       "question_text": "¿Ha tenido problemas para entender cómo manejar el teléfono celular?",
       "question_ideal": "NO"
-    },
-    {
-      "question_type": "C",
-      "question_options": [
-        "NUNCA",
-        "UNA VEZ AL MES",
-        "UNA VEZ A LA SEMANA",
-        "UNA VEZ AL DÍA",
-        "CADA VEZ QUE CAMINA"
-      ],
-      "question_text": "¿Siente que sus pies se quedan pegados al piso mientras camina, o al dar la vuelta o cuando está intentando iniciar la marcha (congelamiento)?",
-      "question_ideal": "NUNCA"
     }
   ]
 }
