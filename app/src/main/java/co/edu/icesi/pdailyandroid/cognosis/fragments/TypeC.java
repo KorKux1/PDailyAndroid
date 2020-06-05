@@ -182,7 +182,7 @@ public class TypeC extends Fragment {
 
 
                 if (listener!= null){
-                    listener.onButtonSelected(aFour);
+                    listener.onButtonSelected(aFive);
                     Log.i("listeneeeeeeeeeeeeeer", String.valueOf(listener));
                 }
             }

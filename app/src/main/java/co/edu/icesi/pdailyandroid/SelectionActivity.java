@@ -47,7 +47,7 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), FormActivity.class);
-                intent.putExtra("EXTRA_FILENAME", "PD-Unified FVL");
+                intent.putExtra("EXTRA_FILENAME", "Congelamiento de la marcha");
 
                 startActivity(intent);
             }
@@ -56,6 +56,10 @@ public class SelectionActivity extends AppCompatActivity {
         bsFour.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), FormActivity.class);
+                intent.putExtra("EXTRA_FILENAME", "PHQ-9");
+
+                startActivity(intent);
             }
         });
     }

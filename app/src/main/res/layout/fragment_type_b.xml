@@ -8,7 +8,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="280dp"
         android:layout_marginTop="12dp"
         android:gravity="center"
         android:orientation="vertical"
@@ -23,7 +23,7 @@
             android:text="¿Has tenido problemas para manejar su propio dinero? Por ejemplo: verificar el cambio, calcular el dinero necesario para ir a comprar comestibles, etc."
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -43,9 +43,8 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayoutCompat2"
-            android:layout_width="200dp"
+            android:layout_width="235dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toStartOf="@+id/linearLayoutCompat4"
@@ -55,14 +54,14 @@
             <Button
                 android:id="@+id/ButtonAnswerOne"
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
+                android:layout_height="350dp"
                 android:layout_gravity="center"
                 android:background="@drawable/button_behavior"
                 android:ellipsize="none"
                 android:fontFamily="@font/pragmaticaw05_bold"
                 android:text="SI"
                 android:textAlignment="center"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -70,9 +69,8 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayoutCompat4"
-            android:layout_width="200dp"
+            android:layout_width="235dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,14 +80,14 @@
             <Button
                 android:id="@+id/ButtonAnswerTwo"
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
+                android:layout_height="350dp"
                 android:layout_gravity="center"
                 android:background="@drawable/button_behavior"
                 android:ellipsize="none"
                 android:fontFamily="@font/pragmaticaw05_bold"
                 android:text="NO"
                 android:textAlignment="center"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

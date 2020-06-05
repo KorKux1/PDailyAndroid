@@ -76,7 +76,21 @@
                 android:background="@drawable/button_behavior"
                 android:ellipsize="none"
                 android:fontFamily="@font/pragmaticaw05_bold"
-                android:text="PD-Unified FVL"
+                android:text="Congelamiento de la marcha"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/ButtonSelectionFive"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_behavior"
+                android:ellipsize="none"
+                android:fontFamily="@font/pragmaticaw05_bold"
+                android:text="Caidas en la marcha"
                 android:textAlignment="center"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -117,7 +131,7 @@
                 android:background="@drawable/button_behavior"
                 android:ellipsize="none"
                 android:fontFamily="@font/pragmaticaw05_bold"
-                android:text="MoCA"
+                android:text="PHQ-9"
                 android:textAlignment="center"
                 android:textSize="14sp"
                 android:textStyle="bold" />

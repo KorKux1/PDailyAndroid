@@ -14,9 +14,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import java.lang.reflect.Type;
 import java.util.Arrays;
-import java.util.Collections;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -74,7 +72,7 @@ public class FormActivity extends AppCompatActivity {
 
         gson = new Gson();
 
-        switch (formSelected){
+        switch (formSelected) {
             case "PD-NMS":
                 json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "pd-nms.json");
                 break;
@@ -83,8 +81,12 @@ public class FormActivity extends AppCompatActivity {
                 json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "pd-cfrs.json");
                 break;
 
-            case "PD-Unified FVL":
-                json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "PD-Unified FVL.json");
+            case "Congelamiento de la marcha":
+                json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "congelamiento.json");
+                break;
+
+            case "PHQ-9":
+                json_form = JsonReaderUtils.getJsonFromAssets(App.getAppContext(), "phq-9.json");
                 break;
         }
 
@@ -119,17 +121,17 @@ public class FormActivity extends AppCompatActivity {
         updateListener();
 
         aSelect = 0;
-        if (typeA != null){
+        if (typeA != null) {
             aTotal = new int[typeA.getFormTotalNumber()];
         }
-        if (typeB != null){
+        if (typeB != null) {
             aTotal = new int[typeB.getFormTotalNumber()];
         }
-        if (typeC != null){
+        if (typeC != null) {
             aTotal = new int[typeC.getFormTotalNumber()];
         }
 
-        Log.i("IINDEEEX", Integer.valueOf(index+1).toString());
+        Log.i("IINDEEEX", Integer.valueOf(index + 1).toString());
         Log.i("FOOOORMM", Integer.valueOf(form.getForm_questions().length).toString());
 
         //ACCION DE LOS BOTONES
@@ -174,7 +176,7 @@ public class FormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Sumatoria del index del cual depende la posicion del arreglo y la suma total de Score
-                if (index+1  < form.getForm_questions().length){
+                if (index + 1 < form.getForm_questions().length) {
                     index = index + 1;
                     score = index;
                 }
@@ -200,8 +202,8 @@ public class FormActivity extends AppCompatActivity {
                         break;
                 }
 
-                    if (index > 0) {
-                        previous.setVisibility(View.VISIBLE);
+                if (index > 0) {
+                    previous.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -209,38 +211,38 @@ public class FormActivity extends AppCompatActivity {
 
     }
 
-// Actualiza en tiempo real las modificaciones del fragment
-    private  void  updateListener(){
-        if (typeA != null){
-            typeA.setListener(new TypeA.FragmentListener(){
+    // Actualiza en tiempo real las modificaciones del fragment
+    private void updateListener() {
+        if (typeA != null) {
+            typeA.setListener(new TypeA.FragmentListener() {
                 @Override
                 public void onButtonSelected(Boolean b) {
-                    buttonSelect=b;
-                    if (buttonSelect){
+                    buttonSelect = b;
+                    if (buttonSelect) {
                         next.setEnabled(true);
                     }
                 }
             });
         }
 
-if (typeB != null){
-    typeB.setListener(new TypeB.FragmentListener(){
-        @Override
-        public void onButtonSelected(Boolean b) {
-            buttonSelect=b;
-            if (buttonSelect){
-                next.setEnabled(true);
-            }
-        }
-    });
-}
-
-        if (typeC != null){
-            typeC.setListener(new TypeC.FragmentListener(){
+        if (typeB != null) {
+            typeB.setListener(new TypeB.FragmentListener() {
                 @Override
                 public void onButtonSelected(Boolean b) {
-                    buttonSelect=b;
-                    if (buttonSelect){
+                    buttonSelect = b;
+                    if (buttonSelect) {
+                        next.setEnabled(true);
+                    }
+                }
+            });
+        }
+
+        if (typeC != null) {
+            typeC.setListener(new TypeC.FragmentListener() {
+                @Override
+                public void onButtonSelected(Boolean b) {
+                    buttonSelect = b;
+                    if (buttonSelect) {
                         next.setEnabled(true);
                     }
                 }
@@ -252,53 +254,93 @@ if (typeB != null){
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     // condiciones para evaluar el Score segun el tipo de prueba o pregunta
-    private void scoreEvaluation(){
+    private void scoreEvaluation() {
 
-        if(typeA != null){
-            if (typeA.isaOne()){
-                aSelect = 0;
-            }
-            if (typeA.isaTwo()){
-                aSelect = 1;
-            }
-            if (typeA.isaThree()){
-                aSelect = 2;
-            }
-            if (typeA.isaFour()){
-                aSelect = 0;
-            }
+        switch (formSelected) {
+            case "PD-NMS":
+                if (typeB.isaOne()) {
+                    aSelect = 1;
+                }
+                if (typeB.isaTwo()) {
+                    aSelect = 0;
+                }
+                break;
+
+            case "PD-CFRS":
+                if (typeA.isaOne()) {
+                    aSelect = 0;
+                }
+                if (typeA.isaTwo()) {
+                    aSelect = 1;
+                }
+                if (typeA.isaThree()) {
+                    aSelect = 2;
+                }
+                if (typeA.isaFour()) {
+                    aSelect = 0;
+                }
+                break;
+
+            case "Congelamiento de la marcha":
+                if (typeC.isaOne()) {
+                    aSelect = 0;
+                }
+                if (typeC.isaTwo()) {
+                    aSelect = 1;
+                }
+                if (typeC.isaThree()) {
+                    aSelect = 2;
+                }
+                if (typeC.isaFour()) {
+                    aSelect = 3;
+                }
+                if (typeC.isaFive()) {
+                    aSelect = 4;
+                }
+                break;
+
+            case "PHQ-9":
+                if (typeA.isaOne()) {
+                    aSelect = 0;
+                }
+                if (typeA.isaTwo()) {
+                    aSelect = 1;
+                }
+                if (typeA.isaThree()) {
+                    aSelect = 2;
+                }
+                if (typeA.isaFour()) {
+                    aSelect = 3;
+                }
+                break;
         }
 
-        if (typeB != null){
-            if (typeB.isaOne()){
-                aSelect = 1;
-            }
-            if (typeB.isaTwo()){
-                aSelect = 0;
-            }
-        }
 
-//        if (typeA != null){
-            if (score  < form.getForm_questions().length){
+        if (!formSelected.equals("Congelamiento de la marcha")) {
+            if (score < form.getForm_questions().length) {
 
-                aTotal[score-1] = aSelect;
+                aTotal[score - 1] = aSelect;
 
-                if (score == form.getForm_questions().length-1){
-                    score +=1;
+                if (score == form.getForm_questions().length - 1) {
+                    score += 1;
                 }
             }
-//        }
+        } else {
+            aTotal[0] = aSelect;
+        }
 
 
+        if (next.getText().equals("Finalizar")) {
 
-        if (next.getText().equals("Finalizar")){
-
-//            if (typeA != null){
-                aTotal[score-1] = aSelect;
-                scoreFinal= Arrays.stream(aTotal).sum();
-                Log.i("ARRAYYYY", Arrays.toString(aTotal));
-                Log.i("SUMAAAAA", Integer.valueOf(scoreFinal).toString());
-//            }
+            if (!formSelected.equals("Congelamiento de la marcha")) {
+            aTotal[score - 1] = aSelect;
+            scoreFinal = Arrays.stream(aTotal).sum();
+            Log.i("ARRAYYYY", Arrays.toString(aTotal));
+            Log.i("SUMAAAAA", Integer.valueOf(scoreFinal).toString());
+            }else {
+                aTotal[0] = aSelect;
+                scoreFinal = Arrays.stream(aTotal).sum();
+            }
 
             Intent intent = new Intent(getBaseContext(), ScoreActivity.class);
             intent.putExtra("EXTRA_SCORE", scoreFinal);
@@ -306,15 +348,15 @@ if (typeB != null){
             startActivity(intent);
 
 
-        }else {
+        } else {
             Log.i("ARRAY", Arrays.toString(aTotal));
             Log.i("SCOOOORE", Integer.valueOf(score).toString());
         }
     }
 
 
-    private void updateButtons(){
-            next.setEnabled(false);
+    private void updateButtons() {
+        next.setEnabled(false);
         if (index == 0) {
             previous.setVisibility(View.GONE);
         }

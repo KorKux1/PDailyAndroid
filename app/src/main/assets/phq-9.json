@@ -1,0 +1,107 @@
+{
+  "form_id": 4,
+  "form_name": "PHQ-9",
+  "form_description": "Escala de Salud del Paciente",
+  "form_language": "ES",
+  "form_questions": [
+    {
+      "question_type": "A",
+      "question_options": [
+        "NINGUN DÍA",
+        "VARIOS DÍAS",
+        "MÁS DE LA MITAD DE LOS DÍAS",
+        "CASI TODOS LOS DÍAS"
+      ],
+      "question_text": "¿Ha sentido poco interés o placer en hacer cosas?",
+      "question_ideal": "NINGUN DÍA"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NINGUN DÍA",
+        "VARIOS DÍAS",
+        "MÁS DE LA MITAD DE LOS DÍAS",
+        "CASI TODOS LOS DÍAS"
+      ],
+      "question_text": "¿Se ha sentido decaído(a), deprimido(a) o sin esperanzas?",
+      "question_ideal": "NINGUN DÍA"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NINGUN DÍA",
+        "VARIOS DÍAS",
+        "MÁS DE LA MITAD DE LOS DÍAS",
+        "CASI TODOS LOS DÍAS"
+      ],
+      "question_text": "¿Ha tenido dificultad para quedarse o permanecer dormido(a), o ha dormido demasiado?",
+      "question_ideal": "NINGUN DÍA"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NINGUN DÍA",
+        "VARIOS DÍAS",
+        "MÁS DE LA MITAD DE LOS DÍAS",
+        "CASI TODOS LOS DÍAS"
+      ],
+      "question_text": "¿Se ha sentido cansado(a) o con poca energía?",
+      "question_ideal": "NINGUN DÍA"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NINGUN DÍA",
+        "VARIOS DÍAS",
+        "MÁS DE LA MITAD DE LOS DÍAS",
+        "CASI TODOS LOS DÍAS"
+      ],
+      "question_text": "¿Se ha sentido sin apetito o ha comido en exceso?",
+      "question_ideal": "NINGUN DÍA"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NINGUN DÍA",
+        "VARIOS DÍAS",
+        "MÁS DE LA MITAD DE LOS DÍAS",
+        "CASI TODOS LOS DÍAS"
+      ],
+      "question_text": "¿Se ha sentido mal con usted mismo(a) – o que es un fracaso o que ha quedado mal con usted mismo(a) o con su familia?",
+      "question_ideal": "NINGUN DÍA"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NINGUN DÍA",
+        "VARIOS DÍAS",
+        "MÁS DE LA MITAD DE LOS DÍAS",
+        "CASI TODOS LOS DÍAS"
+      ],
+      "question_text": "¿Ha tenido dificultad para concentrarse en ciertas actividades, tales como leer el periódico o ver la televisión?",
+      "question_ideal": "NINGUN DÍA"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NINGUN DÍA",
+        "VARIOS DÍAS",
+        "MÁS DE LA MITAD DE LOS DÍAS",
+        "CASI TODOS LOS DÍAS"
+      ],
+      "question_text": "¿Se ha movido o hablado tan lento que otras personas podrían haberlo notado? o lo contrario – muy inquieto(a) o agitado(a) que ha estado moviéndose mucho más de lo normal?",
+      "question_ideal": "NINGUN DÍA"
+    },
+    {
+      "question_type": "A",
+      "question_options": [
+        "NINGUN DÍA",
+        "VARIOS DÍAS",
+        "MÁS DE LA MITAD DE LOS DÍAS",
+        "CASI TODOS LOS DÍAS"
+      ],
+      "question_text": "¿Ha tenido pensamientos de que estaría mejor muerto(a) o de lastimarse de alguna manera?",
+      "question_ideal": "NINGUN DÍA"
+    }
+  ]
+}

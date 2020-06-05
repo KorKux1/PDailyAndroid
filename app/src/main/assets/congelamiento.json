@@ -1,0 +1,20 @@
+{
+  "form_id": 3,
+  "form_name": "Congelamiento de la marcha",
+  "form_description": "Congelamiento de la marcha",
+  "form_language": "ES",
+  "form_questions": [
+    {
+      "question_type": "C",
+      "question_options": [
+        "NUNCA",
+        "UNA VEZ AL MES",
+        "UNA VEZ A LA SEMANA",
+        "UNA VEZ AL DÍA",
+        "CADA VEZ QUE CAMINA"
+      ],
+      "question_text": "¿Siente que sus pies se quedan pegados al piso mientras camina, o al dar la vuelta o cuando está intentando iniciar la marcha (congelamiento)?",
+      "question_ideal": "NUNCA"
+    }
+  ]
+}
