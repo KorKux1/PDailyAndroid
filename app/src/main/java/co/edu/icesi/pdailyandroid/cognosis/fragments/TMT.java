@@ -93,7 +93,7 @@ public class TMT extends Fragment {
             paint.setStrokeWidth(6);
 //            paint.setColor(Color.parseColor(col1));
 //            canvas.drawCircle((x / 2) - 230, (y / 2) - 150, radius, paint);
-            drawCircle_Disabled(canvas, paint, "1", (x/2)-230, (y/2)-150);
+            drawCircle(canvas, paint, "1", color_primary, (x/2)-230, (y/2)-150);
             paint.setColor(Color.parseColor(col2));
             canvas.drawCircle((x / 2) + 200, (y / 2) - 600, radius, paint);
             paint.setColor(Color.parseColor(col3));
@@ -138,12 +138,12 @@ public class TMT extends Fragment {
 
         }
 
-        private void drawCircle_Disabled(android.graphics.Canvas canvas, Paint paint, String text, int x, int y) {
+        private void drawCircle(android.graphics.Canvas canvas, Paint paint, String text, String color, int x, int y) {
             paint.setStyle(Paint.Style.FILL);
             paint.setStyle(Paint.Style.STROKE);
             paint.setColor(Color.GRAY);
             paint.setStrokeWidth(6);
-            paint.setColor(Color.parseColor(color_primary));
+            paint.setColor(Color.parseColor(color));
             canvas.drawCircle(x, y, radius, paint);
             paint.setStyle(Paint.Style.FILL);
             paint.setColor(Color.BLACK);
@@ -153,6 +153,7 @@ public class TMT extends Fragment {
             paint.setStrokeWidth(0);
             paint.setTextSize(50);
             canvas.drawText(text, x, y+20, paint);
+            invalidate();
         }
 
         @Override
