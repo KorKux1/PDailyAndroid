@@ -49,7 +49,7 @@ public class TMT extends Fragment {
         Paint paint = new Paint();
         boolean uno, a, dos, b, tres, c, cuatro, d, cinco, e;
         int radius;
-        String color_primary, color_accent, col1, col2, col3, col4, col5, col6, col7, col8, col9, col0;
+        String color_primary, color_accent;
 
         public Canvas(Context context) {
             super(context);
@@ -67,17 +67,6 @@ public class TMT extends Fragment {
 
             color_primary = "#C4C4C4";
             color_accent = "#00BCD1";
-
-            col1 = "#C4C4C4";
-            col2 = "#C4C4C4";
-            col3 = "#C4C4C4";
-            col4 = "#C4C4C4";
-            col5 = "#C4C4C4";
-            col6 = "#C4C4C4";
-            col7 = "#C4C4C4";
-            col8 = "#C4C4C4";
-            col9 = "#C4C4C4";
-            col0 = "#C4C4C4";
         }
 
         @Override
@@ -86,33 +75,67 @@ public class TMT extends Fragment {
 
             int x = getWidth();
             int y = getHeight();
-            paint.setStyle(Paint.Style.FILL);
 
-            paint.setStyle(Paint.Style.STROKE);
-            paint.setColor(Color.GRAY);
-            paint.setStrokeWidth(6);
-//            paint.setColor(Color.parseColor(col1));
-//            canvas.drawCircle((x / 2) - 230, (y / 2) - 150, radius, paint);
-            drawCircle(canvas, paint, "1", color_primary, (x/2)-230, (y/2)-150);
-            paint.setColor(Color.parseColor(col2));
-            canvas.drawCircle((x / 2) + 200, (y / 2) - 600, radius, paint);
-            paint.setColor(Color.parseColor(col3));
-            canvas.drawCircle((x / 2) + 400, (y / 2) - 300, radius, paint);
-            paint.setColor(Color.parseColor(col4));
-            canvas.drawCircle((x / 2) + 100, (y / 2) - 300, radius, paint);
-            paint.setColor(Color.parseColor(col5));
-            canvas.drawCircle((x / 2) + 400, (y / 2) + 100, radius, paint);
-            paint.setColor(Color.parseColor(col6));
-            canvas.drawCircle((x / 2) - 250, (y / 2) + 320, radius, paint);
-            paint.setColor(Color.parseColor(col7));
-            canvas.drawCircle((x / 2), (y / 2) + 50, radius, paint);
-            paint.setColor(Color.parseColor(col8));
-            canvas.drawCircle((x / 2) - 400, (y / 2) + 50, radius, paint);
-            paint.setColor(Color.parseColor(col9));
-            canvas.drawCircle((x / 2) - 420, (y / 2) - 400, radius, paint);
-            paint.setColor(Color.parseColor(col0));
-            canvas.drawCircle((x / 2) - 250, (y / 2) - 650, radius, paint);
+                Log.i("UNO", String.valueOf(uno));
+            if (!uno){
+                drawCircle(canvas, paint, "1", color_primary, (x/2)-230, (y/2)-150);
+            } else {
+                drawCircle(canvas, paint, "1", color_accent, (x/2)-230, (y/2)-150);
+            }
 
+            if (!a){
+                drawCircle(canvas, paint, "A", color_primary, (x / 2) + 200, (y / 2) - 600);
+            } else {
+                drawCircle(canvas, paint, "A", color_accent, (x / 2) + 200, (y / 2) - 600);
+            }
+
+            if (!dos){
+                drawCircle(canvas, paint, "2", color_primary, (x / 2) + 400, (y / 2) - 300);
+            } else {
+                drawCircle(canvas, paint, "2", color_accent, (x / 2) + 400, (y / 2) - 300);
+            }
+
+            if (!b){
+                drawCircle(canvas, paint, "B", color_primary, (x / 2) + 100, (y / 2) - 300);
+            } else {
+                drawCircle(canvas, paint, "B", color_accent, (x / 2) + 100, (y / 2) - 300);
+            }
+
+            if (!tres){
+                drawCircle(canvas, paint, "3", color_primary, (x / 2) + 400, (y / 2) + 100);
+            } else {
+                drawCircle(canvas, paint, "3", color_accent, (x / 2) + 400, (y / 2) + 100);
+            }
+
+            if (!c){
+                drawCircle(canvas, paint, "C", color_primary, (x / 2) - 250, (y / 2) + 320);
+            } else {
+                drawCircle(canvas, paint, "C", color_accent, (x / 2) - 250, (y / 2) + 320);
+            }
+
+            if (!cuatro){
+                drawCircle(canvas, paint, "4", color_primary, (x / 2), (y / 2) + 50);
+            } else {
+                drawCircle(canvas, paint, "4", color_accent, (x / 2), (y / 2) + 50);
+            }
+
+            if (!d){
+                drawCircle(canvas, paint, "D", color_primary, (x / 2) - 400, (y / 2) + 50);
+            } else {
+                drawCircle(canvas, paint, "D", color_accent, (x / 2) - 400, (y / 2) + 50);
+            }
+
+            if (!cinco){
+                drawCircle(canvas, paint, "5", color_primary, (x / 2) - 420, (y / 2) - 400);
+            } else {
+                drawCircle(canvas, paint, "5", color_accent, (x / 2) - 420, (y / 2) - 400);
+            }
+
+            if (!e){
+                drawCircle(canvas, paint, "E", color_primary, (x / 2) - 250, (y / 2) - 650);
+            } else {
+                drawCircle(canvas, paint, "E", color_accent, (x / 2) - 250, (y / 2) - 650);
+            }
 
             paint.setStyle(Paint.Style.FILL);
             paint.setColor(Color.BLACK);
@@ -122,19 +145,9 @@ public class TMT extends Fragment {
             paint.setStrokeWidth(0);
             paint.setTextSize(50);
             canvas.drawText("Inicio", (x / 2) - 230, (y / 2) - 40, paint);
-            canvas.drawText("1", (x / 2) - 230, (y / 2) - 130, paint);
-            canvas.drawText("A", (x / 2) + 200, (y / 2) - 580, paint);
-            canvas.drawText("2", (x / 2) + 400, (y / 2) - 280, paint);
-            canvas.drawText("B", (x / 2) + 100, (y / 2) - 280, paint);
-            canvas.drawText("3", (x / 2) + 400, (y / 2) + 120, paint);
-            canvas.drawText("C", (x / 2) - 250, (y / 2) + 340, paint);
-            canvas.drawText("4", (x / 2), (y / 2) + 70, paint);
-            canvas.drawText("D", (x / 2) - 400, (y / 2) + 70, paint);
-            canvas.drawText("5", (x / 2) - 420, (y / 2) - 380, paint);
-            canvas.drawText("E", (x / 2) - 250, (y / 2) - 630, paint);
+
             canvas.drawText("Fin", (x / 2) - 250, (y / 2) - 540, paint);
 
-            Log.i("radio", String.valueOf(radius));
 
         }
 
@@ -167,17 +180,81 @@ public class TMT extends Fragment {
 
             int distUno, distA, distDos, distB, distTres, distC, distCuatro, distD, distCinco, distE;
 
+            distUno = (int) Math.sqrt(Math.pow(((x/2)-230) - fingerX, 2) + Math.pow(((y/2)-150) - fingerY, 2));
+            distA = (int) Math.sqrt(Math.pow(((x / 2)+200) - fingerX, 2) + Math.pow(((y / 2)-600) - fingerY, 2));
+            distDos = (int) Math.sqrt(Math.pow(((x / 2) + 400) - fingerX, 2) + Math.pow(((y / 2) - 300) - fingerY, 2));
+            distB = (int) Math.sqrt(Math.pow(((x / 2) + 100) - fingerX, 2) + Math.pow(((y / 2) - 300) - fingerY, 2));
+            distTres = (int) Math.sqrt(Math.pow(((x / 2) + 400) - fingerX, 2) + Math.pow(((y / 2) + 100) - fingerY, 2));
+            distC = (int) Math.sqrt(Math.pow(( (x / 2) - 250) - fingerX, 2) + Math.pow(((y / 2) + 320) - fingerY, 2));
+            distCuatro = (int) Math.sqrt(Math.pow(((x / 2) ) - fingerX, 2) + Math.pow(((y / 2) + 50) - fingerY, 2));
+            distD = (int) Math.sqrt(Math.pow(((x / 2) - 400) - fingerX, 2) + Math.pow(((y / 2) + 50) - fingerY, 2));
+            distCinco = (int) Math.sqrt(Math.pow(((x / 2) - 420) - fingerX, 2) + Math.pow(((y / 2) - 400) - fingerY, 2));
+            distE = (int) Math.sqrt(Math.pow(((x / 2) - 250) - fingerX, 2) + Math.pow(((y / 2) - 650) - fingerY, 2));
+
+
+
             switch (eventAction) {
                 case MotionEvent.ACTION_DOWN:
-                  distUno = (int) Math.sqrt(Math.pow(((x/2)-230) - fingerX, 2) + Math.pow(((y/2)-150) - fingerY, 2));
-//                  distA = (int) Math.sqrt(Math.pow(((x / 2)+200) - fingerX, 2) + Math.pow(((y / 2)-600) - fingerY, 2));
 
                   if (distUno < 50){
                       uno=true;
-                      col1 = "#00BCD1";
-                      drawCircle(canvas, paint, "Hola", color_accent, 50, 10);
                       Log.i("asdfghjk", String.valueOf(distUno));
+                      invalidate();
                   }
+
+                    if (distA < 50) {
+                        a = true;
+                        Log.i("asdfghjk", String.valueOf(distA));
+                        invalidate();
+                    }
+
+                    if (distDos < 50) {
+                        dos = true;
+                        Log.i("asdfghjk", String.valueOf(distA));
+                        invalidate();
+                    }
+
+                    if (distB < 50) {
+                        b = true;
+                        Log.i("asdfghjk", String.valueOf(distA));
+                        invalidate();
+                    }
+
+                    if (distTres < 50) {
+                        tres = true;
+                        Log.i("asdfghjk", String.valueOf(distA));
+                        invalidate();
+                    }
+
+                    if (distC < 50) {
+                        c = true;
+                        Log.i("asdfghjk", String.valueOf(distA));
+                        invalidate();
+                    }
+
+                    if (distCuatro < 50) {
+                        cuatro = true;
+                        Log.i("asdfghjk", String.valueOf(distA));
+                        invalidate();
+                    }
+
+                    if (distD < 50) {
+                        d = true;
+                        Log.i("asdfghjk", String.valueOf(distA));
+                        invalidate();
+                    }
+
+                    if (distCinco < 50) {
+                        cinco = true;
+                        Log.i("asdfghjk", String.valueOf(distA));
+                        invalidate();
+                    }
+
+                    if (distE < 50) {
+                        e = true;
+                        Log.i("asdfghjk", String.valueOf(distA));
+                        invalidate();
+                    }
                     break;
 
                 case MotionEvent.ACTION_UP:
@@ -185,15 +262,25 @@ public class TMT extends Fragment {
 
                 case MotionEvent.ACTION_MOVE:
 
-                    distUno = (int) Math.sqrt(Math.pow(((x / 2) - 230) - fingerX, 2) + Math.pow(((y / 2) - 150) - fingerY, 2));
-//                    distA = (int) Math.sqrt(Math.pow(((x / 2) + 200) - fingerX, 2) + Math.pow(((y / 2) - 600) - fingerY, 2));
-
                     if (distUno < 50) {
                         uno = true;
-                        col1 = "#00BCD1";
                         Log.i("asdfghjk", String.valueOf(distUno));
                         invalidate();
                     }
+
+                    if (distA < 50) {
+                        a = true;
+                        Log.i("asdfghjk", String.valueOf(distA));
+                        invalidate();
+                    }
+
+                    if (distCuatro < 50) {
+                        cuatro = true;
+                        Log.i("asdfghjk", String.valueOf(distA));
+                        invalidate();
+                    }
+
+
 
                     break;
             }
