@@ -169,16 +169,15 @@ public class TMT extends Fragment {
 
             switch (eventAction) {
                 case MotionEvent.ACTION_DOWN:
-//                  distUno = (int) Math.sqrt(Math.pow(((x/2)-230) - fingerX, 2) + Math.pow(((y/2)-150) - fingerY, 2));
+                  distUno = (int) Math.sqrt(Math.pow(((x/2)-230) - fingerX, 2) + Math.pow(((y/2)-150) - fingerY, 2));
 //                  distA = (int) Math.sqrt(Math.pow(((x / 2)+200) - fingerX, 2) + Math.pow(((y / 2)-600) - fingerY, 2));
-//
-//                  if (distUno < 50){
-//                      uno=true;
-//                      col1 = "#00BCD1";
-//                      Log.i("asdfghjk", String.valueOf(distUno));
-//                      invalidate();
-//                  }
-                    drawCircle(canvas, paint, "Hola", color_accent, 50, 10);
+
+                  if (distUno < 50){
+                      uno=true;
+                      col1 = "#00BCD1";
+                      drawCircle(canvas, paint, "Hola", color_accent, 50, 10);
+                      Log.i("asdfghjk", String.valueOf(distUno));
+                  }
                     break;
 
                 case MotionEvent.ACTION_UP:
@@ -187,7 +186,7 @@ public class TMT extends Fragment {
                 case MotionEvent.ACTION_MOVE:
 
                     distUno = (int) Math.sqrt(Math.pow(((x / 2) - 230) - fingerX, 2) + Math.pow(((y / 2) - 150) - fingerY, 2));
-                    distA = (int) Math.sqrt(Math.pow(((x / 2) + 200) - fingerX, 2) + Math.pow(((y / 2) - 600) - fingerY, 2));
+//                    distA = (int) Math.sqrt(Math.pow(((x / 2) + 200) - fingerX, 2) + Math.pow(((y / 2) - 600) - fingerY, 2));
 
                     if (distUno < 50) {
                         uno = true;
