@@ -23,7 +23,7 @@ import co.edu.icesi.pdailyandroid.R;
  * create an instance of this fragment.
  */
 public class TMT extends Fragment {
-    public Canvas canvas;
+    public android.graphics.Canvas canvas;
 
     public TMT() {
         // Required empty public constructor
@@ -178,6 +178,7 @@ public class TMT extends Fragment {
 //                      Log.i("asdfghjk", String.valueOf(distUno));
 //                      invalidate();
 //                  }
+                    drawCircle(canvas, paint, "Hola", color_accent, 50, 10);
                     break;
 
                 case MotionEvent.ACTION_UP:
