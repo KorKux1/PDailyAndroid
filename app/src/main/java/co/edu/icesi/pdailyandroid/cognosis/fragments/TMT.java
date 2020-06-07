@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
 
@@ -16,7 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+
 import co.edu.icesi.pdailyandroid.R;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,6 +53,9 @@ public class TMT extends Fragment {
 
     private class Canvas extends View {
         Paint paint = new Paint();
+        Path path = new Path();
+        ArrayList<Point> points = new ArrayList<Point>();
+
         boolean uno, a, dos, b, tres, c, cuatro, d, cinco, e;
         int radius;
         String color_primary, color_accent;
@@ -75,6 +84,18 @@ public class TMT extends Fragment {
 
             int x = getWidth();
             int y = getHeight();
+
+            boolean first = true;
+
+            for (Point point : points){
+                if(first){
+                    first = false;
+                    path.moveTo(point.x, point.y);
+                }else{
+                    path.lineTo(point.x, point.y);
+                }
+            }
+            canvas.drawPath(path, paint);
 
                 Log.i("UNO", String.valueOf(uno));
             if (!uno){
@@ -170,7 +191,17 @@ public class TMT extends Fragment {
         }
 
         @Override
-        public boolean onTouchEvent(MotionEvent event) {
+        public boolean onTouchEvent( MotionEvent event) {
+            if(event.getAction() != MotionEvent.ACTION_UP) {
+                Point point = new Point();
+                point.x = (int) event.getX();
+                point.y = (int) event.getY();
+                points.add(point);
+                invalidate();
+                Log.d(TAG, "POINT: " + point);
+                return true;
+            }
+
             int eventAction = event.getAction();
             int x = getWidth();
             int y = getHeight();
