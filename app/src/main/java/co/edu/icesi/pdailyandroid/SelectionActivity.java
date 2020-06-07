@@ -11,7 +11,7 @@ import android.widget.Button;
 import java.util.Arrays;
 
 public class SelectionActivity extends AppCompatActivity {
-    private Button bsOne, bsTwo, bsThree, bsFour;
+    private Button bsOne, bsTwo, bsThree, bsFour, bsFive, bsSix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,8 @@ public class SelectionActivity extends AppCompatActivity {
         bsTwo = findViewById(R.id.ButtonSelectionTwo);
         bsThree = findViewById(R.id.ButtonSelectionThree);
         bsFour = findViewById(R.id.ButtonSelectionFour);
+
+        bsSix = findViewById(R.id.ButtonSelectionSix);
 
         bsOne.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -58,6 +60,16 @@ public class SelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), FormActivity.class);
                 intent.putExtra("EXTRA_FILENAME", "PHQ-9");
+
+                startActivity(intent);
+            }
+        });
+
+        bsSix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), MocaActivity.class);
+                
 
                 startActivity(intent);
             }

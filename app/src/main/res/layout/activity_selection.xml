@@ -136,6 +136,20 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/ButtonSelectionSix"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_behavior"
+                android:ellipsize="none"
+                android:fontFamily="@font/pragmaticaw05_bold"
+                android:text="MoCA"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
