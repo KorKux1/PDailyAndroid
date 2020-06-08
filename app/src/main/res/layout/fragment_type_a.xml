@@ -115,7 +115,6 @@
                 android:text="NO"
                 android:textAlignment="center"
                 android:textSize="20sp"
-                android:textFontWeight="100pd"
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

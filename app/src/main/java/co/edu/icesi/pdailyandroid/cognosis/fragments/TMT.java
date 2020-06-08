@@ -56,8 +56,12 @@ public class TMT extends Fragment {
         Path path = new Path();
         ArrayList<Point> points = new ArrayList<Point>();
 
+        ArrayList<Boolean> aTotal = new ArrayList<Boolean>()
+        ;
+
         boolean uno, a, dos, b, tres, c, cuatro, d, cinco, e;
         int radius;
+        int i,ii,iii,iv,v,vi,vii,viii,ix,x;
         String color_primary, color_accent;
 
         public Canvas(Context context) {
@@ -88,6 +92,13 @@ public class TMT extends Fragment {
             boolean first = true;
 
             for (Point point : points){
+                paint.setAntiAlias(true);
+                paint.setDither(true);
+                paint.setColor(Color.parseColor(color_accent));
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setStrokeJoin(Paint.Join.ROUND);
+                paint.setStrokeCap(Paint.Cap.ROUND);
+                paint.setStrokeWidth(12);
                 if(first){
                     first = false;
                     path.moveTo(point.x, point.y);
@@ -102,54 +113,62 @@ public class TMT extends Fragment {
                 drawCircle(canvas, paint, "1", color_primary, (x/2)-230, (y/2)-150);
             } else {
                 drawCircle(canvas, paint, "1", color_accent, (x/2)-230, (y/2)-150);
+
             }
 
             if (!a){
                 drawCircle(canvas, paint, "A", color_primary, (x / 2) + 200, (y / 2) - 600);
             } else {
                 drawCircle(canvas, paint, "A", color_accent, (x / 2) + 200, (y / 2) - 600);
+
             }
 
             if (!dos){
                 drawCircle(canvas, paint, "2", color_primary, (x / 2) + 400, (y / 2) - 300);
             } else {
                 drawCircle(canvas, paint, "2", color_accent, (x / 2) + 400, (y / 2) - 300);
+
             }
 
             if (!b){
                 drawCircle(canvas, paint, "B", color_primary, (x / 2) + 100, (y / 2) - 300);
             } else {
                 drawCircle(canvas, paint, "B", color_accent, (x / 2) + 100, (y / 2) - 300);
+
             }
 
             if (!tres){
                 drawCircle(canvas, paint, "3", color_primary, (x / 2) + 400, (y / 2) + 100);
             } else {
-                drawCircle(canvas, paint, "3", color_accent, (x / 2) + 400, (y / 2) + 100);
+
             }
 
             if (!c){
                 drawCircle(canvas, paint, "C", color_primary, (x / 2) - 250, (y / 2) + 320);
             } else {
                 drawCircle(canvas, paint, "C", color_accent, (x / 2) - 250, (y / 2) + 320);
+
             }
 
             if (!cuatro){
                 drawCircle(canvas, paint, "4", color_primary, (x / 2), (y / 2) + 50);
             } else {
                 drawCircle(canvas, paint, "4", color_accent, (x / 2), (y / 2) + 50);
+
             }
 
             if (!d){
                 drawCircle(canvas, paint, "D", color_primary, (x / 2) - 400, (y / 2) + 50);
             } else {
                 drawCircle(canvas, paint, "D", color_accent, (x / 2) - 400, (y / 2) + 50);
+
             }
 
             if (!cinco){
                 drawCircle(canvas, paint, "5", color_primary, (x / 2) - 420, (y / 2) - 400);
             } else {
                 drawCircle(canvas, paint, "5", color_accent, (x / 2) - 420, (y / 2) - 400);
+
             }
 
             if (!e){
@@ -192,15 +211,7 @@ public class TMT extends Fragment {
 
         @Override
         public boolean onTouchEvent( MotionEvent event) {
-            if(event.getAction() != MotionEvent.ACTION_UP) {
-                Point point = new Point();
-                point.x = (int) event.getX();
-                point.y = (int) event.getY();
-                points.add(point);
-                invalidate();
-                Log.d(TAG, "POINT: " + point);
-                return true;
-            }
+
 
             int eventAction = event.getAction();
             int x = getWidth();
@@ -211,8 +222,8 @@ public class TMT extends Fragment {
 
             int distUno, distA, distDos, distB, distTres, distC, distCuatro, distD, distCinco, distE;
 
-            distUno = (int) Math.sqrt(Math.pow(((x/2)-230) - fingerX, 2) + Math.pow(((y/2)-150) - fingerY, 2));
-            distA = (int) Math.sqrt(Math.pow(((x / 2)+200) - fingerX, 2) + Math.pow(((y / 2)-600) - fingerY, 2));
+            distUno = (int) Math.sqrt(Math.pow(((x/2)-230) - event.getX(), 2) + Math.pow(((y/2)-150) - event.getY(), 2));
+            distA = (int) Math.sqrt(Math.pow(((x / 2)+200) - event.getX(), 2) + Math.pow(((y / 2)-600) - event.getY(), 2));
             distDos = (int) Math.sqrt(Math.pow(((x / 2) + 400) - fingerX, 2) + Math.pow(((y / 2) - 300) - fingerY, 2));
             distB = (int) Math.sqrt(Math.pow(((x / 2) + 100) - fingerX, 2) + Math.pow(((y / 2) - 300) - fingerY, 2));
             distTres = (int) Math.sqrt(Math.pow(((x / 2) + 400) - fingerX, 2) + Math.pow(((y / 2) + 100) - fingerY, 2));
@@ -222,98 +233,104 @@ public class TMT extends Fragment {
             distCinco = (int) Math.sqrt(Math.pow(((x / 2) - 420) - fingerX, 2) + Math.pow(((y / 2) - 400) - fingerY, 2));
             distE = (int) Math.sqrt(Math.pow(((x / 2) - 250) - fingerX, 2) + Math.pow(((y / 2) - 650) - fingerY, 2));
 
+            Log.i("asdfghjk", Integer.valueOf(x).toString());
 
+            if(event.getAction() != MotionEvent.ACTION_UP) {
+                paint.setAntiAlias(true);
+                paint.setDither(true);
+                paint.setColor(Color.parseColor(color_accent));
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setStrokeJoin(Paint.Join.ROUND);
+                paint.setStrokeCap(Paint.Cap.ROUND);
+                paint.setStrokeWidth(12);
+                Point point = new Point();
+                point.x = (int) event.getX();
+                point.y = (int) event.getY();
+                points.add(point);
+                invalidate();
+                Log.d(TAG, "POINT: " + point);
+                Log.i("ARRAY", String.valueOf(aTotal.size()));
 
-            switch (eventAction) {
-                case MotionEvent.ACTION_DOWN:
-
-                  if (distUno < 50){
-                      uno=true;
-                      Log.i("asdfghjk", String.valueOf(distUno));
-                      invalidate();
-                  }
-
-                    if (distA < 50) {
-                        a = true;
-                        Log.i("asdfghjk", String.valueOf(distA));
+                if (!uno){
+                    if (distUno < 50){
+                        uno=true;
+                        aTotal.add(uno);
                         invalidate();
                     }
+                }
 
+                if (!a){
+                    if (distA < 50) {
+                        a = true;
+                        aTotal.add(a);
+                        invalidate();
+                    }
+                }
+
+                if (!dos) {
                     if (distDos < 50) {
                         dos = true;
-                        Log.i("asdfghjk", String.valueOf(distA));
+                        aTotal.add(dos);
                         invalidate();
                     }
+                }
 
+                if (!b) {
                     if (distB < 50) {
                         b = true;
-                        Log.i("asdfghjk", String.valueOf(distA));
+                        aTotal.add(b);
                         invalidate();
                     }
+                }
 
+                if (!tres) {
                     if (distTres < 50) {
                         tres = true;
-                        Log.i("asdfghjk", String.valueOf(distA));
+                        aTotal.add(tres);
                         invalidate();
                     }
+                }
 
+                if (!c) {
                     if (distC < 50) {
                         c = true;
-                        Log.i("asdfghjk", String.valueOf(distA));
+                        aTotal.add(c);
                         invalidate();
                     }
+                }
 
+                if (!cuatro) {
                     if (distCuatro < 50) {
                         cuatro = true;
-                        Log.i("asdfghjk", String.valueOf(distA));
+                        aTotal.add(cuatro);
                         invalidate();
                     }
+                }
 
+                if (!d) {
                     if (distD < 50) {
                         d = true;
-                        Log.i("asdfghjk", String.valueOf(distA));
+                        aTotal.add(d);
                         invalidate();
                     }
+                }
 
+                if (!cinco) {
                     if (distCinco < 50) {
                         cinco = true;
-                        Log.i("asdfghjk", String.valueOf(distA));
+                        aTotal.add(cinco);
                         invalidate();
                     }
+                }
 
+                if (!e) {
                     if (distE < 50) {
                         e = true;
-                        Log.i("asdfghjk", String.valueOf(distA));
+                        aTotal.add(e);
                         invalidate();
                     }
-                    break;
-
-                case MotionEvent.ACTION_UP:
-                    break;
-
-                case MotionEvent.ACTION_MOVE:
-
-                    if (distUno < 50) {
-                        uno = true;
-                        Log.i("asdfghjk", String.valueOf(distUno));
-                        invalidate();
-                    }
-
-                    if (distA < 50) {
-                        a = true;
-                        Log.i("asdfghjk", String.valueOf(distA));
-                        invalidate();
-                    }
-
-                    if (distCuatro < 50) {
-                        cuatro = true;
-                        Log.i("asdfghjk", String.valueOf(distA));
-                        invalidate();
-                    }
-
-
-
-                    break;
+                }
+                return true;
             }
 
 
