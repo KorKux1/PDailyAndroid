@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pragmaticaw05_italic"
-            android:text="hola"
+            android:text="MoCA"
             android:textColor="#B3B3B3"
             android:textSize="20sp"
             android:textStyle="italic"
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
-            android:text="Siguiente"
+            android:text="Finalizar"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

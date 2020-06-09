@@ -16,7 +16,6 @@ import co.edu.icesi.pdailyandroid.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TypeB#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class TypeB extends Fragment {

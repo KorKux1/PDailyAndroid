@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import co.edu.icesi.pdailyandroid.R;
 
@@ -28,9 +29,12 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
  */
 public class TMT extends Fragment {
     public android.graphics.Canvas canvas;
+    private FragmentListener listener;
+    String score;
 
     public TMT() {
         // Required empty public constructor
+        this.listener = null;
     }
 
 
@@ -44,9 +48,31 @@ public class TMT extends Fragment {
         RelativeLayout relativeLayout = (RelativeLayout) rootView.findViewById(R.id.rect);
         relativeLayout.addView(new Canvas(getActivity()));
 
+
+        if (listener != null) {
+//            listener.onButtonSelected(aOne);
+            Log.i("LISTENER_BUTTON", String.valueOf(listener));
+
+        }
+
         return rootView;
     }
 
+
+    public interface FragmentListener {
+        void onButtonSelected(String score);
+    }
+
+    public FragmentListener getListener() {
+        return listener;
+    }
+
+    public void setListener(FragmentListener listener) {
+        this.listener = listener;
+    }
+
+
+    //__________________________________________________________________________________________________________________________________________
     private class Canvas extends View {
         private Paint paint = new Paint();
         private Path path = new Path();
@@ -63,16 +89,18 @@ public class TMT extends Fragment {
         Point p_e = new Point();
 
         private ArrayList<Point> points = new ArrayList<Point>();
-        private ArrayList<Boolean> aTotal = new ArrayList<Boolean>();
+        private ArrayList<String> aTotal;
+        private ArrayList<String> aTotalComparable;
 
-        boolean b_one, b_two, b_three, b_four, b_five, b_a, b_b, b_c, b_d, b_e;
+        boolean b_one, b_two, b_three, b_four, b_five, b_a, b_b, b_c, b_d, b_e, end;
+        String s_one, s_two, s_three, s_four, s_five, s_a, s_b, s_c, s_d, s_e, score;
+
 
         int radius;
         String color_primary, color_accent;
 
         public Canvas(Context context) {
             super(context);
-
             b_one = false;
             b_two = false;
             b_three = false;
@@ -83,8 +111,24 @@ public class TMT extends Fragment {
             b_c = false;
             b_d = false;
             b_e = false;
+            end = false;
+
+            s_one = "1";
+            s_two = "2";
+            s_three = "3";
+            s_four = "4";
+            s_five = "5";
+            s_a = "A";
+            s_b = "B";
+            s_c = "C";
+            s_d = "D";
+            s_e = "E";
+
+            score = "vacio";
 
             radius = 60;
+            aTotal = new ArrayList<String>();
+            aTotalComparable = new ArrayList<>(Arrays.asList(s_one, s_a, s_two, s_b, s_three, s_c, s_four, s_d, s_five, s_e));
 
             color_primary = "#C4C4C4";
             color_accent = "#00BCD1";
@@ -121,8 +165,8 @@ public class TMT extends Fragment {
             p_d.x = (int) (x / 2) - 400;
             p_d.y = (int) (y / 2) + 50;
 
-            p_five.x = (int) (x / 2) - 420;
-            p_five.y = (int) (y / 2) - 650;
+            p_five.x = (int) (x / 2) - 400;
+            p_five.y = (int) (y / 2) - 300;
 
             p_e.x = (int) (x / 2) - 250;
             p_e.y = (int) (y / 2) - 650;
@@ -146,66 +190,64 @@ public class TMT extends Fragment {
             }
             canvas.drawPath(path, paint);
 
-            Log.i("B_ONE: ", String.valueOf(b_one));
-
             if (!b_one) {
-                drawCircle(canvas, paint, "1", color_primary, p_one.x, p_one.y);
+                drawCircle(canvas, paint, s_one, color_primary, p_one.x, p_one.y);
             } else {
-                drawCircle(canvas, paint, "1", color_accent, p_one.x, p_one.y);
+                drawCircle(canvas, paint, s_one, color_accent, p_one.x, p_one.y);
             }
 
             if (!b_a) {
-                drawCircle(canvas, paint, "A", color_primary, p_a.x, p_a.y);
+                drawCircle(canvas, paint, s_a, color_primary, p_a.x, p_a.y);
             } else {
-                drawCircle(canvas, paint, "A", color_accent, p_a.x, p_a.y);
+                drawCircle(canvas, paint, s_a, color_accent, p_a.x, p_a.y);
             }
 
             if (!b_two) {
-                drawCircle(canvas, paint, "2", color_primary, p_two.x, p_two.y);
+                drawCircle(canvas, paint, s_two, color_primary, p_two.x, p_two.y);
             } else {
-                drawCircle(canvas, paint, "2", color_accent, p_two.x, p_two.y);
+                drawCircle(canvas, paint, s_two, color_accent, p_two.x, p_two.y);
             }
 
             if (!b_b) {
-                drawCircle(canvas, paint, "B", color_primary, p_b.x, p_b.y);
+                drawCircle(canvas, paint, s_b, color_primary, p_b.x, p_b.y);
             } else {
-                drawCircle(canvas, paint, "B", color_accent, p_b.x, p_b.y);
+                drawCircle(canvas, paint, s_b, color_accent, p_b.x, p_b.y);
             }
 
             if (!b_three) {
-                drawCircle(canvas, paint, "3", color_primary, p_three.x, p_three.y);
+                drawCircle(canvas, paint, s_three, color_primary, p_three.x, p_three.y);
             } else {
-                drawCircle(canvas, paint, "3", color_accent, p_three.x, p_three.y);
+                drawCircle(canvas, paint, s_three, color_accent, p_three.x, p_three.y);
             }
 
             if (!b_c) {
-                drawCircle(canvas, paint, "C", color_primary, p_c.x, p_c.y);
+                drawCircle(canvas, paint, s_c, color_primary, p_c.x, p_c.y);
             } else {
-                drawCircle(canvas, paint, "C", color_accent, p_c.x, p_c.y);
+                drawCircle(canvas, paint, s_c, color_accent, p_c.x, p_c.y);
             }
 
             if (!b_four) {
-                drawCircle(canvas, paint, "4", color_primary, p_four.x, p_four.y);
+                drawCircle(canvas, paint, s_four, color_primary, p_four.x, p_four.y);
             } else {
-                drawCircle(canvas, paint, "4", color_accent, p_four.x, p_four.y);
+                drawCircle(canvas, paint, s_four, color_accent, p_four.x, p_four.y);
             }
 
             if (!b_d) {
-                drawCircle(canvas, paint, "D", color_primary, p_d.x, p_d.y);
+                drawCircle(canvas, paint, s_d, color_primary, p_d.x, p_d.y);
             } else {
-                drawCircle(canvas, paint, "D", color_accent, p_d.x, p_d.y);
+                drawCircle(canvas, paint, s_d, color_accent, p_d.x, p_d.y);
             }
 
             if (!b_five) {
-                drawCircle(canvas, paint, "5", color_primary, p_five.x, p_five.y);
+                drawCircle(canvas, paint, s_five, color_primary, p_five.x, p_five.y);
             } else {
-                drawCircle(canvas, paint, "5", color_accent, p_five.x, p_five.y);
+                drawCircle(canvas, paint, s_five, color_accent, p_five.x, p_five.y);
             }
 
             if (!b_e) {
-                drawCircle(canvas, paint, "E", color_primary, p_e.x, p_e.y);
+                drawCircle(canvas, paint, s_e, color_primary, p_e.x, p_e.y);
             } else {
-                drawCircle(canvas, paint, "E", color_accent, p_e.x, p_e.y);
+                drawCircle(canvas, paint, s_e, color_accent, p_e.x, p_e.y);
             }
 
             paint.setStyle(Paint.Style.FILL);
@@ -217,7 +259,19 @@ public class TMT extends Fragment {
             paint.setTextSize(50);
             canvas.drawText("Inicio", (x / 2) - 230, (y / 2) - 40, paint);
             canvas.drawText("Fin", (x / 2) - 250, (y / 2) - 540, paint);
+
+            if (b_a && b_b && b_c && b_d && b_e && b_one && b_two && b_three && b_four && b_five) {
+                end = true;
+
+                if (aTotal.equals(aTotalComparable)) {
+                    score = "Si";
+                } else {
+                    score = "No";
+                }
+
+            }
         }
+
 
         private void drawCircle(android.graphics.Canvas canvas, Paint paint, String text, String color, int x, int y) {
             paint.setStyle(Paint.Style.FILL);
@@ -249,18 +303,16 @@ public class TMT extends Fragment {
 
             int distUno, distA, distDos, distB, distTres, distC, distCuatro, distD, distCinco, distE;
 
-            distUno = (int) Math.sqrt(Math.pow(((x / 2) - 230) - event.getX(), 2) + Math.pow(((y / 2) - 150) - event.getY(), 2));
-            distA = (int) Math.sqrt(Math.pow(((x / 2) + 200) - event.getX(), 2) + Math.pow(((y / 2) - 600) - event.getY(), 2));
-            distDos = (int) Math.sqrt(Math.pow(((x / 2) + 400) - fingerX, 2) + Math.pow(((y / 2) - 300) - fingerY, 2));
-            distB = (int) Math.sqrt(Math.pow(((x / 2) + 100) - fingerX, 2) + Math.pow(((y / 2) - 300) - fingerY, 2));
-            distTres = (int) Math.sqrt(Math.pow(((x / 2) + 400) - fingerX, 2) + Math.pow(((y / 2) + 100) - fingerY, 2));
-            distC = (int) Math.sqrt(Math.pow(((x / 2) - 250) - fingerX, 2) + Math.pow(((y / 2) + 320) - fingerY, 2));
-            distCuatro = (int) Math.sqrt(Math.pow(((x / 2)) - fingerX, 2) + Math.pow(((y / 2) + 50) - fingerY, 2));
-            distD = (int) Math.sqrt(Math.pow(((x / 2) - 400) - fingerX, 2) + Math.pow(((y / 2) + 50) - fingerY, 2));
-            distCinco = (int) Math.sqrt(Math.pow(((x / 2) - 420) - fingerX, 2) + Math.pow(((y / 2) - 400) - fingerY, 2));
-            distE = (int) Math.sqrt(Math.pow(((x / 2) - 250) - fingerX, 2) + Math.pow(((y / 2) - 650) - fingerY, 2));
-
-            Log.i("POS_X: ", Integer.valueOf(x).toString());
+            distUno = (int) Math.sqrt(Math.pow((p_one.x) - event.getX(), 2) + Math.pow((p_one.y) - event.getY(), 2));
+            distA = (int) Math.sqrt(Math.pow((p_a.x) - event.getX(), 2) + Math.pow((p_a.y) - event.getY(), 2));
+            distDos = (int) Math.sqrt(Math.pow((p_two.x) - fingerX, 2) + Math.pow((p_two.y) - fingerY, 2));
+            distB = (int) Math.sqrt(Math.pow((p_b.x) - fingerX, 2) + Math.pow((p_b.y) - fingerY, 2));
+            distTres = (int) Math.sqrt(Math.pow((p_three.x) - fingerX, 2) + Math.pow((p_three.y) - fingerY, 2));
+            distC = (int) Math.sqrt(Math.pow((p_c.x) - fingerX, 2) + Math.pow((p_c.y) - fingerY, 2));
+            distCuatro = (int) Math.sqrt(Math.pow((p_four.x) - fingerX, 2) + Math.pow((p_four.y) - fingerY, 2));
+            distD = (int) Math.sqrt(Math.pow((p_d.x) - fingerX, 2) + Math.pow((p_d.y) - fingerY, 2));
+            distCinco = (int) Math.sqrt(Math.pow((p_five.x) - fingerX, 2) + Math.pow((p_five.y) - fingerY, 2));
+            distE = (int) Math.sqrt(Math.pow((p_e.x) - fingerX, 2) + Math.pow((p_e.y) - fingerY, 2));
 
             if (event.getAction() != MotionEvent.ACTION_UP) {
                 paint.setAntiAlias(true);
@@ -275,13 +327,15 @@ public class TMT extends Fragment {
                 point.y = (int) event.getY();
                 points.add(point);
                 invalidate();
-                Log.d(TAG, "POINT: " + point);
-                Log.i("ARRAY_SIZE: ", String.valueOf(aTotal.size()));
+
+                Log.i("END", String.valueOf(end));
+                Log.i("SCORE", score);
+
 
                 if (!b_one) {
                     if (distUno < 50) {
                         b_one = true;
-                        aTotal.add(b_one);
+                        aTotal.add(s_one);
                         invalidate();
                     }
                 }
@@ -289,7 +343,7 @@ public class TMT extends Fragment {
                 if (!b_a) {
                     if (distA < 50) {
                         b_a = true;
-                        aTotal.add(b_a);
+                        aTotal.add(s_a);
                         invalidate();
                     }
                 }
@@ -297,7 +351,7 @@ public class TMT extends Fragment {
                 if (!b_two) {
                     if (distDos < 50) {
                         b_two = true;
-                        aTotal.add(b_two);
+                        aTotal.add(s_two);
                         invalidate();
                     }
                 }
@@ -305,7 +359,7 @@ public class TMT extends Fragment {
                 if (!b_b) {
                     if (distB < 50) {
                         b_b = true;
-                        aTotal.add(b_b);
+                        aTotal.add(s_b);
                         invalidate();
                     }
                 }
@@ -313,7 +367,7 @@ public class TMT extends Fragment {
                 if (!b_three) {
                     if (distTres < 50) {
                         b_three = true;
-                        aTotal.add(b_three);
+                        aTotal.add(s_three);
                         invalidate();
                     }
                 }
@@ -321,7 +375,7 @@ public class TMT extends Fragment {
                 if (!b_c) {
                     if (distC < 50) {
                         b_c = true;
-                        aTotal.add(b_c);
+                        aTotal.add(s_c);
                         invalidate();
                     }
                 }
@@ -329,7 +383,7 @@ public class TMT extends Fragment {
                 if (!b_four) {
                     if (distCuatro < 50) {
                         b_four = true;
-                        aTotal.add(b_four);
+                        aTotal.add(s_four);
                         invalidate();
                     }
                 }
@@ -337,7 +391,7 @@ public class TMT extends Fragment {
                 if (!b_d) {
                     if (distD < 50) {
                         b_d = true;
-                        aTotal.add(b_d);
+                        aTotal.add(s_d);
                         invalidate();
                     }
                 }
@@ -345,7 +399,7 @@ public class TMT extends Fragment {
                 if (!b_five) {
                     if (distCinco < 50) {
                         b_five = true;
-                        aTotal.add(b_five);
+                        aTotal.add(s_five);
                         invalidate();
                     }
                 }
@@ -353,10 +407,11 @@ public class TMT extends Fragment {
                 if (!b_e) {
                     if (distE < 50) {
                         b_e = true;
-                        aTotal.add(b_e);
+                        aTotal.add(s_e);
                         invalidate();
                     }
                 }
+
                 return true;
             }
             return super.onTouchEvent(event);
