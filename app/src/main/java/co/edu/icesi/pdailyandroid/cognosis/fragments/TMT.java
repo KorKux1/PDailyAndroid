@@ -29,13 +29,15 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
  */
 public class TMT extends Fragment {
     public android.graphics.Canvas canvas;
+    public  Canvas can;
     private FragmentListener listener;
-    String score;
+    String s;
 
     public TMT() {
         // Required empty public constructor
         this.listener = null;
     }
+
 
 
     @Override
@@ -45,15 +47,33 @@ public class TMT extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_t_m_t, container, false);
 
+        can = new Canvas(getActivity());
+
         RelativeLayout relativeLayout = (RelativeLayout) rootView.findViewById(R.id.rect);
         relativeLayout.addView(new Canvas(getActivity()));
 
 
-        if (listener != null) {
-//            listener.onButtonSelected(aOne);
-            Log.i("LISTENER_BUTTON", String.valueOf(listener));
+        // Actualiza en tiempo real las modificaciones del fragment
+            can.setListener(new Canvas.FragmentListener() {
+                @Override
+                public void onButtonSelected(String score) {
+                    s = score;
+                    Log.i("SCOOOOOOOOOOOORE", s);
 
-        }
+                    if (listener != null) {
+            listener.onButtonSelected(s);
+                        Log.i("LISTENER_BUTTON", String.valueOf(listener));
+
+                    }
+                }
+            });
+
+
+
+
+
+
+
 
         return rootView;
     }
@@ -73,9 +93,11 @@ public class TMT extends Fragment {
 
 
     //__________________________________________________________________________________________________________________________________________
-    private class Canvas extends View {
+    private static class Canvas extends View {
         private Paint paint = new Paint();
         private Path path = new Path();
+
+        private FragmentListener listen;
 
         Point p_one = new Point();
         Point p_two = new Point();
@@ -93,7 +115,7 @@ public class TMT extends Fragment {
         private ArrayList<String> aTotalComparable;
 
         boolean b_one, b_two, b_three, b_four, b_five, b_a, b_b, b_c, b_d, b_e, end;
-        String s_one, s_two, s_three, s_four, s_five, s_a, s_b, s_c, s_d, s_e, score;
+         public String s_one, s_two, s_three, s_four, s_five, s_a, s_b, s_c, s_d, s_e, score;
 
 
         int radius;
@@ -101,6 +123,8 @@ public class TMT extends Fragment {
 
         public Canvas(Context context) {
             super(context);
+            this.listen = null;
+
             b_one = false;
             b_two = false;
             b_three = false;
@@ -269,8 +293,31 @@ public class TMT extends Fragment {
                     score = "No";
                 }
 
+
+                if (listen != null) {
+            listen.onButtonSelected(score);
+                    Log.i("ENVIADOOOO", "yeeeeeeeeeees");
+
+                }
+
             }
         }
+
+
+        public interface FragmentListener {
+            void onButtonSelected(String score);
+        }
+
+        public Canvas.FragmentListener getListener() {
+            return listen;
+        }
+
+        public void setListener(Canvas.FragmentListener listener) {
+            this.listen = listener;
+        }
+
+
+
 
 
         private void drawCircle(android.graphics.Canvas canvas, Paint paint, String text, String color, int x, int y) {
@@ -289,6 +336,15 @@ public class TMT extends Fragment {
             paint.setTextSize(50);
             canvas.drawText(text, x, y + 20, paint);
             invalidate();
+        }
+
+
+        public String getScore() {
+            return score;
+        }
+
+        public void setScore(String score) {
+            this.score = score;
         }
 
         @Override
@@ -416,7 +472,9 @@ public class TMT extends Fragment {
             }
             return super.onTouchEvent(event);
         }
+
     }
+
 }
 
 

@@ -20,6 +20,7 @@ public class MocaActivity extends AppCompatActivity {
 
     TMT tmt;
     private Button next;
+    String score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +54,15 @@ public class MocaActivity extends AppCompatActivity {
     }
 
 
-
-
-
     // Actualiza en tiempo real las modificaciones del fragment
     private void updateListener() {
             tmt.setListener(new TMT.FragmentListener() {
                 @Override
-                public void onButtonSelected(Boolean b) {
-//                    buttonSelect = b;
-//                    if (buttonSelect) {
-//                        next.setEnabled(true);
-//                    }
+                public void onButtonSelected(String b) {
+                    score = b;
+                    if (score == "Si"  || score == "No") {
+                        next.setEnabled(true);
+                    }
                 }
             });
     }
