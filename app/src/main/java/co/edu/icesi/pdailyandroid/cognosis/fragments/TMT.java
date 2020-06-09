@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -21,15 +22,13 @@ import java.util.Arrays;
 
 import co.edu.icesi.pdailyandroid.R;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
 /**
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
 public class TMT extends Fragment {
     public android.graphics.Canvas canvas;
-    public  Canvas can;
+    public Canvas can;
     private FragmentListener listener;
     String s;
 
@@ -39,40 +38,33 @@ public class TMT extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View rootView = inflater.inflate(R.layout.fragment_t_m_t, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tmt, container, false);
 
         can = new Canvas(getActivity());
 
-        RelativeLayout relativeLayout = (RelativeLayout) rootView.findViewById(R.id.rect);
-        relativeLayout.addView(new Canvas(getActivity()));
+        LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.canvas);
+        linearLayout.addView(new Canvas(getActivity()));
 
 
         // Actualiza en tiempo real las modificaciones del fragment
-            can.setListener(new Canvas.FragmentListener() {
-                @Override
-                public void onButtonSelected(String score) {
-                    s = score;
-                    Log.i("SCOOOOOOOOOOOORE", s);
+        can.setListener(new Canvas.FragmentListener() {
+            @Override
+            public void onButtonSelected(String score) {
+                s = score;
+//                Log.i("SCOOOOOOOOOOOORE", s);
 
-                    if (listener != null) {
-            listener.onButtonSelected(s);
-                        Log.i("LISTENER_BUTTON", String.valueOf(listener));
+                if (listener != null) {
+                    listener.onButtonSelected(s);
+//                    Log.i("LISTENER_BUTTON", String.valueOf(listener));
 
-                    }
                 }
-            });
-
-
-
-
-
-
+            }
+        });
 
 
         return rootView;
@@ -115,7 +107,7 @@ public class TMT extends Fragment {
         private ArrayList<String> aTotalComparable;
 
         boolean b_one, b_two, b_three, b_four, b_five, b_a, b_b, b_c, b_d, b_e, end;
-         public String s_one, s_two, s_three, s_four, s_five, s_a, s_b, s_c, s_d, s_e, score;
+        public String s_one, s_two, s_three, s_four, s_five, s_a, s_b, s_c, s_d, s_e, score;
 
 
         int radius;
@@ -150,7 +142,6 @@ public class TMT extends Fragment {
 
             score = "vacio";
 
-            radius = 60;
             aTotal = new ArrayList<String>();
             aTotalComparable = new ArrayList<>(Arrays.asList(s_one, s_a, s_two, s_b, s_three, s_c, s_four, s_d, s_five, s_e));
 
@@ -162,38 +153,46 @@ public class TMT extends Fragment {
         protected void onDraw(android.graphics.Canvas canvas) {
             super.onDraw(canvas);
 
-            int x = getWidth();
-            int y = getHeight();
+            int scaleX = 6;
+            int scaleY = 12;
 
-            p_one.x = (int) (x / 2) - 230;
-            p_one.y = (int) (y / 2) - 150;
+            int width = getWidth();
+            int height = getHeight();
 
-            p_a.x = (int) (x / 2) + 200;
-            p_a.y = (int) (y / 2) - 600;
+            int x = width / scaleX;
+            int y = height / scaleY;
 
-            p_two.x = (int) (x / 2) + 400;
-            p_two.y = (int) (y / 2) - 300;
+            radius = (int) (y * 0.5);
 
-            p_b.x = (int) (x / 2) + 100;
-            p_b.y = (int) (y / 2) - 300;
+            p_one.x = (int) (x * 2);
+            p_one.y = (int) (y * 5);
 
-            p_three.x = (int) (x / 2) + 400;
-            p_three.y = (int) (y / 2) + 100;
+            p_a.x = (int) (x * 4);
+            p_a.y = (int) (y);
 
-            p_c.x = (int) (x / 2) - 250;
-            p_c.y = (int) (y / 2) + 320;
+            p_two.x = (int) (x * 5);
+            p_two.y = (int) (y * 3);
 
-            p_four.x = (int) (x / 2);
-            p_four.y = (int) (y / 2) + 50;
+            p_b.x = (int) (x * 3.5);
+            p_b.y = (int) (y * 3);
 
-            p_d.x = (int) (x / 2) - 400;
-            p_d.y = (int) (y / 2) + 50;
+            p_three.x = (int) (x * 5);
+            p_three.y = (int) (y * 8);
 
-            p_five.x = (int) (x / 2) - 400;
-            p_five.y = (int) (y / 2) - 300;
+            p_c.x = (int) (x * 2);
+            p_c.y = (int) (y * 9);
 
-            p_e.x = (int) (x / 2) - 250;
-            p_e.y = (int) (y / 2) - 650;
+            p_four.x = (int) (x * 3);
+            p_four.y = (int) (y * 7);
+
+            p_d.x = (int) (x);
+            p_d.y = (int) (y * 7);
+
+            p_five.x = (int) (x * 0.75);
+            p_five.y = (int) (y * 3);
+
+            p_e.x = (int) (x * 2);
+            p_e.y = (int) (y);
 
             boolean isDrawing = true;
 
@@ -281,8 +280,8 @@ public class TMT extends Fragment {
             paint.setTextAlign(Paint.Align.CENTER);
             paint.setStrokeWidth(0);
             paint.setTextSize(50);
-            canvas.drawText("Inicio", (x / 2) - 230, (y / 2) - 40, paint);
-            canvas.drawText("Fin", (x / 2) - 250, (y / 2) - 540, paint);
+            canvas.drawText("Inicio", p_one.x, (int) (p_one.y + y), paint);
+            canvas.drawText("Fin", p_e.x, (int) (p_e.y + y), paint);
 
             if (b_a && b_b && b_c && b_d && b_e && b_one && b_two && b_three && b_four && b_five) {
                 end = true;
@@ -295,7 +294,7 @@ public class TMT extends Fragment {
 
 
                 if (listen != null) {
-            listen.onButtonSelected(score);
+                    listen.onButtonSelected(score);
                     Log.i("ENVIADOOOO", "yeeeeeeeeeees");
 
                 }
@@ -317,9 +316,6 @@ public class TMT extends Fragment {
         }
 
 
-
-
-
         private void drawCircle(android.graphics.Canvas canvas, Paint paint, String text, String color, int x, int y) {
             paint.setStyle(Paint.Style.FILL);
             paint.setStyle(Paint.Style.STROKE);
@@ -334,7 +330,7 @@ public class TMT extends Fragment {
             paint.setTextAlign(Paint.Align.CENTER);
             paint.setStrokeWidth(0);
             paint.setTextSize(50);
-            canvas.drawText(text, x, y + 20, paint);
+            canvas.drawText(text, x, (int) (y + (radius*0.4)), paint);
             invalidate();
         }
 
@@ -389,7 +385,7 @@ public class TMT extends Fragment {
 
 
                 if (!b_one) {
-                    if (distUno < 50) {
+                    if (distUno < radius) {
                         b_one = true;
                         aTotal.add(s_one);
                         invalidate();
@@ -397,7 +393,7 @@ public class TMT extends Fragment {
                 }
 
                 if (!b_a) {
-                    if (distA < 50) {
+                    if (distA < radius) {
                         b_a = true;
                         aTotal.add(s_a);
                         invalidate();
@@ -405,7 +401,7 @@ public class TMT extends Fragment {
                 }
 
                 if (!b_two) {
-                    if (distDos < 50) {
+                    if (distDos < radius) {
                         b_two = true;
                         aTotal.add(s_two);
                         invalidate();
@@ -413,7 +409,7 @@ public class TMT extends Fragment {
                 }
 
                 if (!b_b) {
-                    if (distB < 50) {
+                    if (distB < radius) {
                         b_b = true;
                         aTotal.add(s_b);
                         invalidate();
@@ -421,7 +417,7 @@ public class TMT extends Fragment {
                 }
 
                 if (!b_three) {
-                    if (distTres < 50) {
+                    if (distTres < radius) {
                         b_three = true;
                         aTotal.add(s_three);
                         invalidate();
@@ -429,7 +425,7 @@ public class TMT extends Fragment {
                 }
 
                 if (!b_c) {
-                    if (distC < 50) {
+                    if (distC < radius) {
                         b_c = true;
                         aTotal.add(s_c);
                         invalidate();
@@ -437,7 +433,7 @@ public class TMT extends Fragment {
                 }
 
                 if (!b_four) {
-                    if (distCuatro < 50) {
+                    if (distCuatro < radius) {
                         b_four = true;
                         aTotal.add(s_four);
                         invalidate();
@@ -445,7 +441,7 @@ public class TMT extends Fragment {
                 }
 
                 if (!b_d) {
-                    if (distD < 50) {
+                    if (distD < radius) {
                         b_d = true;
                         aTotal.add(s_d);
                         invalidate();
@@ -453,7 +449,7 @@ public class TMT extends Fragment {
                 }
 
                 if (!b_five) {
-                    if (distCinco < 50) {
+                    if (distCinco < radius) {
                         b_five = true;
                         aTotal.add(s_five);
                         invalidate();
@@ -461,7 +457,7 @@ public class TMT extends Fragment {
                 }
 
                 if (!b_e) {
-                    if (distE < 50) {
+                    if (distE < radius) {
                         b_e = true;
                         aTotal.add(s_e);
                         invalidate();

@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,7 +21,7 @@ public class MocaActivity extends AppCompatActivity {
 
     TMT tmt;
     private Button next;
-    String score;
+    String score = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class MocaActivity extends AppCompatActivity {
         updateFragmentTMT();
         next.setEnabled(false);
         updateListener();
+
+        Log.i("MoCA_SCORE", score);
 
 
         next.setOnClickListener(new View.OnClickListener() {
@@ -56,14 +59,17 @@ public class MocaActivity extends AppCompatActivity {
 
     // Actualiza en tiempo real las modificaciones del fragment
     private void updateListener() {
+        if(tmt != null){
             tmt.setListener(new TMT.FragmentListener() {
                 @Override
                 public void onButtonSelected(String b) {
                     score = b;
-                    if (score == "Si"  || score == "No") {
+                    if (score.equals("Si") || score.equals("No")) {
                         next.setEnabled(true);
+                        Log.i("MoCA_SCORE", score);
                     }
                 }
             });
+        }
     }
 }
