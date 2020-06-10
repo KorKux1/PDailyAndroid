@@ -15,7 +15,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,14 +26,11 @@ import co.edu.icesi.pdailyandroid.R;
  * create an instance of this fragment.
  */
 public class TMT extends Fragment {
-    public android.graphics.Canvas canvas;
-    public Canvas can;
-    private FragmentListener listener;
     String s;
+    private tmtDraw tmtDraw;
 
     public TMT() {
         // Required empty public constructor
-        this.listener = null;
     }
 
 
@@ -45,51 +41,32 @@ public class TMT extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_tmt, container, false);
 
-        can = new Canvas(getActivity());
-
         LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.canvas);
-        linearLayout.addView(new Canvas(getActivity()));
+        linearLayout.addView(new tmtDraw(getActivity()));
 
-
-        // Actualiza en tiempo real las modificaciones del fragment
-        can.setListener(new Canvas.FragmentListener() {
-            @Override
-            public void onButtonSelected(String score) {
-                s = score;
-//                Log.i("SCOOOOOOOOOOOORE", s);
-
-                if (listener != null) {
-                    listener.onButtonSelected(s);
-//                    Log.i("LISTENER_BUTTON", String.valueOf(listener));
-
-                }
-            }
-        });
-
-
+        updateListener();
+        // Actualiza en tiempo real las modificaciones el fragment
         return rootView;
     }
 
-
-    public interface FragmentListener {
-        void onButtonSelected(String score);
+    private void updateListener(){
+        if (tmtDraw != null){
+            tmtDraw.setListener(new tmtDraw.TMTDrawListener() {
+                @Override
+                public void onCompleteTest(String score) {
+                    s = score;
+                    Log.i("LISTENER_SCORE", s);
+                }
+            });
+        }
     }
-
-    public FragmentListener getListener() {
-        return listener;
-    }
-
-    public void setListener(FragmentListener listener) {
-        this.listener = listener;
-    }
-
 
     //__________________________________________________________________________________________________________________________________________
-    private static class Canvas extends View {
+    public static class tmtDraw extends View {
         private Paint paint = new Paint();
         private Path path = new Path();
 
-        private FragmentListener listen;
+        private TMTDrawListener listener;
 
         Point p_one = new Point();
         Point p_two = new Point();
@@ -113,9 +90,10 @@ public class TMT extends Fragment {
         int radius;
         String color_primary, color_accent;
 
-        public Canvas(Context context) {
+        public tmtDraw(Context context) {
             super(context);
-            this.listen = null;
+
+            this.listener = null;
 
             b_one = false;
             b_two = false;
@@ -292,29 +270,24 @@ public class TMT extends Fragment {
                     score = "No";
                 }
 
+                Log.i("CONDITION_CHECK", String.valueOf(end));
 
-                if (listen != null) {
-                    listen.onButtonSelected(score);
+                if (listener != null) {
+                    listener.onCompleteTest(score);
+
+                    Log.i("LISTENER", String.valueOf(listener));
                     Log.i("ENVIADOOOO", "yeeeeeeeeeees");
-
                 }
-
             }
         }
 
-
-        public interface FragmentListener {
-            void onButtonSelected(String score);
+        public interface TMTDrawListener {
+            void onCompleteTest(String score);
         }
 
-        public Canvas.FragmentListener getListener() {
-            return listen;
+        public void setListener (TMTDrawListener listener) {
+            this.listener = listener;
         }
-
-        public void setListener(Canvas.FragmentListener listener) {
-            this.listen = listener;
-        }
-
 
         private void drawCircle(android.graphics.Canvas canvas, Paint paint, String text, String color, int x, int y) {
             paint.setStyle(Paint.Style.FILL);
@@ -330,17 +303,8 @@ public class TMT extends Fragment {
             paint.setTextAlign(Paint.Align.CENTER);
             paint.setStrokeWidth(0);
             paint.setTextSize(50);
-            canvas.drawText(text, x, (int) (y + (radius*0.4)), paint);
+            canvas.drawText(text, x, (int) (y + (radius * 0.4)), paint);
             invalidate();
-        }
-
-
-        public String getScore() {
-            return score;
-        }
-
-        public void setScore(String score) {
-            this.score = score;
         }
 
         @Override
@@ -380,8 +344,8 @@ public class TMT extends Fragment {
                 points.add(point);
                 invalidate();
 
-                Log.i("END", String.valueOf(end));
-                Log.i("SCORE", score);
+//                Log.i("END", String.valueOf(end));
+//                Log.i("SCORE", score);
 
 
                 if (!b_one) {

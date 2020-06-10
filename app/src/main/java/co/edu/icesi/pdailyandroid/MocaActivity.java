@@ -32,7 +32,7 @@ public class MocaActivity extends AppCompatActivity {
 
         updateFragmentTMT();
         next.setEnabled(false);
-        updateListener();
+//        updateListener();
 
         Log.i("MoCA_SCORE", score);
 
@@ -56,20 +56,19 @@ public class MocaActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-
     // Actualiza en tiempo real las modificaciones del fragment
-    private void updateListener() {
-        if(tmt != null){
-            tmt.setListener(new TMT.FragmentListener() {
-                @Override
-                public void onButtonSelected(String b) {
-                    score = b;
-                    if (score.equals("Si") || score.equals("No")) {
-                        next.setEnabled(true);
-                        Log.i("MoCA_SCORE", score);
-                    }
-                }
-            });
-        }
-    }
+//    private void updateListener() {
+//        if(tmt != null){
+//            tmt.setListener(new TMT.FragmentListener() {
+//                @Override
+//                public void onCompleteScore(String score) {
+//                    score = score;
+//                    if (score.equals("Si") || score.equals("No")) {
+//                        next.setEnabled(true);
+//                        Log.i("MoCA_SCORE", score);
+//                    }
+//                }
+//            });
+//        }
+//    }
 }
