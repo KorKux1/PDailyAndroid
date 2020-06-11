@@ -30,7 +30,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         chao = findViewById(R.id.chao);
 
-        Log.i("EXTRA_TYPE", type);
+//        Log.i("EXTRA_TYPE", type);
 
         scoreNumber = findViewById(R.id.ScoreNumber);
         scoreNumber.setText(Integer.valueOf(score).toString());

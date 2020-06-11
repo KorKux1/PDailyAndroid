@@ -3,7 +3,6 @@
     package="co.edu.icesi.pdailyandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-sdk android:minSdkVersion="4"/>
 
     <application
         android:name=".services.App"

@@ -235,7 +235,6 @@ public class TypeA extends Fragment {
         this.listener = listener;
     }
 
-
     public interface FragmentListener {
          void onButtonSelected(Boolean b);
 
