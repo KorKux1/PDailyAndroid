@@ -6,90 +6,113 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
-import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
+import java.util.Random;
 
 import co.edu.icesi.pdailyandroid.R;
 
 public class Words extends Fragment {
     private final Handler handler = new Handler();
-    // Required empty public constructor
-    private TextToSpeech tts;
-    private Locale locSpanish;
 
+    private Random random = new Random();
+    // Required empty public constructor
+//    private TextToSpeech tts;
+//    private Locale locSpanish;
+    private ArrayList<ArrayList<String>> words;
     private ArrayList<String> words_one;
     private ArrayList<String> words_two;
     private ArrayList<String> words_three;
+    private ArrayList<String> words_selected;
 
-    private int index;
-    private int time;
+    private int time_cooldown;
+    private int time_execution;
 
-    private boolean isRunning;
+    private int randomSelector;
+
+    private String word;
+
+    private boolean isRunningCooldown;
 
     public Words() {
-
         words_one = new ArrayList<>(Arrays.asList("Rostro", "Seda", "Iglesia", "Clavel", "Rojo"));
         words_two = new ArrayList<>(Arrays.asList("Camión", "Plátano", "Violín", "Escritorio", "Verde"));
         words_three = new ArrayList<>(Arrays.asList("Tren", "Huevo", "Sombrero", "Silla", "Azul"));
+        words = new ArrayList<>(Arrays.asList(words_one, words_two, words_three));
 
-        index = 0;
-        time = 5000;
+        randomSelector = random.nextInt(words.size() - 0) + 0;
 
-        isRunning = false;
+        words_selected = words.get(randomSelector);
+        Log.i("WORDS_SELECTED", words_selected.toString());
+
+        time_cooldown = 5000;
+        time_execution = 3000;
+
+        isRunningCooldown = false;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        tts = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-                    locSpanish = new Locale("es", "CO");
-                    tts.setLanguage(Locale.ENGLISH);
-                    isRunning = true;
-                }
-            }
-        });
-
-        tts.speak("HOLA MUNDO", TextToSpeech.QUEUE_FLUSH,null);
-//        if (isRunning) {
-//            for (index = 0; index < words_one.size(); index++) {
-//                tts.speak(words_one.get(index), TextToSpeech.QUEUE_FLUSH, null);
-//                Log.i("TEXT", words_one.get(index));
-//                handlerTimer(time, index);
-//
-//                if (index == words_one.size()) {
-//                    isRunning = false;
-//                }
-//            }
-//        }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_words, container, false);
+
+        TextView tv_display_words;
+        tv_display_words = view.findViewById(R.id.tv_display_words);
+
+        tv_display_words.setText(word);
+
+        handlerTimer(time_execution, time_cooldown, tv_display_words);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_memory_recognition, container, false);
+        return view;
     }
 
-    private void handlerTimer(int time, int i) {
+    private void handlerTimer(int time_execution, int time_cooldown, TextView tv_display_words) {
+        for (int j = 0; j <= words_selected.size() - 1; j++) {
+            int index = j;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.i("INDEX", String.valueOf(index));
+                    word = words_selected.get(index);
+                    tv_display_words.setText(word);
+                    Log.i("WORD", word);
+                }
+            }, time_execution * j);
+        }
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                index++;
-                Log.i("INDEX", String.valueOf(index));
+                tv_display_words.setText("Vamos otra vez");
             }
-        }, time);
+        }, time_execution * words_selected.size());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int j = 0; j <= words_selected.size() - 1; j++) {
+                    int index = j;
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.i("INDEX", String.valueOf(index));
+                            word = words_selected.get(index);
+                            tv_display_words.setText(word);
+                            Log.i("WORD", word);
+                        }
+                    }, time_execution * j);
+                }
+            }
+        }, (time_execution * words_selected.size() + time_cooldown));
     }
 }

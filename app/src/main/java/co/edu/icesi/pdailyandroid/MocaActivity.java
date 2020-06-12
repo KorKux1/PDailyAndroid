@@ -31,8 +31,8 @@ public class MocaActivity extends AppCompatActivity {
         next = findViewById(R.id.ButtonNext);
         next.setEnabled(false);
 
-        updateFragmentTMT();
-//        updateFragmentMR();
+//        updateFragmentTMT();
+        updateFragmentMR();
 
         updateListener();
 
