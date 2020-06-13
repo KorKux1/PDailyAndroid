@@ -4,11 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import java.util.Arrays;
 
 public class SelectionActivity extends AppCompatActivity {
     private Button bsOne, bsTwo, bsThree, bsFour, bsFive, bsSix;
@@ -28,7 +25,7 @@ public class SelectionActivity extends AppCompatActivity {
         bsOne.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), FormActivity.class);
+                Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
                 intent.putExtra("EXTRA_FILENAME", "PD-NMS");
 
                 startActivity(intent);
@@ -38,7 +35,7 @@ public class SelectionActivity extends AppCompatActivity {
         bsTwo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), FormActivity.class);
+                Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
                 intent.putExtra("EXTRA_FILENAME", "PD-CFRS");
 
                 startActivity(intent);
@@ -48,7 +45,7 @@ public class SelectionActivity extends AppCompatActivity {
         bsThree.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), FormActivity.class);
+                Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
                 intent.putExtra("EXTRA_FILENAME", "Congelamiento de la marcha");
 
                 startActivity(intent);
@@ -58,7 +55,7 @@ public class SelectionActivity extends AppCompatActivity {
         bsFour.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), FormActivity.class);
+                Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
                 intent.putExtra("EXTRA_FILENAME", "PHQ-9");
 
                 startActivity(intent);
@@ -68,8 +65,8 @@ public class SelectionActivity extends AppCompatActivity {
         bsSix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), MocaActivity.class);
-                
+                Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
+                intent.putExtra("EXTRA_FILENAME", "TMT");
 
                 startActivity(intent);
             }

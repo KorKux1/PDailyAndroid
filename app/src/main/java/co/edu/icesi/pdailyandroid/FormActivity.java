@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import co.edu.icesi.pdailyandroid.cognosis.builder.Form;
+import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.TypeA;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.TypeB;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.TypeC;
@@ -28,13 +29,15 @@ import co.edu.icesi.pdailyandroid.util.JsonReaderUtils;
 
 public class FormActivity extends AppCompatActivity {
 
+    DataScore dataScore = DataScore.getInstance();
+
     private int aSelect;
     private int[] aTotal;
     private int scoreFinal;
     int score;
 
     private String formSelected;
-    private String type;
+    private String type, typeForm;
 
     private TypeA typeA;
     private TypeB typeB;
@@ -342,9 +345,35 @@ public class FormActivity extends AppCompatActivity {
                 scoreFinal = Arrays.stream(aTotal).sum();
             }
 
+            switch (formSelected) {
+                case "PD-NMS":
+                    dataScore.setForm_answers_pd_nms(aTotal);
+                    dataScore.setForm_score_pd_nms(scoreFinal);
+                    typeForm = "PD-NMS";
+                    break;
+
+                case "PD-CFRS":
+                    dataScore.setForm_answers_pd_cfrs(aTotal);
+                    dataScore.setForm_score_pd_cfrs(scoreFinal);
+                    typeForm = "PD-CFRS";
+                   break;
+
+                case "Congelamiento de la marcha":
+                    dataScore.setForm_answers_walk(aTotal);
+                    dataScore.setForm_score_walk(scoreFinal);
+                    typeForm = "Congelamiento de la marcha";
+                    break;
+
+                case "PHQ-9":
+                    dataScore.setForm_answers_phq9(aTotal);
+                    dataScore.setForm_score_phq9(scoreFinal);
+                    typeForm = "PHQ-9";
+                     break;
+            }
+
             Intent intent = new Intent(getBaseContext(), ScoreActivity.class);
             intent.putExtra("EXTRA_SCORE", scoreFinal);
-            intent.putExtra("EXTRA_TYPE", type);
+            intent.putExtra("EXTRA_TYPE", typeForm);
             startActivity(intent);
 
 

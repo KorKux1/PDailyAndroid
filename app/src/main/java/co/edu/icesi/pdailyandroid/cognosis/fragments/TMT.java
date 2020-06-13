@@ -1,24 +1,13 @@
 package co.edu.icesi.pdailyandroid.cognosis.fragments;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Point;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import androidx.fragment.app.Fragment;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.cognosis.canvas.TmtDraw;

@@ -11,9 +11,12 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 
+import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
+
 public class ScoreActivity extends AppCompatActivity {
 
-    private int score;
+    DataScore dataScore = DataScore.getInstance();
+
     private String type;
 
     private Button chao;
@@ -25,7 +28,6 @@ public class ScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
-        score = getIntent().getIntExtra("EXTRA_SCORE", score);
         type = getIntent().getStringExtra("EXTRA_TYPE");
 
         chao = findViewById(R.id.chao);
@@ -33,7 +35,29 @@ public class ScoreActivity extends AppCompatActivity {
 //        Log.i("EXTRA_TYPE", type);
 
         scoreNumber = findViewById(R.id.ScoreNumber);
-        scoreNumber.setText(Integer.valueOf(score).toString());
+
+        switch (type) {
+            case "PD-NMS":
+                scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_pd_nms()).toString());
+                break;
+
+            case "PD-CFRS":
+                scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_pd_cfrs()).toString());
+                break;
+
+            case "Congelamiento de la marcha":
+                scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_walk()).toString());
+                break;
+
+            case "PHQ-9":
+                scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_phq9()).toString());
+                break;
+
+            case "MoCA":
+                break;
+        }
+
+
 
         chao.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -44,11 +68,4 @@ public class ScoreActivity extends AppCompatActivity {
         });
     }
 
-    private void scoreEvaluation(){
-        switch (type){
-            case "A":
-
-
-        }
-    }
 }
