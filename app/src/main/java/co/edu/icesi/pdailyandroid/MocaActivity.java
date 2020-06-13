@@ -31,8 +31,8 @@ public class MocaActivity extends AppCompatActivity {
         next = findViewById(R.id.ButtonNext);
         next.setEnabled(false);
 
-        updateFragmentTMT();
-
+//        updateFragmentTMT();
+        updateFragmentMR();
 
         updateListener();
 
@@ -40,10 +40,9 @@ public class MocaActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                updateFragmentMR();
-//                Intent intent = new Intent(getBaseContext(), ScoreActivity.class);
-//                intent.putExtra("EXTRA_MOCA", "TMT");
-//                startActivity(intent);
+                Intent intent = new Intent(getBaseContext(), ScoreActivity.class);
+                intent.putExtra("EXTRA_MOCA", "TMT");
+                startActivity(intent);
             }
         });
     }
