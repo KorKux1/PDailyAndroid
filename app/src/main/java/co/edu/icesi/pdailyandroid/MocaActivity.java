@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
+import co.edu.icesi.pdailyandroid.cognosis.fragments.Subtract;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsA;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.TMT;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsB;
@@ -24,6 +25,8 @@ public class MocaActivity extends AppCompatActivity {
 
     WordsB words_b;
     WordsA words_a;
+
+    Subtract subtract;
 
     private Button next;
 
@@ -48,7 +51,8 @@ public class MocaActivity extends AppCompatActivity {
                 updateFragmentWordsB();
                 break;
         }
-        updateFragmentWordsA();
+
+        updateFragmentSubtract();
 
         updateListener();
 
@@ -106,6 +110,15 @@ public class MocaActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragmentContainer, words_a);
+        transaction.commit();
+    }
+
+    protected void updateFragmentSubtract() {
+        subtract = new Subtract();
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragmentContainer, subtract);
         transaction.commit();
     }
 

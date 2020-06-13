@@ -45,7 +45,7 @@ public class ExplainActivity extends AppCompatActivity {
                 break;
 
             case "WordsA":
-                explainType.setText("Intente memorizar la siguiente secuencia de palabras");
+                explainType.setText("Lea en voz alta la siguiente lista de palbras e intente memorizarlas");
                 break;
 
             case "WordsB":
