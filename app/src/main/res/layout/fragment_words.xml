@@ -8,44 +8,32 @@
     android:layout_gravity="center"
     tools:context=".cognosis.fragments.TMT">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_display_words"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:fontFamily="@font/pragmaticaw05_bold"
+        android:text="Hola"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="120sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49" />
 
-        <TextView
-            android:id="@+id/tv_placeholder_words"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/pragmaticaw05_regular"
-            android:text="Guarda estas palabras en tu cabeza"
-            android:textColor="#B3B3B3"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_display_words"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_display_words"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/pragmaticaw05_bold"
-            android:text="Hola"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="120sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="192dp"
+        android:layout_marginBottom="69dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_display_words"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
