@@ -13,13 +13,16 @@ import android.view.View;
 import android.widget.Button;
 
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
-import co.edu.icesi.pdailyandroid.cognosis.fragments.Words;
+import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsA;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.TMT;
+import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsB;
 
 public class MocaActivity extends AppCompatActivity {
     private DataScore dataScore = DataScore.getInstance();
     TMT tmt;
-    Words mr;
+
+    WordsB words_b;
+    WordsA words_a;
 
     private Button next;
 
@@ -32,7 +35,8 @@ public class MocaActivity extends AppCompatActivity {
         next.setEnabled(false);
 
 //        updateFragmentTMT();
-        updateFragmentMR();
+//        updateFragmentWordsA();
+        updateFragmentWordsB();
 
         updateListener();
 
@@ -70,12 +74,21 @@ public class MocaActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    protected void updateFragmentMR() {
-        mr = new Words();
+    protected void updateFragmentWordsA() {
+        words_a = new WordsA();
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainer, mr);
+        transaction.replace(R.id.fragmentContainer, words_a);
+        transaction.commit();
+    }
+
+    protected void updateFragmentWordsB(){
+        words_b = new WordsB();
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragmentContainer, words_b);
         transaction.commit();
     }
 }

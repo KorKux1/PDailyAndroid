@@ -17,14 +17,17 @@ import java.util.Arrays;
 import java.util.Random;
 
 import co.edu.icesi.pdailyandroid.R;
+import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 
-public class Words extends Fragment {
+public class WordsA extends Fragment {
     private final Handler handler = new Handler();
+    private DataScore dataScore = DataScore.getInstance();
 
     private Random random = new Random();
-    // Required empty public constructor
+
 //    private TextToSpeech tts;
 //    private Locale locSpanish;
+
     private ArrayList<ArrayList<String>> words;
     private ArrayList<String> words_one;
     private ArrayList<String> words_two;
@@ -40,16 +43,17 @@ public class Words extends Fragment {
 
     private boolean isRunningCooldown;
 
-    public Words() {
+    public WordsA() {
         words_one = new ArrayList<>(Arrays.asList("Rostro", "Seda", "Iglesia", "Clavel", "Rojo"));
-        words_two = new ArrayList<>(Arrays.asList("Camión", "Plátano", "Violín", "Escritorio", "Verde"));
-        words_three = new ArrayList<>(Arrays.asList("Tren", "Huevo", "Sombrero", "Silla", "Azul"));
+        words_two = new ArrayList<>(Arrays.asList("Camión", "Plátano", "Violín", "Cama", "Verde"));
+        words_three = new ArrayList<>(Arrays.asList("Tren", "Huevo", "Gorro", "Silla", "Azul"));
         words = new ArrayList<>(Arrays.asList(words_one, words_two, words_three));
 
         randomSelector = random.nextInt(words.size() - 0) + 0;
 
         words_selected = words.get(randomSelector);
         Log.i("WORDS_SELECTED", words_selected.toString());
+        dataScore.setMoca_selection_words(words_selected);
 
         time_cooldown = 5000;
         time_execution = 3000;
