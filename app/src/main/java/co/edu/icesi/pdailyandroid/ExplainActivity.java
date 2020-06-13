@@ -92,13 +92,13 @@ public class ExplainActivity extends AppCompatActivity {
 
                     case "WordsA":
                         intent= new Intent(getBaseContext(), MocaActivity.class);
-                        intent.putExtra("EXTRA_FILENAME", "wordsA");
+                        intent.putExtra("EXTRA_FILENAME", "WordsA");
                         startActivity(intent);
                         break;
 
                     case "WordsB":
                         intent= new Intent(getBaseContext(), MocaActivity.class);
-                        intent.putExtra("EXTRA_FILENAME", "wordsB");
+                        intent.putExtra("EXTRA_FILENAME", "WordsB");
                         startActivity(intent);
                         break;
                 }

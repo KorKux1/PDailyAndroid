@@ -65,10 +65,12 @@ public class MocaActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case "WordsA":
-                        updateFragmentWordsA();
+                        intent = new Intent(getBaseContext(), ExplainActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "WordsB");
+                        startActivity(intent);
                         break;
                     case "WordsB":
-                        updateFragmentWordsB();
+
                         break;
                 }
             }

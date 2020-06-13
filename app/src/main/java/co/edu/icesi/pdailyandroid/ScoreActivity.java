@@ -58,7 +58,6 @@ public class ScoreActivity extends AppCompatActivity {
         }
 
 
-
         chao.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
