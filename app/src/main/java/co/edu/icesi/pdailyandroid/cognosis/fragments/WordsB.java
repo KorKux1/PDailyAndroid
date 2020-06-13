@@ -10,11 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -123,9 +121,9 @@ public class WordsB extends Fragment {
                 b_two = false;
                 b_three = false;
 
-                uiUpdateClickedSelect(btn_answer_one);
-                uiUpdateClicked(btn_answer_two);
-                uiUpdateClicked(btn_answer_three);
+                uiUpdateClicked(btn_answer_one);
+                uiUpdateClickedNonSelected(btn_answer_two);
+                uiUpdateClickedNonSelected(btn_answer_three);
 
                 if (listener != null) {
                     listener.onButtonSelected(b_one);
@@ -140,9 +138,9 @@ public class WordsB extends Fragment {
                 b_two = true;
                 b_three = false;
 
-                uiUpdateClickedSelect(btn_answer_two);
-                uiUpdateClicked(btn_answer_one);
-                uiUpdateClicked(btn_answer_three);
+                uiUpdateClicked(btn_answer_two);
+                uiUpdateClickedNonSelected(btn_answer_one);
+                uiUpdateClickedNonSelected(btn_answer_three);
 
                 if (listener != null) {
                     listener.onButtonSelected(b_two);
@@ -157,9 +155,9 @@ public class WordsB extends Fragment {
                 b_two = false;
                 b_three = true;
 
-                uiUpdateClickedSelect(btn_answer_three);
-                uiUpdateClicked(btn_answer_one);
-                uiUpdateClicked(btn_answer_two);
+                uiUpdateClicked(btn_answer_three);
+                uiUpdateClickedNonSelected(btn_answer_two);
+                uiUpdateClickedNonSelected(btn_answer_two);
 
                 if (listener != null) {
                     listener.onButtonSelected(b_three);
@@ -175,7 +173,7 @@ public class WordsB extends Fragment {
         b.setBackgroundColor(Color.rgb(0, 188, 209));
     }
 
-    private void uiUpdateClickedSelect(Button b) {
+    private void uiUpdateClickedNonSelected(Button b) {
         b.setTextColor(Color.rgb(0, 0, 0));
         b.setBackgroundColor(Color.rgb(250, 250, 250));
     }
