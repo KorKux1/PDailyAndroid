@@ -12,18 +12,24 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
+import co.edu.icesi.pdailyandroid.cognosis.fragments.TypeD;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsA;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.TMT;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsB;
 
 public class MocaActivity extends AppCompatActivity {
     private DataScore dataScore = DataScore.getInstance();
-    TMT tmt;
-    String type;
+    private TMT tmt;
+    private String type;
 
-    WordsB words_b;
-    WordsA words_a;
+    private WordsA words_a;
+    private WordsB words_b;
+
+    private int index;
 
     private Button next;
 
@@ -34,12 +40,14 @@ public class MocaActivity extends AppCompatActivity {
 
         type = getIntent().getStringExtra("EXTRA_FILENAME");
 
+        index = 0;
+
         next = findViewById(R.id.ButtonNext);
         next.setEnabled(false);
 
         switch (type) {
             case "TMT":
-//                updateFragmentTMT();
+                updateFragmentTMT();
                 break;
             case "WordsA":
                 updateFragmentWordsA();
@@ -89,6 +97,17 @@ public class MocaActivity extends AppCompatActivity {
                 }
             });
         }
+
+        if (words_a != null) {
+            words_a.setListener(new WordsA.FragmentListener() {
+                @Override
+                public void onWordsFinished(Boolean b) {
+                    if (b) {
+                        next.setEnabled(true);
+                    }
+                }
+            });
+        }
     }
 
     protected void updateFragmentTMT() {
@@ -111,6 +130,26 @@ public class MocaActivity extends AppCompatActivity {
 
     protected void updateFragmentWordsB() {
         words_b = new WordsB();
+
+        switch (dataScore.getMoca_selector_words()) {
+            case 0:
+                words_b.setAnswer_one_text(words_b.getWords_noise_one().get(index).get(0));
+                words_b.setAnswer_two_text(words_b.getWords_noise_one().get(index).get(1));
+                words_b.setAnswer_three_text(words_b.getWords_noise_one().get(index).get(2));
+                break;
+
+            case 1:
+                words_b.setAnswer_one_text(words_b.getWords_noise_two().get(index).get(0));
+                words_b.setAnswer_two_text(words_b.getWords_noise_two().get(index).get(1));
+                words_b.setAnswer_three_text(words_b.getWords_noise_two().get(index).get(2));
+                break;
+
+            case 2:
+                words_b.setAnswer_one_text(words_b.getWords_noise_three().get(index).get(0));
+                words_b.setAnswer_two_text(words_b.getWords_noise_three().get(index).get(1));
+                words_b.setAnswer_three_text(words_b.getWords_noise_three().get(index).get(2));
+                break;
+        }
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

@@ -23,6 +23,8 @@ public class WordsA extends Fragment {
     private final Handler handler = new Handler();
     private DataScore dataScore = DataScore.getInstance();
 
+    FragmentListener listener;
+
     private Random random = new Random();
 
 //    private TextToSpeech tts;
@@ -41,15 +43,17 @@ public class WordsA extends Fragment {
 
     private String word;
 
-    private boolean isRunningCooldown;
+    private boolean isWordsFinished;
 
     public WordsA() {
         words_one = new ArrayList<>(Arrays.asList("Rostro", "Seda", "Iglesia", "Clavel", "Rojo"));
         words_two = new ArrayList<>(Arrays.asList("Camión", "Plátano", "Violín", "Cama", "Verde"));
         words_three = new ArrayList<>(Arrays.asList("Tren", "Huevo", "Gorro", "Silla", "Azul"));
+
         words = new ArrayList<>(Arrays.asList(words_one, words_two, words_three));
 
         randomSelector = random.nextInt(words.size() - 0) + 0;
+        dataScore.setMoca_selector_words(randomSelector);
 
         words_selected = words.get(randomSelector);
         Log.i("WORDS_SELECTED", words_selected.toString());
@@ -58,7 +62,9 @@ public class WordsA extends Fragment {
         time_cooldown = 5000;
         time_execution = 3000;
 
-        isRunningCooldown = false;
+        isWordsFinished = false;
+
+        listener = null;
     }
 
     @Override
@@ -118,5 +124,20 @@ public class WordsA extends Fragment {
                 }
             }
         }, (time_execution * words_selected.size() + time_cooldown));
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isWordsFinished = true;
+                listener.onWordsFinished(isWordsFinished);
+            }
+        }, ((time_execution * words_selected.size()) * 2) + time_cooldown);
+    }
+
+    public interface FragmentListener {
+        void onWordsFinished(Boolean b);
+    }
+
+    public void setListener(FragmentListener listener) {
+        this.listener = listener;
     }
 }
