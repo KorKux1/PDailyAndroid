@@ -13,13 +13,17 @@ import android.view.View;
 import android.widget.Button;
 
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
-import co.edu.icesi.pdailyandroid.cognosis.fragments.Words;
+import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsA;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.TMT;
+import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsB;
 
 public class MocaActivity extends AppCompatActivity {
     private DataScore dataScore = DataScore.getInstance();
     TMT tmt;
-    Words mr;
+    String type;
+
+    WordsB words_b;
+    WordsA words_a;
 
     private Button next;
 
@@ -28,11 +32,23 @@ public class MocaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moca);
 
+        type = getIntent().getStringExtra("EXTRA_FILENAME");
+
         next = findViewById(R.id.ButtonNext);
         next.setEnabled(false);
 
-//        updateFragmentTMT();
-        updateFragmentMR();
+        switch (type) {
+            case "TMT":
+                updateFragmentTMT();
+                break;
+            case "WordsA":
+                updateFragmentWordsA();
+                break;
+            case "WordsB":
+                updateFragmentWordsB();
+                break;
+        }
+
 
         updateListener();
 
@@ -40,9 +56,21 @@ public class MocaActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), ScoreActivity.class);
-                intent.putExtra("EXTRA_MOCA", "TMT");
-                startActivity(intent);
+                Intent intent;
+
+                switch (type) {
+                    case "TMT":
+                        intent = new Intent(getBaseContext(), ExplainActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "WordsA");
+                        startActivity(intent);
+                        break;
+                    case "WordsA":
+                        updateFragmentWordsA();
+                        break;
+                    case "WordsB":
+                        updateFragmentWordsB();
+                        break;
+                }
             }
         });
     }
@@ -70,12 +98,21 @@ public class MocaActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    protected void updateFragmentMR() {
-        mr = new Words();
+    protected void updateFragmentWordsA() {
+        words_a = new WordsA();
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainer, mr);
+        transaction.replace(R.id.fragmentContainer, words_a);
+        transaction.commit();
+    }
+
+    protected void updateFragmentWordsB() {
+        words_b = new WordsB();
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragmentContainer, words_b);
         transaction.commit();
     }
 }

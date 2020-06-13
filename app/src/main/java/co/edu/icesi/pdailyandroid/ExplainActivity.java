@@ -44,8 +44,12 @@ public class ExplainActivity extends AppCompatActivity {
                 explainType.setText("Construya una secuencia número-alfabética lógica en el menor tiempo posible uniendo los siguientes numero y letras, iniciando desde el número (1) y finalizando en la letra (E). ");
                 break;
 
-            case "Words":
+            case "WordsA":
                 explainType.setText("Intente memorizar la siguiente secuencia de palabras");
+                break;
+
+            case "WordsB":
+                explainType.setText("A continuacion ne se que tienes que hacer jijiji");
                 break;
         }
 
@@ -86,9 +90,15 @@ public class ExplainActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
 
-                    case "Words":
+                    case "WordsA":
                         intent= new Intent(getBaseContext(), MocaActivity.class);
-                        intent.putExtra("EXTRA_FILENAME", "words");
+                        intent.putExtra("EXTRA_FILENAME", "wordsA");
+                        startActivity(intent);
+                        break;
+
+                    case "WordsB":
+                        intent= new Intent(getBaseContext(), MocaActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "wordsB");
                         startActivity(intent);
                         break;
                 }
