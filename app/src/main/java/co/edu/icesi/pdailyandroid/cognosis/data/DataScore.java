@@ -23,6 +23,7 @@ public class DataScore {
 
     private ArrayList<String> moca_selection_words;
     private ArrayList<String> moca_answers_words;
+    private int moca_selector_words;
     private int moca_score_words;
 
     private DataScore() {
@@ -129,6 +130,14 @@ public class DataScore {
 
     public void setMoca_answers_words(ArrayList<String> moca_answers_words) {
         this.moca_answers_words = moca_answers_words;
+    }
+
+    public int getMoca_selector_words() {
+        return moca_selector_words;
+    }
+
+    public void setMoca_selector_words(int moca_selector_words) {
+        this.moca_selector_words = moca_selector_words;
     }
 
     public int getMoca_score_words() {
