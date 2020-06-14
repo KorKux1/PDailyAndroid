@@ -32,7 +32,7 @@ public class MocaActivity extends AppCompatActivity {
 
     private Button next;
 
-    private int index;
+    private int index ;
 
     private ArrayList<String> words_answers_selected;
     private ArrayList<String> words_answers_approved;
@@ -96,16 +96,18 @@ public class MocaActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case "WordsB":
-                        if (index + 1 < dataScore.getMoca_selection_words().size()) {
+                        if (index + 1 <= dataScore.getMoca_selection_words().size()-1) {
                             index += 1;
                             updateFragmentWordsB();
                         }
-                        if (index + 1 >= dataScore.getMoca_selection_words().size()) {
+
+                        if (next.getText().equals("Finalizar")) {
                             intent = new Intent(getBaseContext(), ScoreActivity.class);
                             intent.putExtra("EXTRA_TYPE", "MoCa");
                             startActivity(intent);
-
                         }
+
+
                         Log.i("AAAAAAA", Integer.valueOf(index).toString());
                         scoreEvaluation();
                         break;
@@ -161,7 +163,7 @@ public class MocaActivity extends AppCompatActivity {
             }
         }
 
-        if (index + 1 == dataScore.getMoca_selection_words().size()) {
+        if (index +1  == dataScore.getMoca_selection_words().size()) {
             next.setText("Finalizar");
         }
 
