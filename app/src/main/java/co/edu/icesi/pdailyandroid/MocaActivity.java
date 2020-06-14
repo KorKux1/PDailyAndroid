@@ -57,8 +57,13 @@ public class MocaActivity extends AppCompatActivity {
             case "WordsA":
                 updateFragmentWordsA();
                 break;
+            case "Subtract":
+                updateFragmentSubtract();
+                next.setEnabled(true);
+                break;
             case "WordsB":
                 updateFragmentWordsB();
+                next.setText("Siguiente");
                 break;
         }
 
@@ -80,10 +85,28 @@ public class MocaActivity extends AppCompatActivity {
                         break;
                     case "WordsA":
                         intent = new Intent(getBaseContext(), ExplainActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "Subtract");
+                        startActivity(intent);
+                        break;
+                    case "Subtract":
+                        intent = new Intent(getBaseContext(), ExplainActivity.class);
                         intent.putExtra("EXTRA_FILENAME", "WordsB");
                         startActivity(intent);
                         break;
                     case "WordsB":
+                        if (index+1 < dataScore.getMoca_selection_words().size()){
+                            index+=1;
+                            updateFragmentWordsB();
+                        }
+                        if (index+1 >= dataScore.getMoca_selection_words().size()){
+                            intent = new Intent(getBaseContext(), ScoreActivity.class);
+                            intent.putExtra("EXTRA_TYPE", "MoCa");
+                            startActivity(intent);
+
+                        }
+                        Log.i("AAAAAAA",Integer.valueOf(index).toString());
+                        scoreEvaluation();
+
 
                         break;
                 }
@@ -136,6 +159,10 @@ public class MocaActivity extends AppCompatActivity {
             if (words_b.isB_three()) {
                 words_answers_selected.add(words_b.getBtn_answer_three().getText().toString());
             }
+        }
+
+        if (index+1 == dataScore.getMoca_selection_words().size()){
+            next.setText("Finalizar");
         }
 
         if (next.getText().equals("Finalizar")) {

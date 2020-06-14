@@ -48,6 +48,9 @@ public class ExplainActivity extends AppCompatActivity {
                 explainType.setText("Lea en voz alta la siguiente lista de palbras e intente memorizarlas");
                 break;
 
+            case "Subtract":
+                explainType.setText("A continuacion ne se que tienes que hacer jijiji");
+                break;
             case "WordsB":
                 explainType.setText("A continuacion ne se que tienes que hacer jijiji");
                 break;
@@ -93,6 +96,12 @@ public class ExplainActivity extends AppCompatActivity {
                     case "WordsA":
                         intent= new Intent(getBaseContext(), MocaActivity.class);
                         intent.putExtra("EXTRA_FILENAME", "WordsA");
+                        startActivity(intent);
+                        break;
+
+                    case "Subtract":
+                        intent= new Intent(getBaseContext(), MocaActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "Subtract");
                         startActivity(intent);
                         break;
 
