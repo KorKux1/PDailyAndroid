@@ -26,6 +26,9 @@ public class DataScore {
     private int moca_selector_words;
     private int moca_score_words;
 
+    private ArrayList<Boolean> moca_total_Correct_List;
+    private int moca_total_Correct;
+
     private DataScore() {
     }
 
@@ -34,6 +37,23 @@ public class DataScore {
             reference = new DataScore();
         }
         return reference;
+    }
+
+
+    public ArrayList<Boolean> getMoca_total_Correct_List() {
+        return moca_total_Correct_List;
+    }
+
+    public void setMoca_total_Correct_List(ArrayList<Boolean> moca_total_Correct_List) {
+        this.moca_total_Correct_List = moca_total_Correct_List;
+    }
+
+    public int getMoca_total_Correct() {
+        return moca_total_Correct;
+    }
+
+    public void setMoca_total_Correct(int moca_total_Correct) {
+        this.moca_total_Correct = moca_total_Correct;
     }
 
     public int[] getForm_answers_pd_nms() {

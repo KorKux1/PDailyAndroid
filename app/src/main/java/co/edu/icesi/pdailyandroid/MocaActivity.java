@@ -52,7 +52,7 @@ public class MocaActivity extends AppCompatActivity {
 
         switch (type) {
             case "TMT":
-                updateFragmentTMT();
+//                updateFragmentTMT();
                 break;
             case "WordsA":
                 updateFragmentWordsA();
@@ -67,7 +67,7 @@ public class MocaActivity extends AppCompatActivity {
                 break;
         }
 
-//        updateFragmentSubtract();
+        updateFragmentSubtract();
 
         updateListener();
 
