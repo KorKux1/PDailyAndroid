@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.Subtract;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsA;
@@ -30,12 +32,18 @@ public class MocaActivity extends AppCompatActivity {
 
     private Button next;
 
+    private ArrayList<String> words_answers_selected;
+    private ArrayList<String> words_answers_approved;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moca);
 
         type = getIntent().getStringExtra("EXTRA_FILENAME");
+
+        words_answers_selected = new ArrayList<>();
+        words_answers_approved = new ArrayList<>();
 
         next = findViewById(R.id.ButtonNext);
         next.setEnabled(false);
@@ -93,7 +101,41 @@ public class MocaActivity extends AppCompatActivity {
                 }
             });
         }
+
+        if (words_b != null) {
+            words_b.setListener(new WordsB.FragmentListener() {
+                @Override
+                public void onButtonSelected(Boolean b) {
+                    next.setEnabled(true);
+                }
+            });
+        }
     }
+
+    private void scoreEvaluation() {
+        if (words_b != null) {
+            if (words_b.isB_one()) {
+                words_answers_selected.add(words_b.getBtn_answer_one().getText().toString());
+            }
+
+            if (words_b.isB_two()) {
+                words_answers_selected.add(words_b.getBtn_answer_two().getText().toString());
+            }
+
+            if (words_b.isB_three()) {
+                words_answers_selected.add(words_b.getBtn_answer_three().getText().toString());
+            }
+        }
+
+        if (next.getText().equals("Finalizar")) {
+            for (int i = 0; i <= words_answers_selected.size() - 1; i++) {
+                if (dataScore.getMoca_selection_words().contains(words_answers_selected.get(i))) {
+                    words_answers_approved.add(words_answers_selected.get(i));
+                }
+            }
+        }
+    }
+
 
     protected void updateFragmentTMT() {
         tmt = new TMT();

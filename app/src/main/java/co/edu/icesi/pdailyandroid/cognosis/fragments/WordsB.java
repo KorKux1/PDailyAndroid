@@ -37,6 +37,8 @@ public class WordsB extends Fragment {
     private boolean b_one, b_two, b_three;
     private String answer_one_text, answer_two_text, answer_three_text;
 
+    private Button btn_answer_one, btn_answer_two, btn_answer_three;
+
     public WordsB() {
         // Required empty public constructor
 
@@ -104,9 +106,9 @@ public class WordsB extends Fragment {
 
         TextView tv_header_words = view.findViewById(R.id.TextFormQuestion);
 
-        Button btn_answer_one = view.findViewById(R.id.ButtonAnswerOne);
-        Button btn_answer_two = view.findViewById(R.id.ButtonAnswerTwo);
-        Button btn_answer_three = view.findViewById(R.id.ButtonAnswerThree);
+        btn_answer_one = view.findViewById(R.id.ButtonAnswerOne);
+        btn_answer_two = view.findViewById(R.id.ButtonAnswerTwo);
+        btn_answer_three = view.findViewById(R.id.ButtonAnswerThree);
 
         tv_header_words.setText("¿Cuál de las siguientes palabras se te pidió recordar?");
 
@@ -228,5 +230,17 @@ public class WordsB extends Fragment {
 
     public ArrayList<ArrayList<String>> getWords_noise_three() {
         return words_noise_three;
+    }
+
+    public Button getBtn_answer_one() {
+        return btn_answer_one;
+    }
+
+    public Button getBtn_answer_two() {
+        return btn_answer_two;
+    }
+
+    public Button getBtn_answer_three() {
+        return btn_answer_three;
     }
 }
