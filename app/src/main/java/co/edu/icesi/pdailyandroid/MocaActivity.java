@@ -32,6 +32,8 @@ public class MocaActivity extends AppCompatActivity {
 
     private Button next;
 
+    private int index;
+
     private ArrayList<String> words_answers_selected;
     private ArrayList<String> words_answers_approved;
 
@@ -50,7 +52,7 @@ public class MocaActivity extends AppCompatActivity {
 
         switch (type) {
             case "TMT":
-//                updateFragmentTMT();
+                updateFragmentTMT();
                 break;
             case "WordsA":
                 updateFragmentWordsA();
@@ -60,7 +62,7 @@ public class MocaActivity extends AppCompatActivity {
                 break;
         }
 
-        updateFragmentSubtract();
+//        updateFragmentSubtract();
 
         updateListener();
 
@@ -106,6 +108,15 @@ public class MocaActivity extends AppCompatActivity {
             words_b.setListener(new WordsB.FragmentListener() {
                 @Override
                 public void onButtonSelected(Boolean b) {
+                    next.setEnabled(true);
+                }
+            });
+        }
+
+        if (words_a != null) {
+            words_a.setListener(new WordsA.FragmentListener() {
+                @Override
+                public void onWordsFinished(Boolean b) {
                     next.setEnabled(true);
                 }
             });
@@ -166,6 +177,27 @@ public class MocaActivity extends AppCompatActivity {
 
     protected void updateFragmentWordsB() {
         words_b = new WordsB();
+
+        switch (dataScore.getMoca_selector_words()){
+
+            case 0:
+                words_b.setAnswer_one_text(words_b.getWords_noise_one().get(index).get(0));
+                words_b.setAnswer_two_text(words_b.getWords_noise_one().get(index).get(1));
+                words_b.setAnswer_three_text(words_b.getWords_noise_one().get(index).get(2));
+                break;
+
+            case 1:
+                words_b.setAnswer_one_text(words_b.getWords_noise_two().get(index).get(0));
+                words_b.setAnswer_two_text(words_b.getWords_noise_two().get(index).get(1));
+                words_b.setAnswer_three_text(words_b.getWords_noise_two().get(index).get(2));
+                break;
+
+            case 2:
+                words_b.setAnswer_one_text(words_b.getWords_noise_three().get(index).get(0));
+                words_b.setAnswer_two_text(words_b.getWords_noise_three().get(index).get(1));
+                words_b.setAnswer_three_text(words_b.getWords_noise_three().get(index).get(2));
+                break;
+        }
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

@@ -128,7 +128,9 @@ public class WordsA extends Fragment {
             @Override
             public void run() {
                 isWordsFinished = true;
-                listener.onWordsFinished(isWordsFinished);
+                if (listener != null) {
+                    listener.onWordsFinished(isWordsFinished);
+                }
             }
         }, ((time_execution * words_selected.size()) * 2) + time_cooldown);
     }
