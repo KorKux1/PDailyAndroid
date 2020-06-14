@@ -37,6 +37,8 @@ public class MocaActivity extends AppCompatActivity {
     private ArrayList<String> words_answers_selected;
     private ArrayList<String> words_answers_approved;
 
+    private Boolean isFirstTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +49,14 @@ public class MocaActivity extends AppCompatActivity {
         words_answers_selected = new ArrayList<>();
         words_answers_approved = new ArrayList<>();
 
+        isFirstTime = true;
+
         next = findViewById(R.id.ButtonNext);
         next.setEnabled(false);
 
         switch (type) {
             case "TMT":
-//                updateFragmentTMT();
+                updateFragmentTMT();
                 break;
             case "WordsA":
                 updateFragmentWordsA();
@@ -66,8 +70,6 @@ public class MocaActivity extends AppCompatActivity {
                 next.setText("Siguiente");
                 break;
         }
-
-        updateFragmentSubtract();
 
         updateListener();
 
@@ -94,20 +96,18 @@ public class MocaActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case "WordsB":
-                        if (index+1 < dataScore.getMoca_selection_words().size()){
-                            index+=1;
+                        if (index + 1 < dataScore.getMoca_selection_words().size()) {
+                            index += 1;
                             updateFragmentWordsB();
                         }
-                        if (index+1 >= dataScore.getMoca_selection_words().size()){
+                        if (index + 1 >= dataScore.getMoca_selection_words().size()) {
                             intent = new Intent(getBaseContext(), ScoreActivity.class);
                             intent.putExtra("EXTRA_TYPE", "MoCa");
                             startActivity(intent);
 
                         }
-                        Log.i("AAAAAAA",Integer.valueOf(index).toString());
+                        Log.i("AAAAAAA", Integer.valueOf(index).toString());
                         scoreEvaluation();
-
-
                         break;
                 }
             }
@@ -161,7 +161,7 @@ public class MocaActivity extends AppCompatActivity {
             }
         }
 
-        if (index+1 == dataScore.getMoca_selection_words().size()){
+        if (index + 1 == dataScore.getMoca_selection_words().size()) {
             next.setText("Finalizar");
         }
 
@@ -169,6 +169,7 @@ public class MocaActivity extends AppCompatActivity {
             for (int i = 0; i <= words_answers_selected.size() - 1; i++) {
                 if (dataScore.getMoca_selection_words().contains(words_answers_selected.get(i))) {
                     words_answers_approved.add(words_answers_selected.get(i));
+                    Log.i("RESPONSE", words_answers_approved.toString());
                 }
             }
         }
@@ -205,25 +206,37 @@ public class MocaActivity extends AppCompatActivity {
     protected void updateFragmentWordsB() {
         words_b = new WordsB();
 
-        switch (dataScore.getMoca_selector_words()){
+        if (isFirstTime) {
 
-            case 0:
-                words_b.setAnswer_one_text(words_b.getWords_noise_one().get(index).get(0));
-                words_b.setAnswer_two_text(words_b.getWords_noise_one().get(index).get(1));
-                words_b.setAnswer_three_text(words_b.getWords_noise_one().get(index).get(2));
-                break;
+            switch (dataScore.getMoca_selector_words()) {
 
-            case 1:
-                words_b.setAnswer_one_text(words_b.getWords_noise_two().get(index).get(0));
-                words_b.setAnswer_two_text(words_b.getWords_noise_two().get(index).get(1));
-                words_b.setAnswer_three_text(words_b.getWords_noise_two().get(index).get(2));
-                break;
+                case 0:
+                    dataScore.setMoca_selection_words_noise(words_b.getWords_noise_one());
+                    words_b.setAnswer_one_text(words_b.getWords_noise_one().get(index).get(0));
+                    words_b.setAnswer_two_text(words_b.getWords_noise_one().get(index).get(1));
+                    words_b.setAnswer_three_text(words_b.getWords_noise_one().get(index).get(2));
+                    break;
 
-            case 2:
-                words_b.setAnswer_one_text(words_b.getWords_noise_three().get(index).get(0));
-                words_b.setAnswer_two_text(words_b.getWords_noise_three().get(index).get(1));
-                words_b.setAnswer_three_text(words_b.getWords_noise_three().get(index).get(2));
-                break;
+                case 1:
+                    dataScore.setMoca_selection_words_noise(words_b.getWords_noise_two());
+                    words_b.setAnswer_one_text(words_b.getWords_noise_two().get(index).get(0));
+                    words_b.setAnswer_two_text(words_b.getWords_noise_two().get(index).get(1));
+                    words_b.setAnswer_three_text(words_b.getWords_noise_two().get(index).get(2));
+                    break;
+
+                case 2:
+                    dataScore.setMoca_selection_words_noise(words_b.getWords_noise_three());
+                    words_b.setAnswer_one_text(words_b.getWords_noise_three().get(index).get(0));
+                    words_b.setAnswer_two_text(words_b.getWords_noise_three().get(index).get(1));
+                    words_b.setAnswer_three_text(words_b.getWords_noise_three().get(index).get(2));
+                    break;
+            }
+
+            isFirstTime = false;
+        } else {
+            words_b.setAnswer_one_text(dataScore.getMoca_selection_words_noise().get(index).get(0));
+            words_b.setAnswer_two_text(dataScore.getMoca_selection_words_noise().get(index).get(1));
+            words_b.setAnswer_three_text(dataScore.getMoca_selection_words_noise().get(index).get(2));
         }
 
         FragmentManager manager = getSupportFragmentManager();

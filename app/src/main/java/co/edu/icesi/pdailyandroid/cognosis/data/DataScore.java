@@ -1,6 +1,5 @@
 package co.edu.icesi.pdailyandroid.cognosis.data;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DataScore {
@@ -22,6 +21,7 @@ public class DataScore {
     private String moca_score_tmt;
 
     private ArrayList<String> moca_selection_words;
+    private ArrayList<ArrayList<String>> moca_selection_words_noise;
     private ArrayList<String> moca_answers_words;
     private int moca_selector_words;
     private int moca_score_words;
@@ -166,5 +166,13 @@ public class DataScore {
 
     public void setMoca_score_words(int moca_score_words) {
         this.moca_score_words = moca_score_words;
+    }
+
+    public ArrayList<ArrayList<String>> getMoca_selection_words_noise() {
+        return moca_selection_words_noise;
+    }
+
+    public void setMoca_selection_words_noise(ArrayList<ArrayList<String>> moca_selection_words_noise) {
+        this.moca_selection_words_noise = moca_selection_words_noise;
     }
 }
