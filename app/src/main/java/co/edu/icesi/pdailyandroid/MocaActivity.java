@@ -63,7 +63,6 @@ public class MocaActivity extends AppCompatActivity {
                 break;
             case "Subtract":
                 updateFragmentSubtract();
-                next.setEnabled(true);
                 break;
             case "WordsB":
                 updateFragmentWordsB();
@@ -129,6 +128,15 @@ public class MocaActivity extends AppCompatActivity {
             });
         }
 
+        if (words_a != null) {
+            words_a.setListener(new WordsA.FragmentListener() {
+                @Override
+                public void onWordsFinished(Boolean b) {
+                    next.setEnabled(true);
+                }
+            });
+        }
+
         if (words_b != null) {
             words_b.setListener(new WordsB.FragmentListener() {
                 @Override
@@ -138,10 +146,10 @@ public class MocaActivity extends AppCompatActivity {
             });
         }
 
-        if (words_a != null) {
-            words_a.setListener(new WordsA.FragmentListener() {
+        if (subtract != null){
+            subtract.setListener(new Subtract.FragmentListener() {
                 @Override
-                public void onWordsFinished(Boolean b) {
+                public void onTestFinished(boolean b) {
                     next.setEnabled(true);
                 }
             });
