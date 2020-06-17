@@ -90,6 +90,11 @@ public class Subtract extends Fragment {
                     Log.i("ARRAY", String.valueOf(Integer.valueOf(total_Correct_List.size())));
                 }
 
+                index += 1;
+                num = Integer.valueOf(String.valueOf(numberResult.getText()));
+                numberSub.setText(Integer.valueOf(num).toString());
+                numberResult.setText("");
+
                 if (index == 5) {
                     isTestFinished = true;
                     if (listener != null){
@@ -113,18 +118,17 @@ public class Subtract extends Fragment {
 
                     dataScore.setMoca_total_Correct(total_Correct);
                     dataScore.setMoca_total_Correct_List(total_Correct_List);
+
                 }
-                index += 1;
-                num = Integer.valueOf(String.valueOf(numberResult.getText()));
-                numberSub.setText(Integer.valueOf(num).toString());
-                numberResult.setText("");
+
+                if (index==6){
+                    numberResult.setEnabled(false);
+                }
+
                 return false;
             }
         });
 
-        if (isTestFinished){
-            numberResult.setEnabled(false);
-        }
         return view;
     }
 

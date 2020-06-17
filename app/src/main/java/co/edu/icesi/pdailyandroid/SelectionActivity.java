@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class SelectionActivity extends AppCompatActivity {
-    private Button bsOne, bsTwo, bsThree, bsFour, bsFive, bsSix;
+    private Button bsOne, bsTwo, bsThree, bsFour, bsFive, bsSix, bsSeven, bsEight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,8 @@ public class SelectionActivity extends AppCompatActivity {
         bsFour = findViewById(R.id.ButtonSelectionFour);
 
         bsSix = findViewById(R.id.ButtonSelectionSix);
+        bsSeven = findViewById(R.id.ButtonSelectionSeven);
+        bsEight = findViewById(R.id.ButtonSelectionEight);
 
         bsOne.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -67,6 +69,26 @@ public class SelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
                 intent.putExtra("EXTRA_FILENAME", "TMT");
+
+                startActivity(intent);
+            }
+        });
+
+        bsSeven.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
+                intent.putExtra("EXTRA_FILENAME", "GONGO");
+
+                startActivity(intent);
+            }
+        });
+
+        bsEight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
+                intent.putExtra("EXTRA_FILENAME", "CA-Test");
 
                 startActivity(intent);
             }

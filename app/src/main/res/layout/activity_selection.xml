@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
@@ -11,12 +18,15 @@
     android:paddingBottom="10dp"
     tools:context=".SelectionActivity">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/TextPlaceHolder"
@@ -25,7 +35,7 @@
             android:fontFamily="@font/pragmaticaw05_bold"
             android:text="Pruebas cognitvas y de desempeño"
             android:textColor="#000000"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,120 +46,232 @@
         android:id="@+id/constraintLayout24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout22">
 
 
+        <TextView
+            android:id="@+id/textPlaceHold2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/pragmaticaw05_bold"
+            android:text="Pruebas de selección"
+            android:textColor="#7A7A7A"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayoutCompat2"
-            android:layout_width="185dp"
+            android:layout_width="235dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
+            android:layout_marginTop="12dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toStartOf="@+id/linearLayoutCompat4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/textPlaceHold2">
 
             <Button
                 android:id="@+id/ButtonSelectionOne"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="180dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/button_behavior"
                 android:ellipsize="none"
                 android:fontFamily="@font/pragmaticaw05_bold"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:text="PD-NMS"
                 android:textAlignment="center"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/ButtonSelectionThree"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="180dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="25dp"
                 android:background="@drawable/button_behavior"
                 android:ellipsize="none"
                 android:fontFamily="@font/pragmaticaw05_bold"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:text="Congelamiento de la marcha"
                 android:textAlignment="center"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/ButtonSelectionFive"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="180dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="25dp"
                 android:background="@drawable/button_behavior"
                 android:ellipsize="none"
                 android:fontFamily="@font/pragmaticaw05_bold"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:text="Caidas en la marcha"
                 android:textAlignment="center"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayoutCompat4"
-            android:layout_width="185dp"
+            android:layout_width="235dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat2"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/textPlaceHold2">
 
             <Button
                 android:id="@+id/ButtonSelectionTwo"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="180dp"
                 android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/button_behavior"
                 android:ellipsize="none"
                 android:fontFamily="@font/pragmaticaw05_bold"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:text="PD-CFRS"
                 android:textAlignment="center"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/ButtonSelectionFour"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="180dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="25dp"
                 android:background="@drawable/button_behavior"
                 android:ellipsize="none"
                 android:fontFamily="@font/pragmaticaw05_bold"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:text="PHQ-9"
                 android:textAlignment="center"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout25"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout24"
+        tools:layout_editor_absoluteX="16dp">
+
+
+        <TextView
+            android:id="@+id/TextPlaceHold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/pragmaticaw05_bold"
+            android:text="Pruebas practicas"
+            android:textColor="#7A7A7A"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat3"
+            android:layout_width="235dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayoutCompat5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TextPlaceHold">
+
+            <Button
+                android:id="@+id/ButtonSelectionEight"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_behavior"
+                android:ellipsize="none"
+                android:fontFamily="@font/pragmaticaw05_bold"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="CA Test"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/ButtonSelectionSeven"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/button_behavior"
+                android:ellipsize="none"
+                android:fontFamily="@font/pragmaticaw05_bold"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Go/No-go Task"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat5"
+            android:layout_width="235dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat3"
+            app:layout_constraintTop_toBottomOf="@+id/TextPlaceHold">
 
             <Button
                 android:id="@+id/ButtonSelectionSix"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="180dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/button_behavior"
                 android:ellipsize="none"
                 android:fontFamily="@font/pragmaticaw05_bold"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:text="MoCA"
                 android:textAlignment="center"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

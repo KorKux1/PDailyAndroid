@@ -54,6 +54,12 @@ public class ExplainActivity extends AppCompatActivity {
             case "WordsB":
                 explainType.setText("A continuacion ne se que tienes que hacer jijiji");
                 break;
+            case "GONGO":
+                explainType.setText("A continuacion ne se que tienes que hacer jijiji");
+            break;
+            case "CA-Test":
+                explainType.setText("A continuacion ne se que tienes que hacer jijiji");
+                break;
         }
 
 
@@ -108,6 +114,18 @@ public class ExplainActivity extends AppCompatActivity {
                     case "WordsB":
                         intent= new Intent(getBaseContext(), MocaActivity.class);
                         intent.putExtra("EXTRA_FILENAME", "WordsB");
+                        startActivity(intent);
+                        break;
+
+                    case "GONGO":
+                        intent= new Intent(getBaseContext(), GongoTaskActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "GONGO");
+                        startActivity(intent);
+                        break;
+
+                    case "CA-Test":
+                        intent= new Intent(getBaseContext(), CaTestActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "CA-Test");
                         startActivity(intent);
                         break;
                 }

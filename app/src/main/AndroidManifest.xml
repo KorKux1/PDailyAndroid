@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ExplainActivity"></activity>
+        <activity android:name=".GongoTaskActivity"></activity>
+        <activity android:name=".CaTestActivity" />
+        <activity android:name=".ExplainActivity" />
         <activity android:name=".MocaActivity" />
         <activity android:name=".FormActivity" />
         <activity android:name=".ScoreActivity" />
