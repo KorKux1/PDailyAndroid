@@ -78,7 +78,7 @@ public class WordsA extends Fragment {
         View view = inflater.inflate(R.layout.fragment_words, container, false);
 
         TextView tv_display_words;
-        tv_display_words = view.findViewById(R.id.tv_display_words);
+        tv_display_words = view.findViewById(R.id.tv_display_letters);
 
         tv_display_words.setText(word);
 

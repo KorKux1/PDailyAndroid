@@ -15,6 +15,8 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
+import co.edu.icesi.pdailyandroid.cognosis.fragments.Go;
+import co.edu.icesi.pdailyandroid.cognosis.fragments.Letters;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.Subtract;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsA;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.TMT;
@@ -30,9 +32,13 @@ public class MocaActivity extends AppCompatActivity {
 
     Subtract subtract;
 
+    Letters letters;
+
+    Go go;
+
     private Button next;
 
-    private int index ;
+    private int index;
 
     private ArrayList<String> words_answers_selected;
     private ArrayList<String> words_answers_approved;
@@ -54,21 +60,23 @@ public class MocaActivity extends AppCompatActivity {
         next = findViewById(R.id.ButtonNext);
         next.setEnabled(false);
 
-        switch (type) {
-            case "TMT":
-                updateFragmentTMT();
-                break;
-            case "WordsA":
-                updateFragmentWordsA();
-                break;
-            case "Subtract":
-                updateFragmentSubtract();
-                break;
-            case "WordsB":
-                updateFragmentWordsB();
-                next.setText("Siguiente");
-                break;
-        }
+        updateFragmentGo();
+
+//        switch (type) {
+//            case "TMT":
+//                updateFragmentTMT();
+//                break;
+//            case "WordsA":
+//                updateFragmentWordsA();
+//                break;
+//            case "Subtract":
+//                updateFragmentSubtract();
+//                break;
+//            case "WordsB":
+//                updateFragmentWordsB();
+//                next.setText("Siguiente");
+//                break;
+//        }
 
         updateListener();
 
@@ -95,7 +103,7 @@ public class MocaActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case "WordsB":
-                        if (index + 1 <= dataScore.getMoca_selection_words().size()-1) {
+                        if (index + 1 <= dataScore.getMoca_selection_words().size() - 1) {
                             index += 1;
                             updateFragmentWordsB();
                         }
@@ -105,7 +113,6 @@ public class MocaActivity extends AppCompatActivity {
                             intent.putExtra("EXTRA_TYPE", "MoCa");
                             startActivity(intent);
                         }
-
 
                         Log.i("AAAAAAA", Integer.valueOf(index).toString());
                         scoreEvaluation();
@@ -146,7 +153,7 @@ public class MocaActivity extends AppCompatActivity {
             });
         }
 
-        if (subtract != null){
+        if (subtract != null) {
             subtract.setListener(new Subtract.FragmentListener() {
                 @Override
                 public void onTestFinished(boolean b) {
@@ -171,7 +178,7 @@ public class MocaActivity extends AppCompatActivity {
             }
         }
 
-        if (index +1  == dataScore.getMoca_selection_words().size()) {
+        if (index + 1 == dataScore.getMoca_selection_words().size()) {
             next.setText("Finalizar");
         }
 
@@ -210,6 +217,15 @@ public class MocaActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragmentContainer, subtract);
+        transaction.commit();
+    }
+
+    protected void updateFragmentLetters() {
+        letters = new Letters();
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragmentContainer, letters);
         transaction.commit();
     }
 
@@ -252,6 +268,15 @@ public class MocaActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragmentContainer, words_b);
+        transaction.commit();
+    }
+
+    protected void updateFragmentGo() {
+        go = new Go();
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragmentContainer, go);
         transaction.commit();
     }
 }

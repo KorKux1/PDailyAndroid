@@ -92,10 +92,10 @@ public class Letters extends Fragment {
                         public void onClick(View v) {
                             if (isFirstClick[0]) {
                                 time_response = System.currentTimeMillis() - startTime;
-                                letters_response_time.add(index, time_response/1000);
+                                letters_response_time.set(index, time_response/1000);
                                 Log.i("TIME_RESPONSE", String.valueOf(time_response));
 
-                                letters_pressed.add(index, dataScore.getMoca_selection_letters().get(index));
+                                letters_pressed.set(index, dataScore.getMoca_selection_letters().get(index));
 
                                 tv_display_letters.setTextColor(Color.rgb(0, 188, 209));
                                 tap += 1;
@@ -106,7 +106,7 @@ public class Letters extends Fragment {
                             }
                         }
                     });
-                    letters_tapped.add(index, tap);
+                    letters_tapped.set(index, tap);
                     Log.i("LAST_LETTER_TIME", letters_response_time.get(index).toString());
                 }
             }, time_execution * i);
