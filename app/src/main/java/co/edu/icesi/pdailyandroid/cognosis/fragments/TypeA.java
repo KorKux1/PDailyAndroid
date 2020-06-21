@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import co.edu.icesi.pdailyandroid.R;
+import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +33,7 @@ public class TypeA extends Fragment {
     private int formTotalNumber;
     private int index;
     private boolean aOne, aTwo, aThree, aFour;
+    DataScore dataScore = DataScore.getInstance();
 
     public TypeA() {
         aOne = false;
@@ -55,6 +57,8 @@ public class TypeA extends Fragment {
 //        pregunta2.setText(this.ideal);
 
         TextView formQuestion = view.findViewById(R.id.TextFormQuestion);
+
+
 
         Button answerOne = view.findViewById(R.id.ButtonAnswerOne);
         Button answerTwo = view.findViewById(R.id.ButtonAnswerTwo);
@@ -170,8 +174,16 @@ public class TypeA extends Fragment {
 
     // cambio de color de boton seleccionado
     private void uiUpdateClickedSelect(Button a){
-        a.setTextColor(Color.rgb(255, 255, 255));
-        a.setBackgroundColor(Color.rgb(0, 188, 209));
+
+       if (dataScore.getTestSelected().equals("PD-CFRS")){
+           a.setTextColor(Color.rgb(255, 255, 255));
+           a.setBackgroundColor(Color.rgb(216, 17, 89));
+       }
+
+        if (dataScore.getTestSelected().equals("PHQ-9")){
+            a.setTextColor(Color.rgb(255, 255, 255));
+            a.setBackgroundColor(Color.rgb(255, 84, 86));
+        }
     }
 
     //cambio de boton deseleccionado

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
+
 public class SelectionActivity extends AppCompatActivity {
     private Button bsOne, bsTwo, bsThree, bsFour, bsFive, bsSix, bsSeven, bsEight;
 
@@ -14,6 +16,8 @@ public class SelectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
+
+        DataScore dataScore = DataScore.getInstance();
 
         bsOne = findViewById(R.id.ButtonSelectionOne);
         bsTwo = findViewById(R.id.ButtonSelectionTwo);
@@ -29,7 +33,7 @@ public class SelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
                 intent.putExtra("EXTRA_FILENAME", "PD-NMS");
-
+                dataScore.setTestSelected("PD-NMS");
                 startActivity(intent);
             }
         });
@@ -39,7 +43,7 @@ public class SelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
                 intent.putExtra("EXTRA_FILENAME", "PD-CFRS");
-
+                dataScore.setTestSelected("PD-CFRS");
                 startActivity(intent);
             }
         });
@@ -49,7 +53,7 @@ public class SelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
                 intent.putExtra("EXTRA_FILENAME", "Congelamiento de la marcha");
-
+                dataScore.setTestSelected("Congelamiento de la marcha");
                 startActivity(intent);
             }
         });
@@ -59,7 +63,7 @@ public class SelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
                 intent.putExtra("EXTRA_FILENAME", "PHQ-9");
-
+                dataScore.setTestSelected("PHQ-9");
                 startActivity(intent);
             }
         });
@@ -69,7 +73,7 @@ public class SelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
                 intent.putExtra("EXTRA_FILENAME", "TMT");
-
+                dataScore.setTestSelected("TMT");
                 startActivity(intent);
             }
         });
@@ -79,7 +83,7 @@ public class SelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
                 intent.putExtra("EXTRA_FILENAME", "GONGO");
-
+                dataScore.setTestSelected("GONGO");
                 startActivity(intent);
             }
         });

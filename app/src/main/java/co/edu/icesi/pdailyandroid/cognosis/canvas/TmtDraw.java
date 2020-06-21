@@ -79,7 +79,7 @@ public class TmtDraw extends View {
         aTotalComparable = new ArrayList<>(Arrays.asList(s_one, s_a, s_two, s_b, s_three, s_c, s_four, s_d, s_five, s_e));
 
         color_primary = "#C4C4C4";
-        color_accent = "#00BCD1";
+        color_accent = "#731DD8";
     }
 
     @Override

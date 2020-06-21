@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class DataScore {
     private static DataScore reference = null;
 
+    private  String TestSelected;
+
     private int[] form_answers_pd_nms;
     private int form_score_pd_nms;
 
@@ -60,6 +62,14 @@ public class DataScore {
 
     public void setMoca_total_Correct_List(ArrayList<Boolean> moca_total_Correct_List) {
         this.moca_total_Correct_List = moca_total_Correct_List;
+    }
+
+    public String getTestSelected() {
+        return TestSelected;
+    }
+
+    public void setTestSelected(String testSelected) {
+        TestSelected = testSelected;
     }
 
     public int getMoca_total_Correct() {

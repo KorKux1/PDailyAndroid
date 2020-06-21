@@ -172,7 +172,7 @@ public class WordsB extends Fragment {
 
     private void uiUpdateClicked(Button b) {
         b.setTextColor(Color.rgb(255, 255, 255));
-        b.setBackgroundColor(Color.rgb(0, 188, 209));
+        b.setBackgroundColor(Color.rgb(115, 29, 216));
     }
 
     private void uiUpdateClickedNonSelected(Button b) {
