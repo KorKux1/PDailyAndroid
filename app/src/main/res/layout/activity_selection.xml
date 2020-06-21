@@ -12,9 +12,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:paddingLeft="25dp"
-    android:paddingRight="25dp"
-    android:paddingTop="20dp"
     android:paddingBottom="10dp"
     tools:context=".SelectionActivity">
 
@@ -22,9 +19,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout22"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="120dp"
+        android:background="#00BCD1"
+        android:orientation="vertical"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -32,11 +31,15 @@
             android:id="@+id/TextPlaceHolder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/pragmaticaw05_bold"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:text="Pruebas cognitvas y de desempeño"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,6 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:gravity="center"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +63,7 @@
             android:id="@+id/textPlaceHold2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="30dp"
             android:fontFamily="@font/pragmaticaw05_bold"
             android:text="Pruebas de selección"
             android:textColor="#7A7A7A"
@@ -174,6 +179,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="35dp"
+
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -185,7 +193,7 @@
             android:id="@+id/TextPlaceHold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="30dp"
             android:fontFamily="@font/pragmaticaw05_bold"
             android:text="Pruebas practicas"
             android:textColor="#7A7A7A"
