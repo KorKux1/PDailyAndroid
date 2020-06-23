@@ -12,41 +12,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:paddingBottom="10dp"
     tools:context=".SelectionActivity">
+S
+    <ImageView
+
+        android:id="@+id/fondo_animado"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fondo_animacion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageView>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout22"
+        android:id="@+id/Holder"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="#00BCD1"
-        android:orientation="vertical"
-        android:textAlignment="center"
+        android:layout_height="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/TextPlaceHolder"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:fontFamily="@font/pragmaticaw05_bold"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/pragmaticaw05_extrabold"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="Pruebas cognitvas y de desempeño"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:text="Pruebas cognitvas"
+            android:textColor="#00BCD4"
+            android:textSize="40sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout24"
+        android:id="@+id/seleccion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -56,7 +66,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout22">
+        app:layout_constraintTop_toBottomOf="@id/Holder">
 
 
         <TextView
@@ -174,7 +184,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout25"
+        android:id="@+id/practicas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -185,7 +195,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout24"
+        app:layout_constraintTop_toBottomOf="@+id/seleccion"
         tools:layout_editor_absoluteX="16dp">
 
 

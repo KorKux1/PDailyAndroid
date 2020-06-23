@@ -1,16 +1,27 @@
 package co.edu.icesi.pdailyandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 
 public class SelectionActivity extends AppCompatActivity {
+    ImageView bgapp;
+    Animation bganim;
+    ConstraintLayout textHolder, seleccion, practicas;
+
     private Button bsOne, bsTwo, bsThree, bsFour, bsFive, bsSix, bsSeven, bsEight;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +29,18 @@ public class SelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selection);
 
         DataScore dataScore = DataScore.getInstance();
+
+        bgapp = (ImageView) findViewById(R.id.fondo_animado);
+        textHolder = (ConstraintLayout) findViewById(R.id.Holder);
+        seleccion = (ConstraintLayout) findViewById(R.id.seleccion);
+        practicas = (ConstraintLayout) findViewById(R.id.practicas);
+        bganim = AnimationUtils.loadAnimation(this,R.anim.bganim);
+
+        bgapp.animate().translationY(-1810).setDuration(800).setStartDelay(1500);
+
+        textHolder.startAnimation(bganim);
+        seleccion.startAnimation(bganim);
+        practicas.startAnimation(bganim);
 
         bsOne = findViewById(R.id.ButtonSelectionOne);
         bsTwo = findViewById(R.id.ButtonSelectionTwo);
