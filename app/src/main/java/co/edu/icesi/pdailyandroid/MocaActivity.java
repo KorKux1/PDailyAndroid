@@ -34,7 +34,6 @@ public class MocaActivity extends AppCompatActivity {
 
     Letters letters;
 
-    Go go;
 
     private Button next;
 
@@ -60,23 +59,21 @@ public class MocaActivity extends AppCompatActivity {
         next = findViewById(R.id.ButtonNext);
         next.setEnabled(false);
 
-        updateFragmentGo();
-
-//        switch (type) {
-//            case "TMT":
-//                updateFragmentTMT();
-//                break;
-//            case "WordsA":
-//                updateFragmentWordsA();
-//                break;
-//            case "Subtract":
-//                updateFragmentSubtract();
-//                break;
-//            case "WordsB":
-//                updateFragmentWordsB();
-//                next.setText("Siguiente");
-//                break;
-//        }
+        switch (type) {
+            case "TMT":
+                updateFragmentTMT();
+                break;
+            case "WordsA":
+                updateFragmentWordsA();
+                break;
+            case "Subtract":
+                updateFragmentSubtract();
+                break;
+            case "WordsB":
+                updateFragmentWordsB();
+                next.setText("Siguiente");
+                break;
+        }
 
         updateListener();
 
@@ -268,15 +265,6 @@ public class MocaActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragmentContainer, words_b);
-        transaction.commit();
-    }
-
-    protected void updateFragmentGo() {
-        go = new Go();
-
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainer, go);
         transaction.commit();
     }
 }
