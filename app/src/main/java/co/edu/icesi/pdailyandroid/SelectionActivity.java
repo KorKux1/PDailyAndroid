@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,6 +20,7 @@ public class SelectionActivity extends AppCompatActivity {
     ImageView bgapp;
     Animation bganim;
     ConstraintLayout textHolder, seleccion, practicas;
+
 
     private Button bsOne, bsTwo, bsThree, bsFour, bsFive, bsSix, bsSeven, bsEight;
 
@@ -36,7 +38,11 @@ public class SelectionActivity extends AppCompatActivity {
         practicas = (ConstraintLayout) findViewById(R.id.practicas);
         bganim = AnimationUtils.loadAnimation(this,R.anim.bganim);
 
-        bgapp.animate().translationY(-1810).setDuration(800).setStartDelay(1500);
+
+        Display mDisplay  = getWindowManager().getDefaultDisplay();
+        float height = mDisplay.getHeight();
+
+        bgapp.animate().translationY((float) (-height/1.01)).setDuration(800).setStartDelay(1500);
 
         textHolder.startAnimation(bganim);
         seleccion.startAnimation(bganim);
