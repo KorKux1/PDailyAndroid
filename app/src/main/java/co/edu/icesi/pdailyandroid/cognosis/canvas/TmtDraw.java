@@ -132,7 +132,7 @@ public class TmtDraw extends View {
         for (Point point : points) {
             paint.setAntiAlias(true);
             paint.setDither(true);
-            paint.setColor(Color.parseColor(color_accent));
+            paint.setColor(Color.parseColor("#00BCD1"));
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeJoin(Paint.Join.ROUND);
             paint.setStrokeCap(Paint.Cap.ROUND);
@@ -289,7 +289,7 @@ public class TmtDraw extends View {
         if (event.getAction() != MotionEvent.ACTION_UP) {
             paint.setAntiAlias(true);
             paint.setDither(true);
-            paint.setColor(Color.parseColor(color_accent));
+            paint.setColor(Color.parseColor("#00BCD1"));
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeJoin(Paint.Join.ROUND);
             paint.setStrokeCap(Paint.Cap.ROUND);

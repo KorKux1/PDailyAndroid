@@ -59,6 +59,8 @@ public class MocaActivity extends AppCompatActivity {
         next = findViewById(R.id.ButtonNext);
         next.setEnabled(false);
 
+        next.setText("Continuar");
+
         switch (type) {
             case "TMT":
                 updateFragmentTMT();

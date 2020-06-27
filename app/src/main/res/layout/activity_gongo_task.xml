@@ -72,7 +72,7 @@
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="60dp"
         android:background="#FFFFFF"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,9 +80,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Holder">
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -92,14 +90,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
 
+                android:background="@drawable/go"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/TextFormName"
+                tools:ignore="NotSibling"
                 tools:layout_editor_absoluteX="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#434343"
+                    android:background="#00434343"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -110,6 +110,7 @@
                         android:ellipsize="none"
                         android:fontFamily="@font/pragmaticaw05_regular"
                         android:gravity="center"
+                        android:paddingRight="50dp"
                         android:text="P"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
@@ -123,6 +124,7 @@
                         android:ellipsize="none"
                         android:fontFamily="@font/pragmaticaw05_regular"
                         android:gravity="center"
+                        android:paddingLeft="50dp"
                         android:text="P"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
@@ -133,7 +135,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#434343"
+                    android:background="#00434343"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -144,6 +146,8 @@
                         android:ellipsize="none"
                         android:fontFamily="@font/pragmaticaw05_regular"
                         android:gravity="center"
+                        android:paddingTop="20dp"
+                        android:paddingRight="50dp"
                         android:text="P"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
@@ -157,6 +161,8 @@
                         android:ellipsize="none"
                         android:fontFamily="@font/pragmaticaw05_regular"
                         android:gravity="center"
+                        android:paddingLeft="50dp"
+                        android:paddingTop="25dp"
                         android:text="P"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
@@ -169,7 +175,7 @@
                 android:id="@+id/seleccion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="40dp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat"

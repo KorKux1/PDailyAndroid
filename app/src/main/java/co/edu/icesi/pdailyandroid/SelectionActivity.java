@@ -42,7 +42,7 @@ public class SelectionActivity extends AppCompatActivity {
         Display mDisplay  = getWindowManager().getDefaultDisplay();
         float height = mDisplay.getHeight();
 
-        bgapp.animate().translationY((float) (-height/1.01)).setDuration(800).setStartDelay(1500);
+        bgapp.animate().translationY((float) (-height*1.5)).setDuration(1000).setStartDelay(1500);
 
         textHolder.startAnimation(bganim);
         seleccion.startAnimation(bganim);
