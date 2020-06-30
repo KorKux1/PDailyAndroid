@@ -121,7 +121,7 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), ExplainActivity.class);
-                intent.putExtra("EXTRA_FILENAME", "CA-Test");
+                intent.putExtra("EXTRA_FILENAME", "WordsA");
 
                 startActivity(intent);
             }
