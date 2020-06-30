@@ -44,7 +44,7 @@ public class CaTestActivity extends AppCompatActivity {
             case "WordsACA":
                 updateFragmentWordsA();
                 break;
-            case "clockCA":
+            case "clock":
                 updateFragmentClock();
                 break;
             case "WordsBCA":
