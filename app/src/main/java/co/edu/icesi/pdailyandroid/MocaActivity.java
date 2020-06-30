@@ -71,6 +71,9 @@ public class MocaActivity extends AppCompatActivity {
             case "Subtract":
                 updateFragmentSubtract();
                 break;
+            case "Letras":
+                updateFragmentLetters();
+                break;
             case "WordsB":
                 updateFragmentWordsB();
                 next.setText("Siguiente");
@@ -98,9 +101,16 @@ public class MocaActivity extends AppCompatActivity {
                         break;
                     case "Subtract":
                         intent = new Intent(getBaseContext(), ExplainActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "Letras");
+                        startActivity(intent);
+                        break;
+
+                    case "Letras":
+                        intent = new Intent(getBaseContext(), ExplainActivity.class);
                         intent.putExtra("EXTRA_FILENAME", "WordsB");
                         startActivity(intent);
                         break;
+
                     case "WordsB":
                         if (index + 1 <= dataScore.getMoca_selection_words().size() - 1) {
                             index += 1;

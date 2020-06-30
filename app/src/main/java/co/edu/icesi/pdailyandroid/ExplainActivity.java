@@ -74,6 +74,12 @@ public class ExplainActivity extends AppCompatActivity {
                 GIF.setImageResource(R.drawable.words_a_gif);
                 break;
 
+            case "WordsACA":
+                explainType.setText(Html.fromHtml("<b>Palabras</b><br>A continuación se mostrara una lista de palabras.<br><br>Lea cuidadosamente en voz alta la lista de palbras e intente guardarlas en su memoria"));
+                body.setBackgroundResource(R.drawable.instruction_ca);
+                GIF.setImageResource(R.drawable.words_a_gif);
+                break;
+
             case "Subtract":
                 explainType.setText(Html.fromHtml("<b>Resta</b><br>Por favor, reste de <b>7</b> en <b>7</b> comenzando en el número 100"));
                 body.setBackgroundResource(R.drawable.instruction_moca);
@@ -83,6 +89,12 @@ public class ExplainActivity extends AppCompatActivity {
             case "WordsB":
                 explainType.setText(Html.fromHtml("<b>Palabras</b><br>A continuación se le iran mostran agrupaciones de palabras.<br><br>Seleccione las palabras que reconozca del listado que se le mostro previamente"));
                 body.setBackgroundResource(R.drawable.instruction_moca);
+                GIF.setImageResource(R.drawable.words_b_gif);
+                break;
+
+            case "WordsBCA":
+                explainType.setText(Html.fromHtml("<b>Palabras</b><br>A continuación se le iran mostran agrupaciones de palabras.<br><br>Seleccione las palabras que reconozca del listado que se le mostro previamente"));
+                body.setBackgroundResource(R.drawable.instruction_ca);
                 GIF.setImageResource(R.drawable.words_b_gif);
                 break;
 
@@ -98,9 +110,9 @@ public class ExplainActivity extends AppCompatActivity {
                 GIF.setImageResource(R.drawable.go_gif);
                 break;
 
-            case "CA-Test":
+            case "clock":
                 explainType.setText(Html.fromHtml("A continuacion ne se que tienes que hacer jijiji"));
-                body.setBackgroundResource(R.drawable.instruction_moca);
+                body.setBackgroundResource(R.drawable.instruction_ca);
 
                 break;
         }
@@ -148,9 +160,21 @@ public class ExplainActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
 
+                    case "WordsACA":
+                        intent= new Intent(getBaseContext(), CaTestActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "WordsACA");
+                        startActivity(intent);
+                        break;
+
                     case "Subtract":
                         intent= new Intent(getBaseContext(), MocaActivity.class);
                         intent.putExtra("EXTRA_FILENAME", "Subtract");
+                        startActivity(intent);
+                        break;
+
+                    case "Letras":
+                        intent= new Intent(getBaseContext(), MocaActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "Letras");
                         startActivity(intent);
                         break;
 
@@ -160,15 +184,21 @@ public class ExplainActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
 
+                    case "WordsBCA":
+                        intent= new Intent(getBaseContext(), CaTestActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "WordsBCA");
+                        startActivity(intent);
+                        break;
+
                     case "GONGO":
                         intent= new Intent(getBaseContext(), GongoTaskActivity.class);
                         intent.putExtra("EXTRA_FILENAME", "GONGO");
                         startActivity(intent);
                         break;
 
-                    case "CA-Test":
+                    case "clock":
                         intent= new Intent(getBaseContext(), CaTestActivity.class);
-                        intent.putExtra("EXTRA_FILENAME", "CA-Test");
+                        intent.putExtra("EXTRA_FILENAME", "clock");
                         startActivity(intent);
                         break;
                 }

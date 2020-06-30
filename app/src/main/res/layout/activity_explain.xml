@@ -48,7 +48,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/body"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="390dp"
         android:background="@drawable/instruction_moca"
         app:layout_constraintTop_toBottomOf="@+id/Holder"
         tools:layout_editor_absoluteX="0dp">
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginEnd="50dp"
             android:fontFamily="@font/pragmaticaw05_light"
             android:text="Cada 2 Segundos cambiarán las letras en pantalla.\n\nSí en las letras en pantalla está la letra “P”, presiona SI, de lo contrario, presiona NO."
             android:textColor="#3E3E3E"
@@ -72,25 +72,15 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/chao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="15dp"
-        android:background="#00FFFFFF"
-        android:text="Continuar"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/GIF"
         android:layout_width="280dp"
         android:layout_height="280dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
+        android:adjustViewBounds="true"
         android:background="#FFFFFF"
+        android:scaleType="centerCrop"
         android:src="@drawable/go_gif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +88,21 @@
 
     </pl.droidsonroids.gif.GifImageView>
 
-<!--    <ImageView-->
+    <Button
+        android:id="@+id/chao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="15dp"
+        android:background="#00FFFFFF"
+        android:text="Continuar"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/GIF" />
+
+    <!--    <ImageView-->
 <!--        android:id="@+id/imageView2"-->
 <!--        android:layout_width="300dp"-->
 <!--        android:layout_height="200dp"-->

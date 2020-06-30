@@ -1,10 +1,15 @@
 package co.edu.icesi.pdailyandroid;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import co.edu.icesi.pdailyandroid.cognosis.canvas.ClockDraw;
@@ -36,18 +41,52 @@ public class CaTestActivity extends AppCompatActivity {
 
 
         switch (type) {
-            case "WordsA":
+            case "WordsACA":
                 updateFragmentWordsA();
                 break;
-            case "clock":
+            case "clockCA":
                 updateFragmentClock();
                 break;
-            case "WordsB":
+            case "WordsBCA":
                 updateFragmentWordsB();
                 next.setText("Siguiente");
                 break;
         }
 
+        next.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+
+                switch (type) {
+                    case "WordsACA":
+                        intent = new Intent(getBaseContext(), ExplainActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "clock");
+                        startActivity(intent);
+                        break;
+                    case "clock":
+                        intent = new Intent(getBaseContext(), ExplainActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "WordsBCA");
+                        startActivity(intent);
+                        break;
+                    case "WordsBCA":
+                        if (index + 1 <= dataScore.getMoca_selection_words().size() - 1) {
+                            index += 1;
+                            updateFragmentWordsB();
+                        }
+
+                        if (next.getText().equals("Finalizar")) {
+                            intent = new Intent(getBaseContext(), ScoreActivity.class);
+                            intent.putExtra("EXTRA_TYPE", "CAtest");
+                            startActivity(intent);
+                        }
+
+                        Log.i("AAAAAAA", Integer.valueOf(index).toString());
+                        break;
+                }
+            }
+        });
 
     }
 
