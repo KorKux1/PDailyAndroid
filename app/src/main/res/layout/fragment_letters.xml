@@ -15,7 +15,7 @@
         android:fontFamily="@font/pragmaticaw05_bold"
         android:text="A"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="#13293D"
         android:textSize="500sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

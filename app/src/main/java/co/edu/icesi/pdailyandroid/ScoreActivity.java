@@ -4,12 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.util.Arrays;
 
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 
@@ -34,7 +31,7 @@ public class ScoreActivity extends AppCompatActivity {
 
 //        Log.i("EXTRA_TYPE", type);
 
-        scoreNumber = findViewById(R.id.ScoreNumber);
+        scoreNumber = findViewById(R.id.firstSection);
 
         switch (type) {
             case "PD-NMS":

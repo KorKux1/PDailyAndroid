@@ -5,43 +5,109 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ExplainActivity">
-
-    <TextView
-        android:id="@+id/explainType"
-        android:layout_width="500dp"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_marginTop="316dp"
-        android:text="TextView"
-        android:textColor="#3E3E3E"
-        android:textSize="30sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Holder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/TextPlaceHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/pragmaticaw05_extrabold"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Instrucciones"
+            android:textAlignment="center"
+            android:textColor="#13293D"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/divider3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="550dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="32dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TextPlaceHolder" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@drawable/instruction_moca"
+        app:layout_constraintTop_toBottomOf="@+id/Holder"
+        tools:layout_editor_absoluteX="0dp">
+
+
+        <TextView
+            android:id="@+id/explainType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="45dp"
+            android:fontFamily="@font/pragmaticaw05_light"
+            android:text="Cada 2 Segundos cambiarán las letras en pantalla.\n\nSí en las letras en pantalla está la letra “P”, presiona SI, de lo contrario, presiona NO."
+            android:textColor="#3E3E3E"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/chao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="15dp"
         android:background="#00FFFFFF"
         android:text="Continuar"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="97dp"
-        android:layout_marginTop="167dp"
-        android:layout_marginEnd="97dp"
-        android:text="Instrucciones"
-        android:textColor="#151515"
-        android:textSize="36sp"
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/GIF"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="24dp"
+        android:background="#FFFFFF"
+        android:src="@drawable/go_gif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/body">
+
+    </pl.droidsonroids.gif.GifImageView>
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView2"-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:background=""-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/body" />-->
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

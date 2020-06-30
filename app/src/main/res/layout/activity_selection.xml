@@ -47,7 +47,7 @@
 
             <TextView
                 android:id="@+id/TextPlaceHolder"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="16dp"
@@ -56,10 +56,11 @@
                 android:paddingRight="20dp"
                 android:text="Pruebas Cognitvas"
                 android:textAlignment="center"
-                android:textColor="#00BCD4"
+                android:textColor="#13293D"
                 android:textSize="40sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/divider3"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,18 +1,28 @@
 package co.edu.icesi.pdailyandroid;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import co.edu.icesi.pdailyandroid.services.App;
+import co.edu.icesi.pdailyandroid.util.JsonReaderUtils;
+import pl.droidsonroids.gif.GifImageView;
 
 public class ExplainActivity extends AppCompatActivity {
 
     private TextView explainType;
     private  String type;
     private Button chao;
+    ConstraintLayout body;
+    GifImageView GIF;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,44 +31,77 @@ public class ExplainActivity extends AppCompatActivity {
 
         type = getIntent().getStringExtra("EXTRA_FILENAME");
         chao = findViewById(R.id.chao);
+        body = (ConstraintLayout) findViewById(R.id.body);
+        GIF = (GifImageView) findViewById(R.id.GIF);
 
         explainType = findViewById(R.id.explainType);
         switch (type) {
             case "PD-NMS":
-                explainType.setText("A continuación se le mostrara una serie de problemas. Por favor, marque la casilla (SI) si ha tenido alguno durante el ultimo mes, marque (NO) si no ha tenido ese problema dutante el ultimo mes. Si ha tenido el problema pero no durante el ultimo mes, tambien debe marcar (NO).");
+                explainType.setText(Html.fromHtml("A continuación se mostrará una serie de problemas.<br><br>Por favor, marque la casilla <b>SÍ</b> si ha tenido alguno durante el mes\n" +
+                        "pasado. Si no ha tenido este problema durante el mes pasado\n" +
+                        "marque <b>NO</b>."));
+                body.setBackgroundResource(R.drawable.instruction_nms);
+                GIF.setImageResource(R.drawable.type_b_gif);
                 break;
 
             case "PD-CFRS":
-                explainType.setText("Para contestar las siguientes preguntas ustede debe evitar pensar en sus sintomas motores y enfocarse en las dificultades cognitivas (falta de atención de memoria, enlentecimiento mental, etc) han afectado nuestros día a día durante las ultimas dos semanas.");
+                explainType.setText(Html.fromHtml("Para contestar las siguientes preguntas debe evitar pensar en sus sintomas motores y enfocarse en las dificultades cognitivas <b>(falta de atención, de memoria, lentitud mental, etc)</b> y como han afectado nuestro día a día durante las ultimas <b>dos semanas</b> ."));
+                body.setBackgroundResource(R.drawable.instruction_cfrs);
+                GIF.setImageResource(R.drawable.type_a_gif);
                 break;
 
             case "Congelamiento de la marcha":
-                explainType.setText("A continuación se le mostrará una pregunta, responda que tan frecuente sintió este problema en el último mes ");
-                 break;
+                explainType.setText(Html.fromHtml("A continuación se le mostrará una pregunta.<br><br>Responda que tan frecuente sintió este problema en el último mes "));
+                body.setBackgroundResource(R.drawable.instruction_marcha);
+                GIF.setImageResource(R.drawable.type_c_gif);
+                break;
 
             case "PHQ-9":
-                explainType.setText("A continuación se le mostrar una serie de problemas. Durante las últimas dos semanas, ¿qué tan seguido ha sentido molestias debiado a los siguientes problemas?");
+                explainType.setText(Html.fromHtml("A continuación se le mostrar una serie de problemas.<br><br>Durante las últimas dos semanas:<br><b>¿Qué tan seguido ha sentido molestias debiado a los siguientes problemas?</b>"));
+                body.setBackgroundResource(R.drawable.instruction_phq);
+                GIF.setImageResource(R.drawable.type_a_gif);
                 break;
 
             case "TMT":
-                explainType.setText("Construya una secuencia número-alfabética lógica en el menor tiempo posible uniendo los siguientes numero y letras, iniciando desde el número (1) y finalizando en la letra (E). ");
+                explainType.setText(Html.fromHtml("<b>TMT</b><br>Dibuje una línea alternando entre números y letras, respetando el orden numérico y alfabético.<br><br>Comience en <b>1</b> y finalice en <b>E</b>."));
+                body.setBackgroundResource(R.drawable.instruction_moca);
+                GIF.setImageResource(R.drawable.tmt_gif);
                 break;
 
             case "WordsA":
-                explainType.setText("Lea en voz alta la siguiente lista de palbras e intente memorizarlas");
+                explainType.setText(Html.fromHtml("<b>Palabras</b><br>A continuación se mostrara una lista de palabras.<br><br>Lea cuidadosamente en voz alta la lista de palbras e intente guardarlas en su memoria"));
+                body.setBackgroundResource(R.drawable.instruction_moca);
+                GIF.setImageResource(R.drawable.words_a_gif);
                 break;
 
             case "Subtract":
-                explainType.setText("A continuacion ne se que tienes que hacer jijiji");
+                explainType.setText(Html.fromHtml("<b>Resta</b><br>Por favor, reste de <b>7</b> en <b>7</b> comenzando en el número 100"));
+                body.setBackgroundResource(R.drawable.instruction_moca);
+                GIF.setImageResource(R.drawable.substract_gif);
                 break;
+
             case "WordsB":
-                explainType.setText("A continuacion ne se que tienes que hacer jijiji");
+                explainType.setText(Html.fromHtml("<b>Palabras</b><br>A continuación se le iran mostran agrupaciones de palabras.<br><br>Seleccione las palabras que reconozca del listado que se le mostro previamente"));
+                body.setBackgroundResource(R.drawable.instruction_moca);
+                GIF.setImageResource(R.drawable.words_b_gif);
                 break;
+
+            case "Letras":
+                explainType.setText(Html.fromHtml("<b>Letras</b><br>A continuación se mostrara una secuencia de letras.<br><br>Por favor, toque la pantalla SOLO cuando la letra <b>A</b> aparezca en pantalla."));
+                body.setBackgroundResource(R.drawable.instruction_moca);
+                GIF.setImageResource(R.drawable.letters_gif);
+                break;
+
             case "GONGO":
-                explainType.setText("A continuacion ne se que tienes que hacer jijiji");
-            break;
+                explainType.setText(Html.fromHtml("Identifique la letra P.<br><br>Cada vez que aparezca la letra <b>P</b> en la pantalla, presione <b>SI</b>, de lo contrario presione <b>NO</b>."));
+                body.setBackgroundResource(R.drawable.instruction_go);
+                GIF.setImageResource(R.drawable.go_gif);
+                break;
+
             case "CA-Test":
-                explainType.setText("A continuacion ne se que tienes que hacer jijiji");
+                explainType.setText(Html.fromHtml("A continuacion ne se que tienes que hacer jijiji"));
+                body.setBackgroundResource(R.drawable.instruction_moca);
+
                 break;
         }
 
