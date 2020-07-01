@@ -63,26 +63,24 @@ public class MocaActivity extends AppCompatActivity {
 
         next.setText("Continuar");
 
-        updateFragmentSpeech();
-
-//        switch (type) {
-//            case "TMT":
-//                updateFragmentTMT();
-//                break;
-//            case "WordsA":
-//                updateFragmentWordsA();
-//                break;
-//            case "Subtract":
-//                updateFragmentSubtract();
-//                break;
-//            case "Letras":
-//                updateFragmentLetters();
-//                break;
-//            case "WordsB":
-//                updateFragmentWordsB();
-//                next.setText("Siguiente");
-//                break;
-//        }
+        switch (type) {
+            case "TMT":
+                updateFragmentTMT();
+                break;
+            case "WordsA":
+                updateFragmentWordsA();
+                break;
+            case "Subtract":
+                updateFragmentSubtract();
+                break;
+            case "Letras":
+                updateFragmentLetters();
+                break;
+            case "WordsB":
+                updateFragmentWordsB();
+                next.setText("Siguiente");
+                break;
+        }
 
         updateListener();
 
@@ -239,15 +237,6 @@ public class MocaActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragmentContainer, letters);
-        transaction.commit();
-    }
-
-    protected void updateFragmentSpeech(){
-        speech = new Speech();
-
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainer, speech);
         transaction.commit();
     }
 

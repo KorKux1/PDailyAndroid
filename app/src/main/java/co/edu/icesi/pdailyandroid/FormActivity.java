@@ -68,7 +68,7 @@ public class FormActivity extends AppCompatActivity {
         fragmentContainer = findViewById(R.id.fragmentContainer);
         formDescription = findViewById(R.id.TextFormDescription);
         formName = findViewById(R.id.TextFormName);
-        formQNumber = findViewById(R.id.TextFormQNumber);
+        formQNumber = findViewById(R.id.tv_display_number);
         formTotal = findViewById(R.id.TextFormTotal);
 
         formSelected = getIntent().getStringExtra("EXTRA_FILENAME");

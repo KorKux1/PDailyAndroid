@@ -11,10 +11,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import co.edu.icesi.pdailyandroid.cognosis.canvas.ClockDraw;
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.Clock;
+import co.edu.icesi.pdailyandroid.cognosis.fragments.Speech;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsA;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsB;
 
@@ -25,6 +27,7 @@ public class CaTestActivity extends AppCompatActivity {
     Clock clock;
     WordsB words_b;
     WordsA words_a;
+    Speech speech;
     private Boolean isFirstTime;
     private int index;
     String type;
@@ -39,19 +42,22 @@ public class CaTestActivity extends AppCompatActivity {
         type = getIntent().getStringExtra("EXTRA_FILENAME");
         isFirstTime = true;
 
+        updateFragmentSpeech();
 
-        switch (type) {
-            case "WordsACA":
-                updateFragmentWordsA();
-                break;
-            case "clock":
-                updateFragmentClock();
-                break;
-            case "WordsBCA":
-                updateFragmentWordsB();
-                next.setText("Siguiente");
-                break;
-        }
+//        switch (type) {
+//            case "WordsACA":
+//                updateFragmentWordsA();
+//                break;
+//            case "clock":
+//                updateFragmentClock();
+//                break;
+//            case "WordsBCA":
+//                updateFragmentWordsB();
+//                next.setText("Siguiente");
+//                break;
+//        }
+
+        updateListener();
 
         next.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -90,6 +96,18 @@ public class CaTestActivity extends AppCompatActivity {
 
     }
 
+    private void updateListener(){
+        if(speech != null){
+            speech.setListener(new Speech.FragmentListener() {
+                @Override
+                public void onTimerChange(String msg) {
+                    TextView tv_display_number = findViewById(R.id.tv_display_number);
+                    tv_display_number.setText(msg);
+                }
+            });
+        }
+    }
+
     protected void updateFragmentClock(){
         clock = new Clock();
 
@@ -105,6 +123,15 @@ public class CaTestActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragmentContainer, words_a);
+        transaction.commit();
+    }
+
+    protected void updateFragmentSpeech(){
+        speech = new Speech();
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragmentContainer, speech);
         transaction.commit();
     }
 
