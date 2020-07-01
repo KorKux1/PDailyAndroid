@@ -1,0 +1,414 @@
+Index: app/src/main/java/co/edu/icesi/pdailyandroid/CaTestActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/co/edu/icesi/pdailyandroid/CaTestActivity.java	(revision 388db25b8d43c052d76c2f2682b1c7d133f19916)
++++ app/src/main/java/co/edu/icesi/pdailyandroid/CaTestActivity.java	(date 1592949034981)
+@@ -1,10 +1,16 @@
+ package co.edu.icesi.pdailyandroid;
+ 
+ import androidx.appcompat.app.AppCompatActivity;
++import androidx.fragment.app.FragmentManager;
++import androidx.fragment.app.FragmentTransaction;
+ 
+ import android.os.Bundle;
+ 
++import co.edu.icesi.pdailyandroid.cognosis.canvas.ClockDraw;
++import co.edu.icesi.pdailyandroid.cognosis.fragments.Clock;
++
+ public class CaTestActivity extends AppCompatActivity {
++    Clock clock;
+ 
+     String type;
+ 
+@@ -14,5 +20,16 @@
+         setContentView(R.layout.activity_ca_test);
+ 
+         type = getIntent().getStringExtra("EXTRA_FILENAME");
++
++        updateFragmentClock();
++    }
++
++    protected void updateFragmentClock(){
++        clock = new Clock();
++
++        FragmentManager manager = getSupportFragmentManager();
++        FragmentTransaction transaction = manager.beginTransaction();
++        transaction.replace(R.id.fragmentContainer, clock);
++        transaction.commit();
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/co/edu/icesi/pdailyandroid/cognosis/fragments/Clock.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/co/edu/icesi/pdailyandroid/cognosis/fragments/Clock.java	(date 1592946592309)
++++ app/src/main/java/co/edu/icesi/pdailyandroid/cognosis/fragments/Clock.java	(date 1592946592309)
+@@ -0,0 +1,32 @@
++package co.edu.icesi.pdailyandroid.cognosis.fragments;
++
++import android.os.Bundle;
++
++import androidx.fragment.app.Fragment;
++
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.LinearLayout;
++
++import co.edu.icesi.pdailyandroid.R;
++import co.edu.icesi.pdailyandroid.cognosis.canvas.ClockDraw;
++
++public class Clock extends Fragment {
++    ClockDraw clockDraw;
++
++    public Clock() {
++        // Required empty public constructor
++    }
++
++    @Override
++    public View onCreateView(LayoutInflater inflater, ViewGroup container,
++                             Bundle savedInstanceState) {
++        View rootView = inflater.inflate(R.layout.fragment_clock, container, false);
++
++        LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.canvas);
++        linearLayout.addView(clockDraw = new ClockDraw(getActivity()));
++
++        return rootView;
++    }
++}
+Index: app/src/main/res/layout/activity_ca_test.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_ca_test.xml	(revision 388db25b8d43c052d76c2f2682b1c7d133f19916)
++++ app/src/main/res/layout/activity_ca_test.xml	(date 1592943623576)
+@@ -4,6 +4,102 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".CaTestActivity">
++    android:background="#FFFFFF"
++    android:paddingLeft="25dp"
++    android:paddingRight="25dp"
++    android:paddingTop="20dp"
++    android:paddingBottom="10dp"
++    tools:context=".FormActivity">
++
++    <androidx.constraintlayout.widget.ConstraintLayout
++        android:id="@+id/Holder"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        app:layout_constraintTop_toTopOf="parent"
++        tools:layout_editor_absoluteX="0dp">
++
++        <TextView
++            android:id="@+id/TextFormDescription"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="16dp"
++            android:fontFamily="@font/pragmaticaw05_regular"
++            android:text="hola mundo"
++            android:textColor="#B3B3B3"
++            android:textSize="20sp"
++            app:layout_constraintStart_toEndOf="@+id/TextPlaceHolder"
++            app:layout_constraintTop_toTopOf="parent" />
++
++        <TextView
++            android:id="@+id/TextPlaceHolder"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="16dp"
++            android:fontFamily="@font/pragmaticaw05_bold"
++            android:text="Test: "
++            android:textColor="#BF000000"
++            android:textSize="24sp"
++            android:textStyle="bold"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent" />
++
++        <TextView
++            android:id="@+id/TextFormName"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="8dp"
++            android:fontFamily="@font/pragmaticaw05_italic"
++            android:text="MoCA"
++            android:textColor="#B3B3B3"
++            android:textSize="20sp"
++            android:textStyle="italic"
++            app:layout_constraintStart_toEndOf="@+id/TextPlaceHolder"
++            app:layout_constraintTop_toBottomOf="@+id/TextFormDescription" />
++
++        <View
++            android:id="@+id/divider2"
++            android:layout_width="match_parent"
++            android:layout_height="1dp"
++            android:layout_marginTop="8dp"
++            android:background="?android:attr/listDivider"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/TextFormName" />
++
++    </androidx.constraintlayout.widget.ConstraintLayout>
+ 
++    <LinearLayout
++        android:id="@+id/fragmentContainer"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="12dp"
++        android:background="#FFFFFF"
++        android:orientation="vertical"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toBottomOf="@+id/Holder">
++
++    </LinearLayout>
++
++    <androidx.constraintlayout.widget.ConstraintLayout
++        android:id="@+id/constraintLayout23"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginBottom="15dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent">
++
++        <Button
++            android:id="@+id/ButtonNext"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:background="#00FFFFFF"
++            android:text="Finalizar"
++            android:textSize="18sp"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintTop_toTopOf="parent" />
++
++    </androidx.constraintlayout.widget.ConstraintLayout>
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/co/edu/icesi/pdailyandroid/cognosis/canvas/ClockDraw.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/co/edu/icesi/pdailyandroid/cognosis/canvas/ClockDraw.java	(date 1592950369738)
++++ app/src/main/java/co/edu/icesi/pdailyandroid/cognosis/canvas/ClockDraw.java	(date 1592950369738)
+@@ -0,0 +1,188 @@
++package co.edu.icesi.pdailyandroid.cognosis.canvas;
++
++import android.content.Context;
++import android.graphics.Bitmap;
++import android.graphics.Canvas;
++import android.graphics.Color;
++import android.graphics.Paint;
++import android.graphics.Path;
++import android.graphics.Point;
++import android.view.MotionEvent;
++import android.view.View;
++
++import java.util.ArrayList;
++
++
++public class ClockDraw extends View {
++    private Paint mPaint;
++
++//    private Paint paint = new Paint();
++//    private Path path = new Path();
++
++    String color_primary, color_accent;
++
++    private ArrayList<Point> points = new ArrayList<Point>();
++
++
++    public int width;
++    public int height;
++    private Bitmap mBitmap;
++    private Canvas mCanvas;
++    private Path mPath;
++    private Paint mBitmapPaint;
++    Context context;
++    private Paint circlePaint;
++    private Path circlePath;
++
++    public ClockDraw(Context context) {
++        super(context);
++        this.context = context;
++
++        mPaint = new Paint();
++        mPaint.setAntiAlias(true);
++        mPaint.setDither(true);
++        mPaint.setColor(Color.GREEN);
++        mPaint.setStyle(Paint.Style.STROKE);
++        mPaint.setStrokeJoin(Paint.Join.ROUND);
++        mPaint.setStrokeCap(Paint.Cap.ROUND);
++        mPaint.setStrokeWidth(12);
++
++        mPath = new Path();
++        mBitmapPaint = new Paint(Paint.DITHER_FLAG);
++        circlePaint = new Paint();
++        circlePath = new Path();
++        circlePaint.setAntiAlias(true);
++        circlePaint.setColor(Color.BLUE);
++        circlePaint.setStyle(Paint.Style.STROKE);
++        circlePaint.setStrokeJoin(Paint.Join.MITER);
++        circlePaint.setStrokeWidth(4f);
++
++        color_primary = "#C4C4C4";
++        color_accent = "#731DD8";
++    }
++
++    @Override
++    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
++        super.onSizeChanged(w, h, oldw, oldh);
++
++        mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
++        mCanvas = new Canvas(mBitmap);
++    }
++
++    @Override
++    protected void onDraw(android.graphics.Canvas canvas) {
++        super.onDraw(canvas);
++
++        canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
++        canvas.drawPath(mPath, mPaint);
++        canvas.drawPath(circlePath, circlePaint);
++
++//        int scaleX = 6;
++//        int scaleY = 12;
++//
++//        int width = getWidth();
++//        int height = getHeight();
++//
++//        int x = width / scaleX;
++//        int y = height / scaleY;
++//
++//
++//        boolean isDrawing = true;
++//
++//        for (Point point : points) {
++//            paint.setAntiAlias(true);
++//            paint.setDither(true);
++//            paint.setColor(Color.parseColor(color_accent));
++//            paint.setStyle(Paint.Style.STROKE);
++//            paint.setStrokeJoin(Paint.Join.ROUND);
++//            paint.setStrokeCap(Paint.Cap.ROUND);
++//            paint.setStrokeWidth(12);
++//            if (isDrawing) {
++//                isDrawing = false;
++//                path.moveTo(point.x, point.y);
++//            } else {
++//                path.lineTo(point.x, point.y);
++//            }
++//        }
++//        canvas.drawPath(path, paint);
++//
++//        paint.setStyle(Paint.Style.FILL);
++//        paint.setColor(Color.BLACK);
++//        paint.setStyle(Paint.Style.STROKE);
++//        paint.setColor(Color.BLACK);
++//        paint.setTextAlign(Paint.Align.CENTER);
++//        paint.setStrokeWidth(0);
++    }
++
++    private float mX, mY;
++    private static final float TOUCH_TOLERANCE = 4;
++
++    private void touch_start(float x, float y) {
++        mPath.reset();
++        mPath.moveTo(x, y);
++        mX = x;
++        mY = y;
++    }
++
++    private void touch_move(float x, float y) {
++        float dx = Math.abs(x - mX);
++        float dy = Math.abs(y - mY);
++        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
++            mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
++            mX = x;
++            mY = y;
++
++            circlePath.reset();
++            circlePath.addCircle(mX, mY, 30, Path.Direction.CW);
++        }
++    }
++
++    private void touch_up() {
++        mPath.lineTo(mX, mY);
++        circlePath.reset();
++        // commit the path to our offscreen
++        mCanvas.drawPath(mPath, mPaint);
++        // kill this so we don't double draw
++        mPath.reset();
++    }
++
++    @Override
++    public boolean onTouchEvent(MotionEvent event) {
++//        if (event.getAction() != MotionEvent.ACTION_UP) {
++//            paint.setAntiAlias(true);
++//            paint.setDither(true);
++//            paint.setColor(Color.parseColor(color_accent));
++//            paint.setStyle(Paint.Style.STROKE);
++//            paint.setStrokeJoin(Paint.Join.ROUND);
++//            paint.setStrokeCap(Paint.Cap.ROUND);
++//            paint.setStrokeWidth(12);
++//            Point point = new Point();
++//            point.x = (int) event.getX();
++//            point.y = (int) event.getY();
++//            points.add(point);
++//            invalidate();
++//
++//            return true;
++//        }
++//        return super.onTouchEvent(event);
++
++        float x = event.getX();
++        float y = event.getY();
++
++        switch (event.getAction()) {
++            case MotionEvent.ACTION_DOWN:
++                touch_start(x, y);
++                invalidate();
++                break;
++            case MotionEvent.ACTION_MOVE:
++                touch_move(x, y);
++                invalidate();
++                break;
++            case MotionEvent.ACTION_UP:
++                touch_up();
++                invalidate();
++                break;
++        }
++        return true;
++    }
++}
+Index: app/src/main/res/layout/fragment_clock.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_clock.xml	(date 1592946592303)
++++ app/src/main/res/layout/fragment_clock.xml	(date 1592946592303)
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".cognosis.fragments.Clock">
++
++    <LinearLayout
++        android:id="@+id/canvas"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:background="#FFFFFF"
++        android:orientation="vertical">
++    </LinearLayout>
++</LinearLayout>
+\ No newline at end of file

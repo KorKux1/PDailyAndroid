@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.Go;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.Letters;
+import co.edu.icesi.pdailyandroid.cognosis.fragments.Speech;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.Subtract;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsA;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.TMT;
@@ -34,6 +35,7 @@ public class MocaActivity extends AppCompatActivity {
 
     Letters letters;
 
+    Speech speech;
 
     private Button next;
 
@@ -61,24 +63,26 @@ public class MocaActivity extends AppCompatActivity {
 
         next.setText("Continuar");
 
-        switch (type) {
-            case "TMT":
-                updateFragmentTMT();
-                break;
-            case "WordsA":
-                updateFragmentWordsA();
-                break;
-            case "Subtract":
-                updateFragmentSubtract();
-                break;
-            case "Letras":
-                updateFragmentLetters();
-                break;
-            case "WordsB":
-                updateFragmentWordsB();
-                next.setText("Siguiente");
-                break;
-        }
+        updateFragmentSpeech();
+
+//        switch (type) {
+//            case "TMT":
+//                updateFragmentTMT();
+//                break;
+//            case "WordsA":
+//                updateFragmentWordsA();
+//                break;
+//            case "Subtract":
+//                updateFragmentSubtract();
+//                break;
+//            case "Letras":
+//                updateFragmentLetters();
+//                break;
+//            case "WordsB":
+//                updateFragmentWordsB();
+//                next.setText("Siguiente");
+//                break;
+//        }
 
         updateListener();
 
@@ -235,6 +239,15 @@ public class MocaActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragmentContainer, letters);
+        transaction.commit();
+    }
+
+    protected void updateFragmentSpeech(){
+        speech = new Speech();
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragmentContainer, speech);
         transaction.commit();
     }
 

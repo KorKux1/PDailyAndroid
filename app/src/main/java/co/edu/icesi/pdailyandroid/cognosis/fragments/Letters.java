@@ -49,7 +49,7 @@ public class Letters extends Fragment {
         letters_tapped = new ArrayList<>(letters.size());
         letters_response_time = new ArrayList<>(letters.size());
 
-        for (int i = 0; i < letters.size()-1; i++){
+        for (int i = 0; i < letters.size() - 1; i++) {
             letters_pressed.add(i, "/");
             letters_tapped.add(i, 0);
             letters_response_time.add(i, (double) 0);
@@ -85,6 +85,8 @@ public class Letters extends Fragment {
                     double startTime = System.currentTimeMillis();
                     final boolean[] isFirstClick = {true};
 
+                    tap = 0;
+
                     tv_display_letters.setText(dataScore.getMoca_selection_letters().get(index));
                     tv_display_letters.setTextColor(Color.BLACK);
                     tv_display_letters.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +94,7 @@ public class Letters extends Fragment {
                         public void onClick(View v) {
                             if (isFirstClick[0]) {
                                 time_response = System.currentTimeMillis() - startTime;
-                                letters_response_time.set(index, time_response/1000);
+                                letters_response_time.set(index, time_response / 1000);
                                 Log.i("TIME_RESPONSE", String.valueOf(time_response));
 
                                 letters_pressed.set(index, dataScore.getMoca_selection_letters().get(index));

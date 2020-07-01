@@ -41,9 +41,14 @@ public class TmtDraw extends View {
     boolean b_one, b_two, b_three, b_four, b_five, b_a, b_b, b_c, b_d, b_e, end;
     public String s_one, s_two, s_three, s_four, s_five, s_a, s_b, s_c, s_d, s_e, score;
 
-
     int radius;
     String color_primary, color_accent;
+
+    private Path mPath;
+    private Paint mBitmapPaint;
+    Context context;
+    private Paint circlePaint;
+    private Path circlePath;
 
     public TmtDraw(Context context) {
         super(context);
@@ -80,6 +85,16 @@ public class TmtDraw extends View {
 
         color_primary = "#C4C4C4";
         color_accent = "#731DD8";
+
+        mPath = new Path();
+        mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+        circlePaint = new Paint();
+        circlePath = new Path();
+        circlePaint.setAntiAlias(true);
+        circlePaint.setColor(Color.rgb(19, 41, 61));
+        circlePaint.setStyle(Paint.Style.STROKE);
+        circlePaint.setStrokeJoin(Paint.Join.MITER);
+        circlePaint.setStrokeWidth(4f);
     }
 
     @Override
@@ -230,7 +245,7 @@ public class TmtDraw extends View {
 
             Log.i("MOCA_SCORE_TMT", dataScore.getMoca_score_tmt());
 
-            if(listener != null){
+            if (listener != null) {
                 listener.onScoreUpdated(dataScore.getMoca_score_tmt());
                 Log.i("TALKING FROM TMTDRAW", dataScore.getMoca_score_tmt());
             }
@@ -265,6 +280,10 @@ public class TmtDraw extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+        float tx = event.getX();
+        float ty = event.getY();
+
         int eventAction = event.getAction();
 
         int x = getWidth();
@@ -384,9 +403,29 @@ public class TmtDraw extends View {
                 }
             }
 
+            if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                touch_move(tx, ty);
+            }
+
             return true;
         }
         return super.onTouchEvent(event);
+    }
+
+    private float mX, mY;
+    private static final float TOUCH_TOLERANCE = 4;
+
+    private void touch_move(float x, float y) {
+        float dx = Math.abs(x - mX);
+        float dy = Math.abs(y - mY);
+        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+            mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
+            mX = x;
+            mY = y;
+
+            circlePath.reset();
+            circlePath.addCircle(mX, mY, 30, Path.Direction.CW);
+        }
     }
 
 }
