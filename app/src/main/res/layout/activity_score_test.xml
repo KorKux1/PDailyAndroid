@@ -250,7 +250,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/firstSectionTimeNumber"
+                android:id="@+id/tv_score_time_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -277,7 +277,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/firstSectionTimeProNumber"
+                android:id="@+id/tv_score_time_average"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
