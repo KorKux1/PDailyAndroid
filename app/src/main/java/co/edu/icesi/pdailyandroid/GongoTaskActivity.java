@@ -27,7 +27,7 @@ public class GongoTaskActivity extends AppCompatActivity {
     private ArrayList<ArrayList<String>> go_answer_letters;
     private ArrayList<Boolean> go_selection_stimulus;
     private ArrayList<Boolean> go_answer_stimulus;
-    private ArrayList<Double> go_time_response;
+    private ArrayList<Long> go_time_response;
 
     private String go_stimulus;
 
@@ -63,7 +63,7 @@ public class GongoTaskActivity extends AppCompatActivity {
         for (int i = 0; i < go_test_multiplier; i++) {
             ArrayList<String> as = new ArrayList<>(Arrays.asList(""));
             go_answer_stimulus.add(false);
-            go_time_response.add((double) 2);
+            go_time_response.add((long) 2);
             go_answer_letters.add(as);
         }
     }
@@ -134,7 +134,7 @@ public class GongoTaskActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     time_response = (System.currentTimeMillis() - startTime) / 1000;
-                                    go_time_response.set(index, time_response);
+                                    go_time_response.set(index, (long) time_response);
                                     Log.i("TIME_RESPONSE", String.valueOf(go_time_response));
 
                                     boolean isStimulusCorrect;
@@ -166,7 +166,7 @@ public class GongoTaskActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     time_response = (System.currentTimeMillis() - startTime) / 1000;
-                                    go_time_response.set(index, time_response);
+                                    go_time_response.set(index, (long) time_response);
                                     Log.i("TIME_RESPONSE", String.valueOf(go_time_response));
 
                                     boolean isStimulusCorrect;

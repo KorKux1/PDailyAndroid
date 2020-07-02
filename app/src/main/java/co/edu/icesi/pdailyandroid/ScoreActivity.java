@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.concurrent.TimeUnit;
+
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 
 public class ScoreActivity extends AppCompatActivity {
@@ -37,29 +39,84 @@ public class ScoreActivity extends AppCompatActivity {
         tv_score_time_total = findViewById(R.id.tv_score_time_total);
         tv_score_time_average = findViewById(R.id.tv_score_time_average);
 
+        int minutes, minutesAvg;
+        int seconds, secondsAvg;
+
         switch (type) {
             case "PD-NMS":
                 scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_pdnms()).toString());
-                tv_score_time_total.setText(String.valueOf(dataScore.getForm_time_response_pdnms_total()) + " " + "Min");
-                tv_score_time_average.setText(String.valueOf(dataScore.getForm_time_response_pdnms_total()/dataScore.getForm_answers_pdnms().length) + " " + "Min/Pregunta");
+                minutes = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getForm_time_response_pdnms_total());
+                seconds = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getForm_time_response_pdnms_total());
+                if (minutes > 0) {
+                    tv_score_time_total.setText(minutes + " Min" + "  " + seconds + " Seg");
+                } else {
+                    tv_score_time_total.setText(seconds + " Seg");
+                }
+
+                minutesAvg = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getForm_time_response_pdnms_total() / dataScore.getForm_answers_pdnms().length);
+                secondsAvg = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getForm_time_response_pdnms_total() / dataScore.getForm_answers_pdnms().length);
+                if (minutesAvg > 0) {
+                    tv_score_time_average.setText(minutesAvg + " Min" + "  " + secondsAvg + " Seg");
+                } else {
+                    tv_score_time_average.setText(secondsAvg + " Seg");
+                }
                 break;
 
             case "PD-CFRS":
                 scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_pdcfrs()).toString());
-                tv_score_time_total.setText(String.valueOf(dataScore.getForm_time_response_pdcfrs_total()) + " " + "Min");
-                tv_score_time_average.setText(String.valueOf(dataScore.getForm_time_response_pdcfrs_total()/dataScore.getForm_answers_pdcfrs().length) + " " + "Min/Pregunta");
+                minutes = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getForm_time_response_pdcfrs_total());
+                seconds = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getForm_time_response_pdcfrs_total());
+                if (minutes > 0) {
+                    tv_score_time_total.setText(minutes + " Min" + "  " + seconds + " Seg");
+                } else {
+                    tv_score_time_total.setText(seconds + " Seg");
+                }
+
+                minutesAvg = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getForm_time_response_pdcfrs_total() / dataScore.getForm_answers_pdcfrs().length);
+                secondsAvg = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getForm_time_response_pdcfrs_total() / dataScore.getForm_answers_pdcfrs().length);
+                if (minutesAvg > 0) {
+                    tv_score_time_average.setText(minutesAvg + " Min" + "  " + secondsAvg + " Seg");
+                } else {
+                    tv_score_time_average.setText(secondsAvg + " Seg");
+                }
                 break;
 
             case "Congelamiento de la marcha":
                 scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_walk()).toString());
-                tv_score_time_total.setText(String.valueOf(dataScore.getForm_time_response_walk_total()) + " " + "Min");
-                tv_score_time_average.setText(String.valueOf(dataScore.getForm_time_response_walk_total()/dataScore.getForm_answers_walk().length) + " " + "Min/Pregunta");
+                minutes = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getForm_time_response_walk_total());
+                seconds = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getForm_time_response_walk_total());
+                if (minutes > 0) {
+                    tv_score_time_total.setText(minutes + " Min" + "  " + seconds + " Seg");
+                } else {
+                    tv_score_time_total.setText(seconds + " Seg");
+                }
+
+                minutesAvg = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getForm_time_response_walk_total() / dataScore.getForm_answers_walk().length);
+                secondsAvg = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getForm_time_response_walk_total() / dataScore.getForm_answers_walk().length);
+                if (minutesAvg > 0) {
+                    tv_score_time_average.setText(minutesAvg + " Min" + "  " + secondsAvg + " Seg");
+                } else {
+                    tv_score_time_average.setText(secondsAvg + " Seg");
+                }
                 break;
 
             case "PHQ-9":
                 scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_phq9()).toString());
-                tv_score_time_total.setText(String.valueOf(dataScore.getForm_time_response_phq9_total()) + " " + "Min");
-                tv_score_time_average.setText(String.valueOf(dataScore.getForm_time_response_phq9_total()/dataScore.getForm_answers_phq9().length) + " " + "Min/Pregunta");
+                minutes = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getForm_time_response_phq9_total());
+                seconds = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getForm_time_response_phq9_total());
+                if (minutes > 0) {
+                    tv_score_time_total.setText(minutes + " Min" + "  " + seconds + " Seg");
+                } else {
+                    tv_score_time_total.setText(seconds + " Seg");
+                }
+
+                minutesAvg = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getForm_time_response_phq9_total() / dataScore.getForm_answers_phq9().length);
+                secondsAvg = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getForm_time_response_phq9_total() / dataScore.getForm_answers_phq9().length);
+                if (minutesAvg > 0) {
+                    tv_score_time_average.setText(minutesAvg + " Min" + "  " + secondsAvg + " Seg");
+                } else {
+                    tv_score_time_average.setText(secondsAvg + " Seg");
+                }
                 break;
 
             case "MoCA":
@@ -67,7 +124,7 @@ public class ScoreActivity extends AppCompatActivity {
         }
 
 
-        chao.setOnClickListener(new View.OnClickListener(){
+        chao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), SelectionActivity.class);

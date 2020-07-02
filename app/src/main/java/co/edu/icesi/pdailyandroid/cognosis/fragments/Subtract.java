@@ -36,7 +36,7 @@ public class Subtract extends Fragment {
     private boolean isTestFinished;
     private ArrayList<Boolean> total_Correct_List;
 
-    private ArrayList<Double> moca_time_response;
+    private ArrayList<Long> moca_time_response;
     private double moca_time_response_total;
 
     private double startTime = System.currentTimeMillis();
@@ -74,31 +74,31 @@ public class Subtract extends Fragment {
                 if (num - 7 == Integer.valueOf(String.valueOf(numberResult.getText()))) {
                     Log.i("INDEX", Integer.valueOf(index).toString());
                     if (index == 1) {
-                        Double time_temp = (System.currentTimeMillis() - startTime) / 1000;
+                        long time_temp = (long) ((System.currentTimeMillis() - startTime) / 1000);
                         a = true;
                         total_Correct_List.add(a);
                         moca_time_response.add(time_temp);
                     }
                     if (index == 2) {
-                        Double time_temp = (System.currentTimeMillis() - startTime) / 1000;
+                        long time_temp = (long) ((System.currentTimeMillis() - startTime) / 1000);
                         e = true;
                         total_Correct_List.add(e);
                         moca_time_response.add(time_temp);
                     }
                     if (index == 3) {
-                        Double time_temp = (System.currentTimeMillis() - startTime) / 1000;
+                        long time_temp = (long) ((System.currentTimeMillis() - startTime) / 1000);
                         i = true;
                         total_Correct_List.add(i);
                         moca_time_response.add(time_temp);
                     }
                     if (index == 4) {
-                        Double time_temp = (System.currentTimeMillis() - startTime) / 1000;
+                        long time_temp = (long) ((System.currentTimeMillis() - startTime) / 1000);
                         o = true;
                         total_Correct_List.add(o);
                         moca_time_response.add(time_temp);
                     }
                     if (index == 5) {
-                        Double time_temp = (System.currentTimeMillis() - startTime) / 1000;
+                        long time_temp = (long) ((System.currentTimeMillis() - startTime) / 1000);
                         u = true;
                         total_Correct_List.add(u);
                         moca_time_response.add(time_temp);
@@ -145,7 +145,7 @@ public class Subtract extends Fragment {
                     for (int i = 0; i < moca_time_response.size(); i++) {
                         moca_time_response_total += moca_time_response.get(i);
                     }
-                    dataScore.setMoca_time_response_substract_total(moca_time_response_total);
+                    dataScore.setMoca_time_response_substract_total((long) moca_time_response_total);
 
                 }
 

@@ -9,32 +9,32 @@ public class DataScore {
     //PD-NMS
     private int form_score_pdnms;
     private int[] form_answers_pdnms;
-    private Double[] form_time_response_pdnms;
-    private Double form_time_response_pdnms_total;
+    private long[] form_time_response_pdnms;
+    private long form_time_response_pdnms_total;
     private Date form_date_response_pdnms;
     private Boolean form_isFinished_pdnms;
 
     //PD-CFRS
     private int form_score_pdcfrs;
     private int[] form_answers_pdcfrs;
-    private Double[] form_time_response_pcfrs;
-    private Double form_time_response_pdcfrs_total;
+    private long[] form_time_response_pcfrs;
+    private long form_time_response_pdcfrs_total;
     private Date form_date_response_pdcfrs;
     private Boolean form_isFinished_pdcfrs;
 
     //WALK
     private int form_score_walk;
     private int[] form_answers_walk;
-    private Double[] form_time_response_walk;
-    private Double form_time_response_walk_total;
+    private long[] form_time_response_walk;
+    private long form_time_response_walk_total;
     private Date form_date_response_walk;
     private Boolean form_isFinished_walk;
 
     //PHQ-9
     private int form_score_phq9;
     private int[] form_answers_phq9;
-    private Double[] form_time_response_phq9;
-    private Double form_time_response_phq9_total;
+    private long[] form_time_response_phq9;
+    private long form_time_response_phq9_total;
     private Date form_date_response_phq9;
     private Boolean form_isFinished_phq9;
 
@@ -44,8 +44,8 @@ public class DataScore {
 
     private String moca_score_tmt;
     private ArrayList<String> moca_answers_tmt;
-    private ArrayList<Double> moca_time_response_tmt;
-    private Double moca_time_response_tmt_total;
+    private ArrayList<Long> moca_time_response_tmt;
+    private long moca_time_response_tmt_total;
     private Boolean moca_isFinished_tmt;
 
     private ArrayList<String> moca_selected_words;
@@ -53,22 +53,22 @@ public class DataScore {
     private ArrayList<String> moca_answers_words;
     private int moca_score_words;
     private int moca_selector_words;
-    private ArrayList<Double> moca_time_response_words;
-    private Double moca_time_response_words_total;
+    private ArrayList<Long> moca_time_response_words;
+    private long moca_time_response_words_total;
     private Boolean moca_isFinished_words;
 
     private int moca_score_substract;
     private ArrayList<Boolean> moca_answers_substract;
-    private ArrayList<Double> moca_time_response_substract;
-    private Double moca_time_response_substract_total;
+    private ArrayList<Long> moca_time_response_substract;
+    private long moca_time_response_substract_total;
     private Boolean moca_isFinished_substract;
 
     private int moca_score_letters;
     private ArrayList<String> moca_answers_letters;
     private ArrayList<Integer> moca_tapped_letters;
     private ArrayList<String> moca_selected_letters;
-    private ArrayList<Double> moca_time_response_letters;
-    private Double moca_time_response_letters_total;
+    private ArrayList<Long> moca_time_response_letters;
+    private long moca_time_response_letters_total;
     private ArrayList<Boolean> moca_mistakes_letters;
     private int moca_mistakes_letters_total;
     private Boolean moca_isFinished_letters;
@@ -82,8 +82,8 @@ public class DataScore {
     private ArrayList<ArrayList<String>> go_answers_letters;
     private ArrayList<Boolean> go_selected_stimulus;
     private ArrayList<Boolean> go_answers_stimulus;
-    private ArrayList<Double> go_time_response;
-    private Double go_time_response_total;
+    private ArrayList<Long> go_time_response;
+    private long go_time_response_total;
 
     //CATest
     private Date catest_date_response;
@@ -94,8 +94,8 @@ public class DataScore {
     private ArrayList<String> catest_answers_words;
     private int catest_score_words;
     private int catest_selector_words;
-    private ArrayList<Double> catest_time_response_words;
-    private Double catest_time_response_words_total;
+    private ArrayList<Long> catest_time_response_words;
+    private long catest_time_response_words_total;
     private Boolean catest_isFinished_words;
 
     private String catest_selected_speech_stimulus;
@@ -139,19 +139,19 @@ public class DataScore {
         this.form_answers_pdnms = form_answers_pdnms;
     }
 
-    public Double[] getForm_time_response_pdnms() {
+    public long[] getForm_time_response_pdnms() {
         return form_time_response_pdnms;
     }
 
-    public void setForm_time_response_pdnms(Double[] form_time_response_pdnms) {
+    public void setForm_time_response_pdnms(long[] form_time_response_pdnms) {
         this.form_time_response_pdnms = form_time_response_pdnms;
     }
 
-    public Double getForm_time_response_pdnms_total() {
+    public long getForm_time_response_pdnms_total() {
         return form_time_response_pdnms_total;
     }
 
-    public void setForm_time_response_pdnms_total(Double form_time_response_pdnms_total) {
+    public void setForm_time_response_pdnms_total(long form_time_response_pdnms_total) {
         this.form_time_response_pdnms_total = form_time_response_pdnms_total;
     }
 
@@ -187,19 +187,19 @@ public class DataScore {
         this.form_answers_pdcfrs = form_answers_pdcfrs;
     }
 
-    public Double[] getForm_time_response_pcfrs() {
+    public long[] getForm_time_response_pcfrs() {
         return form_time_response_pcfrs;
     }
 
-    public void setForm_time_response_pcfrs(Double[] form_time_response_pcfrs) {
+    public void setForm_time_response_pcfrs(long[] form_time_response_pcfrs) {
         this.form_time_response_pcfrs = form_time_response_pcfrs;
     }
 
-    public Double getForm_time_response_pdcfrs_total() {
+    public long getForm_time_response_pdcfrs_total() {
         return form_time_response_pdcfrs_total;
     }
 
-    public void setForm_time_response_pdcfrs_total(Double form_time_response_pdcfrs_total) {
+    public void setForm_time_response_pdcfrs_total(long form_time_response_pdcfrs_total) {
         this.form_time_response_pdcfrs_total = form_time_response_pdcfrs_total;
     }
 
@@ -235,19 +235,19 @@ public class DataScore {
         this.form_answers_walk = form_answers_walk;
     }
 
-    public Double[] getForm_time_response_walk() {
+    public long[] getForm_time_response_walk() {
         return form_time_response_walk;
     }
 
-    public void setForm_time_response_walk(Double[] form_time_response_walk) {
+    public void setForm_time_response_walk(long[] form_time_response_walk) {
         this.form_time_response_walk = form_time_response_walk;
     }
 
-    public Double getForm_time_response_walk_total() {
+    public long getForm_time_response_walk_total() {
         return form_time_response_walk_total;
     }
 
-    public void setForm_time_response_walk_total(Double form_time_response_walk_total) {
+    public void setForm_time_response_walk_total(long form_time_response_walk_total) {
         this.form_time_response_walk_total = form_time_response_walk_total;
     }
 
@@ -283,19 +283,19 @@ public class DataScore {
         this.form_answers_phq9 = form_answers_phq9;
     }
 
-    public Double[] getForm_time_response_phq9() {
+    public long[] getForm_time_response_phq9() {
         return form_time_response_phq9;
     }
 
-    public void setForm_time_response_phq9(Double[] form_time_response_phq9) {
+    public void setForm_time_response_phq9(long[] form_time_response_phq9) {
         this.form_time_response_phq9 = form_time_response_phq9;
     }
 
-    public Double getForm_time_response_phq9_total() {
+    public long getForm_time_response_phq9_total() {
         return form_time_response_phq9_total;
     }
 
-    public void setForm_time_response_phq9_total(Double form_time_response_phq9_total) {
+    public void setForm_time_response_phq9_total(long form_time_response_phq9_total) {
         this.form_time_response_phq9_total = form_time_response_phq9_total;
     }
 
@@ -347,19 +347,19 @@ public class DataScore {
         this.moca_answers_tmt = moca_answers_tmt;
     }
 
-    public ArrayList<Double> getMoca_time_response_tmt() {
+    public ArrayList<Long> getMoca_time_response_tmt() {
         return moca_time_response_tmt;
     }
 
-    public void setMoca_time_response_tmt(ArrayList<Double> moca_time_response_tmt) {
+    public void setMoca_time_response_tmt(ArrayList<Long> moca_time_response_tmt) {
         this.moca_time_response_tmt = moca_time_response_tmt;
     }
 
-    public Double getMoca_time_response_tmt_total() {
+    public long getMoca_time_response_tmt_total() {
         return moca_time_response_tmt_total;
     }
 
-    public void setMoca_time_response_tmt_total(Double moca_time_response_tmt_total) {
+    public void setMoca_time_response_tmt_total(long moca_time_response_tmt_total) {
         this.moca_time_response_tmt_total = moca_time_response_tmt_total;
     }
 
@@ -411,19 +411,19 @@ public class DataScore {
         this.moca_selector_words = moca_selector_words;
     }
 
-    public ArrayList<Double> getMoca_time_response_words() {
+    public ArrayList<Long> getMoca_time_response_words() {
         return moca_time_response_words;
     }
 
-    public void setMoca_time_response_words(ArrayList<Double> moca_time_response_words) {
+    public void setMoca_time_response_words(ArrayList<Long> moca_time_response_words) {
         this.moca_time_response_words = moca_time_response_words;
     }
 
-    public Double getMoca_time_response_words_total() {
+    public long getMoca_time_response_words_total() {
         return moca_time_response_words_total;
     }
 
-    public void setMoca_time_response_words_total(Double moca_time_response_words_total) {
+    public void setMoca_time_response_words_total(long moca_time_response_words_total) {
         this.moca_time_response_words_total = moca_time_response_words_total;
     }
 
@@ -451,19 +451,19 @@ public class DataScore {
         this.moca_answers_substract = moca_answers_substract;
     }
 
-    public ArrayList<Double> getMoca_time_response_substract() {
+    public ArrayList<Long> getMoca_time_response_substract() {
         return moca_time_response_substract;
     }
 
-    public void setMoca_time_response_substract(ArrayList<Double> moca_time_response_substract) {
+    public void setMoca_time_response_substract(ArrayList<Long> moca_time_response_substract) {
         this.moca_time_response_substract = moca_time_response_substract;
     }
 
-    public Double getMoca_time_response_substract_total() {
+    public long getMoca_time_response_substract_total() {
         return moca_time_response_substract_total;
     }
 
-    public void setMoca_time_response_substract_total(Double moca_time_response_substract_total) {
+    public void setMoca_time_response_substract_total(long moca_time_response_substract_total) {
         this.moca_time_response_substract_total = moca_time_response_substract_total;
     }
 
@@ -507,19 +507,19 @@ public class DataScore {
         this.moca_selected_letters = moca_selected_letters;
     }
 
-    public ArrayList<Double> getMoca_time_response_letters() {
+    public ArrayList<Long> getMoca_time_response_letters() {
         return moca_time_response_letters;
     }
 
-    public void setMoca_time_response_letters(ArrayList<Double> moca_time_response_letters) {
+    public void setMoca_time_response_letters(ArrayList<Long> moca_time_response_letters) {
         this.moca_time_response_letters = moca_time_response_letters;
     }
 
-    public Double getMoca_time_response_letters_total() {
+    public long getMoca_time_response_letters_total() {
         return moca_time_response_letters_total;
     }
 
-    public void setMoca_time_response_letters_total(Double moca_time_response_letters_total) {
+    public void setMoca_time_response_letters_total(long moca_time_response_letters_total) {
         this.moca_time_response_letters_total = moca_time_response_letters_total;
     }
 
@@ -603,19 +603,19 @@ public class DataScore {
         this.go_answers_stimulus = go_answers_stimulus;
     }
 
-    public ArrayList<Double> getGo_time_response() {
+    public ArrayList<Long> getGo_time_response() {
         return go_time_response;
     }
 
-    public void setGo_time_response(ArrayList<Double> go_time_response) {
+    public void setGo_time_response(ArrayList<Long> go_time_response) {
         this.go_time_response = go_time_response;
     }
 
-    public Double getGo_time_response_total() {
+    public long getGo_time_response_total() {
         return go_time_response_total;
     }
 
-    public void setGo_time_response_total(Double go_time_response_total) {
+    public void setGo_time_response_total(long go_time_response_total) {
         this.go_time_response_total = go_time_response_total;
     }
 
@@ -675,19 +675,19 @@ public class DataScore {
         this.catest_selector_words = catest_selector_words;
     }
 
-    public ArrayList<Double> getCatest_time_response_words() {
+    public ArrayList<Long> getCatest_time_response_words() {
         return catest_time_response_words;
     }
 
-    public void setCatest_time_response_words(ArrayList<Double> catest_time_response_words) {
+    public void setCatest_time_response_words(ArrayList<Long> catest_time_response_words) {
         this.catest_time_response_words = catest_time_response_words;
     }
 
-    public Double getCatest_time_response_words_total() {
+    public long getCatest_time_response_words_total() {
         return catest_time_response_words_total;
     }
 
-    public void setCatest_time_response_words_total(Double catest_time_response_words_total) {
+    public void setCatest_time_response_words_total(long catest_time_response_words_total) {
         this.catest_time_response_words_total = catest_time_response_words_total;
     }
 

@@ -355,7 +355,7 @@ public class FormActivity extends AppCompatActivity {
                     dataScore.setForm_answers_pdnms(aTotal);
                     dataScore.setForm_isFinished_pdnms(true);
                     dataScore.setForm_date_response_pdnms(d);
-                    dataScore.setForm_time_response_pdnms_total((System.currentTimeMillis() - startTime) / 1000);
+                    dataScore.setForm_time_response_pdnms_total((long) ((System.currentTimeMillis() - startTime)));
                     Log.i("dataScore_score", String.valueOf(dataScore.getForm_score_pdnms()));
                     Log.i("dataScore_answers", String.valueOf(dataScore.getForm_answers_pdnms()));
                     Log.i("dataScore_time", String.valueOf(dataScore.getForm_time_response_pdnms_total()));
@@ -367,7 +367,7 @@ public class FormActivity extends AppCompatActivity {
                     dataScore.setForm_answers_pdcfrs(aTotal);
                     dataScore.setForm_isFinished_pdcfrs(true);
                     dataScore.setForm_date_response_pdcfrs(d);
-                    dataScore.setForm_time_response_pdcfrs_total((System.currentTimeMillis() - startTime) / 1000);
+                    dataScore.setForm_time_response_pdcfrs_total((long) ((System.currentTimeMillis() - startTime)));
                     Log.i("dataScore_score", String.valueOf(dataScore.getForm_score_pdcfrs()));
                     Log.i("dataScore_answers", String.valueOf(dataScore.getForm_answers_pdcfrs()));
                     Log.i("dataScore_time", String.valueOf(dataScore.getForm_time_response_pdcfrs_total()));
@@ -379,7 +379,7 @@ public class FormActivity extends AppCompatActivity {
                     dataScore.setForm_score_walk(scoreFinal);
                     dataScore.setForm_isFinished_walk(true);
                     dataScore.setForm_date_response_walk(d);
-                    dataScore.setForm_time_response_walk_total((System.currentTimeMillis() - startTime) / 1000);
+                    dataScore.setForm_time_response_walk_total((long) ((System.currentTimeMillis() - startTime)));
                     Log.i("dataScore_score", String.valueOf(dataScore.getForm_score_walk()));
                     Log.i("dataScore_answers", String.valueOf(dataScore.getForm_answers_walk()));
                     Log.i("dataScore_time", String.valueOf(dataScore.getForm_time_response_walk_total()));
@@ -391,7 +391,7 @@ public class FormActivity extends AppCompatActivity {
                     dataScore.setForm_score_phq9(scoreFinal);
                     dataScore.setForm_isFinished_phq9(true);
                     dataScore.setForm_date_response_phq9(d);
-                    dataScore.setForm_time_response_phq9_total((System.currentTimeMillis() - startTime) / 1000);
+                    dataScore.setForm_time_response_phq9_total((long) ((System.currentTimeMillis() - startTime)));
                     Log.i("dataScore_score", String.valueOf(dataScore.getForm_score_phq9()));
                     Log.i("dataScore_answers", String.valueOf(dataScore.getForm_answers_phq9()));
                     Log.i("dataScore_time", String.valueOf(dataScore.getForm_time_response_phq9_total()));
