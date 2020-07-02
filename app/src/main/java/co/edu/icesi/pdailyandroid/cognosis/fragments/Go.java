@@ -229,7 +229,7 @@ public class Go extends Fragment {
                 go_letters.add(go_non_stimulus_array);
                 Log.i("GO_LETTERS", String.valueOf(go_letters));
                 Collections.shuffle(go_letters);
-                dataScore.setGo_selection_letters(go_letters);
+                dataScore.setGo_selected_letters(go_letters);
             }
         }
     }

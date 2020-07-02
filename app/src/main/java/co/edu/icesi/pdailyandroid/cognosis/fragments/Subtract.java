@@ -2,6 +2,7 @@ package co.edu.icesi.pdailyandroid.cognosis.fragments;
 
 import android.os.Bundle;
 
+import androidx.core.math.MathUtils;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -9,10 +10,13 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
@@ -32,12 +36,20 @@ public class Subtract extends Fragment {
     private boolean isTestFinished;
     private ArrayList<Boolean> total_Correct_List;
 
+    private ArrayList<Double> moca_time_response;
+    private double moca_time_response_total;
+
+    private double startTime = System.currentTimeMillis();
+    private Date d = new Date();
+
     public Subtract() {
         // Required empty public constructor
         listener = null;
         isTestFinished = false;
 
         total_Correct_List = new ArrayList<Boolean>();
+
+        moca_time_response = new ArrayList<>();
     }
 
 
@@ -62,25 +74,34 @@ public class Subtract extends Fragment {
                 if (num - 7 == Integer.valueOf(String.valueOf(numberResult.getText()))) {
                     Log.i("INDEX", Integer.valueOf(index).toString());
                     if (index == 1) {
+                        Double time_temp = (System.currentTimeMillis() - startTime) / 1000;
                         a = true;
                         total_Correct_List.add(a);
+                        moca_time_response.add(time_temp);
                     }
                     if (index == 2) {
+                        Double time_temp = (System.currentTimeMillis() - startTime) / 1000;
                         e = true;
                         total_Correct_List.add(e);
+                        moca_time_response.add(time_temp);
                     }
                     if (index == 3) {
+                        Double time_temp = (System.currentTimeMillis() - startTime) / 1000;
                         i = true;
                         total_Correct_List.add(i);
+                        moca_time_response.add(time_temp);
                     }
                     if (index == 4) {
+                        Double time_temp = (System.currentTimeMillis() - startTime) / 1000;
                         o = true;
                         total_Correct_List.add(o);
+                        moca_time_response.add(time_temp);
                     }
                     if (index == 5) {
+                        Double time_temp = (System.currentTimeMillis() - startTime) / 1000;
                         u = true;
                         total_Correct_List.add(u);
-
+                        moca_time_response.add(time_temp);
                     }
                     Log.i("BOOLEAN A", String.valueOf(a));
                     Log.i("BOOLEAN E", String.valueOf(e));
@@ -97,8 +118,9 @@ public class Subtract extends Fragment {
 
                 if (index == 5) {
                     isTestFinished = true;
-                    if (listener != null){
+                    if (listener != null) {
                         listener.onTestFinished(isTestFinished);
+                        dataScore.setMoca_isFinished_substract(true);
                     }
 
                     if (total_Correct_List.size() >= 4) {
@@ -116,12 +138,18 @@ public class Subtract extends Fragment {
                         total_Correct = 0;
                     }
 
-                    dataScore.setMoca_total_Correct(total_Correct);
-                    dataScore.setMoca_total_Correct_List(total_Correct_List);
+                    dataScore.setMoca_score_substract(total_Correct);
+                    dataScore.setMoca_answers_substract(total_Correct_List);
+                    dataScore.setMoca_date_response(d);
+                    dataScore.setMoca_time_response_substract(moca_time_response);
+                    for (int i = 0; i < moca_time_response.size(); i++) {
+                        moca_time_response_total += moca_time_response.get(i);
+                    }
+                    dataScore.setMoca_time_response_substract_total(moca_time_response_total);
 
                 }
 
-                if (index==6){
+                if (index == 6) {
                     numberResult.setEnabled(false);
                 }
 

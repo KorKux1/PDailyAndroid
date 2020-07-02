@@ -43,7 +43,7 @@ public class Letters extends Fragment {
     public Letters() {
         letters = new ArrayList<>(Arrays.asList("F", "B", "A", "C", "M", "N", "A", "A", "J", "K", "L", "B", "A", "F", "A", "K", "D", "E", "A", "A", "A", "J", "A", "M", "O", "F", "A", "A", "B"));
         Collections.shuffle(letters);
-        dataScore.setMoca_selection_letters(letters);
+        dataScore.setMoca_selected_letters(letters);
 
         letters_pressed = new ArrayList<>(letters.size());
         letters_tapped = new ArrayList<>(letters.size());
@@ -87,7 +87,7 @@ public class Letters extends Fragment {
 
                     tap = 0;
 
-                    tv_display_letters.setText(dataScore.getMoca_selection_letters().get(index));
+                    tv_display_letters.setText(dataScore.getMoca_selected_letters().get(index));
                     tv_display_letters.setTextColor(Color.BLACK);
                     tv_display_letters.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -97,7 +97,7 @@ public class Letters extends Fragment {
                                 letters_response_time.set(index, time_response / 1000);
                                 Log.i("TIME_RESPONSE", String.valueOf(time_response));
 
-                                letters_pressed.set(index, dataScore.getMoca_selection_letters().get(index));
+                                letters_pressed.set(index, dataScore.getMoca_selected_letters().get(index));
 
                                 tv_display_letters.setTextColor(Color.rgb(0, 188, 209));
                                 tap += 1;

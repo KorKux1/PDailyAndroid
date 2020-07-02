@@ -42,7 +42,7 @@ public class DataScore {
     private Date moca_date_response;
     private Boolean moca_isFinished;
 
-    private Boolean moca_score_tmt;
+    private String moca_score_tmt;
     private ArrayList<String> moca_answers_tmt;
     private ArrayList<Double> moca_time_response_tmt;
     private Double moca_time_response_tmt_total;
@@ -331,11 +331,11 @@ public class DataScore {
         this.moca_isFinished = moca_isFinished;
     }
 
-    public Boolean getMoca_score_tmt() {
+    public String getMoca_score_tmt() {
         return moca_score_tmt;
     }
 
-    public void setMoca_score_tmt(Boolean moca_score_tmt) {
+    public void setMoca_score_tmt(String moca_score_tmt) {
         this.moca_score_tmt = moca_score_tmt;
     }
 

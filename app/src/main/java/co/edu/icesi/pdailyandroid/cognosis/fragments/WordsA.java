@@ -57,7 +57,7 @@ public class WordsA extends Fragment {
 
         words_selected = words.get(randomSelector);
         Log.i("WORDS_SELECTED", words_selected.toString());
-        dataScore.setMoca_selection_words(words_selected);
+        dataScore.setMoca_selected_words(words_selected);
 
         time_cooldown = 5000;
         time_execution = 3000;
