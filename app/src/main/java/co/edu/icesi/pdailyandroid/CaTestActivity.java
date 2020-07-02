@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Date;
+import java.util.Random;
+
 import co.edu.icesi.pdailyandroid.cognosis.canvas.ClockDraw;
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 import co.edu.icesi.pdailyandroid.cognosis.fragments.Clock;
@@ -23,6 +26,7 @@ import co.edu.icesi.pdailyandroid.cognosis.fragments.WordsB;
 public class CaTestActivity extends AppCompatActivity {
 
     private DataScore dataScore = DataScore.getInstance();
+    private Date d = new Date();
 
     Clock clock;
     WordsB words_b;
@@ -33,10 +37,18 @@ public class CaTestActivity extends AppCompatActivity {
     String type;
     private Button next;
 
+    private final String speech_stimulus_words = "MP";
+    private String speech_stimulus;
+
+    private Random speech_random = new Random();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ca_test);
+
+        speech_stimulus = String.valueOf(speech_stimulus_words.charAt(speech_random.nextInt(speech_stimulus_words.length())));
+        dataScore.setCatest_selected_speech_stimulus(speech_stimulus);
 
         next = findViewById(R.id.ButtonNext);
         type = getIntent().getStringExtra("EXTRA_FILENAME");
@@ -77,7 +89,7 @@ public class CaTestActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case "WordsBCA":
-                        if (index + 1 <= dataScore.getMoca_selection_words().size() - 1) {
+                        if (index + 1 <= dataScore.getMoca_selected_words().size() - 1) {
                             index += 1;
                             updateFragmentWordsB();
                         }
@@ -96,8 +108,8 @@ public class CaTestActivity extends AppCompatActivity {
 
     }
 
-    private void updateListener(){
-        if(speech != null){
+    private void updateListener() {
+        if (speech != null) {
             speech.setListener(new Speech.FragmentListener() {
                 @Override
                 public void onTimerChange(String msg) {
@@ -108,7 +120,7 @@ public class CaTestActivity extends AppCompatActivity {
         }
     }
 
-    protected void updateFragmentClock(){
+    protected void updateFragmentClock() {
         clock = new Clock();
 
         FragmentManager manager = getSupportFragmentManager();
@@ -126,7 +138,7 @@ public class CaTestActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    protected void updateFragmentSpeech(){
+    protected void updateFragmentSpeech() {
         speech = new Speech();
 
         FragmentManager manager = getSupportFragmentManager();
@@ -143,21 +155,21 @@ public class CaTestActivity extends AppCompatActivity {
             switch (dataScore.getMoca_selector_words()) {
 
                 case 0:
-                    dataScore.setMoca_selection_words_noise(words_b.getWords_noise_one());
+                    dataScore.setMoca_selected_words_noise(words_b.getWords_noise_one());
                     words_b.setAnswer_one_text(words_b.getWords_noise_one().get(index).get(0));
                     words_b.setAnswer_two_text(words_b.getWords_noise_one().get(index).get(1));
                     words_b.setAnswer_three_text(words_b.getWords_noise_one().get(index).get(2));
                     break;
 
                 case 1:
-                    dataScore.setMoca_selection_words_noise(words_b.getWords_noise_two());
+                    dataScore.setMoca_selected_words_noise(words_b.getWords_noise_two());
                     words_b.setAnswer_one_text(words_b.getWords_noise_two().get(index).get(0));
                     words_b.setAnswer_two_text(words_b.getWords_noise_two().get(index).get(1));
                     words_b.setAnswer_three_text(words_b.getWords_noise_two().get(index).get(2));
                     break;
 
                 case 2:
-                    dataScore.setMoca_selection_words_noise(words_b.getWords_noise_three());
+                    dataScore.setMoca_selected_words_noise(words_b.getWords_noise_three());
                     words_b.setAnswer_one_text(words_b.getWords_noise_three().get(index).get(0));
                     words_b.setAnswer_two_text(words_b.getWords_noise_three().get(index).get(1));
                     words_b.setAnswer_three_text(words_b.getWords_noise_three().get(index).get(2));
@@ -166,9 +178,9 @@ public class CaTestActivity extends AppCompatActivity {
 
             isFirstTime = false;
         } else {
-            words_b.setAnswer_one_text(dataScore.getMoca_selection_words_noise().get(index).get(0));
-            words_b.setAnswer_two_text(dataScore.getMoca_selection_words_noise().get(index).get(1));
-            words_b.setAnswer_three_text(dataScore.getMoca_selection_words_noise().get(index).get(2));
+            words_b.setAnswer_one_text(dataScore.getMoca_selected_words_noise().get(index).get(0));
+            words_b.setAnswer_two_text(dataScore.getMoca_selected_words_noise().get(index).get(1));
+            words_b.setAnswer_three_text(dataScore.getMoca_selected_words_noise().get(index).get(2));
         }
 
         FragmentManager manager = getSupportFragmentManager();

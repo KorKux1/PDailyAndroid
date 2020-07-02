@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:fontFamily="@font/pragmaticaw05_italic"
-            android:text="MoCA"
+            android:text="CATest"
             android:textColor="#B3B3B3"
             android:textSize="20sp"
             android:textStyle="italic"

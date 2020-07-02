@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -56,6 +57,8 @@ public class FormActivity extends AppCompatActivity {
     private TextView formName;
     private TextView formQNumber;
     private TextView formTotal;
+
+    private double startTime = System.currentTimeMillis();
 
 
     @Override
@@ -336,39 +339,53 @@ public class FormActivity extends AppCompatActivity {
         if (next.getText().equals("Finalizar")) {
 
             if (!formSelected.equals("Congelamiento de la marcha")) {
-            aTotal[score - 1] = aSelect;
-            scoreFinal = Arrays.stream(aTotal).sum();
-            Log.i("ARRAYYYY", Arrays.toString(aTotal));
-            Log.i("SUMAAAAA", Integer.valueOf(scoreFinal).toString());
-            }else {
+                aTotal[score - 1] = aSelect;
+                scoreFinal = Arrays.stream(aTotal).sum();
+                Log.i("ARRAYYYY", Arrays.toString(aTotal));
+                Log.i("SUMAAAAA", Integer.valueOf(scoreFinal).toString());
+            } else {
                 aTotal[0] = aSelect;
                 scoreFinal = Arrays.stream(aTotal).sum();
             }
 
+            Date d = new Date();
+
             switch (formSelected) {
                 case "PD-NMS":
-                    dataScore.setForm_answers_pd_nms(aTotal);
-                    dataScore.setForm_score_pd_nms(scoreFinal);
+                    dataScore.setForm_score_pdnms(scoreFinal);
+                    dataScore.setForm_answers_pdnms(aTotal);
+                    dataScore.setForm_isFinished_pdnms(true);
+                    dataScore.setForm_date_response_pdnms(d);
+                    dataScore.setForm_time_response_pdnms_total((System.currentTimeMillis() - startTime) / 1000);
                     typeForm = "PD-NMS";
                     break;
 
                 case "PD-CFRS":
-                    dataScore.setForm_answers_pd_cfrs(aTotal);
-                    dataScore.setForm_score_pd_cfrs(scoreFinal);
+                    dataScore.setForm_score_pdcfrs(scoreFinal);
+                    dataScore.setForm_answers_pdcfrs(aTotal);
+                    dataScore.setForm_isFinished_pdcfrs(true);
+                    dataScore.setForm_date_response_pdcfrs(d);
+                    dataScore.setForm_time_response_pdcfrs_total((System.currentTimeMillis() - startTime) / 1000);
                     typeForm = "PD-CFRS";
-                   break;
+                    break;
 
                 case "Congelamiento de la marcha":
                     dataScore.setForm_answers_walk(aTotal);
                     dataScore.setForm_score_walk(scoreFinal);
+                    dataScore.setForm_isFinished_walk(true);
+                    dataScore.setForm_date_response_walk(d);
+                    dataScore.setForm_time_response_walk_total((System.currentTimeMillis() - startTime) / 1000);
                     typeForm = "Congelamiento de la marcha";
                     break;
 
                 case "PHQ-9":
                     dataScore.setForm_answers_phq9(aTotal);
                     dataScore.setForm_score_phq9(scoreFinal);
+                    dataScore.setForm_isFinished_phq9(true);
+                    dataScore.setForm_date_response_phq9(d);
+                    dataScore.setForm_time_response_phq9_total((System.currentTimeMillis() - startTime) / 1000);
                     typeForm = "PHQ-9";
-                     break;
+                    break;
             }
 
             Intent intent = new Intent(getBaseContext(), ScoreActivity.class);

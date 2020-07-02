@@ -54,7 +54,7 @@ public class GongoTaskActivity extends AppCompatActivity {
         time_response = 0;
 
         go_letters = new ArrayList<>(go_test_multiplier);
-        go_answer_letters = new ArrayList<>(go_test_multiplier);
+        go_answer_letters = new ArrayList<ArrayList<String>>(go_test_multiplier);
         go_selection_stimulus = new ArrayList<>(go_test_multiplier);
         go_answer_stimulus = new ArrayList<>(go_test_multiplier);
         go_time_response = new ArrayList<>(go_test_multiplier);
@@ -71,6 +71,8 @@ public class GongoTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gongo_task);
 
         type = getIntent().getStringExtra("EXTRA_FILENAME");
+
+        dataScore.setGo_stimulus(go_stimulus);
 
         onStimulusArrayGenerator(go_test_multiplier, go_stimulus_amount_occurrence, go_stimulus_amount_array);
 
@@ -142,8 +144,15 @@ public class GongoTaskActivity extends AppCompatActivity {
                                         go_answer_stimulus.set(index, isStimulusCorrect);
                                     }
 
+                                    go_answer_letters.set(index, go_letters.get(index));
+
                                     Log.i("GO_SELECTION", String.valueOf(go_selection_stimulus));
                                     Log.i("GO_ANSWERS", String.valueOf(go_answer_stimulus));
+
+                                    dataScore.setGo_selected_stimulus(go_selection_stimulus);
+                                    dataScore.setGo_answers_stimulus(go_answer_stimulus);
+                                    dataScore.setGo_time_response(go_time_response);
+                                    dataScore.setGo_answers_letters(go_answer_letters);
 
                                     uiUpdateClicked(b_one);
                                     uiUpdateClickedNonSelected(b_two);
@@ -169,6 +178,10 @@ public class GongoTaskActivity extends AppCompatActivity {
 
                                     Log.i("GO_SELECTION", String.valueOf(go_selection_stimulus));
                                     Log.i("GO_ANSWERS", String.valueOf(go_answer_stimulus));
+
+                                    dataScore.setGo_selected_stimulus(go_selection_stimulus);
+                                    dataScore.setGo_answers_stimulus(go_answer_stimulus);
+                                    dataScore.setGo_time_response(go_time_response);
 
                                     uiUpdateClicked(b_two);
                                     uiUpdateClickedNonSelected(b_one);
@@ -219,7 +232,7 @@ public class GongoTaskActivity extends AppCompatActivity {
                 go_letters.add(go_non_stimulus_array);
                 Log.i("GO_LETTERS", String.valueOf(go_letters));
                 Collections.shuffle(go_letters);
-                dataScore.setGo_selection_letters(go_letters);
+                dataScore.setGo_selected_letters(go_letters);
             }
         }
     }

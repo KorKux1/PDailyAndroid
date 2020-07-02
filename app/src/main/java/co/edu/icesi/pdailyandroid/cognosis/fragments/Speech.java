@@ -19,15 +19,20 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
 import co.edu.icesi.pdailyandroid.R;
+import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 
 import static android.app.Activity.RESULT_OK;
 
 public class Speech extends Fragment {
     private static final int REQ_CODE_SPEECH_INPUT = 100;
+
+    DataScore dataScore = DataScore.getInstance();
+    private Date d = new Date();
 
     Button btn_speech_record;
 
@@ -37,12 +42,9 @@ public class Speech extends Fragment {
 
     FragmentListener listener;
 
-    private final String speech_stimulus_words = "MP";
     private String speech_stimulus;
 
     private Boolean isFirsTime = true;
-
-    private Random speech_random = new Random();
 
     public Speech() {
         // Required empty public constructor
@@ -50,7 +52,7 @@ public class Speech extends Fragment {
 
         listener = null;
 
-        speech_stimulus = String.valueOf(speech_stimulus_words.charAt(speech_random.nextInt(speech_stimulus_words.length())));
+        speech_stimulus = dataScore.getCatest_selected_speech_stimulus();
     }
 
     @Override
@@ -84,8 +86,11 @@ public class Speech extends Fragment {
 
                         @Override
                         public void onFinish() {
-                            listener.onTimerChange("Meh");
+                            listener.onTimerChange("ØØ");
                             btn_speech_record.setEnabled(false);
+                            dataScore.setCatest_answers_speech_words(speech_words);
+                            dataScore.setCatest_isFinished_speech(true);
+                            dataScore.setCatest_date_response_speech(d);
                         }
                     }.start();
                 }

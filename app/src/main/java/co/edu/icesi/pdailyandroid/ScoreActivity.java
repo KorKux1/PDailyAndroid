@@ -35,11 +35,11 @@ public class ScoreActivity extends AppCompatActivity {
 
         switch (type) {
             case "PD-NMS":
-                scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_pd_nms()).toString());
+                scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_pdnms()).toString());
                 break;
 
             case "PD-CFRS":
-                scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_pd_cfrs()).toString());
+                scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_pdcfrs()).toString());
                 break;
 
             case "Congelamiento de la marcha":
