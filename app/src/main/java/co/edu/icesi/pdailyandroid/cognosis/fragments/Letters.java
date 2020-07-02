@@ -49,7 +49,7 @@ public class Letters extends Fragment {
         letters_tapped = new ArrayList<>(letters.size());
         letters_response_time = new ArrayList<>(letters.size());
 
-        for (int i = 0; i < letters.size() - 1; i++) {
+        for (int i = 0; i < letters.size(); i++) {
             letters_pressed.add(i, "/");
             letters_tapped.add(i, 0);
             letters_response_time.add(i, (double) 0);
@@ -77,7 +77,7 @@ public class Letters extends Fragment {
     }
 
     private void handlerTimer(int time_execution, TextView tv_display_letters) {
-        for (int i = 0; i <= letters.size() - 1; i++) {
+        for (int i = 0; i < letters.size(); i++) {
             int index = i;
             handler.postDelayed(new Runnable() {
                 @Override

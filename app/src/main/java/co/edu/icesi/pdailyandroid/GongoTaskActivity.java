@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -41,7 +42,7 @@ public class GongoTaskActivity extends AppCompatActivity {
 
     private final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    public GongoTaskActivity(){
+    public GongoTaskActivity() {
         go_stimulus = "P";
 
         go_random = new Random();
@@ -60,8 +61,10 @@ public class GongoTaskActivity extends AppCompatActivity {
         go_time_response = new ArrayList<>(go_test_multiplier);
 
         for (int i = 0; i < go_test_multiplier; i++) {
+            ArrayList<String> as = new ArrayList<>(Arrays.asList(""));
             go_answer_stimulus.add(false);
             go_time_response.add((double) 2);
+            go_answer_letters.add(as);
         }
     }
 
