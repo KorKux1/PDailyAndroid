@@ -337,7 +337,6 @@ public class FormActivity extends AppCompatActivity {
 
 
         if (next.getText().equals("Finalizar")) {
-
             if (!formSelected.equals("Congelamiento de la marcha")) {
                 aTotal[score - 1] = aSelect;
                 scoreFinal = Arrays.stream(aTotal).sum();
@@ -357,6 +356,9 @@ public class FormActivity extends AppCompatActivity {
                     dataScore.setForm_isFinished_pdnms(true);
                     dataScore.setForm_date_response_pdnms(d);
                     dataScore.setForm_time_response_pdnms_total((System.currentTimeMillis() - startTime) / 1000);
+                    Log.i("dataScore_score", String.valueOf(dataScore.getForm_score_pdnms()));
+                    Log.i("dataScore_answers", String.valueOf(dataScore.getForm_answers_pdnms()));
+                    Log.i("dataScore_time", String.valueOf(dataScore.getForm_time_response_pdnms_total()));
                     typeForm = "PD-NMS";
                     break;
 
@@ -366,6 +368,9 @@ public class FormActivity extends AppCompatActivity {
                     dataScore.setForm_isFinished_pdcfrs(true);
                     dataScore.setForm_date_response_pdcfrs(d);
                     dataScore.setForm_time_response_pdcfrs_total((System.currentTimeMillis() - startTime) / 1000);
+                    Log.i("dataScore_score", String.valueOf(dataScore.getForm_score_pdcfrs()));
+                    Log.i("dataScore_answers", String.valueOf(dataScore.getForm_answers_pdcfrs()));
+                    Log.i("dataScore_time", String.valueOf(dataScore.getForm_time_response_pdcfrs_total()));
                     typeForm = "PD-CFRS";
                     break;
 
@@ -375,6 +380,9 @@ public class FormActivity extends AppCompatActivity {
                     dataScore.setForm_isFinished_walk(true);
                     dataScore.setForm_date_response_walk(d);
                     dataScore.setForm_time_response_walk_total((System.currentTimeMillis() - startTime) / 1000);
+                    Log.i("dataScore_score", String.valueOf(dataScore.getForm_score_walk()));
+                    Log.i("dataScore_answers", String.valueOf(dataScore.getForm_answers_walk()));
+                    Log.i("dataScore_time", String.valueOf(dataScore.getForm_time_response_walk_total()));
                     typeForm = "Congelamiento de la marcha";
                     break;
 
@@ -384,6 +392,9 @@ public class FormActivity extends AppCompatActivity {
                     dataScore.setForm_isFinished_phq9(true);
                     dataScore.setForm_date_response_phq9(d);
                     dataScore.setForm_time_response_phq9_total((System.currentTimeMillis() - startTime) / 1000);
+                    Log.i("dataScore_score", String.valueOf(dataScore.getForm_score_phq9()));
+                    Log.i("dataScore_answers", String.valueOf(dataScore.getForm_answers_phq9()));
+                    Log.i("dataScore_time", String.valueOf(dataScore.getForm_time_response_phq9_total()));
                     typeForm = "PHQ-9";
                     break;
             }
