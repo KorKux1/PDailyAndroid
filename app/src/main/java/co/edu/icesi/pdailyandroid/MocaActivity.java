@@ -109,6 +109,7 @@ public class MocaActivity extends AppCompatActivity {
                         intent = new Intent(getBaseContext(), ExplainActivity.class);
                         intent.putExtra("EXTRA_FILENAME", "Letras");
                         dataScore.setMoca_time_response_substract_total(System.currentTimeMillis() - startTime);
+
                         startActivity(intent);
                         break;
 
@@ -191,6 +192,7 @@ public class MocaActivity extends AppCompatActivity {
                     next.setEnabled(true);
                 }
             });
+            dataScore.setMoca_time_response_letters_total(System.currentTimeMillis() - startTime);
         }
     }
 
@@ -214,16 +216,17 @@ public class MocaActivity extends AppCompatActivity {
         }
 
         if (next.getText().equals("Finalizar")) {
+            dataScore.setMoca_time_response_words_total(System.currentTimeMillis() - startTime);
             for (int i = 0; i <= words_answers_selected.size() - 1; i++) {
                 if (dataScore.getMoca_selected_words().contains(words_answers_selected.get(i))) {
                     words_answers_approved.add(words_answers_selected.get(i));
                     Log.i("RESPONSE", words_answers_approved.toString());
-                    dataScore.setMoca_score_words(words_answers_approved.size());
                 } else {
                     words_answers_mistakes.add(words_answers_selected.get(i));
                     dataScore.setMoca_mistakes_words(words_answers_mistakes);
                 }
             }
+            dataScore.setMoca_score_words(words_answers_selected.size() - words_answers_mistakes.size());
         }
     }
 

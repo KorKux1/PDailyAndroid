@@ -32,11 +32,13 @@ public class Letters extends Fragment {
     private ArrayList<Long> letters_response_time;
 
     private int tap;
+    private int score;
 
     private double time_response;
 
     private int time_cooldown;
     private int time_execution;
+    private long time_start;
 
     private TextView tv_display_letters;
 
@@ -61,6 +63,8 @@ public class Letters extends Fragment {
 
         time_execution = 2000;
         time_response = 0;
+        time_start = System.currentTimeMillis();
+        score = 0;
     }
 
     @Override
@@ -110,16 +114,22 @@ public class Letters extends Fragment {
                             } else {
                                 tap += 1;
                             }
+                            letters_tapped.set(index, tap);
                         }
                     });
-                    letters_tapped.set(index, tap);
                     Log.i("LAST_LETTER_TIME", letters_response_time.get(index).toString());
                     dataScore.setMoca_time_response_letters(letters_response_time);
                     dataScore.setMoca_tapped_letters(letters_tapped);
+                    Log.i("TAP", letters_tapped.toString());
                     dataScore.setMoca_answers_letters(letters_pressed);
                 }
             }, time_execution * i);
             listener.onLettersFinished(true);
+            if (letters_pressed.get(i) != "A") {
+                score += 1;
+            }
+            dataScore.setMoca_score_letters(score);
+            dataScore.setMoca_time_response_letters_total(System.currentTimeMillis() - time_start);
         }
     }
 

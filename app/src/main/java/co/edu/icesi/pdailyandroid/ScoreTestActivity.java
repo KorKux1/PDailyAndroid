@@ -85,7 +85,7 @@ public class ScoreTestActivity extends AppCompatActivity {
                 firstSectionTimeProNumber.setText(dataScore.getMoca_answers_tmt().toString());
 
 
-                secondSection.setText(dataScore.getMoca_score_substract());
+                secondSection.setText(String.valueOf(dataScore.getMoca_score_substract()));
                 secondSectionType.setText("Resta");
                 secondSectionTitle.setText("Resta");
                 secondTimeTitle.setText("Tiempo total");
@@ -97,8 +97,8 @@ public class ScoreTestActivity extends AppCompatActivity {
                     secondSectionTimeNumber.setText(secondSeconds + " Seg");
                 }
                 secondTimeProTitle.setText("Tiempo promedio");
-                secondMinutesAvg = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getMoca_time_response_substract_total()/dataScore.getMoca_answers_substract().size());
-                secondSecondsAvg = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getMoca_time_response_substract_total()/dataScore.getMoca_answers_substract().size());
+                secondMinutesAvg = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getMoca_time_response_substract_total() / dataScore.getMoca_answers_substract().size());
+                secondSecondsAvg = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getMoca_time_response_substract_total() / dataScore.getMoca_answers_substract().size());
                 if (secondMinutesAvg > 0) {
                     secondSectionTimeProNumber.setText(secondMinutesAvg + " Min" + "  " + secondSecondsAvg + " Seg");
                 } else {
@@ -115,7 +115,7 @@ public class ScoreTestActivity extends AppCompatActivity {
                 thirdSectionTitle.setText("Letras");
                 ArrayList<Long> tempTimes = new ArrayList<>();
                 long timesSum = 0;
-                int timeAvg;
+                int timeAvg = 0;
                 for (int i = 0; i < dataScore.getMoca_time_response_letters().size(); i++) {
                     if (dataScore.getMoca_time_response_letters().get(i) != 0) {
                         tempTimes.add(dataScore.getMoca_time_response_letters().get(i));
@@ -129,11 +129,11 @@ public class ScoreTestActivity extends AppCompatActivity {
                 if (thirdMinutes > 0) {
                     thirdSectionTimeNumber.setText("Tiempo total " + thirdMinutes + " Min" + "  " + thirdSeconds + " Seg");
                 } else {
-                    thirdSectionTimeNumber.setText("Tiempo total " + thirdMinutes + " Seg");
+                    thirdSectionTimeNumber.setText("Tiempo total " + thirdSeconds + " Seg");
                 }
                 ArrayList<Integer> tempTap = new ArrayList<>();
                 int tapSum = 0;
-                int tapAvg;
+                int tapAvg = 0;
                 for (int i = 0; i < dataScore.getMoca_tapped_letters().size(); i++) {
                     if (dataScore.getMoca_tapped_letters().get(i) != 0) {
                         tempTap.add(dataScore.getMoca_tapped_letters().get(i));
@@ -152,12 +152,12 @@ public class ScoreTestActivity extends AppCompatActivity {
                 fourtMinutes = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getMoca_time_response_words_total());
                 fourtSeconds = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getMoca_time_response_words_total());
                 if (fourtMinutes > 0) {
-                    fourtSectionTimeNumber.setText("Tiempo total " + fourtMinutes + " Min" + "  " + fourtSeconds + " Seg");
+                    fourtSectionTimeNumber.setText(fourtMinutes + " Min" + "  " + fourtSeconds + " Seg");
                 } else {
-                    fourtSectionTimeNumber.setText("Tiempo total " + fourtMinutes + " Seg");
+                    fourtSectionTimeNumber.setText(fourtSeconds + " Seg");
                 }
                 fourtTimeProTitle.setText("Errores");
-                fourtSectionTimeProNumber.setText(dataScore.getMoca_mistakes_words().toString());
+                fourtSectionTimeProNumber.setText(String.valueOf(dataScore.getMoca_mistakes_words()));
 
                 break;
 
