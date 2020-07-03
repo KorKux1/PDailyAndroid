@@ -40,10 +40,14 @@ public class Letters extends Fragment {
 
     private TextView tv_display_letters;
 
+    private FragmentListener listener;
+
     public Letters() {
         letters = new ArrayList<>(Arrays.asList("F", "B", "A", "C", "M", "N", "A", "A", "J", "K", "L", "B", "A", "F", "A", "K", "D", "E", "A", "A", "A", "J", "A", "M", "O", "F", "A", "A", "B"));
         Collections.shuffle(letters);
         dataScore.setMoca_selected_letters(letters);
+
+        listener = null;
 
         letters_pressed = new ArrayList<>(letters.size());
         letters_tapped = new ArrayList<>(letters.size());
@@ -112,6 +116,16 @@ public class Letters extends Fragment {
                     Log.i("LAST_LETTER_TIME", letters_response_time.get(index).toString());
                 }
             }, time_execution * i);
+            listener.onLettersFinished(true);
         }
     }
+
+    public interface FragmentListener {
+        void onLettersFinished(Boolean b);
+    }
+
+    public void setListener(FragmentListener listener) {
+        this.listener = listener;
+    }
+
 }
