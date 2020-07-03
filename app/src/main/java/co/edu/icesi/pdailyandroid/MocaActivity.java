@@ -172,6 +172,15 @@ public class MocaActivity extends AppCompatActivity {
                 }
             });
         }
+
+        if(letters != null){
+            letters.setListener(new Letters.FragmentListener() {
+                @Override
+                public void onLettersFinished(Boolean b) {
+                    next.setEnabled(true);
+                }
+            });
+        }
     }
 
     private void scoreEvaluation() {
