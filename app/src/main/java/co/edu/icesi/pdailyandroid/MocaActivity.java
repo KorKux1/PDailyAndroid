@@ -36,16 +36,16 @@ public class MocaActivity extends AppCompatActivity {
 
     Letters letters;
 
-    Speech speech;
-
     private Button next;
 
     private int index;
 
     private ArrayList<String> words_answers_selected;
     private ArrayList<String> words_answers_approved;
+    private ArrayList<String> words_answers_mistakes;
 
     private Boolean isFirstTime;
+    private long startTime = System.currentTimeMillis();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class MocaActivity extends AppCompatActivity {
 
         words_answers_selected = new ArrayList<>();
         words_answers_approved = new ArrayList<>();
+        words_answers_mistakes = new ArrayList<>();
 
         isFirstTime = true;
 
@@ -96,6 +97,7 @@ public class MocaActivity extends AppCompatActivity {
                     case "TMT":
                         intent = new Intent(getBaseContext(), ExplainActivity.class);
                         intent.putExtra("EXTRA_FILENAME", "WordsA");
+                        dataScore.setMoca_time_response_tmt_total(System.currentTimeMillis() - startTime);
                         startActivity(intent);
                         break;
                     case "WordsA":
@@ -106,12 +108,14 @@ public class MocaActivity extends AppCompatActivity {
                     case "Subtract":
                         intent = new Intent(getBaseContext(), ExplainActivity.class);
                         intent.putExtra("EXTRA_FILENAME", "Letras");
+                        dataScore.setMoca_time_response_substract_total(System.currentTimeMillis() - startTime);
                         startActivity(intent);
                         break;
 
                     case "Letras":
                         intent = new Intent(getBaseContext(), ExplainActivity.class);
                         intent.putExtra("EXTRA_FILENAME", "WordsB");
+                        dataScore.setMoca_time_response_letters_total(System.currentTimeMillis() - startTime);
                         startActivity(intent);
                         break;
 
@@ -122,8 +126,9 @@ public class MocaActivity extends AppCompatActivity {
                         }
 
                         if (next.getText().equals("Finalizar")) {
-                            intent = new Intent(getBaseContext(), ScoreActivity.class);
-                            intent.putExtra("EXTRA_TYPE", "MoCa");
+                            intent = new Intent(getBaseContext(), ScoreTestActivity.class);
+                            intent.putExtra("EXTRA_TYPE", "MOCA");
+                            dataScore.setMoca_time_response_words_total(System.currentTimeMillis() - startTime);
                             startActivity(intent);
                         }
 
@@ -179,7 +184,7 @@ public class MocaActivity extends AppCompatActivity {
             });
         }
 
-        if(letters != null){
+        if (letters != null) {
             letters.setListener(new Letters.FragmentListener() {
                 @Override
                 public void onLettersFinished(Boolean b) {
@@ -213,6 +218,10 @@ public class MocaActivity extends AppCompatActivity {
                 if (dataScore.getMoca_selected_words().contains(words_answers_selected.get(i))) {
                     words_answers_approved.add(words_answers_selected.get(i));
                     Log.i("RESPONSE", words_answers_approved.toString());
+                    dataScore.setMoca_score_words(words_answers_approved.size());
+                } else {
+                    words_answers_mistakes.add(words_answers_selected.get(i));
+                    dataScore.setMoca_mistakes_words(words_answers_mistakes);
                 }
             }
         }

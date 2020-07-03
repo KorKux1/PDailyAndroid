@@ -235,9 +235,9 @@ public class TmtDraw extends View {
             end = true;
 
             if (aTotal.equals(aTotalComparable)) {
-                score = "Yes";
+                score = "Válido";
             } else {
-                score = "No";
+                score = "No Válido";
             }
 
             dataScore.setMoca_answers_tmt(aTotal);

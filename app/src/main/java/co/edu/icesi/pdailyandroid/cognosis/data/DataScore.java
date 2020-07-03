@@ -51,6 +51,7 @@ public class DataScore {
     private ArrayList<String> moca_selected_words;
     private ArrayList<ArrayList<String>> moca_selected_words_noise;
     private ArrayList<String> moca_answers_words;
+    private ArrayList<String> moca_mistakes_words;
     private int moca_score_words;
     private int moca_selector_words;
     private ArrayList<Long> moca_time_response_words;
@@ -489,6 +490,14 @@ public class DataScore {
 
     public void setMoca_answers_letters(ArrayList<String> moca_answers_letters) {
         this.moca_answers_letters = moca_answers_letters;
+    }
+
+    public ArrayList<String> getMoca_mistakes_words() {
+        return moca_mistakes_words;
+    }
+
+    public void setMoca_mistakes_words(ArrayList<String> moca_mistakes_words) {
+        this.moca_mistakes_words = moca_mistakes_words;
     }
 
     public ArrayList<Integer> getMoca_tapped_letters() {

@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 
 public class ScoreActivity extends AppCompatActivity {
-
     DataScore dataScore = DataScore.getInstance();
 
     private String type;
@@ -36,8 +35,8 @@ public class ScoreActivity extends AppCompatActivity {
 //        Log.i("EXTRA_TYPE", type);
 
         scoreNumber = findViewById(R.id.firstSection);
-        tv_score_time_total = findViewById(R.id.tv_score_time_total);
-        tv_score_time_average = findViewById(R.id.tv_score_time_average);
+        tv_score_time_total = findViewById(R.id.firstSectionTimeNumber);
+        tv_score_time_average = findViewById(R.id.firstSectionTimeProNumber);
 
         int minutes, minutesAvg;
         int seconds, secondsAvg;

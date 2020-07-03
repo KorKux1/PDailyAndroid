@@ -146,7 +146,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
             <TextView
-                android:id="@+id/threeSection"
+                android:id="@+id/thirdSection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pragmaticaw05_bold"
@@ -156,7 +156,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/threeSectionType"
+                android:id="@+id/thirdSectionType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -180,7 +180,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
             <TextView
-                android:id="@+id/fourSection"
+                android:id="@+id/fourtSection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pragmaticaw05_bold"
@@ -190,7 +190,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/fourSectionType"
+                android:id="@+id/fourtSectionType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -241,7 +241,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/TimeTitle"
+                android:id="@+id/firstTimeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -250,7 +250,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/tv_score_time_total"
+                android:id="@+id/firstSectionTimeNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -268,8 +268,8 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/TimeProTitle"
-                android:layout_width="150dp"
+                android:id="@+id/firstTimeProTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/pragmaticaw05_light"
@@ -277,7 +277,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/tv_score_time_average"
+                android:id="@+id/firstSectionTimeProNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -353,7 +353,7 @@
 
             <TextView
                 android:id="@+id/secondTimeProTitle"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/pragmaticaw05_light"
@@ -386,7 +386,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
 
         <TextView
-            android:id="@+id/threefirstSectionTitle"
+            android:id="@+id/thirdSectionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="35dp"
@@ -409,7 +409,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/threeTimeTitle"
+                android:id="@+id/thirdTimeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -418,7 +418,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/threefirstSectionTimeNumber"
+                android:id="@+id/thirdSectionTimeNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -436,8 +436,8 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/threeTimeProTitle"
-                android:layout_width="150dp"
+                android:id="@+id/thirdTimeProTitle"
+                android:layout_width="14dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/pragmaticaw05_light"
@@ -445,7 +445,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/threeSectionTimeProNumber"
+                android:id="@+id/thirdSectionTimeProNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -470,7 +470,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
 
         <TextView
-            android:id="@+id/fourSectionTitle"
+            android:id="@+id/fourtSectionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="35dp"
@@ -493,7 +493,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/fourTimeTitle"
+                android:id="@+id/fourtTimeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -502,7 +502,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/fourSectionTimeNumber"
+                android:id="@+id/fourtSectionTimeNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -520,8 +520,8 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/fourTimeProTitle"
-                android:layout_width="150dp"
+                android:id="@+id/fourtTimeProTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/pragmaticaw05_light"
@@ -529,7 +529,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/fourSectionTimeProNumber"
+                android:id="@+id/fourtSectionTimeProNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

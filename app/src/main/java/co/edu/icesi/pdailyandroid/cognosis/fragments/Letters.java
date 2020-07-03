@@ -29,7 +29,7 @@ public class Letters extends Fragment {
     private ArrayList<String> letters_pressed;
     private ArrayList<Integer> letters_tapped;
 
-    private ArrayList<Double> letters_response_time;
+    private ArrayList<Long> letters_response_time;
 
     private int tap;
 
@@ -56,7 +56,7 @@ public class Letters extends Fragment {
         for (int i = 0; i < letters.size(); i++) {
             letters_pressed.add(i, "/");
             letters_tapped.add(i, 0);
-            letters_response_time.add(i, (double) 0);
+            letters_response_time.add(i, (long) 0);
         }
 
         time_execution = 2000;
@@ -98,7 +98,7 @@ public class Letters extends Fragment {
                         public void onClick(View v) {
                             if (isFirstClick[0]) {
                                 time_response = System.currentTimeMillis() - startTime;
-                                letters_response_time.set(index, time_response / 1000);
+                                letters_response_time.set(index, (long) (time_response));
                                 Log.i("TIME_RESPONSE", String.valueOf(time_response));
 
                                 letters_pressed.set(index, dataScore.getMoca_selected_letters().get(index));
@@ -114,6 +114,9 @@ public class Letters extends Fragment {
                     });
                     letters_tapped.set(index, tap);
                     Log.i("LAST_LETTER_TIME", letters_response_time.get(index).toString());
+                    dataScore.setMoca_time_response_letters(letters_response_time);
+                    dataScore.setMoca_tapped_letters(letters_tapped);
+                    dataScore.setMoca_answers_letters(letters_pressed);
                 }
             }, time_execution * i);
             listener.onLettersFinished(true);
