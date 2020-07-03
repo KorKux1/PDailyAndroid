@@ -111,9 +111,14 @@ public class ExplainActivity extends AppCompatActivity {
                 break;
 
             case "clock":
-                explainType.setText(Html.fromHtml("A continuacion ne se que tienes que hacer jijiji"));
+                explainType.setText(Html.fromHtml("<b>Reloj</b><br>A continuación encontrarás un lienzo en blanco donde puedes dibujar.<br><br>Dibuja un reloj que marque exactamente las <b>11:10</b>"));
                 body.setBackgroundResource(R.drawable.instruction_ca);
-
+                GIF.setImageResource(R.drawable.clock_gif);
+                break;
+            case "speech":
+                explainType.setText(Html.fromHtml("<b>Dictado</b><br>A continuación veras una letra en pantallas.<br><br>Tienes un minuto para grabar la mayor cantidad de palabras que comiencen con esta letra"));
+                body.setBackgroundResource(R.drawable.instruction_ca);
+                GIF.setImageResource(R.drawable.words_a_gif);
                 break;
         }
 
@@ -199,6 +204,12 @@ public class ExplainActivity extends AppCompatActivity {
                     case "clock":
                         intent= new Intent(getBaseContext(), CaTestActivity.class);
                         intent.putExtra("EXTRA_FILENAME", "clock");
+                        startActivity(intent);
+                        break;
+
+                    case "speech":
+                        intent= new Intent(getBaseContext(), CaTestActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "speech");
                         startActivity(intent);
                         break;
                 }

@@ -242,7 +242,7 @@ public class GongoTaskActivity extends AppCompatActivity {
 
     private void uiUpdateClicked(Button b) {
         b.setTextColor(Color.rgb(255, 255, 255));
-        b.setBackgroundColor(Color.rgb(0, 188, 209));
+        b.setBackgroundColor(Color.rgb(197, 15, 15));
     }
 
     private void uiUpdateClickedNonSelected(Button b) {

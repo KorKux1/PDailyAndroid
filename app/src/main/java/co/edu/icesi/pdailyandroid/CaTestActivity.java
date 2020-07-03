@@ -54,20 +54,23 @@ public class CaTestActivity extends AppCompatActivity {
         type = getIntent().getStringExtra("EXTRA_FILENAME");
         isFirstTime = true;
 
-        updateFragmentSpeech();
+        next.setText("Continuar");
 
-//        switch (type) {
-//            case "WordsACA":
-//                updateFragmentWordsA();
-//                break;
-//            case "clock":
-//                updateFragmentClock();
-//                break;
-//            case "WordsBCA":
-//                updateFragmentWordsB();
-//                next.setText("Siguiente");
-//                break;
-//        }
+        switch (type) {
+            case "WordsACA":
+                updateFragmentWordsA();
+                break;
+            case "clock":
+                updateFragmentClock();
+                break;
+            case "speech":
+                updateFragmentSpeech();
+                break;
+            case "WordsBCA":
+                updateFragmentWordsB();
+                next.setText("Siguiente");
+                break;
+        }
 
         updateListener();
 
@@ -84,6 +87,11 @@ public class CaTestActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case "clock":
+                        intent = new Intent(getBaseContext(), ExplainActivity.class);
+                        intent.putExtra("EXTRA_FILENAME", "speech");
+                        startActivity(intent);
+                        break;
+                    case "speech":
                         intent = new Intent(getBaseContext(), ExplainActivity.class);
                         intent.putExtra("EXTRA_FILENAME", "WordsBCA");
                         startActivity(intent);

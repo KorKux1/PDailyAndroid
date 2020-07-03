@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class Speech extends Fragment {
 
     Button btn_speech_record;
 
+    TextView letter_selected;
     ListView lv_display_words;
     ArrayAdapter<String> arrayAdapter;
     ArrayList<String> speech_words;
@@ -52,6 +54,8 @@ public class Speech extends Fragment {
 
         listener = null;
 
+
+
         speech_stimulus = dataScore.getCatest_selected_speech_stimulus();
     }
 
@@ -67,7 +71,10 @@ public class Speech extends Fragment {
 
         btn_speech_record = view.findViewById(R.id.btn_speech_record);
         lv_display_words = view.findViewById(R.id.lv_speech_words);
+        letter_selected = view.findViewById(R.id.letter_selected);
 
+        letter_selected.setText(speech_stimulus);
+        
         arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, speech_words);
 
         lv_display_words.setAdapter(arrayAdapter);
