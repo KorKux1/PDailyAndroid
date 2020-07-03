@@ -97,7 +97,6 @@
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
             android:text="Finalizar"
-            android:textColor="#13293D"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

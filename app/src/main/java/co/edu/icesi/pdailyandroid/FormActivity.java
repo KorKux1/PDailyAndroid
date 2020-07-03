@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -186,7 +187,7 @@ public class FormActivity extends AppCompatActivity {
                     index = index + 1;
                     score = index;
                 }
-
+                next.setTextColor(Color.parseColor("#C4C4C4"));
                 scoreEvaluation();
                 updateButtons();
 
@@ -226,6 +227,7 @@ public class FormActivity extends AppCompatActivity {
                     buttonSelect = b;
                     if (buttonSelect) {
                         next.setEnabled(true);
+                        next.setTextColor(Color.parseColor("#13293D"));
                     }
                 }
             });
@@ -238,6 +240,7 @@ public class FormActivity extends AppCompatActivity {
                     buttonSelect = b;
                     if (buttonSelect) {
                         next.setEnabled(true);
+                        next.setTextColor(Color.parseColor("#13293D"));
                     }
                 }
             });
@@ -250,6 +253,7 @@ public class FormActivity extends AppCompatActivity {
                     buttonSelect = b;
                     if (buttonSelect) {
                         next.setEnabled(true);
+                        next.setTextColor(Color.parseColor("#13293D"));
                     }
                 }
             });

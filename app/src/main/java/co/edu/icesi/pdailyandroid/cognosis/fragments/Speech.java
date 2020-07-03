@@ -74,7 +74,7 @@ public class Speech extends Fragment {
         letter_selected = view.findViewById(R.id.letter_selected);
 
         letter_selected.setText(speech_stimulus);
-        
+
         arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, speech_words);
 
         lv_display_words.setAdapter(arrayAdapter);
