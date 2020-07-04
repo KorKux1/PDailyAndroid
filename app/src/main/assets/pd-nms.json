@@ -1,7 +1,7 @@
 {
   "form_id": 2,
   "form_name": "PD-NMS",
-  "form_description": "Escal de síntomas no motores",
+  "form_description": "Escala de síntomas no motores",
   "form_language": "ES",
   "form_questions": [
     {
