@@ -32,7 +32,7 @@ public class GongoTaskActivity extends AppCompatActivity {
 
     private String go_stimulus;
 
-    private  Button next;
+    private Button next;
 
     private Random go_random;
     private int go_stimulus_amount_array;
@@ -47,7 +47,6 @@ public class GongoTaskActivity extends AppCompatActivity {
 
     public GongoTaskActivity() {
         go_stimulus = "P";
-
 
 
         go_random = new Random();
@@ -118,7 +117,6 @@ public class GongoTaskActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
 
     }
@@ -226,6 +224,12 @@ public class GongoTaskActivity extends AppCompatActivity {
                 }
             }, (time_execution + time_cooldown) * j);
         }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                next.setEnabled(true);
+            }
+        }, (time_execution + time_cooldown) * go_letters.size());
     }
 
     private void onStimulusArrayGenerator(int go_test_multiplier, double go_stimulus_amount_occurrence, int go_stimulus_amount_array) {
