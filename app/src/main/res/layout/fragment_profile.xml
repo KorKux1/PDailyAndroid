@@ -207,4 +207,12 @@
             app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/sendBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enviar"
+        tools:layout_editor_absoluteX="131dp"
+        tools:layout_editor_absoluteY="193dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

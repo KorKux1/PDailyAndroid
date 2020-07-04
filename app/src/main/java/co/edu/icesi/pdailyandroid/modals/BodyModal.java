@@ -43,7 +43,7 @@ public class BodyModal extends AppCompatActivity {
     private ImageView bodyImage;
     private String name;
 
-    private boolean bodyIsFront = false;
+    private boolean bodyIsFront = true;
 
     private ArrayList<String> zones;
 
@@ -64,8 +64,8 @@ public class BodyModal extends AppCompatActivity {
 
 
         turnButton.setOnClickListener((v)->{
-            bodyImage.setImageResource(bodyIsFront?R.drawable.cuerpo1a:R.drawable.cuerpo1b);
             bodyIsFront = !bodyIsFront;
+            bodyImage.setImageResource(bodyIsFront?R.drawable.cuerpo1a:R.drawable.cuerpo1b);
             showIndicators();
         });
 
@@ -76,6 +76,7 @@ public class BodyModal extends AppCompatActivity {
             setResult(RESULT_OK, i);
             finish();
         });
+        showIndicators();
     }
 
     public void onZoneClick(View b){

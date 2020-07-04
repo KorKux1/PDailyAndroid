@@ -11,10 +11,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import co.edu.icesi.pdailyandroid.R;
+import co.edu.icesi.pdailyandroid.model.dto.AnimicEventDTO;
+import co.edu.icesi.pdailyandroid.model.viewmodel.AnimicTypes;
+import co.edu.icesi.pdailyandroid.services.WebserviceConsumer;
+import co.edu.icesi.pdailyandroid.util.Constants;
 
 
 public class ProfileFragment extends Fragment {
+
 
     private TextView statusMessage;
     private ImageView statusFace;
@@ -28,8 +35,10 @@ public class ProfileFragment extends Fragment {
     private Button statusBtn8;
     private Button statusBtn9;
     private Button statusBtn10;
-
+    private Button sendBtn;
     private int statusValue;
+
+    private AnimicTypes types;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -52,6 +61,7 @@ public class ProfileFragment extends Fragment {
         statusBtn8 = v.findViewById(R.id.statusBtn8);
         statusBtn9 = v.findViewById(R.id.statusBtn9);
         statusBtn10 = v.findViewById(R.id.statusBtn10);
+        sendBtn = v.findViewById(R.id.sendBtn);
 
         statusBtn2.setOnClickListener(this::doStatusAssess);
         statusBtn3.setOnClickListener(this::doStatusAssess);
@@ -62,6 +72,31 @@ public class ProfileFragment extends Fragment {
         statusBtn8.setOnClickListener(this::doStatusAssess);
         statusBtn9.setOnClickListener(this::doStatusAssess);
         statusBtn10.setOnClickListener(this::doStatusAssess);
+
+        types = AnimicTypes.getReference();
+
+
+        sendBtn.setOnClickListener(
+                view -> {
+                    sendBtn.setText("...");
+                    AnimicEventDTO eventDTO = new AnimicEventDTO(
+                            Constants.patientID,
+                            types.getTypeIDByScore(statusValue),
+                            Calendar.getInstance().getTime().getTime()
+                    );
+
+                    WebserviceConsumer consumer = new WebserviceConsumer();
+                    consumer.postAnimic(eventDTO).withEndAction(
+                            response -> {
+                                getActivity().runOnUiThread(()->{
+                                    sendBtn.setText("Enviar");
+                                });
+                            }
+                    ).execute();
+                }
+        );
+
+
         return v;
     }
 
@@ -70,52 +105,50 @@ public class ProfileFragment extends Fragment {
 
         deselectAll();
 
-
         if (sender.equals(statusBtn2)) {
             statusValue = 9;
             statusFace.setImageResource(R.drawable.rostro9);
-            statusMessage.setText("Muy mal");
         } else if (sender.equals(statusBtn3)) {
             statusValue = 8;
             statusFace.setImageResource(R.drawable.rostro8);
-            statusMessage.setText("Mal");
         } else if (sender.equals(statusBtn4)) {
-            statusMessage.setText("...");
             statusValue = 7;
             statusFace.setImageResource(R.drawable.rostro7);
         } else if (sender.equals(statusBtn5)) {
-            statusMessage.setText("...");
             statusValue = 6;
             statusFace.setImageResource(R.drawable.rostro6);
         } else if (sender.equals(statusBtn6)) {
-            statusMessage.setText("...");
             statusValue = 5;
             statusFace.setImageResource(R.drawable.rostro5);
         } else if (sender.equals(statusBtn7)) {
-            statusMessage.setText("...");
             statusValue = 4;
             statusFace.setImageResource(R.drawable.rostro4);
         } else if (sender.equals(statusBtn8)) {
-            statusMessage.setText("...");
             statusValue = 3;
             statusFace.setImageResource(R.drawable.rostro3);
         } else if (sender.equals(statusBtn9)) {
-            statusMessage.setText("Bien. Algunos sintomas pero mejorando");
             statusValue = 2;
             statusFace.setImageResource(R.drawable.rostro2);
         } else if (sender.equals(statusBtn10)) {
-            statusMessage.setText("Excelente");
             statusValue = 1;
             statusFace.setImageResource(R.drawable.rostro1);
         }
+        statusMessage.setText( types.getLabelByScore(statusValue) );
 
         sender.setBackgroundColor(Color.WHITE);
 
         if (statusValue < 5) {
             messageContainer.setY(sender.getY()+sender.getHeight()/2);
+            sendBtn.setX(messageContainer.getX()+messageContainer.getWidth()/2 - sendBtn.getWidth()/2);
+            sendBtn.setY(messageContainer.getY()+messageContainer.getHeight());
         } else {
             messageContainer.setY(sender.getY() + (int)(1.5*sender.getHeight()) - messageContainer.getHeight());
+            sendBtn.setX(messageContainer.getX()+messageContainer.getWidth()/2 - sendBtn.getWidth()/2);
+            sendBtn.setY(messageContainer.getY() - sendBtn.getHeight());
         }
+
+
+
     }
 
     public void deselectAll() {

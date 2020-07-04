@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 
 android {
+    useLibrary 'org.apache.http.legacy'
     compileSdkVersion 28
     defaultConfig {
         applicationId "co.edu.icesi.pdailyandroid"
@@ -39,6 +40,7 @@ dependencies {
     implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
     implementation 'br.com.simplepass:loading-button-android:2.2.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
