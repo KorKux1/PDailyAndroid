@@ -171,13 +171,20 @@ public class WordsB extends Fragment {
     }
 
     private void uiUpdateClicked(Button b) {
-        b.setTextColor(Color.rgb(255, 255, 255));
-        b.setBackgroundColor(Color.rgb(115, 29, 216));
+        if (dataScore.getTestSelected().equals("WordsB")){
+            b.setTextColor(Color.rgb(255, 255, 255));
+            b.setBackgroundResource(R.drawable.round_corner_maoca);
+        }
+
+        if (dataScore.getTestSelected().equals("WordsBCA")){
+            b.setTextColor(Color.rgb(255, 255, 255));
+            b.setBackgroundResource(R.drawable.round_corner_catest);
+        }
     }
 
     private void uiUpdateClickedNonSelected(Button b) {
         b.setTextColor(Color.rgb(0, 0, 0));
-        b.setBackgroundColor(Color.rgb(250, 250, 250));
+        b.setBackgroundResource(R.drawable.round_corner);
     }
 
     public interface FragmentListener {

@@ -79,6 +79,7 @@ public class CaTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent;
+                next.setBackgroundResource(R.drawable.buttons_cognosis_disable);
 
                 switch (type) {
                     case "WordsACA":

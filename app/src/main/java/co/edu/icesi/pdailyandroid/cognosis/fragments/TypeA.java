@@ -177,19 +177,19 @@ public class TypeA extends Fragment {
 
        if (dataScore.getTestSelected().equals("PD-CFRS")){
            a.setTextColor(Color.rgb(255, 255, 255));
-           a.setBackgroundColor(Color.rgb(216, 17, 89));
+           a.setBackgroundResource(R.drawable.round_corner_cfrs);
        }
 
         if (dataScore.getTestSelected().equals("PHQ-9")){
             a.setTextColor(Color.rgb(255, 255, 255));
-            a.setBackgroundColor(Color.rgb(255, 84, 86));
+            a.setBackgroundResource(R.drawable.round_corner_phq);
         }
     }
 
     //cambio de boton deseleccionado
     private void uiUpdateClicked(Button a){
             a.setTextColor(Color.rgb(0, 0, 0));
-            a.setBackgroundColor(Color.rgb(250, 250, 250));
+            a.setBackgroundResource(R.drawable.round_corner);
     }
 
 

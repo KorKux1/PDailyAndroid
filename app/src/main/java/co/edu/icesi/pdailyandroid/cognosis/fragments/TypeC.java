@@ -194,13 +194,13 @@ public class TypeC extends Fragment {
     // cambio de color de boton seleccionado
     private void uiUpdateClickedSelect(Button a){
         a.setTextColor(Color.rgb(255, 255, 255));
-        a.setBackgroundColor(Color.rgb(0, 188, 209));
+        a.setBackgroundResource(R.drawable.round_corner_marcha);
     }
 
     //cambio de boton deseleccionado
     private void uiUpdateClicked(Button a){
         a.setTextColor(Color.rgb(0, 0, 0));
-        a.setBackgroundColor(Color.rgb(250, 250, 250));
+        a.setBackgroundResource(R.drawable.round_corner);
     }
 
 

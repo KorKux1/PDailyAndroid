@@ -91,7 +91,7 @@ public class MocaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                next.setTextColor(Color.parseColor("#C4C4C4"));
+                next.setBackgroundResource(R.drawable.buttons_cognosis_disable);
 
                 switch (type) {
                     case "TMT":
@@ -148,7 +148,7 @@ public class MocaActivity extends AppCompatActivity {
                 public void onScoreUpdated(String score_tmt) {
                     if (score_tmt != null) {
                         next.setEnabled(true);
-                        next.setTextColor(Color.rgb(6, 31, 100));
+                        next.setBackgroundResource(R.drawable.buttons_cognosis_able);
                         Log.i("SCORE_TMT", score_tmt);
                     }
                 }
@@ -160,7 +160,7 @@ public class MocaActivity extends AppCompatActivity {
                 @Override
                 public void onWordsFinished(Boolean b) {
                     next.setEnabled(true);
-                    next.setTextColor(Color.rgb(6, 31, 100));
+                    next.setBackgroundResource(R.drawable.buttons_cognosis_able);
                 }
             });
         }
@@ -170,7 +170,7 @@ public class MocaActivity extends AppCompatActivity {
                 @Override
                 public void onButtonSelected(Boolean b) {
                     next.setEnabled(true);
-                    next.setTextColor(Color.rgb(6, 31, 100));
+                    next.setBackgroundResource(R.drawable.buttons_cognosis_able);
                 }
             });
         }
@@ -180,7 +180,7 @@ public class MocaActivity extends AppCompatActivity {
                 @Override
                 public void onTestFinished(boolean b) {
                     next.setEnabled(true);
-                    next.setTextColor(Color.rgb(6, 31, 100));
+                    next.setBackgroundResource(R.drawable.buttons_cognosis_able);
                 }
             });
         }
@@ -190,6 +190,7 @@ public class MocaActivity extends AppCompatActivity {
                 @Override
                 public void onLettersFinished(Boolean b) {
                     next.setEnabled(true);
+                    next.setBackgroundResource(R.drawable.buttons_cognosis_able);
                 }
             });
             dataScore.setMoca_time_response_letters_total(System.currentTimeMillis() - startTime);
@@ -269,7 +270,6 @@ public class MocaActivity extends AppCompatActivity {
 
     protected void updateFragmentWordsB() {
         words_b = new WordsB();
-
         if (isFirstTime) {
 
             switch (dataScore.getMoca_selector_words()) {

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
 import co.edu.icesi.pdailyandroid.services.App;
 import co.edu.icesi.pdailyandroid.util.JsonReaderUtils;
 import pl.droidsonroids.gif.GifImageView;
@@ -22,6 +23,7 @@ public class ExplainActivity extends AppCompatActivity {
     private Button chao;
     ConstraintLayout body;
     GifImageView GIF;
+    DataScore dataScore = DataScore.getInstance();
 
 
     @Override
@@ -90,12 +92,14 @@ public class ExplainActivity extends AppCompatActivity {
                 explainType.setText(Html.fromHtml("<b>Palabras</b><br>A continuación se le iran mostran agrupaciones de palabras.<br><br>Seleccione las palabras que reconozca del listado que se le mostro previamente"));
                 body.setBackgroundResource(R.drawable.instruction_moca);
                 GIF.setImageResource(R.drawable.words_b_gif);
+                dataScore.setTestSelected("WordsB");
                 break;
 
             case "WordsBCA":
                 explainType.setText(Html.fromHtml("<b>Palabras</b><br>A continuación se le iran mostran agrupaciones de palabras.<br><br>Seleccione las palabras que reconozca del listado que se le mostro previamente"));
                 body.setBackgroundResource(R.drawable.instruction_ca);
                 GIF.setImageResource(R.drawable.words_b_gif);
+                dataScore.setTestSelected("WordsBCA");
                 break;
 
             case "Letras":

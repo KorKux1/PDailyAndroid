@@ -90,12 +90,12 @@ public class TypeB extends Fragment {
 
     private void uiUpdateClicked(Button b) {
         b.setTextColor(Color.rgb(255, 255, 255));
-        b.setBackgroundColor(Color.rgb(0, 111, 196));
+        b.setBackgroundResource(R.drawable.round_corner_nms);
     }
 
     private void uiUpdateClickedSelect(Button b) {
         b.setTextColor(Color.rgb(0, 0, 0));
-        b.setBackgroundColor(Color.rgb(250, 250, 250));
+        b.setBackgroundResource(R.drawable.round_corner);
     }
 
 

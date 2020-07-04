@@ -187,7 +187,8 @@ public class FormActivity extends AppCompatActivity {
                     index = index + 1;
                     score = index;
                 }
-                next.setTextColor(Color.parseColor("#C4C4C4"));
+                next.setBackgroundResource(R.drawable.buttons_cognosis_disable);
+
                 scoreEvaluation();
                 updateButtons();
 
@@ -227,7 +228,7 @@ public class FormActivity extends AppCompatActivity {
                     buttonSelect = b;
                     if (buttonSelect) {
                         next.setEnabled(true);
-                        next.setTextColor(Color.parseColor("#13293D"));
+                        next.setBackgroundResource(R.drawable.buttons_cognosis_able);
                     }
                 }
             });
@@ -240,8 +241,7 @@ public class FormActivity extends AppCompatActivity {
                     buttonSelect = b;
                     if (buttonSelect) {
                         next.setEnabled(true);
-                        next.setTextColor(Color.parseColor("#13293D"));
-                    }
+                        next.setBackgroundResource(R.drawable.buttons_cognosis_able);                    }
                 }
             });
         }
@@ -253,8 +253,7 @@ public class FormActivity extends AppCompatActivity {
                     buttonSelect = b;
                     if (buttonSelect) {
                         next.setEnabled(true);
-                        next.setTextColor(Color.parseColor("#13293D"));
-                    }
+                        next.setBackgroundResource(R.drawable.buttons_cognosis_able);                    }
                 }
             });
         }

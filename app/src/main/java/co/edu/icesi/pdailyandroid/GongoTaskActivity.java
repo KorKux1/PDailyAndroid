@@ -2,6 +2,7 @@ package co.edu.icesi.pdailyandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +32,8 @@ public class GongoTaskActivity extends AppCompatActivity {
 
     private String go_stimulus;
 
+    private  Button next;
+
     private Random go_random;
     private int go_stimulus_amount_array;
     private double go_stimulus_amount_occurrence;
@@ -44,6 +47,8 @@ public class GongoTaskActivity extends AppCompatActivity {
 
     public GongoTaskActivity() {
         go_stimulus = "P";
+
+
 
         go_random = new Random();
         go_stimulus_amount_array = 4;
@@ -101,6 +106,21 @@ public class GongoTaskActivity extends AppCompatActivity {
         tv_display_go_four.setText("");
 
         handlerTimer(time_execution, time_cooldown, tv_display_go_one, tv_display_go_two, tv_display_go_three, tv_display_go_four, btn_answer_one, btn_answer_two);
+
+        next = findViewById(R.id.ButtonNext);
+        next.setEnabled(false);
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ScoreActivity.class);
+                intent.putExtra("EXTRA_TYPE", "GO");
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 
     private void handlerTimer(int time_execution, int time_cooldown, TextView tv_display_go_one, TextView tv_display_go_two, TextView tv_display_go_three, TextView tv_display_go_four, Button b_one, Button b_two) {
