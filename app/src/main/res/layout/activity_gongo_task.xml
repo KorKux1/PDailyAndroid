@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/pragmaticaw05_italic"
-            android:text="MoCA"
+            android:text="Go/N-Go Task"
             android:textColor="#B3B3B3"
             android:textSize="20sp"
             android:textStyle="italic"
@@ -72,7 +72,7 @@
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
         android:background="#FFFFFF"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -201,7 +201,7 @@
                         android:fontFamily="@font/pragmaticaw05_bold"
                         android:text="SI"
                         android:textAlignment="center"
-                        android:textSize="30sp"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -227,7 +227,7 @@
                         android:fontFamily="@font/pragmaticaw05_bold"
                         android:text="NO"
                         android:textAlignment="center"
-                        android:textSize="30sp"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -251,8 +251,9 @@
             android:id="@+id/ButtonNext"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:background="#00FFFFFF"
+            android:background="@drawable/buttons_cognosis_disable"
             android:text="Finalizar"
+            android:textColor="#FFFFFF"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
