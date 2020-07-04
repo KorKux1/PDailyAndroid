@@ -121,20 +121,32 @@ public class MocaActivity extends AppCompatActivity {
                         break;
 
                     case "WordsB":
-                        if (index + 1 <= dataScore.getMoca_selected_words().size() - 1) {
+                        if (index + 1 < dataScore.getMoca_selected_words().size()) {
                             index += 1;
                             updateFragmentWordsB();
+                            scoreEvaluation();
                         }
 
                         if (next.getText().equals("Finalizar")) {
+                            scoreEvaluation();
+                            dataScore.setMoca_time_response_words_total(System.currentTimeMillis() - startTime);
+                            for (int i = 0; i < words_answers_selected.size(); i++) {
+                                if (dataScore.getMoca_selected_words().contains(words_answers_selected.get(i))) {
+                                    words_answers_approved.add(words_answers_selected.get(i));
+                                    Log.i("RESPONSE", words_answers_approved.toString());
+                                    Log.i("index", String.valueOf(i));
+                                } else {
+                                    words_answers_mistakes.add(words_answers_selected.get(i));
+                                    dataScore.setMoca_mistakes_words(words_answers_mistakes);
+                                }
+                            }
+                            Log.i("WORDS SCORE", String.valueOf(words_answers_selected.size() - words_answers_mistakes.size()));
+                            dataScore.setMoca_score_words(words_answers_approved.size());
+
                             intent = new Intent(getBaseContext(), ScoreTestActivity.class);
                             intent.putExtra("EXTRA_TYPE", "MOCA");
-                            dataScore.setMoca_time_response_words_total(System.currentTimeMillis() - startTime);
                             startActivity(intent);
                         }
-
-                        Log.i("AAAAAAA", Integer.valueOf(index).toString());
-                        scoreEvaluation();
                         break;
                 }
             }
@@ -219,22 +231,6 @@ public class MocaActivity extends AppCompatActivity {
 
         if (index + 1 == dataScore.getMoca_selected_words().size()) {
             next.setText("Finalizar");
-        }
-
-        if (next.getText().equals("Finalizar")) {
-            dataScore.setMoca_time_response_words_total(System.currentTimeMillis() - startTime);
-            for (int i = 0; i < words_answers_selected.size(); i++) {
-                if (dataScore.getMoca_selected_words().contains(words_answers_selected.get(i))) {
-                    words_answers_approved.add(words_answers_selected.get(i));
-                    Log.i("RESPONSE", words_answers_approved.toString());
-                    Log.i("index", String.valueOf(i));
-                } else {
-                    words_answers_mistakes.add(words_answers_selected.get(i));
-                    dataScore.setMoca_mistakes_words(words_answers_mistakes);
-                }
-            }
-            Log.i("WORDS SCORE", String.valueOf(words_answers_selected.size() - words_answers_mistakes.size()));
-            dataScore.setMoca_score_words(words_answers_approved.size());
         }
     }
 
