@@ -2,7 +2,10 @@ package co.edu.icesi.pdailyandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
@@ -15,6 +18,8 @@ public class ScoreTestActivity extends AppCompatActivity {
     DataScore dataScore = DataScore.getInstance();
 
     private String type;
+
+    private Button chao;
 
     private TextView firstSection, secondSection, thirdSection, fourtSection;
     private TextView firstSectionType, secondSectionType, thirdSectionType, fourtSectionType;
@@ -30,6 +35,8 @@ public class ScoreTestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_score_test);
 
         type = getIntent().getStringExtra("EXTRA_TYPE");
+
+        chao = findViewById(R.id.chao);
 
         firstSection = findViewById(R.id.firstSection);
         firstSectionType = findViewById(R.id.firstSectionType);
@@ -169,5 +176,13 @@ public class ScoreTestActivity extends AppCompatActivity {
 
                 break;
         }
+
+        chao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), SelectionActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

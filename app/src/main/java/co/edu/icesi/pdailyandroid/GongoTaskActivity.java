@@ -228,6 +228,7 @@ public class GongoTaskActivity extends AppCompatActivity {
             @Override
             public void run() {
                 next.setEnabled(true);
+                next.setBackgroundResource(R.drawable.buttons_cognosis_able);
             }
         }, (time_execution + time_cooldown) * go_letters.size());
     }
@@ -266,11 +267,11 @@ public class GongoTaskActivity extends AppCompatActivity {
 
     private void uiUpdateClicked(Button b) {
         b.setTextColor(Color.rgb(255, 255, 255));
-        b.setBackgroundColor(Color.rgb(197, 15, 15));
+        b.setBackgroundResource(R.drawable.round_corner_go);
     }
 
     private void uiUpdateClickedNonSelected(Button b) {
         b.setTextColor(Color.rgb(0, 0, 0));
-        b.setBackgroundColor(Color.rgb(250, 250, 250));
+        b.setBackgroundResource(R.drawable.round_corner);
     }
 }

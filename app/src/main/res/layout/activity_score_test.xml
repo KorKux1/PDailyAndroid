@@ -542,13 +542,14 @@
 
     <Button
         android:id="@+id/chao"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="15dp"
-        android:background="#00FFFFFF"
+        android:background="@drawable/buttons_cognosis_able"
         android:text="Finalizar"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -115,7 +115,7 @@ public class ExplainActivity extends AppCompatActivity {
                 break;
 
             case "clock":
-                explainType.setText(Html.fromHtml("<b>Reloj</b><br>A continuación encontrarás un lienzo en blanco donde puedes dibujar.<br><br>Dibuja un reloj que marque exactamente las <b>11:10</b>"));
+                explainType.setText(Html.fromHtml("<b>Reloj</b><br>A continuación encontrarás un lienzo en blanco donde puedes dibujar.<br><br>Dibuja un reloj incluyendo sus números que marque con las manecillas exactamente las <b>11:10</b>"));
                 body.setBackgroundResource(R.drawable.instruction_ca);
                 GIF.setImageResource(R.drawable.clock_gif);
                 break;

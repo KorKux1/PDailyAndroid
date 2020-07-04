@@ -93,7 +93,7 @@
 
         <Button
             android:id="@+id/ButtonNext"
-            android:layout_width="120dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:background="@drawable/buttons_cognosis_disable"
             android:text="Finalizar"
