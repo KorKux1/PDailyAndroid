@@ -135,7 +135,7 @@
             android:background="@drawable/buttons_cognosis_able"
             android:text="Anterior"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -146,7 +146,7 @@
             android:background="@drawable/buttons_cognosis_disable"
             android:text="Siguiente"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
