@@ -124,13 +124,19 @@ public class Letters extends Fragment {
                     dataScore.setMoca_answers_letters(letters_pressed);
                 }
             }, time_execution * i);
-            listener.onLettersFinished(true);
             if (letters_pressed.get(i) != "A") {
                 score += 1;
             }
             dataScore.setMoca_score_letters(score);
             dataScore.setMoca_time_response_letters_total(System.currentTimeMillis() - time_start);
         }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                listener.onLettersFinished(true);
+                tv_display_letters.setText("");
+            }
+        }, time_execution*letters.size());
     }
 
     public interface FragmentListener {

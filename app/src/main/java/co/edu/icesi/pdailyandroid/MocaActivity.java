@@ -169,8 +169,13 @@ public class MocaActivity extends AppCompatActivity {
             words_b.setListener(new WordsB.FragmentListener() {
                 @Override
                 public void onButtonSelected(Boolean b) {
-                    next.setEnabled(true);
-                    next.setBackgroundResource(R.drawable.buttons_cognosis_able);
+                    Log.i("B_Listener", String.valueOf(b));
+                    if (b) {
+                        next.setEnabled(true);
+                        next.setBackgroundResource(R.drawable.buttons_cognosis_able);
+                    } else {
+                        next.setEnabled(false);
+                    }
                 }
             });
         }
