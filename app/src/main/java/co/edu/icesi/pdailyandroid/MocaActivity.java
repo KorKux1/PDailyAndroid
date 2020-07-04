@@ -218,16 +218,18 @@ public class MocaActivity extends AppCompatActivity {
 
         if (next.getText().equals("Finalizar")) {
             dataScore.setMoca_time_response_words_total(System.currentTimeMillis() - startTime);
-            for (int i = 0; i <= words_answers_selected.size() - 1; i++) {
+            for (int i = 0; i < words_answers_selected.size(); i++) {
                 if (dataScore.getMoca_selected_words().contains(words_answers_selected.get(i))) {
                     words_answers_approved.add(words_answers_selected.get(i));
                     Log.i("RESPONSE", words_answers_approved.toString());
+                    Log.i("index", String.valueOf(i));
                 } else {
                     words_answers_mistakes.add(words_answers_selected.get(i));
                     dataScore.setMoca_mistakes_words(words_answers_mistakes);
                 }
             }
-            dataScore.setMoca_score_words(words_answers_selected.size() - words_answers_mistakes.size());
+            Log.i("WORDS SCORE", String.valueOf(words_answers_selected.size() - words_answers_mistakes.size()));
+            dataScore.setMoca_score_words(words_answers_approved.size());
         }
     }
 
