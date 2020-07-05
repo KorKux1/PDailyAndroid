@@ -1,6 +1,7 @@
 package co.edu.icesi.pdailyandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,12 +30,16 @@ public class ScoreTestActivity extends AppCompatActivity {
     private TextView firstTimeProTitle, secondTimeProTitle, thirdTimeProTitle, fourtTimeProTitle;
     private TextView firstSectionTimeProNumber, secondSectionTimeProNumber, thirdSectionTimeProNumber, fourtSectionTimeProNumber;
 
+    private ConstraintLayout body;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_test);
 
         type = getIntent().getStringExtra("EXTRA_TYPE");
+
+        body = findViewById(R.id.body);
 
         chao = findViewById(R.id.chao);
 
@@ -77,6 +82,7 @@ public class ScoreTestActivity extends AppCompatActivity {
 
         switch (type) {
             case "MOCA":
+                body.setBackgroundResource(R.drawable.score_moca);
                 firstSection.setText(dataScore.getMoca_score_tmt());
                 firstSectionType.setText("TMT");
                 firstSectionTitle.setText("TMT");
@@ -169,6 +175,7 @@ public class ScoreTestActivity extends AppCompatActivity {
                 break;
 
             case "CATEST":
+                body.setBackgroundResource(R.drawable.score_catest);
 
                 break;
         }

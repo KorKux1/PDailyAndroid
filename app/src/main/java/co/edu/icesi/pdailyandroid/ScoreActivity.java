@@ -1,6 +1,7 @@
 package co.edu.icesi.pdailyandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,10 +26,14 @@ public class ScoreActivity extends AppCompatActivity {
     private TextView tv_score_time_average;
     private TextView tv_display_name;
 
+    private ConstraintLayout body;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
+
+        body = findViewById(R.id.body);
 
         type = getIntent().getStringExtra("EXTRA_TYPE");
 
@@ -46,6 +51,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         switch (type) {
             case "PD-NMS":
+                body.setBackgroundResource(R.drawable.score_nms);
                 scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_pdnms()).toString());
                 minutes = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getForm_time_response_pdnms_total());
                 seconds = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getForm_time_response_pdnms_total());
@@ -65,6 +71,7 @@ public class ScoreActivity extends AppCompatActivity {
                 break;
 
             case "PD-CFRS":
+                body.setBackgroundResource(R.drawable.score_cfrs);
                 scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_pdcfrs()).toString());
                 minutes = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getForm_time_response_pdcfrs_total());
                 seconds = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getForm_time_response_pdcfrs_total());
@@ -84,6 +91,7 @@ public class ScoreActivity extends AppCompatActivity {
                 break;
 
             case "Congelamiento de la marcha":
+                body.setBackgroundResource(R.drawable.score_marcha);
                 scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_walk()).toString());
                 minutes = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getForm_time_response_walk_total());
                 seconds = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getForm_time_response_walk_total());
@@ -103,6 +111,7 @@ public class ScoreActivity extends AppCompatActivity {
                 break;
 
             case "PHQ-9":
+                body.setBackgroundResource(R.drawable.score_phq);
                 scoreNumber.setText(Integer.valueOf(dataScore.getForm_score_phq9()).toString());
                 minutes = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getForm_time_response_phq9_total());
                 seconds = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getForm_time_response_phq9_total());
@@ -122,6 +131,7 @@ public class ScoreActivity extends AppCompatActivity {
                 break;
 
             case "GO":
+                body.setBackgroundResource(R.drawable.score_go);
                 scoreNumber.setText(dataScore.getGo_score() + "/" + dataScore.getGo_answers_stimulus().size());
                 tv_display_name.setText("Go / No Go task");
 
