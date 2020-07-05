@@ -107,7 +107,7 @@ public class Letters extends Fragment {
 
                                 letters_pressed.set(index, dataScore.getMoca_selected_letters().get(index));
 
-                                tv_display_letters.setTextColor(Color.rgb(0, 188, 209));
+                                tv_display_letters.setTextColor(Color.parseColor("#731DD8"));
                                 tap += 1;
 
                                 isFirstClick[0] = false;

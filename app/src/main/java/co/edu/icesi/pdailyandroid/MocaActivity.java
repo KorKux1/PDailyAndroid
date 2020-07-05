@@ -123,8 +123,12 @@ public class MocaActivity extends AppCompatActivity {
                     case "WordsB":
                         if (index + 1 < dataScore.getMoca_selected_words().size()) {
                             index += 1;
-                            updateFragmentWordsB();
                             scoreEvaluation();
+                            updateFragmentWordsB();
+                        }
+
+                        if (index + 1 == dataScore.getMoca_selected_words().size()) {
+                            next.setText("Finalizar");
                         }
 
                         if (next.getText().equals("Finalizar")) {
@@ -227,10 +231,6 @@ public class MocaActivity extends AppCompatActivity {
             if (words_b.isB_three()) {
                 words_answers_selected.add(words_b.getBtn_answer_three().getText().toString());
             }
-        }
-
-        if (index + 1 == dataScore.getMoca_selected_words().size()) {
-            next.setText("Finalizar");
         }
     }
 
