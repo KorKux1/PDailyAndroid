@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
@@ -22,6 +23,7 @@ public class ScoreActivity extends AppCompatActivity {
     private TextView scoreNumber;
     private TextView tv_score_time_total;
     private TextView tv_score_time_average;
+    private TextView tv_display_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class ScoreActivity extends AppCompatActivity {
         scoreNumber = findViewById(R.id.firstSection);
         tv_score_time_total = findViewById(R.id.firstSectionTimeNumber);
         tv_score_time_average = findViewById(R.id.firstSectionTimeProNumber);
+        tv_display_name = findViewById(R.id.tv_display_name);
 
         int minutes, minutesAvg;
         int seconds, secondsAvg;
@@ -118,7 +121,28 @@ public class ScoreActivity extends AppCompatActivity {
                 }
                 break;
 
-            case "MoCA":
+            case "GO":
+                scoreNumber.setText(dataScore.getGo_score() + "/" + dataScore.getGo_answers_stimulus().size());
+                tv_display_name.setText("Go / No Go task");
+
+                minutes = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getGo_time_response_total());
+                seconds = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getGo_time_response_total());
+                if (minutes > 0) {
+                    tv_score_time_total.setText(minutes + " Min" + "  " + seconds + " Seg");
+                } else {
+                    tv_score_time_total.setText(seconds + " Seg");
+                }
+                ArrayList<Long> tempTimes = new ArrayList<>();
+                long timesSum = 0;
+                int timeAvg = 0;
+                for (int i = 0; i < dataScore.getGo_time_response().size(); i++) {
+                    if (dataScore.getGo_time_response().get(i) != 0) {
+                        tempTimes.add(dataScore.getGo_time_response().get(i));
+                        timesSum += dataScore.getGo_time_response().get(i);
+                    }
+                }
+                timeAvg = (int) (timesSum / tempTimes.size());
+                tv_score_time_average.setText(timeAvg + " Ms");
                 break;
         }
 

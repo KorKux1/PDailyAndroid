@@ -171,10 +171,6 @@ public class ScoreTestActivity extends AppCompatActivity {
             case "CATEST":
 
                 break;
-
-            case "GO":
-
-                break;
         }
 
         chao.setOnClickListener(new View.OnClickListener() {

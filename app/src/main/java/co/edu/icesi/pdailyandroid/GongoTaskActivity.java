@@ -41,13 +41,13 @@ public class GongoTaskActivity extends AppCompatActivity {
 
     private int time_execution;
     private int time_cooldown;
-    private double time_response;
+    private long time_response;
+    private long time_satrt = System.currentTimeMillis();
 
     private final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     public GongoTaskActivity() {
         go_stimulus = "P";
-
 
         go_random = new Random();
         go_stimulus_amount_array = 4;
@@ -117,8 +117,6 @@ public class GongoTaskActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
     private void handlerTimer(int time_execution, int time_cooldown, TextView tv_display_go_one, TextView tv_display_go_two, TextView tv_display_go_three, TextView tv_display_go_four, Button b_one, Button b_two) {
@@ -151,19 +149,11 @@ public class GongoTaskActivity extends AppCompatActivity {
                             b_one.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    time_response = (System.currentTimeMillis() - startTime) / 1000;
+                                    time_response = (long) (System.currentTimeMillis() - startTime);
                                     go_time_response.set(index, (long) time_response);
                                     Log.i("TIME_RESPONSE", String.valueOf(go_time_response));
 
-                                    boolean isStimulusCorrect;
-
-                                    if (go_letters.get(index).contains(go_stimulus)) {
-                                        isStimulusCorrect = true;
-                                        go_answer_stimulus.set(index, isStimulusCorrect);
-                                    } else {
-                                        isStimulusCorrect = false;
-                                        go_answer_stimulus.set(index, isStimulusCorrect);
-                                    }
+                                    go_answer_stimulus.set(index, true);
 
                                     go_answer_letters.set(index, go_letters.get(index));
 
@@ -183,19 +173,11 @@ public class GongoTaskActivity extends AppCompatActivity {
                             b_two.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    time_response = (System.currentTimeMillis() - startTime) / 1000;
+                                    time_response = (long) (System.currentTimeMillis() - startTime);
                                     go_time_response.set(index, (long) time_response);
                                     Log.i("TIME_RESPONSE", String.valueOf(go_time_response));
 
-                                    boolean isStimulusCorrect;
-
-                                    if (go_letters.get(index).contains(go_stimulus)) {
-                                        isStimulusCorrect = true;
-                                        go_answer_stimulus.set(index, isStimulusCorrect);
-                                    } else {
-                                        isStimulusCorrect = false;
-                                        go_answer_stimulus.set(index, isStimulusCorrect);
-                                    }
+                                    go_answer_stimulus.set(index, false);
 
                                     Log.i("GO_SELECTION", String.valueOf(go_selection_stimulus));
                                     Log.i("GO_ANSWERS", String.valueOf(go_answer_stimulus));
@@ -229,6 +211,14 @@ public class GongoTaskActivity extends AppCompatActivity {
             public void run() {
                 next.setEnabled(true);
                 next.setBackgroundResource(R.drawable.buttons_cognosis_able);
+                int score = 0;
+                for (int i = 0; i < go_answer_stimulus.size(); i++) {
+                    if (go_answer_stimulus.get(i).equals(go_selection_stimulus.get(i))) {
+                        score += 1;
+                    }
+                }
+                dataScore.setGo_score(score);
+                dataScore.setGo_time_response_total(System.currentTimeMillis() - time_satrt);
             }
         }, (time_execution + time_cooldown) * go_letters.size());
     }

@@ -85,6 +85,7 @@ public class DataScore {
     private ArrayList<Boolean> go_answers_stimulus;
     private ArrayList<Long> go_time_response;
     private long go_time_response_total;
+    private int go_score;
 
     //CATest
     private Date catest_date_response;
@@ -626,6 +627,14 @@ public class DataScore {
 
     public void setGo_time_response_total(long go_time_response_total) {
         this.go_time_response_total = go_time_response_total;
+    }
+
+    public int getGo_score() {
+        return go_score;
+    }
+
+    public void setGo_score(int go_score) {
+        this.go_score = go_score;
     }
 
     public Date getCatest_date_response() {

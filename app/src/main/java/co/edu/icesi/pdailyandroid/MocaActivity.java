@@ -273,6 +273,24 @@ public class MocaActivity extends AppCompatActivity {
 
     protected void updateFragmentWordsB() {
         words_b = new WordsB();
+
+        next.setEnabled(false);
+
+        if (words_b != null) {
+            words_b.setListener(new WordsB.FragmentListener() {
+                @Override
+                public void onButtonSelected(Boolean b) {
+                    Log.i("B_Listener", String.valueOf(b));
+                    if (b) {
+                        next.setEnabled(true);
+                        next.setBackgroundResource(R.drawable.buttons_cognosis_able);
+                    } else {
+                        next.setEnabled(false);
+                    }
+                }
+            });
+        }
+
         if (isFirstTime) {
 
             switch (dataScore.getMoca_selector_words()) {
