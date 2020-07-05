@@ -118,10 +118,7 @@ public class Subtract extends Fragment {
 
                 if (index == 5) {
                     isTestFinished = true;
-                    if (listener != null) {
-                        listener.onTestFinished(isTestFinished);
-                        dataScore.setMoca_isFinished_substract(true);
-                    }
+
 
                     if (total_Correct_List.size() >= 4) {
                         total_Correct = 3;
@@ -151,6 +148,10 @@ public class Subtract extends Fragment {
 
                 if (index == 6) {
                     numberResult.setEnabled(false);
+                    if (listener != null) {
+                        listener.onTestFinished(isTestFinished);
+                        dataScore.setMoca_isFinished_substract(true);
+                    }
                 }
 
                 return false;
