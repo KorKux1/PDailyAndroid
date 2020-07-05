@@ -116,10 +116,6 @@ public class WordsB extends Fragment {
         btn_answer_two.setText(this.answer_two_text);
         btn_answer_three.setText(this.answer_three_text);
 
-        if (listener != null) {
-            listener.onButtonSelected(false);
-        }
-
         btn_answer_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
