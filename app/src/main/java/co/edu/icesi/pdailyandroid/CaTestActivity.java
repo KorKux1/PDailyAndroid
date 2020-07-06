@@ -171,12 +171,26 @@ public class CaTestActivity extends AppCompatActivity {
     }
 
     private void updateListener() {
+        if (clock != null){
+            clock.setListener(new Clock.FragmentListener() {
+                @Override
+                public void onScoreUpdated(Boolean b) {
+
+                }
+            });
+        }
+
         if (speech != null) {
             speech.setListener(new Speech.FragmentListener() {
                 @Override
                 public void onTimerChange(String msg) {
                     TextView tv_display_number = findViewById(R.id.tv_display_number);
                     tv_display_number.setText(msg);
+                }
+
+                @Override
+                public void onTestFinished(Boolean b) {
+
                 }
             });
         }

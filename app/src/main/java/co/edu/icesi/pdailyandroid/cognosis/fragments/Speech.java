@@ -55,7 +55,6 @@ public class Speech extends Fragment {
         listener = null;
 
 
-
         speech_stimulus = dataScore.getCatest_selected_speech_stimulus();
     }
 
@@ -98,6 +97,7 @@ public class Speech extends Fragment {
                             dataScore.setCatest_answers_speech_words(speech_words);
                             dataScore.setCatest_isFinished_speech(true);
                             dataScore.setCatest_date_response_speech(d);
+                            listener.onTestFinished(true);
                         }
                     }.start();
                 }
@@ -138,9 +138,9 @@ public class Speech extends Fragment {
                             Log.i("CAST", cast);
                             speech_words.add(cast);
                             dataScore.setCatest_answers_speech_words(speech_words);
-                            if(speech_words.size() >= 11){
+                            if (speech_words.size() >= 11) {
                                 dataScore.setCatest_score_speech("Válido");
-                            }else{
+                            } else {
                                 dataScore.setCatest_score_speech("No Válido");
                             }
                             arrayAdapter.notifyDataSetChanged();
@@ -154,6 +154,8 @@ public class Speech extends Fragment {
 
     public interface FragmentListener {
         void onTimerChange(String msg);
+
+        void onTestFinished(Boolean b);
     }
 
     public void setListener(FragmentListener listener) {
