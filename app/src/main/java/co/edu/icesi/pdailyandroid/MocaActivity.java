@@ -144,7 +144,7 @@ public class MocaActivity extends AppCompatActivity {
                                     dataScore.setMoca_mistakes_words(words_answers_mistakes);
                                 }
                             }
-                            Log.i("WORDS SCORE", String.valueOf(words_answers_selected.size() - words_answers_mistakes.size()));
+                            Log.i("WORDS_SCORE", String.valueOf(words_answers_selected.size() - words_answers_mistakes.size()));
                             dataScore.setMoca_score_words(words_answers_approved.size());
 
                             intent = new Intent(getBaseContext(), ScoreTestActivity.class);
