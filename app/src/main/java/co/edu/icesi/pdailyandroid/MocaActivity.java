@@ -38,6 +38,8 @@ public class MocaActivity extends AppCompatActivity {
 
     private Button next;
 
+    boolean w_b;
+
     private int index;
 
     private ArrayList<String> words_answers_selected;
@@ -63,6 +65,7 @@ public class MocaActivity extends AppCompatActivity {
         next = findViewById(R.id.ButtonNext);
         next.setEnabled(false);
 
+        w_b= false;
         next.setText("Continuar");
 
         switch (type) {
@@ -129,9 +132,12 @@ public class MocaActivity extends AppCompatActivity {
 
                         if (index + 1 == dataScore.getMoca_selected_words().size()) {
                             next.setText("Finalizar");
+//                            index = dataScore.getMoca_selected_words().size();
                         }
 
-                        if (next.getText().equals("Finalizar")) {
+
+
+                        if (w_b) {
                             scoreEvaluation();
                             dataScore.setMoca_time_response_words_total(System.currentTimeMillis() - startTime);
                             for (int i = 0; i < words_answers_selected.size(); i++) {
@@ -144,7 +150,7 @@ public class MocaActivity extends AppCompatActivity {
                                     dataScore.setMoca_mistakes_words(words_answers_mistakes);
                                 }
                             }
-                            Log.i("WORDS_SCORE", String.valueOf(words_answers_selected.size() - words_answers_mistakes.size()));
+                            Log.i("WORDS SCORE", String.valueOf(words_answers_selected.size() - words_answers_mistakes.size()));
                             dataScore.setMoca_score_words(words_answers_approved.size());
 
                             intent = new Intent(getBaseContext(), ScoreTestActivity.class);
@@ -188,6 +194,10 @@ public class MocaActivity extends AppCompatActivity {
                     Log.i("B_Listener", String.valueOf(b));
                     if (b) {
                         next.setEnabled(true);
+                        if (next.getText().equals("Finalizar")){
+                            w_b= true;
+                        }
+
                         next.setBackgroundResource(R.drawable.buttons_cognosis_able);
                     } else {
                         next.setEnabled(false);
@@ -220,6 +230,7 @@ public class MocaActivity extends AppCompatActivity {
 
     private void scoreEvaluation() {
         if (words_b != null) {
+
             if (words_b.isB_one()) {
                 words_answers_selected.add(words_b.getBtn_answer_one().getText().toString());
             }
@@ -283,6 +294,10 @@ public class MocaActivity extends AppCompatActivity {
                     Log.i("B_Listener", String.valueOf(b));
                     if (b) {
                         next.setEnabled(true);
+                        if (next.getText().equals("Finalizar")){
+                            w_b= true;
+                        }
+
                         next.setBackgroundResource(R.drawable.buttons_cognosis_able);
                     } else {
                         next.setEnabled(false);
