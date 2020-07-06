@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import co.edu.icesi.pdailyandroid.cognosis.data.DataScore;
+import co.edu.icesi.pdailyandroid.cognosis.fragments.Go;
 
 public class ScoreTestActivity extends AppCompatActivity {
     DataScore dataScore = DataScore.getInstance();
@@ -31,6 +33,7 @@ public class ScoreTestActivity extends AppCompatActivity {
     private TextView firstSectionTimeProNumber, secondSectionTimeProNumber, thirdSectionTimeProNumber, fourtSectionTimeProNumber;
 
     private ConstraintLayout body;
+    private LinearLayout a1, a2, a3, a4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,11 @@ public class ScoreTestActivity extends AppCompatActivity {
         fourtSectionTimeNumber = findViewById(R.id.fourtSectionTimeNumber);
         fourtTimeProTitle = findViewById(R.id.fourtTimeProTitle);
         fourtSectionTimeProNumber = findViewById(R.id.fourtSectionTimeProNumber);
+
+        a1 = findViewById(R.id.linearLayout6);
+        a2 = findViewById(R.id.linearLayout7);
+        a3 = findViewById(R.id.linearLayout8);
+        a4 = findViewById(R.id.linearLayout9);
 
         int firstMinutes, firstMinutesAvg, firstSeconds, firstSecondsAvg;
         int secondMinutes, secondMinutesAvg, secondSeconds, secondSecondsAvg;
@@ -157,7 +165,6 @@ public class ScoreTestActivity extends AppCompatActivity {
                 thirdTimeProTitle.setText("Tap/Reacción " + tapAvg);
                 thirdSectionTimeProNumber.setText("Errores " + dataScore.getMoca_mistakes_letters_total());
 
-
                 fourtSection.setText(dataScore.getMoca_score_words() + "/ " + dataScore.getMoca_selected_words().size());
                 fourtSectionType.setText("Palabras");
                 fourtSectionTitle.setText("Palabras");
@@ -176,6 +183,46 @@ public class ScoreTestActivity extends AppCompatActivity {
 
             case "CATEST":
                 body.setBackgroundResource(R.drawable.score_catest);
+                firstSection.setText("Pendiente");
+                firstSectionType.setText("Reloj");
+                firstSectionTitle.setVisibility(View.GONE);
+                firstTimeTitle.setVisibility(View.GONE);
+                firstSectionTimeNumber.setVisibility(View.GONE);
+                firstTimeProTitle.setVisibility(View.GONE);
+                firstSectionTimeProNumber.setVisibility(View.GONE);
+                a1.setVisibility(View.GONE);
+
+                secondSection.setText(dataScore.getMoca_score_words() + "/ " + dataScore.getMoca_selected_words().size());
+                secondSectionType.setText("Palabras");
+                secondSectionTitle.setText("Palabras");
+                secondTimeTitle.setText("Tiempo total ");
+                secondMinutes = (int) TimeUnit.MILLISECONDS.toMinutes(dataScore.getMoca_time_response_words_total());
+                secondSeconds = (int) TimeUnit.MILLISECONDS.toSeconds(dataScore.getMoca_time_response_words_total());
+                if (secondMinutes > 0) {
+                    secondSectionTimeNumber.setText(secondMinutes + " Min" + "  " + secondSeconds + " Seg");
+                } else {
+                    secondSectionTimeNumber.setText(secondSeconds + " Seg");
+                }
+                secondTimeProTitle.setText("Errores");
+                secondSectionTimeProNumber.setText(String.valueOf(dataScore.getMoca_mistakes_words()));
+
+                thirdSection.setText(dataScore.getCatest_score_speech());
+                thirdSectionType.setText("Dictado");
+                thirdSectionTitle.setVisibility(View.GONE);
+                thirdTimeTitle.setVisibility(View.GONE);
+                thirdSectionTimeNumber.setVisibility(View.GONE);
+                thirdTimeProTitle.setVisibility(View.GONE);
+                thirdSectionTimeProNumber.setVisibility(View.GONE);
+                a3.setVisibility(View.GONE);
+
+                fourtSection.setVisibility(View.GONE);
+                fourtSectionType.setVisibility(View.GONE);
+                fourtSectionTitle.setVisibility(View.GONE);
+                fourtTimeTitle.setVisibility(View.GONE);
+                fourtSectionTimeNumber.setVisibility(View.GONE);
+                fourtTimeProTitle.setVisibility(View.GONE);
+                fourtSectionTimeProNumber.setVisibility(View.GONE);
+                a4.setVisibility(View.GONE);
 
                 break;
         }

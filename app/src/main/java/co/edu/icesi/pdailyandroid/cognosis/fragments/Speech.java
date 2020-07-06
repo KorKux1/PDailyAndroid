@@ -137,6 +137,12 @@ public class Speech extends Fragment {
                             String cast = s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
                             Log.i("CAST", cast);
                             speech_words.add(cast);
+                            dataScore.setCatest_answers_speech_words(speech_words);
+                            if(speech_words.size() >= 11){
+                                dataScore.setCatest_score_speech("Válido");
+                            }else{
+                                dataScore.setCatest_score_speech("No Válido");
+                            }
                             arrayAdapter.notifyDataSetChanged();
                         }
                     }

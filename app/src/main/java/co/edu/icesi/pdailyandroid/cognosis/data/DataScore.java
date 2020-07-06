@@ -104,7 +104,7 @@ public class DataScore {
     private ArrayList<String> catest_answers_speech_words;
     private Date catest_date_response_speech;
     private Boolean catest_isFinished_speech;
-
+    private String catest_score_speech;
     private String TestSelected;
 
     private DataScore() {
@@ -747,5 +747,13 @@ public class DataScore {
 
     public void setCatest_isFinished_speech(Boolean catest_isFinished_speech) {
         this.catest_isFinished_speech = catest_isFinished_speech;
+    }
+
+    public String getCatest_score_speech() {
+        return catest_score_speech;
+    }
+
+    public void setCatest_score_speech(String catest_score_speech) {
+        this.catest_score_speech = catest_score_speech;
     }
 }
