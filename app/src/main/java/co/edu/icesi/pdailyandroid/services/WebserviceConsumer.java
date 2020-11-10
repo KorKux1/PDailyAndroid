@@ -31,6 +31,10 @@ public class WebserviceConsumer {
         process = new Thread(
                 () -> {
                     try {
+                        Thread.sleep(2000);
+                        String response = "{\"bodyDetails\":[{\"bodyPartId\":\"30c0bca3-0189-4962-be52-e02de69a2664\",\"bodyPartName\":\"Rostro\",\"id\":\"cd93e8ee-0838-4662-8c06-7b48ae4311ca\"}],\"finalDate\":1581367179,\"id\":\"a0eb9e0e-2f1a-448f-b806-3c1c9c0aa898\",\"initialDate\":1581367169,\"injuryTypeId\":\"e58d8c80-b421-4ce2-8582-ab2f89330bb7\",\"injuryTypeName\":\"Temblor\",\"intensity\":5}";
+                        listener.onResponse(response);
+                        /*
                         for (int i = 0; i < events.size(); i++) {
                             Gson gson = new Gson();
                             String json = gson.toJson(events.get(i));
@@ -41,11 +45,11 @@ public class WebserviceConsumer {
                             util.setBasicAuth("admin","admin");
                             String response = util.syncPOSTRequest(URL_EVENTS, json);
 
-                            //Thread.sleep(1000);
-                            //String response = "{\"bodyDetails\":[{\"bodyPartId\":\"30c0bca3-0189-4962-be52-e02de69a2664\",\"bodyPartName\":\"Rostro\",\"id\":\"cd93e8ee-0838-4662-8c06-7b48ae4311ca\"}],\"finalDate\":1581367179,\"id\":\"a0eb9e0e-2f1a-448f-b806-3c1c9c0aa898\",\"initialDate\":1581367169,\"injuryTypeId\":\"e58d8c80-b421-4ce2-8582-ab2f89330bb7\",\"injuryTypeName\":\"Temblor\",\"intensity\":5}";
+
 
                             listener.onResponse(response);
                         }
+                         */
                     } catch (Exception e) {
                         listener.onResponse("ERROR");
                     }

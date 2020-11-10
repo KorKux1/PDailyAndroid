@@ -4,9 +4,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +40,7 @@ public class ProfileFragment extends Fragment {
     private Button statusBtn10;
     private Button sendBtn;
     private int statusValue;
+    private boolean control = true;
 
     private AnimicTypes types;
 
@@ -96,6 +100,10 @@ public class ProfileFragment extends Fragment {
                 }
         );
 
+        statusBtn10.post(() -> {
+            Log.e(">>>", statusBtn10.getY() + "");
+            doStatusAssess(statusBtn10);
+        });
 
         return v;
     }
@@ -140,11 +148,11 @@ public class ProfileFragment extends Fragment {
         if (statusValue < 5) {
             messageContainer.setY(sender.getY()+sender.getHeight()/2);
             sendBtn.setX(messageContainer.getX()+messageContainer.getWidth()/2 - sendBtn.getWidth()/2);
-            sendBtn.setY(messageContainer.getY()+messageContainer.getHeight());
+            sendBtn.setY(messageContainer.getY()+messageContainer.getHeight()+24);
         } else {
             messageContainer.setY(sender.getY() + (int)(1.5*sender.getHeight()) - messageContainer.getHeight());
             sendBtn.setX(messageContainer.getX()+messageContainer.getWidth()/2 - sendBtn.getWidth()/2);
-            sendBtn.setY(messageContainer.getY() - sendBtn.getHeight());
+            sendBtn.setY(messageContainer.getY() - sendBtn.getHeight()-24);
         }
 
 

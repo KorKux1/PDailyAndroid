@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -132,6 +133,18 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
                 }
         );
 
+        getActivity().runOnUiThread(()->{
+            Snackbar.make(v.findViewById(R.id.snackContainer), "Un click para mirar el síntoma", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("OK", view -> {
+                        Snackbar.make(v.findViewById(R.id.snackContainer), "Click sostenido para registrar un síntoma", Snackbar.LENGTH_INDEFINITE)
+                                .setAction("OK", view2 -> {
+
+                                })
+                                .show();
+                    })
+                    .show();
+        });
+
         return v;
     }
 
@@ -210,6 +223,11 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
             }
         } else if(requestCode == BODY_MODAL_CALLBACK){
             if(resultCode == Activity.RESULT_OK){
+                Snackbar.make(getView().findViewById(R.id.snackContainer), "Mueva el rostro a la derecha para indicar cómo se siente", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("OK", view2 -> {
+
+                        })
+                        .show();
                 String name = data.getExtras().getString("name");
                 String bodyList = data.getExtras().getString("bodyList");
                 ArrayList<String> bodyArray = new Gson().fromJson(bodyList, new TypeToken<ArrayList<String>>(){}.getType());

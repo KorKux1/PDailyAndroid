@@ -228,8 +228,7 @@ public class DashBoard extends AppCompatActivity {
         supportButton.setBackgroundResource(R.drawable.apoyoinactivo);
         routineButton.setBackgroundResource(R.drawable.rutinainactivo);
         foodButton.setBackgroundResource(R.drawable.comidainactivo);
-        //profileButton.setImage(UIImage(named: "apoyoinactivo"), for: .normal)
-        othersButton.setBackgroundResource(R.drawable.otrosinactivo);
+        othersButton.setBackgroundResource(R.drawable.levodopainactivo);
         levoButton.setBackgroundResource(R.drawable.levodopainactivo);
         binButton.setBackgroundResource(R.drawable.bitacorainactivo);
         eventsButton.setBackgroundResource(R.drawable.eventosinactivo);
