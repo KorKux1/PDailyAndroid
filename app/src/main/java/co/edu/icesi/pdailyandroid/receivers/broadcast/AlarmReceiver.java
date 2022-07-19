@@ -45,10 +45,5 @@ public class AlarmReceiver extends BroadcastReceiver {
                 NotificationUtils.createSimpleNotification(context, numNot , "PDaily", "¿Ya cenaste?", i);
                 break;
         }
-
-
-
-
-
     }
 }

@@ -1,26 +1,13 @@
 package co.edu.icesi.pdailyandroid;
 
-import android.Manifest;
 import android.content.Intent;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextClock;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseMessaging messaging;
     private TextView errorHint;
     private EditText usernameET, passwordET;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.passwordET);
         messaging = FirebaseMessaging.getInstance();
         messaging.setAutoInitEnabled(true);
-
-
     }
 
     public void authenticate(View v) {
@@ -56,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     runOnUiThread(
                             () -> {
-                                if (usernameET.getText().toString().trim().equals("admin") && passwordET.getText().toString().trim().equals("password")) {
+                                String userName = usernameET.getText().toString().trim();
+                                String password = passwordET.getText().toString().trim();
+                                if (userName.equals("admin") && password.equals("password")) {
                                     Intent i = new Intent(this, DashBoard.class);
                                     startActivity(i);
                                     finish();
@@ -68,11 +56,7 @@ public class MainActivity extends AppCompatActivity {
                                 button.setBackgroundColor(Color.parseColor("#ff0099cc"));
                             }
                     );
-
-
                 }
         ).start();
-
-
     }
 }
