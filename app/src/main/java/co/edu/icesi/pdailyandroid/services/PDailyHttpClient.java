@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -19,32 +18,32 @@ public class PDailyHttpClient {
         try {
             URL url = new URL(path);
 
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setDoOutput(true);
-            urlConnection.setChunkedStreamingMode(0);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
 
-            OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+            OutputStream out = new BufferedOutputStream(connection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
             writer.write(body);
             writer.flush();
+            out.close();
+            writer.close();
 
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            InputStream in = new BufferedInputStream(connection.getInputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
             StringBuilder responseBuilder = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 responseBuilder.append(line);
             }
-
-            reader.close();
             in.close();
-            writer.close();
-            out.close();
-            urlConnection.disconnect();
+            reader.close();
 
+            connection.disconnect();
             return responseBuilder.toString();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

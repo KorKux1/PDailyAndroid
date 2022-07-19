@@ -1,13 +1,16 @@
 package co.edu.icesi.pdailyandroid;
 
 import android.content.Intent;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import co.edu.icesi.pdailyandroid.services.AuthService;
@@ -36,36 +39,25 @@ public class MainActivity extends AppCompatActivity {
         button.setText("Cargando...");
         button.setBackgroundColor(Color.parseColor("#AAAAAA"));
         button.setEnabled(false);
-        new Thread(
-                () -> {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    runOnUiThread(
-                            () -> {
-                                String userName = usernameET.getText().toString();
-                                String password = passwordET.getText().toString();
-
-                                SessionManager sessionManager = new SessionManager(getApplicationContext());
-                                AuthService authService = new AuthService(sessionManager);
-                                boolean authenticated = authService.authenticate(userName, password);
-
-                                if (authenticated) {
-                                    Intent i = new Intent(this, DashBoard.class);
-                                    startActivity(i);
-                                    finish();
-                                } else {
-                                    errorHint.setVisibility(View.VISIBLE);
-                                }
-
-                                button.setText("INICIAR SESIÓN");
-                                button.setEnabled(true);
-                                button.setBackgroundColor(Color.parseColor("#ff0099cc"));
-                            }
-                    );
+        new Thread(() -> {
+            String userName = usernameET.getText().toString();
+            String password = passwordET.getText().toString();
+            SessionManager sessionManager = new SessionManager(getApplicationContext());
+            AuthService authService = new AuthService(sessionManager);
+            boolean authenticated = authService.authenticate(userName, password);
+            runOnUiThread(() -> {
+                if (authenticated) {
+                    Intent i = new Intent(this, DashBoard.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    errorHint.setVisibility(View.VISIBLE);
                 }
-        ).start();
+
+                button.setText("INICIAR SESIÓN");
+                button.setEnabled(true);
+                button.setBackgroundColor(Color.parseColor("#ff0099cc"));
+            });
+        }).start();
     }
 }
