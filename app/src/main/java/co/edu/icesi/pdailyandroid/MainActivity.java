@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import co.edu.icesi.pdailyandroid.services.AuthService;
+import co.edu.icesi.pdailyandroid.services.SessionManager;
+
 public class MainActivity extends AppCompatActivity {
 
     FirebaseMessaging messaging;
@@ -42,15 +45,21 @@ public class MainActivity extends AppCompatActivity {
                     }
                     runOnUiThread(
                             () -> {
-                                String userName = usernameET.getText().toString().trim();
-                                String password = passwordET.getText().toString().trim();
-                                if (userName.equals("admin") && password.equals("password")) {
+                                String userName = usernameET.getText().toString();
+                                String password = passwordET.getText().toString();
+
+                                SessionManager sessionManager = new SessionManager(getApplicationContext());
+                                AuthService authService = new AuthService(sessionManager);
+                                boolean authenticated = authService.authenticate(userName, password);
+
+                                if (authenticated) {
                                     Intent i = new Intent(this, DashBoard.class);
                                     startActivity(i);
                                     finish();
                                 } else {
                                     errorHint.setVisibility(View.VISIBLE);
                                 }
+
                                 button.setText("INICIAR SESIÓN");
                                 button.setEnabled(true);
                                 button.setBackgroundColor(Color.parseColor("#ff0099cc"));
