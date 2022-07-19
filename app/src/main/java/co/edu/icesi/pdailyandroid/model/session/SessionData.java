@@ -1,28 +1,28 @@
 package co.edu.icesi.pdailyandroid.model.session;
 
 public class SessionData {
-    private String _userName;
-    private String _token;
+    private String userName;
+    private String token;
 
     public SessionData(String userName, String token)
     {
-        _userName = userName;
-        _token = token;
+        this.userName = userName;
+        this.token = token;
     }
 
     public String getUserName() {
-        return _userName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        this._userName = userName;
+        this.userName = userName;
     }
 
     public String getToken() {
-        return _token;
+        return token;
     }
 
     public void setToken(String token) {
-        this._token = token;
+        this.token = token;
     }
 }
