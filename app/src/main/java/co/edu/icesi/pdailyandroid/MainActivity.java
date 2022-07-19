@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseMessaging messaging;
     private TextView errorHint;
     private EditText usernameET, passwordET;
-
+    private SessionManager sessionManager;
+    private AuthService authService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,17 @@ public class MainActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.passwordET);
         messaging = FirebaseMessaging.getInstance();
         messaging.setAutoInitEnabled(true);
+        sessionManager = new SessionManager(getApplicationContext());
+        authService = new AuthService(sessionManager);
+        validateAuthentication();
+    }
+
+    private void validateAuthentication()
+    {
+        if(sessionManager.isLoggedIn())
+        {
+            moveToNextPage();
+        }
     }
 
     public void authenticate(View v) {
@@ -42,14 +54,10 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> {
             String userName = usernameET.getText().toString();
             String password = passwordET.getText().toString();
-            SessionManager sessionManager = new SessionManager(getApplicationContext());
-            AuthService authService = new AuthService(sessionManager);
             boolean authenticated = authService.authenticate(userName, password);
             runOnUiThread(() -> {
                 if (authenticated) {
-                    Intent i = new Intent(this, DashBoard.class);
-                    startActivity(i);
-                    finish();
+                    moveToNextPage();
                 } else {
                     errorHint.setVisibility(View.VISIBLE);
                 }
@@ -59,5 +67,12 @@ public class MainActivity extends AppCompatActivity {
                 button.setBackgroundColor(Color.parseColor("#ff0099cc"));
             });
         }).start();
+    }
+
+    private void moveToNextPage()
+    {
+        Intent i = new Intent(this, DashBoard.class);
+        startActivity(i);
+        finish();
     }
 }
