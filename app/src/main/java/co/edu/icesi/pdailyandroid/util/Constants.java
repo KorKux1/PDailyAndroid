@@ -6,4 +6,5 @@ public class Constants {
     public static final String PDAILY_PASSWORD = "F8523E75-9070-4A60-991A-BF22A46F0866";
     public static final String username = "admin";
     public static final String password = "admin";
+    public static final String SERVER_BASE_URL = "https://localhost:49809";
 }
