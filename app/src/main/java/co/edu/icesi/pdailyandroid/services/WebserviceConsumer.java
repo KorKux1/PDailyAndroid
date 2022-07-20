@@ -25,53 +25,43 @@ public class WebserviceConsumer {
         return this;
     }
 
-    public WebserviceConsumer postEvents(ArrayList<EventDTO> events) {
-        process = new Thread(
-                () -> {
-                    try {
-                        Thread.sleep(2000);
-                        String response = "{\"bodyDetails\":[{\"bodyPartId\":\"30c0bca3-0189-4962-be52-e02de69a2664\",\"bodyPartName\":\"Rostro\",\"id\":\"cd93e8ee-0838-4662-8c06-7b48ae4311ca\"}],\"finalDate\":1581367179,\"id\":\"a0eb9e0e-2f1a-448f-b806-3c1c9c0aa898\",\"initialDate\":1581367169,\"injuryTypeId\":\"e58d8c80-b421-4ce2-8582-ab2f89330bb7\",\"injuryTypeName\":\"Temblor\",\"intensity\":5}";
-                        listener.onResponse(response);
-                        /*
-                        for (int i = 0; i < events.size(); i++) {
-                            Gson gson = new Gson();
-                            String json = gson.toJson(events.get(i));
-                            Log.e(">>>", json);
-                            HTTPWebUtilDomi util = new HTTPWebUtilDomi();
-                            util.setHeader("Content-Type", "application/json");
-                            util.setHeader("pdaily-tenant", Constants.PDAILY_PASSWORD);
-                            util.setBasicAuth("admin","admin");
-                            String response = util.syncPOSTRequest(URL_EVENTS, json);
-
-
-
-                            listener.onResponse(response);
-                        }
-                         */
-                    } catch (Exception e) {
-                        listener.onResponse("ERROR");
+    public WebserviceConsumer postEvents(ArrayList<EventDTO> events, String authToken) {
+        process = new Thread(() -> {
+            try {
+                boolean success = true;
+                for (EventDTO event : events) {
+                    Gson gson = new Gson();
+                    String json = gson.toJson(event);
+                    Log.e(">>>", json);
+                    String url = Constants.SERVER_BASE_URL + "/api/patients/" +
+                            event.getPatientId() + "/events/physical";
+                    String response = PDailyHttpClient.doPostRequest(url, json, authToken);
+                    if (response == null) {
+                        success = false;
                     }
                 }
-        );
+                listener.onResponse(success ? "SUCCESS" : "ERROR");
+            } catch (Exception e) {
+                listener.onResponse("ERROR");
+            }
+        });
         return this;
     }
 
     public WebserviceConsumer postAnimic(AnimicEventDTO animicEventDTO, String authToken) {
-        process = new Thread(
-                () -> {
-                    try {
-                        Gson gson = new Gson();
-                        String json = gson.toJson(animicEventDTO);
-                        Log.e(">>>", json);
-                        String url = Constants.SERVER_BASE_URL + "/api/patients/" +
-                                animicEventDTO.getPatientId() + "/events/mood";
-                        String response = PDailyHttpClient.doPostRequest(url, json, authToken);
-                        listener.onResponse(response == null ? "ERROR" : "SUCCESS");
-                    } catch (Exception e) {
-                        listener.onResponse("ERROR");
-                    }
-                }
-        );
+        process = new Thread(() -> {
+            try {
+                Gson gson = new Gson();
+                String json = gson.toJson(animicEventDTO);
+                Log.e(">>>", json);
+                String url = Constants.SERVER_BASE_URL + "/api/patients/" +
+                        animicEventDTO.getPatientId() + "/events/mood";
+                String response = PDailyHttpClient.doPostRequest(url, json, authToken);
+                listener.onResponse(response == null ? "ERROR" : "SUCCESS");
+            } catch (Exception e) {
+                listener.onResponse("ERROR");
+            }
+        });
         return this;
     }
 
