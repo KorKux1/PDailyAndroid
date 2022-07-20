@@ -2,6 +2,7 @@ package co.edu.icesi.pdailyandroid.viewcontrollers;
 
 import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -9,22 +10,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.model.dto.AnimicEventDTO;
+import co.edu.icesi.pdailyandroid.model.session.SessionData;
 import co.edu.icesi.pdailyandroid.model.viewmodel.AnimicTypes;
+import co.edu.icesi.pdailyandroid.services.SessionManager;
 import co.edu.icesi.pdailyandroid.services.WebserviceConsumer;
-import co.edu.icesi.pdailyandroid.util.Constants;
 
 
 public class ProfileFragment extends Fragment {
-
 
     private TextView statusMessage;
     private ImageView statusFace;
@@ -79,24 +80,22 @@ public class ProfileFragment extends Fragment {
 
         types = AnimicTypes.getReference();
 
-
         sendBtn.setOnClickListener(
                 view -> {
                     sendBtn.setText("...");
+                    SessionManager sessionManager = new SessionManager(
+                            getActivity().getApplicationContext());
+                    SessionData sessionData = sessionManager.getSessionData();
                     AnimicEventDTO eventDTO = new AnimicEventDTO(
-                            Constants.patientID,
+                            sessionData.getPatientId(),
                             types.getTypeIDByScore(statusValue),
-                            Calendar.getInstance().getTime().getTime()
-                    );
-
+                            new Date(System.currentTimeMillis()));
                     WebserviceConsumer consumer = new WebserviceConsumer();
-                    consumer.postAnimic(eventDTO).withEndAction(
-                            response -> {
-                                getActivity().runOnUiThread(()->{
-                                    sendBtn.setText("Enviar");
-                                });
-                            }
-                    ).execute();
+                    consumer.postAnimic(eventDTO, sessionData.getToken())
+                            .withEndAction(response ->
+                                    getActivity().runOnUiThread(
+                                            () -> sendBtn.setText("Enviar"))
+                            ).execute();
                 }
         );
 
@@ -107,7 +106,6 @@ public class ProfileFragment extends Fragment {
 
         return v;
     }
-
 
     public void doStatusAssess(View sender) {
 
@@ -141,22 +139,19 @@ public class ProfileFragment extends Fragment {
             statusValue = 1;
             statusFace.setImageResource(R.drawable.rostro1);
         }
-        statusMessage.setText( types.getLabelByScore(statusValue) );
+        statusMessage.setText(types.getLabelByScore(statusValue));
 
         sender.setBackgroundColor(Color.WHITE);
 
         if (statusValue < 5) {
-            messageContainer.setY(sender.getY()+sender.getHeight()/2);
-            sendBtn.setX(messageContainer.getX()+messageContainer.getWidth()/2 - sendBtn.getWidth()/2);
-            sendBtn.setY(messageContainer.getY()+messageContainer.getHeight()+24);
+            messageContainer.setY(sender.getY() + sender.getHeight() / 2);
+            sendBtn.setX(messageContainer.getX() + messageContainer.getWidth() / 2 - sendBtn.getWidth() / 2);
+            sendBtn.setY(messageContainer.getY() + messageContainer.getHeight() + 24);
         } else {
-            messageContainer.setY(sender.getY() + (int)(1.5*sender.getHeight()) - messageContainer.getHeight());
-            sendBtn.setX(messageContainer.getX()+messageContainer.getWidth()/2 - sendBtn.getWidth()/2);
-            sendBtn.setY(messageContainer.getY() - sendBtn.getHeight()-24);
+            messageContainer.setY(sender.getY() + (int) (1.5 * sender.getHeight()) - messageContainer.getHeight());
+            sendBtn.setX(messageContainer.getX() + messageContainer.getWidth() / 2 - sendBtn.getWidth() / 2);
+            sendBtn.setY(messageContainer.getY() - sendBtn.getHeight() - 24);
         }
-
-
-
     }
 
     public void deselectAll() {
@@ -170,6 +165,4 @@ public class ProfileFragment extends Fragment {
         statusBtn3.setBackgroundColor(Color.rgb(255, 43, 0));
         statusBtn2.setBackgroundColor(Color.rgb(255, 0, 2));
     }
-
-
 }

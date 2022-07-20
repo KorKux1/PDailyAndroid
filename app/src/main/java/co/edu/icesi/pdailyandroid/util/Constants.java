@@ -6,5 +6,5 @@ public class Constants {
     public static final String PDAILY_PASSWORD = "F8523E75-9070-4A60-991A-BF22A46F0866";
     public static final String username = "admin";
     public static final String password = "admin";
-    public static final String SERVER_BASE_URL = "https://7efb-2800-484-8789-c8c8-c513-1f12-8c55-f8fa.ngrok.io";
+    public static final String SERVER_BASE_URL = "https://65d6-2800-484-8789-c8c8-c513-1f12-8c55-f8fa.ngrok.io";
 }
