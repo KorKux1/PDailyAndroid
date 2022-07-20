@@ -9,22 +9,25 @@ public class EventTemporal {
 
     public static HashMap<String, Event> events;
 
-    public static void createTemp(){
-        if(events == null) {
+    public static void createTemp() {
+        if (events == null) {
             events = new HashMap<>();
         }
     }
 
-    public static ArrayList<Event> getAllEvents(){
+    public static ArrayList<Event> getAllEvents() {
         ArrayList<Event> out = new ArrayList<>();
-        for(String key : events.keySet()){
+        if (events == null) {
+            return out;
+        }
+        for (String key : events.keySet()) {
             Event event = events.get(key);
             out.add(event);
         }
         return out;
     }
 
-    public static void deleteTemp(){
+    public static void deleteTemp() {
         events = null;
     }
 
