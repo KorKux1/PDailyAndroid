@@ -46,19 +46,18 @@ public class EventsAdapter extends BaseAdapter {
         ImageView symptomEvaluatedSign = row.findViewById(R.id.symptomEvaluatedSign);
 
         symptomLabel.setText(events.get(position).getName());
-        if(events.get(position).isEvaluated()){
+        if (events.get(position).isEvaluated()) {
             symptomEvaluatedSign.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             symptomEvaluatedSign.setVisibility(View.GONE);
         }
-        if(this.markedPosition == position){
-            row.setBackgroundColor(Color.rgb(150,150,150));
+        if (this.markedPosition == position) {
+            row.setBackgroundColor(Color.rgb(150, 150, 150));
         }
         return row;
     }
 
     public EventViewModel select(int position) {
-
         return events.get(position);
     }
 
@@ -77,8 +76,8 @@ public class EventsAdapter extends BaseAdapter {
 
     public int getPositionOf(String name) {
         int index = -1;
-        for(int i=0 ; i<events.size() ; i++){
-            if(events.get(i).getName().equals(name)){
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).getName().equals(name)) {
                 index = i;
             }
         }

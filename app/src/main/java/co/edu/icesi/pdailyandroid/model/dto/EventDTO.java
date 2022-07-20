@@ -1,15 +1,17 @@
 package co.edu.icesi.pdailyandroid.model.dto;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import co.edu.icesi.pdailyandroid.model.viewmodel.Event;
 
 public class EventDTO {
 
-    private static Map<String,String> eventTable = new HashMap<String,String>() {{
+    private static Map<String, String> eventTable = new HashMap<String, String>() {{
         put("Congelamiento", "94525afd-e8a2-4a16-9627-9bd129640575");
         put("Lentificación", "211aeb2a-3c33-42b8-b779-fae2fa793fe4");
         put("Discinesias", "a3a6fffa-6b90-4072-a1fa-481eceef99a4");
@@ -19,48 +21,41 @@ public class EventDTO {
 
     }};
 
-    private String id;
     private String patientId;
     private int intensity;
     private String injuryTypeId;
-    private String injuryTypeName;
-    private long initialDate;
-    private long finalDate;
-    private ArrayList<BodyDTO> bodyDetails;
+    private String date;
+    private String finalDate;
+    private ArrayList<String> bodyPartTypes;
 
     public EventDTO() {
-        bodyDetails = new ArrayList<>();
+        bodyPartTypes = new ArrayList<String>();
     }
 
     //Creación para envio
-    public EventDTO(String patientId, int intensity, String injuryTypeId, long initialDate, long finalDate) {
+    public EventDTO(String patientId, int intensity, String injuryTypeId,
+                    long startDate, long endDate, ArrayList<String> bodyPartTypes) {
         this.patientId = patientId;
         this.intensity = intensity;
         this.injuryTypeId = injuryTypeId;
-        this.initialDate = initialDate;
-        this.finalDate = finalDate;
-        this.bodyDetails = new ArrayList<>();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.date = dateFormat.format(new Date(startDate)).replace(' ', 'T') + "Z";
+        this.finalDate = dateFormat.format(new Date(endDate)).replace(' ', 'T') + "Z";
+
+        this.bodyPartTypes = bodyPartTypes;
     }
 
-    public static EventDTO transformToDTO(Event event) {
+    public static EventDTO transformToDTO(Event event, String patientId) {
         EventDTO dto = new EventDTO(
-                UUID.randomUUID().toString(),
+                patientId,
                 event.getIntensity(),
-                eventTable.get( event.getName() ),
+                eventTable.get(event.getName()),
                 event.getFrom(),
-                event.getTo()
+                event.getTo(),
+                event.getBodyParts()
         );
-        dto.setStringBodyDetails(event.getBodyParts());
         return dto;
-    }
-
-    private void setStringBodyDetails(ArrayList<String> bodyParts) {
-        ArrayList<BodyDTO> bodyDTOS = new ArrayList<>();
-        for(int i=0 ; i<bodyParts.size() ; i++) {
-            BodyDTO bodyDTO = new BodyDTO(bodyParts.get(i));
-            bodyDTOS.add(bodyDTO);
-        }
-        this.bodyDetails = bodyDTOS;
     }
 
     public String getPatientId() {
@@ -87,28 +82,28 @@ public class EventDTO {
         this.injuryTypeId = injuryTypeId;
     }
 
-    public long getInitialDate() {
-        return initialDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setInitialDate(long initialDate) {
-        this.initialDate = initialDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public long getFinalDate() {
+    public String getFinalDate() {
         return finalDate;
     }
 
-    public void setFinalDate(long finalDate) {
+    public void setFinalDate(String finalDate) {
         this.finalDate = finalDate;
     }
 
-    public ArrayList<BodyDTO> getBodyDetails() {
-        return bodyDetails;
+    public ArrayList<String> getBodyPartTypes() {
+        return bodyPartTypes;
     }
 
-    public void setBodyDetails(ArrayList<BodyDTO> bodyDetails) {
-        this.bodyDetails = bodyDetails;
+    public void setBodyPartTypes(ArrayList<String> bodyPartTypes) {
+        this.bodyPartTypes = bodyPartTypes;
     }
 
 }
