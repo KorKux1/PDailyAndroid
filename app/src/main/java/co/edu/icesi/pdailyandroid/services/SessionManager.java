@@ -8,7 +8,9 @@ import co.edu.icesi.pdailyandroid.model.session.SessionData;
 
 public class SessionManager {
     private static final String PREF_NAME = "LoginInformation";
-    private static final String PREF_KEY_USER = "User";
+    private static final String PREF_KEY_USER_ID = "UserId";
+    private static final String PREF_KEY_PATIENT_ID = "PatientId";
+    private static final String PREF_KEY_USER_NAME = "UserName";
     private static final String PREF_KEY_TOKEN = "Token";
 
     private SharedPreferences _preferences;
@@ -20,9 +22,12 @@ public class SessionManager {
         _editor = _preferences.edit();
     }
 
-    public void createLoginSession(String userName, String token)
+    public void createLoginSession(String userId, String patientId, String userName, String token)
     {
-        _editor.putString(PREF_KEY_USER, userName);
+        deleteLoginSession();
+        _editor.putString(PREF_KEY_USER_ID, userId);
+        _editor.putString(PREF_KEY_PATIENT_ID, patientId);
+        _editor.putString(PREF_KEY_USER_NAME, userName);
         _editor.putString(PREF_KEY_TOKEN, token);
         _editor.commit();
     }
@@ -35,14 +40,16 @@ public class SessionManager {
 
     public SessionData getSessionData()
     {
-        String userName = _preferences.getString(PREF_KEY_USER, null);
+        String userId = _preferences.getString(PREF_KEY_USER_ID, null);
+        String patientId = _preferences.getString(PREF_KEY_PATIENT_ID, null);
+        String userName = _preferences.getString(PREF_KEY_USER_NAME, null);
         String token = _preferences.getString(PREF_KEY_TOKEN, null);
-        return new SessionData(userName, token);
+        return new SessionData(userId, patientId, userName, token);
     }
 
     public boolean isLoggedIn()
     {
-        String token = _preferences.getString(PREF_KEY_TOKEN, null);
-        return token != null;
+        SessionData sessionData = getSessionData();
+        return sessionData.IsValid();
     }
 }

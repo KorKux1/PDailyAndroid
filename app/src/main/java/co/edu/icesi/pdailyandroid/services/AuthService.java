@@ -19,13 +19,16 @@ public class AuthService {
     }
 
     public boolean authenticate(String userName, String password) {
+        Gson gson = new Gson();
         AuthDTO authDTO = new AuthDTO(userName, password);
-        String authJson = new Gson().toJson(authDTO);
+        String authJson = gson.toJson(authDTO);
         String response = PDailyHttpClient.doPostRequest(
                 Constants.SERVER_BASE_URL + "/api/auth", authJson);
-        AuthResponseDTO authResponse = new Gson().fromJson(response, AuthResponseDTO.class);
+        AuthResponseDTO authResponse = gson.fromJson(response, AuthResponseDTO.class);
         if (authResponse != null && authResponse.isValid()) {
             this.sessionManager.createLoginSession(
+                    authResponse.getUserId(),
+                    authResponse.getPatientId(),
                     authResponse.getUserName(),
                     authResponse.getToken());
             return true;
