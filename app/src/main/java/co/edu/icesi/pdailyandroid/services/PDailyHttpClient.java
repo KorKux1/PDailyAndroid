@@ -15,6 +15,10 @@ import java.nio.charset.StandardCharsets;
 public class PDailyHttpClient {
 
     public static String doPostRequest(String path, String body) {
+        return doPostRequest(path, body, null);
+    }
+
+    public static String doPostRequest(String path, String body, String authToken) {
         try {
             URL url = new URL(path);
 
@@ -22,6 +26,9 @@ public class PDailyHttpClient {
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
+            if (authToken != null) {
+                connection.setRequestProperty("Authorization", "Bearer " + authToken);
+            }
 
             OutputStream out = new BufferedOutputStream(connection.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
