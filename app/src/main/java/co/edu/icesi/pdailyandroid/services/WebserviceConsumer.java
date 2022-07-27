@@ -65,30 +65,20 @@ public class WebserviceConsumer {
         return this;
     }
 
-    public WebserviceConsumer postFood(FoodEventDTO foodEventDTO) {
-        process = new Thread(
-                () -> {
-                    try {
-
-                        Gson gson = new Gson();
-                        String json = gson.toJson(foodEventDTO);
-                        Log.e(">>>", json);
-                        HTTPWebUtilDomi util = new HTTPWebUtilDomi();
-                        util.setHeader("Content-Type", "application/json");
-                        util.setHeader("pdaily-tenant", Constants.PDAILY_PASSWORD);
-                        util.setBasicAuth("admin", "admin");
-                        String response = util.syncPOSTRequest(URL_FOOD, json);
-
-                        //Thread.sleep(1000);
-                        //listener.onResponse("{\"date\":1583263094126,\"id\":\"aa6b16a6-7ddb-4216-88b1-52cd88b7d8fc\",\"patientId\":\"df20d5bd-f16a-48b0-9922-0d5e537dcb24\"}");
-
-                        listener.onResponse(response);
-
-                    } catch (Exception e) {
-                        listener.onResponse("ERROR");
-                    }
-                }
-        );
+    public WebserviceConsumer postFood(FoodEventDTO foodEventDTO, String authToken) {
+        process = new Thread(() -> {
+            try {
+                Gson gson = new Gson();
+                String json = gson.toJson(foodEventDTO);
+                Log.e(">>>", json);
+                String url = Constants.SERVER_BASE_URL + "/api/patients/" +
+                        foodEventDTO.getPatientId() + "/events/food";
+                String response = PDailyHttpClient.doPostRequest(url, json, authToken);
+                listener.onResponse(response == null ? "ERROR" : "SUCCESS");
+            } catch (Exception e) {
+                listener.onResponse("ERROR");
+            }
+        });
         return this;
     }
 

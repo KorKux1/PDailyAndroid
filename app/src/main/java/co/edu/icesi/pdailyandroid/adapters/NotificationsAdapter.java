@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.app.App;
@@ -20,10 +20,11 @@ import co.edu.icesi.pdailyandroid.games.BananaGame;
 import co.edu.icesi.pdailyandroid.games.WormGame;
 import co.edu.icesi.pdailyandroid.model.datatype.INotification;
 import co.edu.icesi.pdailyandroid.model.dto.FoodEventDTO;
+import co.edu.icesi.pdailyandroid.model.session.SessionData;
 import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFoodFollowUp;
 import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationGame;
+import co.edu.icesi.pdailyandroid.services.SessionManager;
 import co.edu.icesi.pdailyandroid.services.WebserviceConsumer;
-import co.edu.icesi.pdailyandroid.util.Constants;
 
 public class NotificationsAdapter extends BaseAdapter {
 
@@ -53,7 +54,7 @@ public class NotificationsAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = null;
 
-        if(notifications.get(position) instanceof NotificationFoodFollowUp){
+        if (notifications.get(position) instanceof NotificationFoodFollowUp) {
 
             NotificationFoodFollowUp noti = (NotificationFoodFollowUp) notifications.get(position);
 
@@ -67,25 +68,23 @@ public class NotificationsAdapter extends BaseAdapter {
             notificationmessage.setText(noti.getName());
             notificationDate.setText(noti.getDate());
             notificationButton.setText("SI");
-            notificationButton.setOnClickListener(
-                    (v)-> {
-                        notifications.remove(noti);
-                        DataHandler.getInstance(App.getAppContext()).deleteFoodNotification(noti);
-                        WebserviceConsumer consumer = new WebserviceConsumer();
-                        consumer.postFood(
-                            new FoodEventDTO(
-                                    null,
-                                    Constants.patientID,
-                                    Calendar.getInstance().getTime().getTime()
-                            )
-                        ).withEndAction(response -> {
-                            Log.e(">>>",""+response);
+            notificationButton.setOnClickListener((v) -> {
+                notifications.remove(noti);
+                DataHandler.getInstance(App.getAppContext()).deleteFoodNotification(noti);
+                SessionManager sessionManager = new SessionManager(parent.getContext());
+                SessionData sessionData = sessionManager.getSessionData();
+                FoodEventDTO foodEvent = new FoodEventDTO(
+                        sessionData.getPatientId(),
+                        new Date(System.currentTimeMillis())
+                );
+                WebserviceConsumer consumer = new WebserviceConsumer();
+                consumer.postFood(foodEvent, sessionData.getToken())
+                        .withEndAction(response -> {
+                            Log.e(">>>", "" + response);
                         }).execute();
-                        notifyDataSetChanged();
-                    }
-            );
-        }
-        else if(notifications.get(position) instanceof NotificationGame){
+                notifyDataSetChanged();
+            });
+        } else if (notifications.get(position) instanceof NotificationGame) {
 
             NotificationGame noti = (NotificationGame) notifications.get(position);
 
@@ -97,24 +96,21 @@ public class NotificationsAdapter extends BaseAdapter {
 
             notificationtitle.setText("Actividad");
             notificationmessage.setText(noti.getName());
-            notificationDate.setText(noti.getDate().split(" ")[0]+"\n"+noti.getDate().split(" ")[1]);
+            notificationDate.setText(noti.getDate().split(" ")[0] + "\n" + noti.getDate().split(" ")[1]);
             notificationButton.setText("JUGAR");
-            notificationButton.setOnClickListener(
-                    (v)-> {
-                        switch (noti.getId()){
-                            case NotificationGame.BANANA_GAME_ID:
-                                Intent i = new Intent(parent.getContext(), BananaGame.class);
-                                parent.getContext().startActivity(i);
-                                break;
-                            case NotificationGame.WORM_GAME_ID:
-                                Intent j = new Intent(parent.getContext(), WormGame.class);
-                                parent.getContext().startActivity(j);
-                                break;
-                        }
-                    }
-            );
+            notificationButton.setOnClickListener((v) -> {
+                switch (noti.getId()) {
+                    case NotificationGame.BANANA_GAME_ID:
+                        Intent i = new Intent(parent.getContext(), BananaGame.class);
+                        parent.getContext().startActivity(i);
+                        break;
+                    case NotificationGame.WORM_GAME_ID:
+                        Intent j = new Intent(parent.getContext(), WormGame.class);
+                        parent.getContext().startActivity(j);
+                        break;
+                }
+            });
         }
         return row;
     }
-
 }

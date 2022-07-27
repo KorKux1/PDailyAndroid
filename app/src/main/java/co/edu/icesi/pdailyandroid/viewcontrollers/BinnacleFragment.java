@@ -1,7 +1,9 @@
 package co.edu.icesi.pdailyandroid.viewcontrollers;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +26,6 @@ public class BinnacleFragment extends Fragment {
     private ArrayList<INotification> notifications;
 
     public BinnacleFragment() {
-
     }
 
     @Override
@@ -49,20 +50,19 @@ public class BinnacleFragment extends Fragment {
 
         ArrayList<INotification> info = new ArrayList<>();
         info.addAll(foodFollowUps);
-        info.add( new NotificationGame(NotificationGame.BANANA_GAME_ID, "Vamos a jugar con la banana", "29/01/2020 14:31:00"));
-        info.add( new NotificationGame(NotificationGame.WORM_GAME_ID, "Vamos a jugar con los gusanos", "29/01/2020 11:26:00"));
+        info.add(new NotificationGame(NotificationGame.BANANA_GAME_ID, "Vamos a jugar con la banana", "29/01/2020 14:31:00"));
+        info.add(new NotificationGame(NotificationGame.WORM_GAME_ID, "Vamos a jugar con los gusanos", "29/01/2020 11:26:00"));
 
-        for(int i=0 ; i<info.size() ; i++){
+        for (int i = 0; i < info.size(); i++) {
             notifications.add(info.get(i));
         }
-        adapter.notifyDataSetChanged();
 
+        adapter.notifyDataSetChanged();
     }
 
     public void updateTable() {
-        if(adapter != null){
+        if (adapter != null) {
             getAllInfo();
         }
     }
-
 }
