@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import co.edu.icesi.pdailyandroid.services.AuthService;
+import co.edu.icesi.pdailyandroid.services.PDailyHttpClient;
 import co.edu.icesi.pdailyandroid.services.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         sessionManager = new SessionManager(getApplicationContext());
         authService = new AuthService(sessionManager);
         validateAuthentication();
+        PDailyHttpClient.trustAllCertificates();
     }
 
     private void validateAuthentication()
