@@ -11,11 +11,48 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 public class PDailyHttpClient {
 
     public static String doPostRequest(String path, String body) {
         return doPostRequest(path, body, null);
+    }
+
+    public static void trustAllCertificates() {
+        try {
+            TrustManager[] trustManager = new TrustManager[]{
+                    new X509TrustManager() {
+                        public X509Certificate[] getAcceptedIssuers() {
+                            return null;
+                        }
+
+                        public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                        }
+
+                        public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                        }
+                    }};
+            // Install the trust manager
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustManager, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            // Install the all-trusting host verifier
+            HttpsURLConnection.setDefaultHostnameVerifier(
+                    (hostname, sslSession) -> hostname.endsWith("icesi.edu.co") ||
+                            hostname.endsWith("ngrok.io"));
+        } catch (NoSuchAlgorithmException | KeyManagementException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String doPostRequest(String path, String body, String authToken) {
