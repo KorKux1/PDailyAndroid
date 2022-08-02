@@ -4,8 +4,8 @@ package co.edu.icesi.pdailyandroid.model.dto;
 import java.util.ArrayList;
 
 public class SchedulePlanDTO {
-    private ScheduleTimeDTO startDate;
-    private ScheduleTimeDTO endDate;
+    private ScheduleDateDTO startDate;
+    private ScheduleDateDTO endDate;
     private ArrayList<ScheduleTimeDTO> times;
     private int repeatFrequency;
     private ScheduleRecurrenceEnum repeatRecurrence;
@@ -16,7 +16,7 @@ public class SchedulePlanDTO {
     }
 
     public SchedulePlanDTO(
-            ScheduleTimeDTO startDate, ScheduleTimeDTO endDate, ArrayList<ScheduleTimeDTO> times,
+            ScheduleDateDTO startDate, ScheduleDateDTO endDate, ArrayList<ScheduleTimeDTO> times,
             int repeatFrequency, ScheduleRecurrenceEnum repeatRecurrence,
             int[] weeklyRecurrenceDays) {
         this.startDate = startDate;
@@ -27,19 +27,19 @@ public class SchedulePlanDTO {
         this.weeklyRecurrenceDays = weeklyRecurrenceDays;
     }
 
-    public ScheduleTimeDTO getStartDate() {
+    public ScheduleDateDTO getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(ScheduleTimeDTO startDate) {
+    public void setStartDate(ScheduleDateDTO startDate) {
         this.startDate = startDate;
     }
 
-    public ScheduleTimeDTO getEndDate() {
+    public ScheduleDateDTO getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(ScheduleTimeDTO endDate) {
+    public void setEndDate(ScheduleDateDTO endDate) {
         this.endDate = endDate;
     }
 
