@@ -4,13 +4,13 @@ package co.edu.icesi.pdailyandroid.model.dto;
 import java.util.ArrayList;
 
 public class SchedulePlanDTO {
-    public ScheduleTimeDTO startDate;
-    public ScheduleTimeDTO endDate;
-    public ArrayList<ScheduleTimeDTO> times;
-    public int repeatFrequency;
-    public ScheduleRecurrenceEnum repeatRecurrence;
+    private ScheduleTimeDTO startDate;
+    private ScheduleTimeDTO endDate;
+    private ArrayList<ScheduleTimeDTO> times;
+    private int repeatFrequency;
+    private ScheduleRecurrenceEnum repeatRecurrence;
     // 0: sunday; 6: saturday
-    public int[] weeklyRecurrenceDays;
+    private int[] weeklyRecurrenceDays;
 
     public SchedulePlanDTO() {
     }
