@@ -93,4 +93,34 @@ public class PDailyHttpClient {
 
         return null;
     }
+
+    public static String doGetRequest(String path, String authToken) {
+        try {
+            URL url = new URL(path);
+
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            if (authToken != null) {
+                connection.setRequestProperty("Authorization", "Bearer " + authToken);
+            }
+
+            InputStream in = new BufferedInputStream(connection.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
+            StringBuilder responseBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                responseBuilder.append(line);
+            }
+            in.close();
+            reader.close();
+
+            connection.disconnect();
+            return responseBuilder.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

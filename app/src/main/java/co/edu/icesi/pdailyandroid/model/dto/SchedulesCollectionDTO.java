@@ -42,4 +42,10 @@ public class SchedulesCollectionDTO {
     public void setRoutineSchedules(ArrayList<RoutineScheduleDTO> routineSchedules) {
         this.routineSchedules = routineSchedules;
     }
+
+    public boolean isValid() {
+        return this.foodSchedules != null &&
+                this.routineSchedules != null &&
+                this.medicineLevodopaSchedules != null;
+    }
 }

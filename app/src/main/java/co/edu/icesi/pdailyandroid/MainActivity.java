@@ -16,6 +16,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import co.edu.icesi.pdailyandroid.services.AuthService;
 import co.edu.icesi.pdailyandroid.services.PDailyHttpClient;
 import co.edu.icesi.pdailyandroid.services.SessionManager;
+import co.edu.icesi.pdailyandroid.services.UserInfoService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText usernameET, passwordET;
     private SessionManager sessionManager;
     private AuthService authService;
+    private UserInfoService userInfoService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +38,21 @@ public class MainActivity extends AppCompatActivity {
         messaging.setAutoInitEnabled(true);
         sessionManager = new SessionManager(getApplicationContext());
         authService = new AuthService(sessionManager);
+        userInfoService = new UserInfoService(sessionManager);
         validateAuthentication();
         PDailyHttpClient.trustAllCertificates();
     }
 
-    private void validateAuthentication()
-    {
-        if(sessionManager.isLoggedIn())
-        {
-            moveToNextPage();
+    private void validateAuthentication() {
+        if (sessionManager.isLoggedIn()) {
+            new Thread(() -> {
+                boolean updated = userInfoService.updateSchedulesCollectionFromServer();
+                runOnUiThread(() -> {
+                    if (updated) {
+                        moveToNextPage();
+                    }
+                });
+            }).start();
         }
     }
 
@@ -56,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> {
             String userName = usernameET.getText().toString();
             String password = passwordET.getText().toString();
-            boolean authenticated = authService.authenticate(userName, password);
+            boolean authenticated = authService.authenticate(userName, password) &&
+                    userInfoService.updateSchedulesCollectionFromServer();
+
             runOnUiThread(() -> {
                 if (authenticated) {
                     moveToNextPage();
@@ -71,8 +81,7 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void moveToNextPage()
-    {
+    private void moveToNextPage() {
         Intent i = new Intent(this, DashBoard.class);
         startActivity(i);
         finish();
