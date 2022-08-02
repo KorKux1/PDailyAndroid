@@ -72,7 +72,7 @@ public class NotificationsAdapter extends BaseAdapter {
                 notifications.remove(noti);
                 DataHandler.getInstance(App.getAppContext()).deleteFoodNotification(noti);
                 SessionManager sessionManager = new SessionManager(parent.getContext());
-                SessionData sessionData = sessionManager.getSessionData();
+                SessionData sessionData = sessionManager.loadLoginData();
                 FoodEventDTO foodEvent = new FoodEventDTO(
                         sessionData.getPatientId(),
                         new Date(System.currentTimeMillis())

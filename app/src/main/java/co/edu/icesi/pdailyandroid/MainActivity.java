@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         sessionManager = new SessionManager(getApplicationContext());
         authService = new AuthService(sessionManager);
         userInfoService = new UserInfoService(sessionManager);
-        validateAuthentication();
         PDailyHttpClient.trustAllCertificates();
+        validateAuthentication();
     }
 
     private void validateAuthentication() {
@@ -64,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> {
             String userName = usernameET.getText().toString();
             String password = passwordET.getText().toString();
-            boolean authenticated = authService.authenticate(userName, password) &&
+            boolean authenticatedAndUpdated = authService.authenticate(userName, password) &&
                     userInfoService.updateSchedulesCollectionFromServer();
 
             runOnUiThread(() -> {
-                if (authenticated) {
+                if (authenticatedAndUpdated) {
                     moveToNextPage();
                 } else {
                     errorHint.setVisibility(View.VISIBLE);

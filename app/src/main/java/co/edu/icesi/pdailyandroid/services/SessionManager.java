@@ -10,82 +10,69 @@ import co.edu.icesi.pdailyandroid.model.dto.SchedulesCollectionDTO;
 import co.edu.icesi.pdailyandroid.model.session.SessionData;
 
 public class SessionManager {
-    private static final String PREF_NAME = "LoginInformation";
+    private static final String PREF_LOGIN_NAME = "LoginInformation";
     private static final String PREF_KEY_USER_ID = "UserId";
     private static final String PREF_KEY_PATIENT_ID = "PatientId";
     private static final String PREF_KEY_USER_NAME = "UserName";
     private static final String PREF_KEY_TOKEN = "Token";
-
-    private SharedPreferences _preferences;
-    private Editor _editor;
+    private SharedPreferences loginPreferences;
+    private Editor loginEditor;
 
     private static final String PREF_SCHEDULES_NAME = "SchedulesInformation";
     private static final String PREF_KEY_SCHEDULES = "Schedules";
-
     private SharedPreferences schedulesPreferences;
     private Editor schedulesEditor;
 
-    public SessionManager(Context context)
-    {
-        _preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        _editor = _preferences.edit();
-
+    public SessionManager(Context context) {
+        loginPreferences = context.getSharedPreferences(PREF_LOGIN_NAME, Context.MODE_PRIVATE);
+        loginEditor = loginPreferences.edit();
         schedulesPreferences = context.getSharedPreferences(PREF_SCHEDULES_NAME, Context.MODE_PRIVATE);
         schedulesEditor = schedulesPreferences.edit();
     }
 
-    public void createLoginSession(String userId, String patientId, String userName, String token)
-    {
-        deleteLoginSession();
-        _editor.putString(PREF_KEY_USER_ID, userId);
-        _editor.putString(PREF_KEY_PATIENT_ID, patientId);
-        _editor.putString(PREF_KEY_USER_NAME, userName);
-        _editor.putString(PREF_KEY_TOKEN, token);
-        _editor.commit();
+    public void saveLoginData(String userId, String patientId, String userName, String token) {
+        deleteLoginData();
+        loginEditor.putString(PREF_KEY_USER_ID, userId);
+        loginEditor.putString(PREF_KEY_PATIENT_ID, patientId);
+        loginEditor.putString(PREF_KEY_USER_NAME, userName);
+        loginEditor.putString(PREF_KEY_TOKEN, token);
+        loginEditor.commit();
     }
 
-    public void deleteLoginSession()
-    {
-        _editor.clear();
-        _editor.commit();
+    public void deleteLoginData() {
+        loginEditor.clear();
+        loginEditor.commit();
     }
 
-    public SessionData getSessionData()
-    {
-        String userId = _preferences.getString(PREF_KEY_USER_ID, null);
-        String patientId = _preferences.getString(PREF_KEY_PATIENT_ID, null);
-        String userName = _preferences.getString(PREF_KEY_USER_NAME, null);
-        String token = _preferences.getString(PREF_KEY_TOKEN, null);
+    public SessionData loadLoginData() {
+        String userId = loginPreferences.getString(PREF_KEY_USER_ID, null);
+        String patientId = loginPreferences.getString(PREF_KEY_PATIENT_ID, null);
+        String userName = loginPreferences.getString(PREF_KEY_USER_NAME, null);
+        String token = loginPreferences.getString(PREF_KEY_TOKEN, null);
         return new SessionData(userId, patientId, userName, token);
     }
 
-    public boolean isLoggedIn()
-    {
-        SessionData sessionData = getSessionData();
+    public boolean isLoggedIn() {
+        SessionData sessionData = loadLoginData();
         return sessionData.IsValid();
     }
 
-    public void createSchedulesInfo(String schedules) {
-        deleteSchedulesInfo();
+    public void saveSchedulesData(String schedules) {
+        deleteSchedulesData();
         schedulesEditor.putString(PREF_KEY_SCHEDULES, schedules);
         schedulesEditor.commit();
     }
 
-    public void deleteSchedulesInfo() {
+    public void deleteSchedulesData() {
         schedulesEditor.clear();
         schedulesEditor.commit();
     }
 
-    public String getSchedulesInfo() {
-        String schedulesInfo = schedulesPreferences.getString(PREF_KEY_SCHEDULES, null);
-        return schedulesInfo;
-    }
-
-    public SchedulesCollectionDTO getSchedules() {
+    public SchedulesCollectionDTO loadSchedulesData() {
         Gson gson = new Gson();
-        String storedSchedules = getSchedulesInfo();
+        String schedules = schedulesPreferences.getString(PREF_KEY_SCHEDULES, null);
         SchedulesCollectionDTO schedulesCollection = gson.fromJson(
-                storedSchedules, SchedulesCollectionDTO.class);
+                schedules, SchedulesCollectionDTO.class);
         return schedulesCollection;
     }
 }

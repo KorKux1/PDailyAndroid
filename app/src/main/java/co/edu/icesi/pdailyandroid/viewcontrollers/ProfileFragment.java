@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import co.edu.icesi.pdailyandroid.R;
@@ -85,7 +84,7 @@ public class ProfileFragment extends Fragment {
                     sendBtn.setText("...");
                     SessionManager sessionManager = new SessionManager(
                             getActivity().getApplicationContext());
-                    SessionData sessionData = sessionManager.getSessionData();
+                    SessionData sessionData = sessionManager.loadLoginData();
                     AnimicEventDTO eventDTO = new AnimicEventDTO(
                             sessionData.getPatientId(),
                             types.getTypeIDByScore(statusValue),
