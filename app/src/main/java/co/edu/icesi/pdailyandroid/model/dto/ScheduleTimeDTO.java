@@ -27,4 +27,11 @@ public class ScheduleTimeDTO {
     public void setMinute(int minute) {
         this.minute = minute;
     }
+
+    public String get12HString() {
+        int h = this.hour > 13 ? this.hour - 12 : this.hour;
+        String t = this.hour >= 12 && this.minute >= 0 ? "pm" : "am";
+        String m = String.format("%02d", this.minute);
+        return String.format("%s:%s%s", h, m, t);
+    }
 }

@@ -74,4 +74,33 @@ public class SchedulePlanDTO {
     public void setWeeklyRecurrenceDays(int[] weeklyRecurrenceDays) {
         this.weeklyRecurrenceDays = weeklyRecurrenceDays;
     }
+
+    public String getStartDateString() {
+        return startDate == null ? null : String.format("%s-%s-%s", startDate.getYear(),
+                String.format("%02d", startDate.getMonth()),
+                String.format("%02d", startDate.getDay()));
+    }
+
+    public String getEndDateString() {
+        return endDate == null ? null : String.format("%s-%s-%s", endDate.getYear(),
+                String.format("%02d", endDate.getMonth()),
+                String.format("%02d", endDate.getDay()));
+    }
+
+    public String getTimesString() {
+        String hours = "";
+        for (ScheduleTimeDTO t : times) {
+            hours = hours + " " + t.get12HString();
+        }
+        return hours.trim();
+    }
+
+    public String getDaysString() {
+        String[] all = new String[]{"Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"};
+        String days = "";
+        for (int d : weeklyRecurrenceDays) {
+            days = days + " " + all[d];
+        }
+        return days.trim();
+    }
 }
