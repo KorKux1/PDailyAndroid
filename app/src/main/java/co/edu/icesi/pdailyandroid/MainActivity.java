@@ -47,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
         if (sessionManager.isLoggedIn()) {
             new Thread(() -> {
                 boolean updated = userInfoService.updateSchedulesCollectionFromServer();
-                runOnUiThread(() -> {
-                    if (updated) {
+                if (updated) {
+                    runOnUiThread(() -> {
                         moveToNextPage();
-                    }
-                });
+                    });
+                }
             }).start();
         }
     }
