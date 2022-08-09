@@ -33,12 +33,13 @@ public class LevoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        sessionManager = new SessionManager(getActivity().getApplicationContext());
+
         View v = inflater.inflate(R.layout.fragment_levo, container, false);
         levoTable = v.findViewById(R.id.levoTable);
         list = new ArrayList<>();
         adapter = new LevoAdapter(list);
         levoTable.setAdapter(adapter);
-        sessionManager = new SessionManager(getActivity().getApplicationContext());
 
         updateList();
 
