@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 
 android {
     useLibrary 'org.apache.http.legacy'
-    compileSdkVersion 28
+    compileSdkVersion 30
     defaultConfig {
         applicationId "co.edu.icesi.pdailyandroid"
-        minSdkVersion 23
-        targetSdkVersion 28
+        minSdkVersion 24
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
