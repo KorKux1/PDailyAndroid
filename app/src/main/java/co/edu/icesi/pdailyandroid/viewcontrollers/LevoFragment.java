@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import co.edu.icesi.pdailyandroid.DashBoard;
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.LevoAdapter;
 import co.edu.icesi.pdailyandroid.model.dto.MedicineLevodopaScheduleDTO;
@@ -23,6 +24,7 @@ public class LevoFragment extends Fragment {
     private ListView levoTable;
     private LevoAdapter adapter;
     private ArrayList<MedicineLevodopaScheduleDTO> list;
+    private SessionManager sessionManager;
 
     public LevoFragment() {
         // Required empty public constructor
@@ -31,21 +33,36 @@ public class LevoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_levo, container, false);
         levoTable = v.findViewById(R.id.levoTable);
         list = new ArrayList<>();
         adapter = new LevoAdapter(list);
         levoTable.setAdapter(adapter);
+        sessionManager = new SessionManager(getActivity().getApplicationContext());
 
-        SessionManager sessionManager = new SessionManager(
-                getActivity().getApplicationContext());
-        SchedulesCollectionDTO schedules = sessionManager.loadSchedulesData();
-        ArrayList<MedicineLevodopaScheduleDTO> levoSchedules = schedules.getMedicineLevodopaSchedules();
-
-        list.addAll(levoSchedules);
-        adapter.notifyDataSetChanged();
+        updateList();
 
         return v;
+    }
+
+    private void updateList() {
+        SchedulesCollectionDTO schedules = sessionManager.loadSchedulesData();
+        ArrayList<MedicineLevodopaScheduleDTO> levoSchedules = schedules.getMedicineLevodopaSchedules();
+        list.removeAll(list);
+        list.addAll(levoSchedules);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        ((DashBoard) getActivity()).getUpdateUserDataThread((updated) -> {
+            if (updated) {
+                getActivity().runOnUiThread(() -> {
+                    updateList();
+                });
+            }
+        }).start();
+
+        super.onResume();
     }
 }
