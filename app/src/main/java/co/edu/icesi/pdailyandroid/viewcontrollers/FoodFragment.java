@@ -85,6 +85,18 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
     }
 
     private void setupFoodAlarms(FoodScheduleDTO schedule, boolean updateAlarms) {
+        PendingIntent breakfastPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_BREAKFAST, breakfastIntent, 0);
+        PendingIntent lunchPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_LUNCH, lunchIntent, 0);
+        PendingIntent dinnerPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_DINNER, dinnerIntent, 0);
+
+        if (schedule == null) {
+            // Disable alarms. Allow custom values
+            alarmMgr.cancel(breakfastPendingIntent);
+            alarmMgr.cancel(lunchPendingIntent);
+            alarmMgr.cancel(dinnerPendingIntent);
+            return;
+        }
+
         ArrayList<ScheduleTimeDTO> times = schedule.getMetadata().getTimes();
         if (times.size() != 3) {
             return; // Invalid number of times for food schedule
@@ -100,14 +112,9 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
         dinner_hour.setText(dinner.get12HString().toUpperCase());
 
         if (updateAlarms) {
-            PendingIntent breakfastPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_BREAKFAST, breakfastIntent, 0);
-            PendingIntent lunchPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_LUNCH, lunchIntent, 0);
-            PendingIntent dinnerPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_DINNER, dinnerIntent, 0);
-
             alarmMgr.cancel(breakfastPendingIntent);
             alarmMgr.cancel(lunchPendingIntent);
             alarmMgr.cancel(dinnerPendingIntent);
-
             alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, breakfast.getCalendarRepresentation().getTimeInMillis(), AlarmManager.INTERVAL_DAY, breakfastPendingIntent);
             alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, lunch.getCalendarRepresentation().getTimeInMillis(), AlarmManager.INTERVAL_DAY, lunchPendingIntent);
             alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, dinner.getCalendarRepresentation().getTimeInMillis(), AlarmManager.INTERVAL_DAY, dinnerPendingIntent);
