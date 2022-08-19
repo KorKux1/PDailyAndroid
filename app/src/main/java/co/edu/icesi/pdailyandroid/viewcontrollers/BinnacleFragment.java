@@ -17,7 +17,7 @@ import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.NotificationsAdapter;
 import co.edu.icesi.pdailyandroid.localdatabase.DataHandler;
 import co.edu.icesi.pdailyandroid.model.datatype.INotification;
-import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFoodFollowUp;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFollowUp;
 import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationGame;
 
 
@@ -46,7 +46,8 @@ public class BinnacleFragment extends Fragment {
         notifications.clear();
 
         DataHandler db = DataHandler.getInstance(getContext());
-        ArrayList<NotificationFoodFollowUp> foodFollowUps = db.getAllFoodNotifications();
+        ArrayList<NotificationFollowUp> foodFollowUps = db.getAllFoodNotifications();
+        ArrayList<NotificationFollowUp> levoFollowUps = db.getAllLevoNotifications();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String date = sdf.format(Calendar.getInstance().getTime());
@@ -56,6 +57,7 @@ public class BinnacleFragment extends Fragment {
                 NotificationGame.WORM_GAME_ID, "Vamos a jugar con los gusanos", date);
 
         ArrayList<INotification> info = new ArrayList<>(foodFollowUps);
+        info.addAll(levoFollowUps);
         info.add(bananaGame);
         info.add(wormGame);
 
