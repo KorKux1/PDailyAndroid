@@ -1,5 +1,6 @@
 package co.edu.icesi.pdailyandroid.adapters;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -21,8 +22,9 @@ import co.edu.icesi.pdailyandroid.games.WormGame;
 import co.edu.icesi.pdailyandroid.model.datatype.INotification;
 import co.edu.icesi.pdailyandroid.model.dto.FoodEventDTO;
 import co.edu.icesi.pdailyandroid.model.session.SessionData;
-import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFoodFollowUp;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFollowUp;
 import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationGame;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationType;
 import co.edu.icesi.pdailyandroid.services.SessionManager;
 import co.edu.icesi.pdailyandroid.services.WebserviceConsumer;
 
@@ -54,9 +56,9 @@ public class NotificationsAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = null;
 
-        if (notifications.get(position) instanceof NotificationFoodFollowUp) {
+        if (notifications.get(position) instanceof NotificationFollowUp) {
 
-            NotificationFoodFollowUp noti = (NotificationFoodFollowUp) notifications.get(position);
+            NotificationFollowUp noti = (NotificationFollowUp) notifications.get(position);
 
             row = inflater.inflate(R.layout.notificationfoodcell, null, false);
             TextView notificationtitle = row.findViewById(R.id.notificationtitle);
@@ -64,24 +66,36 @@ public class NotificationsAdapter extends BaseAdapter {
             TextView notificationDate = row.findViewById(R.id.notificationdate);
             Button notificationButton = row.findViewById(R.id.notificationButton);
 
-            notificationtitle.setText("Alimentación");
+            if (noti.getType() == NotificationType.FOOD) {
+                notificationtitle.setText("Alimentación");
+            } else if (noti.getType() == NotificationType.LEVO) {
+                notificationtitle.setText("Medicina");
+            }
+
             notificationmessage.setText(noti.getName());
             notificationDate.setText(noti.getDate());
             notificationButton.setText("SI");
             notificationButton.setOnClickListener((v) -> {
                 notifications.remove(noti);
-                DataHandler.getInstance(App.getAppContext()).deleteFoodNotification(noti);
+                DataHandler handler = DataHandler.getInstance(App.getAppContext());
                 SessionManager sessionManager = new SessionManager(parent.getContext());
                 SessionData sessionData = sessionManager.loadLoginData();
-                FoodEventDTO foodEvent = new FoodEventDTO(
-                        sessionData.getPatientId(),
-                        new Date(System.currentTimeMillis())
-                );
-                WebserviceConsumer consumer = new WebserviceConsumer();
-                consumer.postFood(foodEvent, sessionData.getToken())
-                        .withEndAction(response -> {
-                            Log.e(">>>", "" + response);
-                        }).execute();
+                if (noti.getType() == NotificationType.FOOD) {
+                    handler.deleteFoodNotification(noti);
+                    FoodEventDTO foodEvent = new FoodEventDTO(
+                            sessionData.getPatientId(),
+                            new Date(System.currentTimeMillis())
+                    );
+                    WebserviceConsumer consumer = new WebserviceConsumer();
+                    consumer.postFood(foodEvent, sessionData.getToken())
+                            .withEndAction(response -> {
+                                Log.e(">>>", "" + response);
+                            }).execute();
+                } else if (noti.getType() == NotificationType.LEVO) {
+                    handler.deleteLevoNotification(noti);
+                    // TODO: SEND NOTIFICATION FOR LEVODOPA INTAKE
+                }
+
                 notifyDataSetChanged();
             });
         } else if (notifications.get(position) instanceof NotificationGame) {
