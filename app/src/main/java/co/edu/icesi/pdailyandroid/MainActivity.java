@@ -48,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
             new Thread(() -> {
                 boolean updated = userInfoService.updateSchedulesCollectionFromServer();
                 if (updated) {
-                    runOnUiThread(() -> {
-                        moveToNextPage();
-                    });
+                    runOnUiThread(this::moveToNextPage);
                 }
             }).start();
         }
