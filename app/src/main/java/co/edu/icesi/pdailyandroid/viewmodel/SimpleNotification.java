@@ -2,23 +2,25 @@ package co.edu.icesi.pdailyandroid.viewmodel;
 
 import java.io.Serializable;
 
-import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFoodFollowUp;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFollowUp;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationType;
 
 public class SimpleNotification implements Serializable {
 
     private String title;
     private String notification;
     private String date;
+    private NotificationType type;
 
-    public SimpleNotification(){}
+    public SimpleNotification() {
+    }
 
-    public SimpleNotification(String title, String notificationDescription, String notificationDate) {
+    public SimpleNotification(String title, String notificationDescription, String notificationDate, NotificationType notificationType) {
         this.title = title;
         this.notification = notificationDescription;
         this.date = notificationDate;
+        this.type = notificationType;
     }
-
-
 
     public String getTitle() {
         return title;
@@ -44,9 +46,13 @@ public class SimpleNotification implements Serializable {
         this.date = date;
     }
 
-
-    public static SimpleNotification bind(NotificationFoodFollowUp notification) {
-        return new SimpleNotification("Alimentación", notification.getName(), notification.getDate());
+    public NotificationType getType() {
+        return type;
     }
 
+    public static SimpleNotification bind(NotificationFollowUp notification) {
+
+        String title = notification.getType() == NotificationType.FOOD ? "Alimentación" : "Medicamento";
+        return new SimpleNotification(title, notification.getName(), notification.getDate(), notification.getType());
+    }
 }

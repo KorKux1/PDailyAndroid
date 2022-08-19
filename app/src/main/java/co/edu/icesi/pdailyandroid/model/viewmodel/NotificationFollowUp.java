@@ -9,14 +9,16 @@ public class NotificationFollowUp implements Serializable, INotification {
     private String id;
     private String name;
     private String date;
+    private NotificationType type;
 
     public NotificationFollowUp() {
     }
 
-    public NotificationFollowUp(String id, String name, String date) {
+    public NotificationFollowUp(String id, String name, String date, NotificationType type) {
         this.id = id;
         this.name = name;
         this.date = date;
+        this.type = type;
     }
 
     public String getId() {
@@ -41,5 +43,9 @@ public class NotificationFollowUp implements Serializable, INotification {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public NotificationType getType() {
+        return type;
     }
 }

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFollowUp;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationType;
 
 public class DataHandler extends SQLiteOpenHelper {
 
@@ -82,7 +83,7 @@ public class DataHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<NotificationFollowUp> getAllNotifications(String table) {
+    public ArrayList<NotificationFollowUp> getAllNotifications(String table, NotificationType type) {
         ArrayList<NotificationFollowUp> out = new ArrayList<>();
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + table, null);
@@ -91,7 +92,8 @@ public class DataHandler extends SQLiteOpenHelper {
                 out.add(new NotificationFollowUp(
                         cursor.getString(cursor.getColumnIndex("id")),
                         cursor.getString(cursor.getColumnIndex("name")),
-                        cursor.getString(cursor.getColumnIndex("date"))
+                        cursor.getString(cursor.getColumnIndex("date")),
+                        type
                 ));
             } while (cursor.moveToNext());
         }
@@ -115,7 +117,11 @@ public class DataHandler extends SQLiteOpenHelper {
     }
 
     public ArrayList<NotificationFollowUp> getAllFoodNotifications() {
-        return getAllNotifications(FOOD_TABLE);
+        return getAllNotifications(FOOD_TABLE, NotificationType.FOOD);
+    }
+
+    public void deleteFoodNotification(NotificationFollowUp notification) {
+        deleteNotification(FOOD_TABLE, notification.getId());
     }
 
     //---CRUD LEVO NOTIFICATIONS---//
@@ -129,6 +135,10 @@ public class DataHandler extends SQLiteOpenHelper {
     }
 
     public ArrayList<NotificationFollowUp> getAllLevoNotifications() {
-        return getAllNotifications(LEVO_TABLE);
+        return getAllNotifications(LEVO_TABLE, NotificationType.LEVO);
+    }
+
+    public void deleteLevoNotification(NotificationFollowUp notification) {
+        deleteNotification(LEVO_TABLE, notification.getId());
     }
 }
