@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.NotificationsAdapter;
@@ -21,7 +23,6 @@ import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationGame;
 
 public class BinnacleFragment extends Fragment {
 
-    private ListView notificationTable;
     private NotificationsAdapter adapter;
     private ArrayList<INotification> notifications;
 
@@ -29,40 +30,36 @@ public class BinnacleFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_binnacle, container, false);
+        ListView notificationTable = v.findViewById(R.id.notificationTable);
         notifications = new ArrayList<>();
-        notificationTable = v.findViewById(R.id.notificationTable);
         adapter = new NotificationsAdapter(notifications);
         notificationTable.setAdapter(adapter);
-        getAllInfo();
+        loadNotificationsList();
         return v;
     }
 
-    private void getAllInfo() {
+    private void loadNotificationsList() {
         notifications.clear();
 
         DataHandler db = DataHandler.getInstance(getContext());
-
         ArrayList<NotificationFoodFollowUp> foodFollowUps = db.getAllFoodNotifications();
 
-        ArrayList<INotification> info = new ArrayList<>();
-        info.addAll(foodFollowUps);
-        info.add(new NotificationGame(NotificationGame.BANANA_GAME_ID, "Vamos a jugar con la banana", "29/01/2020 14:31:00"));
-        info.add(new NotificationGame(NotificationGame.WORM_GAME_ID, "Vamos a jugar con los gusanos", "29/01/2020 11:26:00"));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String date = sdf.format(Calendar.getInstance().getTime());
+        NotificationGame bananaGame = new NotificationGame(
+                NotificationGame.BANANA_GAME_ID, "Vamos a jugar con la banana", date);
+        NotificationGame wormGame = new NotificationGame(
+                NotificationGame.WORM_GAME_ID, "Vamos a jugar con los gusanos", date);
 
-        for (int i = 0; i < info.size(); i++) {
-            notifications.add(info.get(i));
-        }
+        ArrayList<INotification> info = new ArrayList<>(foodFollowUps);
+        info.add(bananaGame);
+        info.add(wormGame);
 
+        notifications.addAll(info);
         adapter.notifyDataSetChanged();
-    }
-
-    public void updateTable() {
-        if (adapter != null) {
-            getAllInfo();
-        }
     }
 }
