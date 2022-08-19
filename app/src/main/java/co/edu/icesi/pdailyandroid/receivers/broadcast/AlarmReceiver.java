@@ -15,34 +15,33 @@ import co.edu.icesi.pdailyandroid.util.NotificationUtils;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-    public static int numNot = 0;
+    public static int notificationNumber = 0;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String type = intent.getExtras().getString("type","NONE");
+        String date = sdf.format(Calendar.getInstance().getTime());
+        String type = intent.getExtras().getString("type", "NONE");
         Intent i = new Intent(context, ActionReceiver.class);
 
-        switch (type){
+        switch (type) {
             case "FOOD01":
-                numNot = 1;
-                NotificationFoodFollowUp desayuno = new NotificationFoodFollowUp(UUID.randomUUID().toString(), "¿Ya desayunaste?", sdf.format(Calendar.getInstance().getTime()));
-                DataHandler.getInstance(App.getAppContext()).insertOrUpdateFoodNotification(desayuno);
-                NotificationUtils.createSimpleNotification(context, numNot , "PDaily", "¿Ya desayunaste?", i);
+                notificationNumber = 1;
+                NotificationFoodFollowUp breakfast = new NotificationFoodFollowUp(UUID.randomUUID().toString(), "¿Ya desayunaste?", date);
+                DataHandler.getInstance(App.getAppContext()).insertOrUpdateFoodNotification(breakfast);
+                NotificationUtils.createSimpleNotification(context, notificationNumber, "PDaily", "¿Ya desayunaste?", i);
                 break;
             case "FOOD02":
-                numNot = 2;
-                NotificationFoodFollowUp almuerzo = new NotificationFoodFollowUp(UUID.randomUUID().toString(), "¿Ya almorzaste?", sdf.format(Calendar.getInstance().getTime()));
-                DataHandler.getInstance(App.getAppContext()).insertOrUpdateFoodNotification(almuerzo);
-                NotificationUtils.createSimpleNotification(context, numNot , "PDaily", "¿Ya almorzaste?", i);
+                notificationNumber = 2;
+                NotificationFoodFollowUp lunch = new NotificationFoodFollowUp(UUID.randomUUID().toString(), "¿Ya almorzaste?", date);
+                DataHandler.getInstance(App.getAppContext()).insertOrUpdateFoodNotification(lunch);
+                NotificationUtils.createSimpleNotification(context, notificationNumber, "PDaily", "¿Ya almorzaste?", i);
                 break;
             case "FOOD03":
-                numNot = 3;
-                NotificationFoodFollowUp cena = new NotificationFoodFollowUp(UUID.randomUUID().toString(), "¿Ya cenaste?", sdf.format(Calendar.getInstance().getTime()));
-                DataHandler.getInstance(App.getAppContext()).insertOrUpdateFoodNotification(cena);
-                NotificationUtils.createSimpleNotification(context, numNot , "PDaily", "¿Ya cenaste?", i);
+                notificationNumber = 3;
+                NotificationFoodFollowUp dinner = new NotificationFoodFollowUp(UUID.randomUUID().toString(), "¿Ya cenaste?", date);
+                DataHandler.getInstance(App.getAppContext()).insertOrUpdateFoodNotification(dinner);
+                NotificationUtils.createSimpleNotification(context, notificationNumber, "PDaily", "¿Ya cenaste?", i);
                 break;
         }
     }
