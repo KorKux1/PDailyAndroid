@@ -7,17 +7,19 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFoodFollowUp;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFollowUp;
 
 public class DataHandler extends SQLiteOpenHelper {
 
     private static final String NAME = "PDaily";
     private static final int VERSION = 1;
+    private static final String FOOD_TABLE = "food";
+    private static final String LEVO_TABLE = "levo";
 
     private static DataHandler instance = null;
 
-    public static DataHandler getInstance(Context context){
-        if(instance == null){
+    public static DataHandler getInstance(Context context) {
+        if (instance == null) {
             instance = new DataHandler(context);
         }
         return instance;
@@ -29,89 +31,104 @@ public class DataHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE_FOOD = "CREATE TABLE food(id TEXT PRIMARY KEY, name TEXT, date TEXT)";
-        db.execSQL(CREATE_TABLE_FOOD);
+        createNotificationTable(db, FOOD_TABLE);
+        createNotificationTable(db, LEVO_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS food");
+        dropNotificationTable(db, FOOD_TABLE);
+        dropNotificationTable(db, LEVO_TABLE);
     }
 
-    //---CRUD FOOD NOTIFICATIONS---//
+    private void createNotificationTable(SQLiteDatabase db, String name) {
+        String command = String.format("CREATE TABLE %s(id TEXT PRIMARY KEY, name TEXT, date TEXT)", name);
+        db.execSQL(command);
+    }
 
-    public void insertFoodNotification(NotificationFoodFollowUp notification){
+    private void dropNotificationTable(SQLiteDatabase db, String name) {
+        String command = String.format("DROP TABLE IF EXISTS %s", name);
+        db.execSQL(command);
+    }
+
+    private void insertNotification(String table, String id, String name, String date) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO food(id,name,date) VALUES('"+notification.getId()+"','"+notification.getName()+"','"+notification.getDate()+"')");
+        String format = "INSERT INTO %s (id, name, date) VALUES ('%s', '%s', '%s')";
+        db.execSQL(String.format(format, table, id, name, date));
         db.close();
     }
 
-    private void updateFoodNotification(NotificationFoodFollowUp notification){
+    private void updateNotification(String table, String id, String name, String date) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE food SET name='"+notification.getName()+"', date='"+notification.getDate()+"' WHERE id='"+notification.getId()+"'");
+        String format = "UPDATE %s SET name = '%s', date = '%s' WHERE id = '%s'";
+        db.execSQL(String.format(format, table, id, name, date));
         db.close();
     }
 
-    private boolean notificationExists(NotificationFoodFollowUp notification){
+    private boolean notificationExists(String table, String id) {
         SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM food WHERE id='" + notification.getId() + "'",null);
-        if(cursor.getCount()>=1){
-            db.close();
-            return true;
-        }else{
-            db.close();
-            return false;
-        }
+        String format = "SELECT * FROM %s WHERE id = '%s'";
+        Cursor cursor = db.rawQuery(String.format(format, table, id), null);
+        boolean exists = cursor.getCount() >= 1;
+        db.close();
+        cursor.close();
+        return exists;
     }
 
-    public void deleteFoodNotification(NotificationFoodFollowUp notification) {
+    private void deleteNotification(String table, String id) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM food WHERE id='"+notification.getId()+"'");
+        String format = "DELETE FROM %s WHERE id='%s'";
+        db.execSQL(String.format(format, table, id));
         db.close();
     }
 
-    //***CRUD FOOD NOTIFICATIONS***//
-
-
-    public ArrayList<NotificationFoodFollowUp> getAllFoodNotifications(){
-        ArrayList<NotificationFoodFollowUp> out = new ArrayList<>();
+    public ArrayList<NotificationFollowUp> getAllNotifications(String table) {
+        ArrayList<NotificationFollowUp> out = new ArrayList<>();
         SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM food",null);
-        if(cursor.moveToFirst()){
-            do{
-                out.add(new NotificationFoodFollowUp(
+        Cursor cursor = db.rawQuery("SELECT * FROM " + table, null);
+        if (cursor.moveToFirst()) {
+            do {
+                out.add(new NotificationFollowUp(
                         cursor.getString(cursor.getColumnIndex("id")),
                         cursor.getString(cursor.getColumnIndex("name")),
                         cursor.getString(cursor.getColumnIndex("date"))
                 ));
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         db.close();
+        cursor.close();
         return out;
     }
 
-    public void insertOrUpdateFoodNotification(NotificationFoodFollowUp notification){
-        if( notificationExists(notification) ){
-            updateFoodNotification(notification);
-        }else{
-            insertFoodNotification(notification);
+    //---CRUD FOOD NOTIFICATIONS---//
+
+    public void insertFoodNotification(NotificationFollowUp notification) {
+        insertNotification(FOOD_TABLE, notification.getId(), notification.getName(), notification.getDate());
+    }
+
+    public void insertOrUpdateFoodNotification(NotificationFollowUp notification) {
+        if (notificationExists(FOOD_TABLE, notification.getId())) {
+            updateNotification(FOOD_TABLE, notification.getId(), notification.getName(), notification.getDate());
+        } else {
+            insertNotification(FOOD_TABLE, notification.getId(), notification.getName(), notification.getDate());
         }
     }
 
-    public int getNotificationCount() {
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM food",null);
-        int count = cursor.getCount();
-        db.close();
-        return count;
+    public ArrayList<NotificationFollowUp> getAllFoodNotifications() {
+        return getAllNotifications(FOOD_TABLE);
     }
 
-    public String getBlockOfNotifications() {
-        ArrayList<NotificationFoodFollowUp> nots = getAllFoodNotifications();
-        String out = "";
-        for(int i=0 ; i<nots.size() ; i++){
-            out += nots.get(i).getName()+"\n";
+    //---CRUD LEVO NOTIFICATIONS---//
+
+    public void insertOrUpdateLevoNotification(NotificationFollowUp notification) {
+        if (notificationExists(LEVO_TABLE, notification.getId())) {
+            updateNotification(LEVO_TABLE, notification.getId(), notification.getName(), notification.getDate());
+        } else {
+            insertNotification(LEVO_TABLE, notification.getId(), notification.getName(), notification.getDate());
         }
-        return out;
+    }
+
+    public ArrayList<NotificationFollowUp> getAllLevoNotifications() {
+        return getAllNotifications(LEVO_TABLE);
     }
 }
