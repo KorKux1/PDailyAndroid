@@ -2,6 +2,7 @@ package co.edu.icesi.pdailyandroid.viewcontrollers;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -44,6 +45,7 @@ public class LevoFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_levo, container, false);
         ListView levoTable = v.findViewById(R.id.levoTable);
 
+        alarmMgr = (AlarmManager) App.getAppContext().getSystemService(Context.ALARM_SERVICE);
         levoIntent = new Intent(App.getAppContext(), AlarmReceiver.class);
         levoIntent.putExtra("type", "LEVO");
 
