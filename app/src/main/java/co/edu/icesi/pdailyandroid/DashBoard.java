@@ -1,26 +1,18 @@
 package co.edu.icesi.pdailyandroid;
 
-import android.content.SharedPreferences;
-
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.function.Consumer;
 
 import co.edu.icesi.pdailyandroid.services.SessionManager;
 import co.edu.icesi.pdailyandroid.services.UserInfoService;
-import co.edu.icesi.pdailyandroid.util.Constants;
 import co.edu.icesi.pdailyandroid.viewcontrollers.BinnacleFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.EventFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.FoodFragment;
@@ -32,8 +24,6 @@ import co.edu.icesi.pdailyandroid.viewcontrollers.SupportFragment;
 
 public class DashBoard extends AppCompatActivity {
 
-    public static final String FOOD_TOPIC = "pdaily-food-";
-
     private UserInfoService userInfoService;
 
     private Button supportButton;
@@ -44,20 +34,18 @@ public class DashBoard extends AppCompatActivity {
     private Button levoButton;
     private Button binButton;
     private Button eventsButton;
-    private FrameLayout fragmentContainer;
 
-    private Fragment actualControl;
+    private FrameLayout fragmentContainer;
+    private Fragment actualFragment;
 
     private Fragment binFragment;
     private Fragment levoFragment;
     private Fragment othersFragment;
     private Fragment profileFragment;
-
     private Fragment foodFragment;
     private Fragment routineFragment;
     private Fragment supportFragment;
     private Fragment eventFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,21 +53,6 @@ public class DashBoard extends AppCompatActivity {
         setContentView(R.layout.activity_dash_board);
 
         userInfoService = new UserInfoService(new SessionManager(getApplicationContext()));
-
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.w(">>>", "getInstanceId failed", task.getException());
-                        return;
-                    }
-
-                    // Get new Instance ID token
-                    String token = task.getResult().getToken();
-
-                    // Log and toast
-                    Log.e(">>>", "Token: " + token);
-
-                });
 
         supportButton = findViewById(R.id.supportButton);
         routineButton = findViewById(R.id.routineButton);
@@ -95,113 +68,55 @@ public class DashBoard extends AppCompatActivity {
         levoFragment = new LevoFragment();
         othersFragment = new OthersFragment();
         profileFragment = new ProfileFragment();
-
         foodFragment = new FoodFragment();
         routineFragment = new RoutineFragment();
         supportFragment = new SupportFragment();
         eventFragment = new EventFragment();
 
-        analizeIntent();
-        SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
-        sp.edit().putString("clienteid", "1234567890").apply();
-
-        String clientId = this.getSharedPreferences("user", MODE_PRIVATE).getString("clienteid", null);
-        FirebaseMessaging.getInstance().subscribeToTopic(Constants.patientID)
-                //FirebaseMessaging.getInstance().subscribeToTopic("1143848922/#")
-                .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.e(">>>", "Fail");
-                    } else {
-                        Log.e(">>>", "Suscribed to " + Constants.patientID);
-                    }
-                });
-
-        load(profileFragment);
-    }
-
-    private void analizeIntent() {
-        if (getIntent().getExtras() != null) {
-            String fragment = getIntent().getExtras().getString("fragment");
-            if (fragment != null) {
-                if (fragment.equals("binnacle")) {
-                    doDashboardAction(binButton);
-                }
-            }
-        }
+        loadFragment(profileFragment);
     }
 
     public void doDashboardAction(View sender) {
+        Fragment fragmentToLoad = null;
+        Button buttonToEnable = null;
+        int backgroundToApply = -1;
+
+        // Load fragment and mark button as selected
         if (sender.equals(binButton)) {
-            loadEventFragment(binFragment);
+            fragmentToLoad = binFragment;
+            buttonToEnable = binButton;
+            backgroundToApply = R.drawable.bitacoraactivo;
         } else if (sender.equals(levoButton)) {
-            loadEventFragment(levoFragment);
+            fragmentToLoad = levoFragment;
+            buttonToEnable = levoButton;
+            backgroundToApply = R.drawable.levodopaactivo;
         } else if (sender.equals(othersButton)) {
-            loadEventFragment(othersFragment);
+            fragmentToLoad = othersFragment;
+            buttonToEnable = othersButton;
+            backgroundToApply = R.drawable.otrosactivo;
         } else if (sender.equals(profileButton)) {
-            loadEventFragment(profileFragment);
+            fragmentToLoad = profileFragment;
         } else if (sender.equals(foodButton)) {
-            loadEventFragment(foodFragment);
+            fragmentToLoad = foodFragment;
+            buttonToEnable = foodButton;
+            backgroundToApply = R.drawable.comidaactivo;
         } else if (sender.equals(routineButton)) {
-            loadEventFragment(routineFragment);
+            fragmentToLoad = routineFragment;
+            buttonToEnable = routineButton;
+            backgroundToApply = R.drawable.rutinaactivo;
         } else if (sender.equals(supportButton)) {
-            loadEventFragment(supportFragment);
+            fragmentToLoad = supportFragment;
+            buttonToEnable = supportButton;
+            backgroundToApply = R.drawable.apoyoactivo;
         } else if (sender.equals(eventsButton)) {
-            loadEventFragment(eventFragment);
+            fragmentToLoad = eventFragment;
+            buttonToEnable = eventsButton;
+            backgroundToApply = R.drawable.eventosactivo;
         }
 
-        allIsUnselected();
+        loadFragment(fragmentToLoad);
 
-        if (actualControl == null) {
-            return;
-        }
-
-        if (actualControl instanceof SupportFragment) {
-            supportButton.setBackgroundResource(R.drawable.apoyoactivo);
-        } else if (actualControl instanceof RoutineFragment) {
-            routineButton.setBackgroundResource(R.drawable.rutinaactivo);
-        } else if (actualControl instanceof FoodFragment) {
-            foodButton.setBackgroundResource(R.drawable.comidaactivo);
-        } else if (actualControl instanceof ProfileFragment) {
-
-        } else if (actualControl instanceof OthersFragment) {
-            othersButton.setBackgroundResource(R.drawable.otrosactivo);
-        } else if (actualControl instanceof LevoFragment) {
-            levoButton.setBackgroundResource(R.drawable.levodopaactivo);
-        } else if (actualControl instanceof BinnacleFragment) {
-            binButton.setBackgroundResource(R.drawable.bitacoraactivo);
-        } else if (actualControl instanceof EventFragment) {
-            eventsButton.setBackgroundResource(R.drawable.eventosactivo);
-        }
-    }
-
-    public void loadEventFragment(Fragment fragment) {
-        if (actualControl == null) {
-            load(fragment);
-        } else if (actualControl.equals(fragment)) {
-            unload();
-        } else {
-            unload();
-            load(fragment);
-        }
-    }
-
-    private void load(Fragment fragment) {
-        actualControl = fragment;
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction ft = manager.beginTransaction();
-        ft.replace(R.id.frameLayout, actualControl);
-        ft.commit();
-    }
-
-    private void unload() {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction ft = manager.beginTransaction();
-        ft.remove(actualControl);
-        ft.commit();
-        actualControl = null;
-    }
-
-    private void allIsUnselected() {
+        // Unselect all
         supportButton.setBackgroundResource(R.drawable.apoyoinactivo);
         routineButton.setBackgroundResource(R.drawable.rutinainactivo);
         foodButton.setBackgroundResource(R.drawable.comidainactivo);
@@ -209,12 +124,19 @@ public class DashBoard extends AppCompatActivity {
         levoButton.setBackgroundResource(R.drawable.levodopainactivo);
         binButton.setBackgroundResource(R.drawable.bitacorainactivo);
         eventsButton.setBackgroundResource(R.drawable.eventosinactivo);
+
+        if (buttonToEnable != null && backgroundToApply >= 0) {
+            buttonToEnable.setBackgroundResource(backgroundToApply);
+        }
     }
 
-    @Override
-    protected void onDestroy() {
-//        unregisterReceiver(updateUIReciver);
-        super.onDestroy();
+    public void loadFragment(Fragment fragment) {
+        if (actualFragment != null && actualFragment.equals(fragment)) return;
+
+        actualFragment = fragment;
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout, actualFragment);
+        ft.commit();
     }
 
     public Thread getUpdateUserDataThread(Consumer<Boolean> callback) {
