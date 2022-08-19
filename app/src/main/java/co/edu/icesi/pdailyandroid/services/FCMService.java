@@ -6,16 +6,14 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 
 import org.json.JSONObject;
-
-import java.util.UUID;
 
 import co.edu.icesi.pdailyandroid.localdatabase.DataHandler;
 import co.edu.icesi.pdailyandroid.model.dto.FoodDTO;
 import co.edu.icesi.pdailyandroid.model.dto.GenericDTO;
-import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFoodFollowUp;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFollowUp;
+import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationType;
 import co.edu.icesi.pdailyandroid.receivers.broadcast.ActionReceiver;
 import co.edu.icesi.pdailyandroid.util.NotificationUtils;
 
@@ -23,29 +21,31 @@ public class FCMService extends FirebaseMessagingService {
 
     public static int countId = 0;
 
-    public FCMService(){}
+    public FCMService() {
+    }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        Log.e(">>> FROM",remoteMessage.getFrom());
+        Log.e(">>> FROM", remoteMessage.getFrom());
 
         JSONObject object = new JSONObject(remoteMessage.getData());
         String json = object.toString();
-        Log.e(">>> DATA",json);
+        Log.e(">>> DATA", json);
         Intent intentAction = new Intent(this, ActionReceiver.class);
-        NotificationUtils.createSimpleNotification(this, countId, "Alfa", remoteMessage.getData()+"", intentAction);
+        NotificationUtils.createSimpleNotification(this, countId, "Alfa", remoteMessage.getData() + "", intentAction);
         countId++;
 
         Gson gson = new Gson();
         GenericDTO generic = gson.fromJson(json, GenericDTO.class);
-        switch (generic.getType()){
+        switch (generic.getType()) {
             case "food":
                 FoodDTO foodDTO = gson.fromJson(json, FoodDTO.class);
-                NotificationFoodFollowUp foodFollowUp = new NotificationFoodFollowUp(
+                NotificationFollowUp foodFollowUp = new NotificationFollowUp(
                         foodDTO.getId(),
                         "Ya comió?",
-                        "Julio"
+                        "Julio",
+                        NotificationType.FOOD
                 );
                 DataHandler.getInstance(this).insertFoodNotification(foodFollowUp);
                 break;
