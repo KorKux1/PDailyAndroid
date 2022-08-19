@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 import java.util.function.Consumer;
 
@@ -35,7 +34,6 @@ public class DashBoard extends AppCompatActivity {
     private Button binButton;
     private Button eventsButton;
 
-    private FrameLayout fragmentContainer;
     private Fragment actualFragment;
 
     private Fragment binFragment;
@@ -62,7 +60,6 @@ public class DashBoard extends AppCompatActivity {
         levoButton = findViewById(R.id.levoButton);
         binButton = findViewById(R.id.binButton);
         eventsButton = findViewById(R.id.eventsButton);
-        fragmentContainer = findViewById(R.id.frameLayout);
 
         binFragment = new BinnacleFragment();
         levoFragment = new LevoFragment();
@@ -125,7 +122,7 @@ public class DashBoard extends AppCompatActivity {
         binButton.setBackgroundResource(R.drawable.bitacorainactivo);
         eventsButton.setBackgroundResource(R.drawable.eventosinactivo);
 
-        if (buttonToEnable != null && backgroundToApply >= 0) {
+        if (buttonToEnable != null) {
             buttonToEnable.setBackgroundResource(backgroundToApply);
         }
     }
