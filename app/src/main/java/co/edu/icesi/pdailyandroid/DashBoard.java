@@ -76,7 +76,7 @@ public class DashBoard extends AppCompatActivity {
     public void doDashboardAction(View sender) {
         Fragment fragmentToLoad = null;
         Button buttonToEnable = null;
-        int backgroundToApply = -1;
+        int backgroundToApply = 0;
 
         // Load fragment and mark button as selected
         if (sender.equals(binButton)) {
@@ -93,6 +93,7 @@ public class DashBoard extends AppCompatActivity {
             backgroundToApply = R.drawable.otrosactivo;
         } else if (sender.equals(profileButton)) {
             fragmentToLoad = profileFragment;
+            // the profile page does not have different icons
         } else if (sender.equals(foodButton)) {
             fragmentToLoad = foodFragment;
             buttonToEnable = foodButton;
