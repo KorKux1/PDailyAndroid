@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 import co.edu.icesi.pdailyandroid.model.datatype.INotification;
 
-public class NotificationFoodFollowUp implements Serializable, INotification {
+public class NotificationFollowUp implements Serializable, INotification {
 
     private String id;
     private String name;
     private String date;
 
-    public NotificationFoodFollowUp() {
+    public NotificationFollowUp() {
     }
 
-    public NotificationFoodFollowUp(String id, String name, String date) {
+    public NotificationFollowUp(String id, String name, String date) {
         this.id = id;
         this.name = name;
         this.date = date;
