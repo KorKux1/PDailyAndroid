@@ -79,8 +79,7 @@ public class ProfileFragment extends Fragment {
 
         types = AnimicTypes.getReference();
 
-        sendBtn.setOnClickListener(
-                view -> {
+        sendBtn.setOnClickListener(view -> {
                     sendBtn.setText("...");
                     SessionManager sessionManager = new SessionManager(
                             getActivity().getApplicationContext());

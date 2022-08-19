@@ -23,6 +23,7 @@ import co.edu.icesi.pdailyandroid.viewcontrollers.SupportFragment;
 
 public class DashBoard extends AppCompatActivity {
 
+    private SessionManager sessionManager;
     private UserInfoService userInfoService;
 
     private Button supportButton;
@@ -50,7 +51,8 @@ public class DashBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
 
-        userInfoService = new UserInfoService(new SessionManager(getApplicationContext()));
+        sessionManager = new SessionManager(getApplicationContext());
+        userInfoService = new UserInfoService(sessionManager);
 
         supportButton = findViewById(R.id.supportButton);
         routineButton = findViewById(R.id.routineButton);
@@ -135,6 +137,10 @@ public class DashBoard extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout, actualFragment);
         ft.commit();
+    }
+
+    public SessionManager getSessionManager() {
+        return sessionManager;
     }
 
     public Thread getUpdateUserDataThread(Consumer<Boolean> callback) {

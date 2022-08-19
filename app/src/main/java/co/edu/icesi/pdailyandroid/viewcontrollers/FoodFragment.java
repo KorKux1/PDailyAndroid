@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
@@ -28,9 +27,7 @@ import co.edu.icesi.pdailyandroid.model.dto.FoodScheduleDTO;
 import co.edu.icesi.pdailyandroid.model.dto.ScheduleTimeDTO;
 import co.edu.icesi.pdailyandroid.receivers.broadcast.AlarmReceiver;
 import co.edu.icesi.pdailyandroid.misc.dialogs.HourDialog;
-import co.edu.icesi.pdailyandroid.services.SessionManager;
 import co.edu.icesi.pdailyandroid.util.DateUtils;
-import co.edu.icesi.pdailyandroid.util.PendingIntentUtils;
 
 
 public class FoodFragment extends Fragment implements View.OnClickListener, HourDialog.OnHourChoose {
@@ -38,12 +35,13 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
     public static final int ALARM_BREAKFAST = 0;
     public static final int ALARM_LUNCH = 1;
     public static final int ALARM_DINNER = 2;
+
     private AlarmManager alarmMgr;
     private Intent breakfastIntent;
     private Intent lunchIntent;
     private Intent dinnerIntent;
 
-    private SessionManager sessionManager;
+    private DashBoard parentActivity;
 
     TextView breakfast_hour;
     TextView lunch_hour;
@@ -54,15 +52,13 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        sessionManager = new SessionManager(getActivity().getApplicationContext());
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        parentActivity = (DashBoard) getActivity();
 
-        View root = inflater.inflate(R.layout.fragment_food, container, false);
-
-        breakfast_hour = root.findViewById(R.id.breakfast_hour);
-        lunch_hour = root.findViewById(R.id.lunch_hour);
-        dinner_hour = root.findViewById(R.id.dinner_hour);
+        View v = inflater.inflate(R.layout.fragment_food, container, false);
+        breakfast_hour = v.findViewById(R.id.breakfast_hour);
+        lunch_hour = v.findViewById(R.id.lunch_hour);
+        dinner_hour = v.findViewById(R.id.dinner_hour);
 
         breakfast_hour.setText(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FOOD01", "-"));
         lunch_hour.setText(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FOOD02", "-"));
@@ -81,7 +77,7 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
         dinnerIntent = new Intent(App.getAppContext(), AlarmReceiver.class);
         dinnerIntent.putExtra("type", "FOOD03");
 
-        return root;
+        return v;
     }
 
     private void setupFoodAlarms(FoodScheduleDTO schedule, boolean updateAlarms) {
@@ -102,7 +98,7 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
             return; // Invalid number of times for food schedule
         }
 
-        Collections.sort(times, Comparator.comparingInt(ScheduleTimeDTO::getHour));
+        times.sort(Comparator.comparingInt(ScheduleTimeDTO::getHour));
         ScheduleTimeDTO breakfast = times.get(0);
         ScheduleTimeDTO lunch = times.get(1);
         ScheduleTimeDTO dinner = times.get(2);
@@ -135,7 +131,7 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
 
     @Override
     public void onClick(View v) {
-        ArrayList<FoodScheduleDTO> schedules = sessionManager.loadSchedulesData().getFoodSchedules();
+        ArrayList<FoodScheduleDTO> schedules = parentActivity.getSessionManager().loadSchedulesData().getFoodSchedules();
         if (schedules == null || schedules.isEmpty()) {
             // Allow to setup hours if no schedules are defined from the server
             showHourDialog(v);
@@ -147,7 +143,7 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
         dialog.setOriginView(v);
         dialog.setHour(((TextView) v).getText().toString());
         dialog.setOnHourChooseListener(this);
-        dialog.show(getActivity().getSupportFragmentManager(), "hourDialog");
+        dialog.show(parentActivity.getSupportFragmentManager(), "hourDialog");
     }
 
     @Override
@@ -181,20 +177,16 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
 
     @Override
     public void onResume() {
-        ArrayList<FoodScheduleDTO> currentSchedules = sessionManager.loadSchedulesData().getFoodSchedules();
+        ArrayList<FoodScheduleDTO> currentSchedules = parentActivity.getSessionManager().loadSchedulesData().getFoodSchedules();
         FoodScheduleDTO currentSchedule = currentSchedules == null || currentSchedules.isEmpty() ? null : currentSchedules.get(0);
 
-        ((DashBoard) getActivity()).getUpdateUserDataThread((updated) -> {
+        parentActivity.getUpdateUserDataThread((updated) -> {
             if (updated) {
-                ArrayList<FoodScheduleDTO> newSchedules = sessionManager.loadSchedulesData().getFoodSchedules();
+                ArrayList<FoodScheduleDTO> newSchedules = parentActivity.getSessionManager().loadSchedulesData().getFoodSchedules();
                 FoodScheduleDTO newSchedule = newSchedules == null || newSchedules.isEmpty() ? null : newSchedules.get(0);
-                getActivity().runOnUiThread(() -> {
-                    setupFoodAlarms(newSchedule, !currentSchedule.equals(newSchedule));
-                });
+                getActivity().runOnUiThread(() -> setupFoodAlarms(newSchedule, !currentSchedule.equals(newSchedule)));
             } else {
-                getActivity().runOnUiThread(() -> {
-                    setupFoodAlarms(currentSchedule, false);
-                });
+                getActivity().runOnUiThread(() -> setupFoodAlarms(currentSchedule, false));
             }
         }).start();
 

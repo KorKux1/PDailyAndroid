@@ -1,7 +1,9 @@
 package co.edu.icesi.pdailyandroid.viewcontrollers;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +28,7 @@ public class OthersFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_others, container, false);
         others = createArray();
@@ -37,9 +38,9 @@ public class OthersFragment extends Fragment {
         return v;
     }
 
-    public ArrayList<OtherViewModel> createArray(){
+    public ArrayList<OtherViewModel> createArray() {
         ArrayList<OtherViewModel> out = new ArrayList<>();
-        OtherViewModel s1 = new OtherViewModel("Aspirina", "normal",  "400mg", "17/06/2017", "8 horas", "8am - 4pm - 12am");
+        OtherViewModel s1 = new OtherViewModel("Aspirina", "normal", "400mg", "17/06/2017", "8 horas", "8am - 4pm - 12am");
 
         OtherViewModel s2 = new OtherViewModel("Beta", "normal", "100mg", "01/03/2015", "Cada: 6 horas", "6am - 12pm - 6pm");
 
