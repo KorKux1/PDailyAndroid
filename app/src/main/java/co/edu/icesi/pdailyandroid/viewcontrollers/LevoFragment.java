@@ -56,7 +56,7 @@ public class LevoFragment extends Fragment {
 
     private void updateList() {
         SchedulesCollectionDTO schedules = parentActivity.getSessionManager().loadSchedulesData();
-        ArrayList<MedicineScheduleDTO> levoSchedules = schedules.getMedicineLevodopa();
+        ArrayList<MedicineScheduleDTO> levoSchedules = schedules.getMedicineSchedules();
         list.removeAll(list);
         list.addAll(levoSchedules);
         adapter.notifyDataSetChanged();
@@ -84,12 +84,12 @@ public class LevoFragment extends Fragment {
 
     @Override
     public void onResume() {
-        ArrayList<MedicineScheduleDTO> currentSchedules = parentActivity.getSessionManager().loadSchedulesData().getMedicineLevodopa();
+        ArrayList<MedicineScheduleDTO> currentSchedules = parentActivity.getSessionManager().loadSchedulesData().getMedicineSchedules();
 
         parentActivity.getUpdateUserDataThread((updated) -> {
             if (updated) {
                 parentActivity.runOnUiThread(this::updateList);
-                ArrayList<MedicineScheduleDTO> newSchedules = parentActivity.getSessionManager().loadSchedulesData().getMedicineLevodopa();
+                ArrayList<MedicineScheduleDTO> newSchedules = parentActivity.getSessionManager().loadSchedulesData().getMedicineSchedules();
                 ArrayList<MedicineScheduleDTO> toUpdate = new ArrayList<>(newSchedules);
                 // TODO: Bug. current schedules are never null... They get loaded previously
                 toUpdate.removeIf(s -> currentSchedules.contains(s));

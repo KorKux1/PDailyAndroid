@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class SchedulesCollectionDTO {
     private ArrayList<FoodScheduleDTO> foodSchedules;
-    private ArrayList<MedicineScheduleDTO> medicineLevodopa;
+    private ArrayList<MedicineScheduleDTO> medicineSchedules;
     private ArrayList<RoutineScheduleDTO> routineSchedules;
 
     public SchedulesCollectionDTO() {
@@ -15,7 +15,7 @@ public class SchedulesCollectionDTO {
             ArrayList<MedicineScheduleDTO> medicineSchedules,
             ArrayList<RoutineScheduleDTO> routineSchedules) {
         this.foodSchedules = foodSchedules;
-        this.medicineLevodopa = medicineSchedules;
+        this.medicineSchedules = medicineSchedules;
         this.routineSchedules = routineSchedules;
     }
 
@@ -27,12 +27,12 @@ public class SchedulesCollectionDTO {
         this.foodSchedules = foodSchedules;
     }
 
-    public ArrayList<MedicineScheduleDTO> getMedicineLevodopa() {
-        return medicineLevodopa;
+    public ArrayList<MedicineScheduleDTO> getMedicineSchedules() {
+        return medicineSchedules;
     }
 
-    public void setMedicineLevodopa(ArrayList<MedicineScheduleDTO> medicineLevodopa) {
-        this.medicineLevodopa = medicineLevodopa;
+    public void setMedicineSchedules(ArrayList<MedicineScheduleDTO> medicineSchedules) {
+        this.medicineSchedules = medicineSchedules;
     }
 
     public ArrayList<RoutineScheduleDTO> getRoutineSchedules() {
@@ -46,6 +46,6 @@ public class SchedulesCollectionDTO {
     public boolean isValid() {
         return this.foodSchedules != null &&
                 this.routineSchedules != null &&
-                this.medicineLevodopa != null;
+                this.medicineSchedules != null;
     }
 }
