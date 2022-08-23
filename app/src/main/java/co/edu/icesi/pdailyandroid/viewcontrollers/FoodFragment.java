@@ -178,14 +178,14 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
     @Override
     public void onResume() {
         ArrayList<FoodScheduleDTO> currentSchedules = parentActivity.getSessionManager().loadSchedulesData().getFoodSchedules();
-        FoodScheduleDTO currentSchedule = currentSchedules == null || currentSchedules.isEmpty() ? null : currentSchedules.get(0);
-
+        FoodScheduleDTO currentSchedule = currentSchedules != null && !currentSchedules.isEmpty() ? currentSchedules.get(0) : null;
         parentActivity.getUpdateUserDataThread((updated) -> {
             if (updated) {
                 ArrayList<FoodScheduleDTO> newSchedules = parentActivity.getSessionManager().loadSchedulesData().getFoodSchedules();
-                FoodScheduleDTO newSchedule = newSchedules == null || newSchedules.isEmpty() ? null : newSchedules.get(0);
+                FoodScheduleDTO newSchedule = newSchedules != null && !newSchedules.isEmpty() ? newSchedules.get(0) : null;
                 // TODO: bug. current schedules loaded previously. are null only the first time
-                getActivity().runOnUiThread(() -> setupFoodAlarms(newSchedule, !currentSchedule.equals(newSchedule)));
+                boolean updateAlarms = newSchedule != null ? !newSchedule.equals(currentSchedule) : false;
+                getActivity().runOnUiThread(() -> setupFoodAlarms(newSchedule, updateAlarms));
             } else {
                 getActivity().runOnUiThread(() -> setupFoodAlarms(currentSchedule, false));
             }
