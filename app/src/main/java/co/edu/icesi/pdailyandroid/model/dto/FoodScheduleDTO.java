@@ -5,15 +5,15 @@ import java.util.UUID;
 public class FoodScheduleDTO {
     private UUID id;
     private UUID patientId;
-    private SchedulePlanDTO metadata;
+    private SchedulePlanDTO plan;
 
     public FoodScheduleDTO() {
     }
 
-    public FoodScheduleDTO(UUID id, UUID patientId, SchedulePlanDTO metadata) {
+    public FoodScheduleDTO(UUID id, UUID patientId, SchedulePlanDTO plan) {
         this.id = id;
         this.patientId = patientId;
-        this.metadata = metadata;
+        this.plan = plan;
     }
 
     public UUID getId() {
@@ -32,12 +32,12 @@ public class FoodScheduleDTO {
         this.patientId = patientId;
     }
 
-    public SchedulePlanDTO getMetadata() {
-        return metadata;
+    public SchedulePlanDTO getPlan() {
+        return plan;
     }
 
-    public void setMetadata(SchedulePlanDTO metadata) {
-        this.metadata = metadata;
+    public void setPlan(SchedulePlanDTO plan) {
+        this.plan = plan;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class FoodScheduleDTO {
         // Food schedules are equals if have the same hours
         FoodScheduleDTO other = (FoodScheduleDTO) obj;
         boolean isEquals = this.patientId.equals(other.getPatientId()) &&
-                this.metadata.getTimesString().equals(other.getMetadata().getTimesString());
+                this.plan.getTimesString().equals(other.getPlan().getTimesString());
 
         return isEquals;
     }

@@ -93,7 +93,7 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
             return;
         }
 
-        ArrayList<ScheduleTimeDTO> times = schedule.getMetadata().getTimes();
+        ArrayList<ScheduleTimeDTO> times = schedule.getPlan().getTimes();
         if (times.size() != 3) {
             return; // Invalid number of times for food schedule
         }
@@ -184,6 +184,7 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
             if (updated) {
                 ArrayList<FoodScheduleDTO> newSchedules = parentActivity.getSessionManager().loadSchedulesData().getFoodSchedules();
                 FoodScheduleDTO newSchedule = newSchedules == null || newSchedules.isEmpty() ? null : newSchedules.get(0);
+                // TODO: bug. current schedules loaded previously. are null only the first time
                 getActivity().runOnUiThread(() -> setupFoodAlarms(newSchedule, !currentSchedule.equals(newSchedule)));
             } else {
                 getActivity().runOnUiThread(() -> setupFoodAlarms(currentSchedule, false));

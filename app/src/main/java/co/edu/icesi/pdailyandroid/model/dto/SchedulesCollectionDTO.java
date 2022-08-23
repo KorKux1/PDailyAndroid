@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class SchedulesCollectionDTO {
     private ArrayList<FoodScheduleDTO> foodSchedules;
-    private ArrayList<MedicineLevodopaScheduleDTO> medicineLevodopaSchedules;
+    private ArrayList<MedicineScheduleDTO> medicineLevodopa;
     private ArrayList<RoutineScheduleDTO> routineSchedules;
 
     public SchedulesCollectionDTO() {
@@ -12,10 +12,10 @@ public class SchedulesCollectionDTO {
 
     public SchedulesCollectionDTO(
             ArrayList<FoodScheduleDTO> foodSchedules,
-            ArrayList<MedicineLevodopaScheduleDTO> medicineLevodopaSchedules,
+            ArrayList<MedicineScheduleDTO> medicineSchedules,
             ArrayList<RoutineScheduleDTO> routineSchedules) {
         this.foodSchedules = foodSchedules;
-        this.medicineLevodopaSchedules = medicineLevodopaSchedules;
+        this.medicineLevodopa = medicineSchedules;
         this.routineSchedules = routineSchedules;
     }
 
@@ -27,12 +27,12 @@ public class SchedulesCollectionDTO {
         this.foodSchedules = foodSchedules;
     }
 
-    public ArrayList<MedicineLevodopaScheduleDTO> getMedicineLevodopaSchedules() {
-        return medicineLevodopaSchedules;
+    public ArrayList<MedicineScheduleDTO> getMedicineLevodopa() {
+        return medicineLevodopa;
     }
 
-    public void setMedicineLevodopaSchedules(ArrayList<MedicineLevodopaScheduleDTO> medicineLevodopaSchedules) {
-        this.medicineLevodopaSchedules = medicineLevodopaSchedules;
+    public void setMedicineLevodopa(ArrayList<MedicineScheduleDTO> medicineLevodopa) {
+        this.medicineLevodopa = medicineLevodopa;
     }
 
     public ArrayList<RoutineScheduleDTO> getRoutineSchedules() {
@@ -46,6 +46,6 @@ public class SchedulesCollectionDTO {
     public boolean isValid() {
         return this.foodSchedules != null &&
                 this.routineSchedules != null &&
-                this.medicineLevodopaSchedules != null;
+                this.medicineLevodopa != null;
     }
 }

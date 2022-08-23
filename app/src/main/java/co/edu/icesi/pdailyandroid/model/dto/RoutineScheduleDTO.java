@@ -6,20 +6,19 @@ public class RoutineScheduleDTO {
     private UUID id;
     private UUID patientId;
     private UUID routineTypeId;
-    private String routineTypeLabel;
-    private SchedulePlanDTO metadata;
+    private String typeLabel;
+    private SchedulePlanDTO plan;
 
     public RoutineScheduleDTO() {
     }
 
     public RoutineScheduleDTO(
-            UUID id, UUID patientId, UUID routineTypeId, String routineTypeLabel,
-            SchedulePlanDTO metadata) {
+            UUID id, UUID patientId, UUID routineTypeId, String typeLabel, SchedulePlanDTO metadata) {
         this.id = id;
         this.patientId = patientId;
         this.routineTypeId = routineTypeId;
-        this.routineTypeLabel = routineTypeLabel;
-        this.metadata = metadata;
+        this.typeLabel = typeLabel;
+        this.plan = metadata;
     }
 
     public UUID getId() {
@@ -46,19 +45,19 @@ public class RoutineScheduleDTO {
         this.routineTypeId = routineTypeId;
     }
 
-    public String getRoutineTypeLabel() {
-        return routineTypeLabel;
+    public String getTypeLabel() {
+        return typeLabel;
     }
 
-    public void setRoutineTypeLabel(String routineTypeLabel) {
-        this.routineTypeLabel = routineTypeLabel;
+    public void setTypeLabel(String typeLabel) {
+        this.typeLabel = typeLabel;
     }
 
-    public SchedulePlanDTO getMetadata() {
-        return metadata;
+    public SchedulePlanDTO getPlan() {
+        return plan;
     }
 
-    public void setMetadata(SchedulePlanDTO metadata) {
-        this.metadata = metadata;
+    public void setPlan(SchedulePlanDTO plan) {
+        this.plan = plan;
     }
 }

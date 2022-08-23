@@ -14,14 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import co.edu.icesi.pdailyandroid.DashBoard;
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.LevoAdapter;
 import co.edu.icesi.pdailyandroid.app.App;
-import co.edu.icesi.pdailyandroid.model.dto.FoodScheduleDTO;
-import co.edu.icesi.pdailyandroid.model.dto.MedicineLevodopaScheduleDTO;
+import co.edu.icesi.pdailyandroid.model.dto.MedicineScheduleDTO;
 import co.edu.icesi.pdailyandroid.model.dto.ScheduleTimeDTO;
 import co.edu.icesi.pdailyandroid.model.dto.SchedulesCollectionDTO;
 import co.edu.icesi.pdailyandroid.receivers.broadcast.AlarmReceiver;
@@ -30,7 +28,7 @@ import co.edu.icesi.pdailyandroid.receivers.broadcast.AlarmReceiver;
 public class LevoFragment extends Fragment {
     private DashBoard parentActivity;
     private LevoAdapter adapter;
-    private ArrayList<MedicineLevodopaScheduleDTO> list;
+    private ArrayList<MedicineScheduleDTO> list;
 
     private AlarmManager alarmMgr;
     private Intent levoIntent;
@@ -58,13 +56,13 @@ public class LevoFragment extends Fragment {
 
     private void updateList() {
         SchedulesCollectionDTO schedules = parentActivity.getSessionManager().loadSchedulesData();
-        ArrayList<MedicineLevodopaScheduleDTO> levoSchedules = schedules.getMedicineLevodopaSchedules();
+        ArrayList<MedicineScheduleDTO> levoSchedules = schedules.getMedicineLevodopa();
         list.removeAll(list);
         list.addAll(levoSchedules);
         adapter.notifyDataSetChanged();
     }
 
-    private void setupLevoAlarms(ArrayList<MedicineLevodopaScheduleDTO> schedules) {
+    private void setupLevoAlarms(ArrayList<MedicineScheduleDTO> schedules) {
         // Alarms with id from 100 to 200 are for levo. Try to cancel all.
         for (int i = 100; i < 200; i++) {
             PendingIntent levoPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), i, levoIntent, 0);
@@ -73,8 +71,8 @@ public class LevoFragment extends Fragment {
 
         if (schedules == null || schedules.isEmpty()) return;
 
-        for (MedicineLevodopaScheduleDTO schedule : schedules) {
-            ArrayList<ScheduleTimeDTO> times = schedule.getMetadata().getTimes();
+        for (MedicineScheduleDTO schedule : schedules) {
+            ArrayList<ScheduleTimeDTO> times = schedule.getPlan().getTimes();
             for (int i = 0; i < times.size(); i++) {
                 int alarmId = 100 + i;
                 ScheduleTimeDTO time = times.get(i);
@@ -86,13 +84,18 @@ public class LevoFragment extends Fragment {
 
     @Override
     public void onResume() {
-        ArrayList<MedicineLevodopaScheduleDTO> currentSchedules = parentActivity.getSessionManager().loadSchedulesData().getMedicineLevodopaSchedules();
+        ArrayList<MedicineScheduleDTO> currentSchedules = parentActivity.getSessionManager().loadSchedulesData().getMedicineLevodopa();
 
         parentActivity.getUpdateUserDataThread((updated) -> {
             if (updated) {
                 parentActivity.runOnUiThread(this::updateList);
-                ArrayList<MedicineLevodopaScheduleDTO> newSchedules = parentActivity.getSessionManager().loadSchedulesData().getMedicineLevodopaSchedules();
-                parentActivity.runOnUiThread(() -> setupLevoAlarms(newSchedules));
+                ArrayList<MedicineScheduleDTO> newSchedules = parentActivity.getSessionManager().loadSchedulesData().getMedicineLevodopa();
+                ArrayList<MedicineScheduleDTO> toUpdate = new ArrayList<>(newSchedules);
+                // TODO: Bug. current schedules are never null... They get loaded previously
+                toUpdate.removeIf(s -> currentSchedules.contains(s));
+                if (!toUpdate.isEmpty()) {
+                    parentActivity.runOnUiThread(() -> setupLevoAlarms(newSchedules));
+                }
             }
         }).start();
 

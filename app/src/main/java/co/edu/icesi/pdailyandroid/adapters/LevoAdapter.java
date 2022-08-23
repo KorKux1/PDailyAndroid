@@ -10,13 +10,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import co.edu.icesi.pdailyandroid.R;
-import co.edu.icesi.pdailyandroid.model.dto.MedicineLevodopaScheduleDTO;
+import co.edu.icesi.pdailyandroid.model.dto.MedicineScheduleDTO;
 
 public class LevoAdapter extends BaseAdapter {
 
-    private ArrayList<MedicineLevodopaScheduleDTO> schedules;
+    private ArrayList<MedicineScheduleDTO> schedules;
 
-    public LevoAdapter(ArrayList<MedicineLevodopaScheduleDTO> others) {
+    public LevoAdapter(ArrayList<MedicineScheduleDTO> others) {
         this.schedules = others;
     }
 
@@ -48,32 +48,32 @@ public class LevoAdapter extends BaseAdapter {
         TextView levoWindow = row.findViewById(R.id.levoWindow);
         TextView levoHours = row.findViewById(R.id.levoHours);
 
-        MedicineLevodopaScheduleDTO schedule = schedules.get(position);
+        MedicineScheduleDTO schedule = schedules.get(position);
 
-        levoTitle.setText(schedule.getMedicineLevodopaTypeLabel());
+        levoTitle.setText(schedule.getTypeLabel());
 
-        String detail = (int) schedule.getMedicineLevodopaTypeQuantity() +
-                schedule.getMedicineLevodopaUnitsTypeLabel();
+        String detail = (int) schedule.getTypeQuantity() +
+                schedule.getTypeUnits();
         levoDetail.setText("x" + detail);
 
         String dose = "Toma " + schedule.getScheduledDose() + " de " + detail;
         levoDose.setText(dose);
 
-        levoDays.setText(schedule.getMetadata().getDaysString());
+        levoDays.setText(schedule.getPlan().getDaysString());
 
-        String window = "Desde " + schedule.getMetadata().getStartDateString();
-        String end = schedule.getMetadata().getEndDateString();
+        String window = "Desde " + schedule.getPlan().getStartDateString();
+        String end = schedule.getPlan().getEndDateString();
         if (end != null) {
             window = window + "\nHasta " + end;
         }
         levoWindow.setText(window);
 
-        levoHours.setText(schedule.getMetadata().getTimesString());
+        levoHours.setText(schedule.getPlan().getTimesString());
 
         return row;
     }
 
-    public MedicineLevodopaScheduleDTO select(int position) {
+    public MedicineScheduleDTO select(int position) {
         return schedules.get(position);
     }
 }
