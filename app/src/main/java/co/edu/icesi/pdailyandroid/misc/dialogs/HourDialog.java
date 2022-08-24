@@ -13,6 +13,7 @@ import java.util.Date;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
 import co.edu.icesi.pdailyandroid.R;
 
 public class HourDialog extends DialogFragment {
@@ -23,54 +24,58 @@ public class HourDialog extends DialogFragment {
     private OnHourChoose onHourChooseListener;
     private View originView;
 
-
-    public void setHour(String hour){
+    public void setHour(String hour) {
         this.hour = hour;
     }
 
-    public void setOriginView(View originView){
+    public void setOriginView(View originView) {
         this.originView = originView;
     }
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        String textoMod = hour.substring(0, hour.length()-3);
-        String[] time = textoMod.split(":");
-
-
         View view = getLayoutInflater().inflate(R.layout.hour_dialog, null);
         picker = view.findViewById(R.id.timepicker);
         okButton = view.findViewById(R.id.okButton);
 
+        int h = 0;
+        int m = 0;
+        if (!hour.equals("-")) {
+            String[] time = hour.substring(0, hour.length() - 3).split(":");
+            h = Integer.parseInt(time[0]);
+            m = Integer.parseInt(time[1]);
+            String t = hour.substring(hour.length() - 2);
 
-        picker.setHour( hour.contains("PM")?(hour.contains("12")? 12 : Integer.parseInt(time[0])+12 ): Integer.parseInt(time[0]) );
-        picker.setMinute( Integer.parseInt(time[1]) );
+            if (t.equals("PM") && h < 12) {
+                h += 12;
+            }
 
-        okButton.setOnClickListener((v)->{
-            int hour = picker.getHour();
-            int minute = picker.getMinute();
+            picker.setHour(h);
+            picker.setMinute(m);
+        }
 
-            String output = "" + (hour>=13?Math.abs(hour-12):hour) + ":" + (minute<=9?"0"+minute:""+minute) + " " + (hour>=13?"PM":"AM");
+        okButton.setOnClickListener((v) -> {
+            int hh = picker.getHour();
+            int mm = picker.getMinute();
+
             Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.MINUTE, minute);
-            cal.set(Calendar.HOUR_OF_DAY, hour);
+            cal.set(Calendar.HOUR_OF_DAY, hh);
+            cal.set(Calendar.MINUTE, mm);
             cal.set(Calendar.SECOND, 0);
-            Date outdate = cal.getTime();
-            onHourChooseListener.onHour(originView, outdate);
+            onHourChooseListener.onHour(originView, cal.getTime());
+
             this.dismiss();
         });
 
         return view;
     }
 
-    public void setOnHourChooseListener(OnHourChoose onHourChooseListener){
+    public void setOnHourChooseListener(OnHourChoose onHourChooseListener) {
         this.onHourChooseListener = onHourChooseListener;
     }
 
-    public interface OnHourChoose{
+    public interface OnHourChoose {
         void onHour(View view, Date datetime);
     }
 
