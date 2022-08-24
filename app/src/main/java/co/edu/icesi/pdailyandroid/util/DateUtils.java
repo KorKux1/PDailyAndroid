@@ -5,17 +5,15 @@ import java.util.Calendar;
 public class DateUtils {
 
     public static String getHourInString(Calendar calendarFrom) {
-        int hour = calendarFrom.get(Calendar.HOUR);
-        int minutes = calendarFrom.get(Calendar.MINUTE);
+        int hour = calendarFrom.get(Calendar.HOUR_OF_DAY);
+        int minute = calendarFrom.get(Calendar.MINUTE);
         int AM_PM = calendarFrom.get(Calendar.AM_PM);
-        String strHour = (""+hour).length()==1?"0"+hour:""+hour;
-        String strMinute = (""+minutes).length()==1?"0"+minutes:""+minutes;
-        if(AM_PM == Calendar.AM){
-            if(hour == 0) strHour = "12";
-            return strHour+":"+strMinute+" AM";
-        }else{
-            return strHour+":"+strMinute+" PM";
-        }
-    }
 
+        if (AM_PM == Calendar.PM && hour >= 13) hour -= 12;
+        String hh = String.format("%02d", hour);
+        String mm = String.format("%02d", minute);
+        String tt = AM_PM == Calendar.PM ? "PM" : "AM";
+
+        return hh + ":" + mm + " " + tt;
+    }
 }
