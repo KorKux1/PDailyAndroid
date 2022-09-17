@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,7 +138,7 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
         TextView tv = (TextView) view;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(datetime);
-        String hourStr = DateUtils.getHourInString(calendar);
+        String hourStr = DateUtils.getHourString(calendar);
         tv.setText(hourStr);
 
         switch (tv.getId()) {

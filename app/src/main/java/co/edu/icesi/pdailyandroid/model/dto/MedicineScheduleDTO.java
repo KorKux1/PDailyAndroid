@@ -1,5 +1,6 @@
 package co.edu.icesi.pdailyandroid.model.dto;
 
+import java.text.DecimalFormat;
 import java.util.UUID;
 
 public class MedicineScheduleDTO {
@@ -9,6 +10,7 @@ public class MedicineScheduleDTO {
     private String typeLabel;
     private double typeQuantity;
     private String typeUnits;
+    private String typeFamily;
     private double scheduledDose;
     private SchedulePlanDTO plan;
 
@@ -17,7 +19,7 @@ public class MedicineScheduleDTO {
 
     public MedicineScheduleDTO(
             UUID id, UUID patientId, UUID medicineTypeId, String typeLabel,
-            double typeQuantity, String typeUnits,
+            double typeQuantity, String typeUnits, String typeFamily,
             double scheduledDose, SchedulePlanDTO plan) {
         this.id = id;
         this.patientId = patientId;
@@ -25,6 +27,7 @@ public class MedicineScheduleDTO {
         this.typeLabel = typeLabel;
         this.typeQuantity = typeQuantity;
         this.typeUnits = typeUnits;
+        this.typeFamily = typeFamily;
         this.scheduledDose = scheduledDose;
         this.plan = plan;
     }
@@ -59,6 +62,14 @@ public class MedicineScheduleDTO {
 
     public void setTypeLabel(String typeLabel) {
         this.typeLabel = typeLabel;
+    }
+
+    public String getTypeFamily() {
+        return typeFamily;
+    }
+
+    public void setTypeFamily(String typeFamily) {
+        this.typeFamily = typeFamily;
     }
 
     public double getTypeQuantity() {
@@ -104,5 +115,10 @@ public class MedicineScheduleDTO {
         boolean isEquals = this.patientId.equals(other.getPatientId()) && this.id.equals(other.id);
 
         return isEquals;
+    }
+
+    public String getTypeString(){
+        DecimalFormat df = new DecimalFormat("0.#####");
+        return String.format("%s x%s%s", getTypeLabel(), df.format(getTypeQuantity()), getTypeUnits());
     }
 }

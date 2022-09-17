@@ -47,8 +47,8 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
         calendarTo = Calendar.getInstance();
         calendarTo.add(Calendar.MINUTE, 10);
 
-        fromhour.setText( DateUtils.getHourInString(calendarFrom) );
-        tohour.setText( DateUtils.getHourInString(calendarTo) );
+        fromhour.setText(DateUtils.getHourString(calendarFrom));
+        tohour.setText(DateUtils.getHourString(calendarTo));
 
         backButton = findViewById(R.id.backButton);
 
@@ -305,11 +305,11 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
         switch (view.getId()){
             case R.id.fromhour:
                 calendarFrom.setTime(datetime);
-                destinationView.setText(DateUtils.getHourInString(calendarFrom));
+                destinationView.setText(DateUtils.getHourString(calendarFrom));
                 break;
             case R.id.tohour:
                 calendarTo.setTime(datetime);
-                destinationView.setText(DateUtils.getHourInString(calendarTo));
+                destinationView.setText(DateUtils.getHourString(calendarTo));
                 break;
         }
 

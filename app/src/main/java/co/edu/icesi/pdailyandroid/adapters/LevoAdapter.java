@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import co.edu.icesi.pdailyandroid.R;
@@ -45,29 +46,16 @@ public class LevoAdapter extends BaseAdapter {
         TextView levoDetail = row.findViewById(R.id.levoDetail);
         TextView levoDose = row.findViewById(R.id.levoDose);
         TextView levoDays = row.findViewById(R.id.levoDays);
-        TextView levoWindow = row.findViewById(R.id.levoWindow);
         TextView levoHours = row.findViewById(R.id.levoHours);
 
         MedicineScheduleDTO schedule = schedules.get(position);
 
-        levoTitle.setText(schedule.getTypeLabel());
+        DecimalFormat df = new DecimalFormat("0.#####");
 
-        String detail = (int) schedule.getTypeQuantity() +
-                schedule.getTypeUnits();
-        levoDetail.setText("x" + detail);
-
-        String dose = "Toma " + schedule.getScheduledDose() + " de " + detail;
-        levoDose.setText(dose);
-
+        levoTitle.setText(schedule.getTypeFamily());
+        levoDetail.setText(schedule.getTypeString());
+        levoDose.setText(df.format(schedule.getScheduledDose()) + " cada vez");
         levoDays.setText(schedule.getPlan().getDaysString());
-
-        String window = "Desde " + schedule.getPlan().getStartDateString();
-        String end = schedule.getPlan().getEndDateString();
-        if (end != null) {
-            window = window + "\nHasta " + end;
-        }
-        levoWindow.setText(window);
-
         levoHours.setText(schedule.getPlan().getTimesString());
 
         return row;

@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class DateUtils {
 
-    public static String getHourInString(Calendar calendarFrom) {
+    public static String getHourString(Calendar calendarFrom) {
         int hour = calendarFrom.get(Calendar.HOUR_OF_DAY);
         int minute = calendarFrom.get(Calendar.MINUTE);
         int AM_PM = calendarFrom.get(Calendar.AM_PM);
@@ -14,6 +14,6 @@ public class DateUtils {
         String mm = String.format("%02d", minute);
         String tt = AM_PM == Calendar.PM ? "PM" : "AM";
 
-        return hh + ":" + mm + " " + tt;
+        return hh + ":" + mm + tt;
     }
 }
