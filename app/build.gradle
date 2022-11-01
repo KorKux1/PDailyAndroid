@@ -3,13 +3,13 @@ apply plugin: 'com.android.application'
 
 android {
     useLibrary 'org.apache.http.legacy'
-    compileSdkVersion 30
+    compileSdkVersion 31
     defaultConfig {
         applicationId "co.edu.icesi.pdailyandroid"
         minSdkVersion 26
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 3
-        versionName "1.0.2"
+        versionName "1.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -22,6 +22,7 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+    namespace 'co.edu.icesi.pdailyandroid'
 }
 
 dependencies {
@@ -40,7 +41,6 @@ dependencies {
     implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
     implementation 'br.com.simplepass:loading-button-android:2.2.0'
-
 }
 
 apply plugin: 'com.google.gms.google-services'
