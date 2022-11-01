@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
+import co.edu.icesi.pdailyandroid.DashBoard;
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.EventsAdapter;
 import co.edu.icesi.pdailyandroid.misc.customview.IntensityView;
@@ -41,6 +43,8 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
     private EventsAdapter adapter;
     private Fragment intensityView;
     private Button saveBtn;
+    private ImageView checkImage;
+    private SessionManager sessionManager;
 
     public EventFragment() {
         events = createArray();
@@ -49,6 +53,8 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        sessionManager = ((DashBoard) getActivity()).getSessionManager();
+
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_event, container, false);
         eventsTable = v.findViewById(R.id.eventsTable);
@@ -62,85 +68,84 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
         ft.commit();
 
         saveBtn = v.findViewById(R.id.saveBtn);
+        checkImage = v.findViewById(R.id.checkImage);
 
         eventsTable.setOnItemClickListener(
-                (parent, view, position, id) -> {
-                    EventViewModel event = adapter.select(position);
-                    view.setAlpha(0);
-                    view.animate().alpha(1);
-                    adapter.mark(position);
-                    if (event.isEvaluated()) {
-                        ((IntensityView) intensityView).select();
-                        String key = adapter.getNameOfItemMarked();
-                        Event ev = EventTemporal.events.get(key);
-                        ((IntensityView) intensityView).setValue(ev.getIntensity());
-                    } else {
-                        ((IntensityView) intensityView).deselect();
-                        ((IntensityView) intensityView).setValue(1);
-                    }
+            (parent, view, position, id) -> {
+                EventViewModel event = adapter.select(position);
+                view.setAlpha(0);
+                view.animate().alpha(1);
+                adapter.mark(position);
+                if (event.isEvaluated()) {
+                    ((IntensityView) intensityView).select();
+                    String key = adapter.getNameOfItemMarked();
+                    Event ev = EventTemporal.events.get(key);
+                    ((IntensityView) intensityView).setValue(ev.getIntensity());
+                } else {
+                    ((IntensityView) intensityView).deselect();
+                    ((IntensityView) intensityView).setValue(1);
                 }
+            }
         );
 
         eventsTable.setOnItemLongClickListener(
-                (parent, view, position, id) -> {
-                    EventViewModel event = adapter.select(position);
-                    view.setAlpha(0);
-                    view.animate().alpha(1);
-                    ((IntensityView) intensityView).deselect();
-                    ((IntensityView) intensityView).setValue(1);
-                    Intent i = new Intent(getContext(), RangeHourModal.class);
-                    i.putExtra("event", event);
-                    startActivityForResult(i, HOUR_MODAL_CALLBACK);
-                    return true;
-                }
+            (parent, view, position, id) -> {
+                EventViewModel event = adapter.select(position);
+                view.setAlpha(0);
+                view.animate().alpha(1);
+                ((IntensityView) intensityView).deselect();
+                ((IntensityView) intensityView).setValue(1);
+                Intent i = new Intent(getContext(), RangeHourModal.class);
+                i.putExtra("event", event);
+                startActivityForResult(i, HOUR_MODAL_CALLBACK);
+                return true;
+            }
         );
 
         saveBtn.setOnClickListener(
-                (view) -> {
-                    if (saveBtn.getVisibility() == View.VISIBLE) {
-                        SessionManager sessionManager = new SessionManager(
-                                getActivity().getApplicationContext());
-                        SessionData sessionData = sessionManager.loadLoginData();
+            (view) -> {
+                if (saveBtn.getVisibility() == View.VISIBLE) {
+                    SessionManager sessionManager = new SessionManager(
+                        getActivity().getApplicationContext());
+                    SessionData sessionData = sessionManager.loadLoginData();
 
-                        ArrayList<Event> events = EventTemporal.getAllEvents();
-                        ArrayList<EventDTO> eventDTOS = new ArrayList<>();
-                        for (int i = 0; i < events.size(); i++) {
-                            EventDTO dto = EventDTO.transformToDTO(events.get(i),
-                                    sessionData.getPatientId());
-                            eventDTOS.add(dto);
-                        }
-
-                        WebserviceConsumer consumer = new WebserviceConsumer();
-                        consumer.postEvents(eventDTOS, sessionData.getToken()).withEndAction(
-                                response -> {
-                                    getActivity().runOnUiThread(() -> {
-                                        restoreEventBox();
-                                        saveBtn.animate().alpha(0).scaleX(0).scaleY(0).withEndAction(
-                                                () -> {
-                                                    saveBtn.setVisibility(View.INVISIBLE);
-                                                    saveBtn.setScaleX(1);
-                                                    saveBtn.setScaleY(1);
-                                                    saveBtn.setAlpha(1);
-                                                }
-                                        );
-
-                                    });
-                                }
-                        ).execute();
+                    ArrayList<Event> events = EventTemporal.getAllEvents();
+                    ArrayList<EventDTO> eventDTOS = new ArrayList<>();
+                    for (int i = 0; i < events.size(); i++) {
+                        EventDTO dto = EventDTO.transformToDTO(events.get(i),
+                            sessionData.getPatientId());
+                        eventDTOS.add(dto);
                     }
+
+                    WebserviceConsumer consumer = new WebserviceConsumer();
+                    consumer.postEvents(eventDTOS, sessionData.getToken()).withEndAction(
+                        response -> {
+                            getActivity().runOnUiThread(() -> {
+                                restoreEventBox();
+                                saveBtn.animate().alpha(0).scaleX(0).scaleY(0).withEndAction(
+                                    () -> {
+                                        saveBtn.setVisibility(View.GONE);
+                                        saveBtn.setScaleX(1);
+                                        saveBtn.setScaleY(1);
+                                        saveBtn.setAlpha(1);
+                                        checkImage.setVisibility(View.VISIBLE);
+                                    }
+                                );
+                            });
+                        }
+                    ).execute();
                 }
+            }
         );
 
         getActivity().runOnUiThread(() -> {
-            Snackbar.make(v.findViewById(R.id.snackContainer), "Un click para mirar el síntoma", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("OK", view -> {
-                        Snackbar.make(v.findViewById(R.id.snackContainer), "Click sostenido para registrar un síntoma", Snackbar.LENGTH_INDEFINITE)
-                                .setAction("OK", view2 -> {
-
-                                })
-                                .show();
-                    })
-                    .show();
+            if (!sessionManager.getMoodInstructionsShown()) {
+                Snackbar.make(
+                        v.findViewById(R.id.snackContainer),
+                        "Click sostenido para registrar un síntoma",
+                        Snackbar.LENGTH_INDEFINITE)
+                    .setAction("OK", view -> { }).show();
+            }
         });
 
         return v;
@@ -218,17 +223,19 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
             }
         } else if (requestCode == BODY_MODAL_CALLBACK) {
             if (resultCode == Activity.RESULT_OK) {
-                Snackbar.make(getView().findViewById(R.id.snackContainer), "Mueva el rostro a la derecha para indicar cómo se siente", Snackbar.LENGTH_INDEFINITE)
-                        .setAction("OK", view2 -> {
 
-                        })
-                        .show();
+                if (!sessionManager.getMoodInstructionsShown()) {
+                    sessionManager.setMoodInstructionsShown();
+                    Snackbar.make(getView().findViewById(R.id.snackContainer), "Mueva el rostro a la derecha para indicar cómo se siente", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("OK", view2 -> { }).show();
+                }
                 String name = data.getExtras().getString("name");
                 String bodyList = data.getExtras().getString("bodyList");
                 ArrayList<String> bodyArray = new Gson().fromJson(bodyList, new TypeToken<ArrayList<String>>() {
                 }.getType());
                 EventTemporal.events.get(name).setBodyParts(bodyArray);
                 saveBtn.setVisibility(View.VISIBLE);
+                checkImage.setVisibility(View.GONE);
                 refreshList();
                 selectOnList(name);
             } else {
