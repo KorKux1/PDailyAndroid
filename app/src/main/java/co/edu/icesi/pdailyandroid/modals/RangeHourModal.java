@@ -198,7 +198,6 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
         caidas[17] = R.drawable.cai17;
         caidas[18] = R.drawable.cai18;
 
-
         event = (EventViewModel) getIntent().getExtras().getSerializable("event");
 
 
