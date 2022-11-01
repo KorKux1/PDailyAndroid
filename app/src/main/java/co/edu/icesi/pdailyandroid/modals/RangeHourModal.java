@@ -200,7 +200,6 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
 
         event = (EventViewModel) getIntent().getExtras().getSerializable("event");
 
-
         fromhour.setOnClickListener(
                 (v) -> {
                     animPause = true;

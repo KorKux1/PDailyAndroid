@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 
 import co.edu.icesi.pdailyandroid.R;
 
-
 public class IntensityView extends Fragment {
 
     private float initY = 0;
@@ -27,11 +26,9 @@ public class IntensityView extends Fragment {
 
     private onValueListener listener;
 
-
     public IntensityView() {
         // Required empty public constructor
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -43,7 +40,6 @@ public class IntensityView extends Fragment {
         faceView = root.findViewById(R.id.faceView);
         indicatorView = root.findViewById(R.id.indicatorView);
 
-
         faceView.setOnTouchListener(
                 (view, event) -> {
                     switch (event.getAction()) {
@@ -54,7 +50,6 @@ public class IntensityView extends Fragment {
 
                             faceView.setY(view.getY() + event.getY() - initY);
                             indicatorView.setY(faceView.getY() + faceHeight / 2 - indicatorHeight / 2);
-
 
                             if (faceView.getY() < 0) {
                                 faceView.setY(0);
@@ -78,7 +73,6 @@ public class IntensityView extends Fragment {
                 }
         );
         deselect();
-
 
         root.post(() -> {
             faceHeight = faceView.getHeight();
@@ -134,7 +128,6 @@ public class IntensityView extends Fragment {
         }
     }
 
-
     public void setValue(int value) {
         this.value = value;
         float y = -1 / 9f * (((11 - value) - 10) * (height - faceHeight) + 2.25f * faceHeight) + faceHeight / 4;
@@ -142,7 +135,6 @@ public class IntensityView extends Fragment {
         indicatorView.setY(y + faceHeight / 2 - indicatorHeight / 2);
         refreshView();
     }
-
 
     public void deselect() {
         if (root != null) {

@@ -6,7 +6,6 @@ public class FoodDTO {
     private String type;
     private String schedule;
 
-
     public FoodDTO(String id, String type, String schedule) {
         this.id = id;
         this.type = type;

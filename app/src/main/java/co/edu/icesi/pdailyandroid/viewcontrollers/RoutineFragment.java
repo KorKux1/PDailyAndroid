@@ -9,13 +9,11 @@ import androidx.fragment.app.Fragment;
 
 import co.edu.icesi.pdailyandroid.R;
 
-
 public class RoutineFragment extends Fragment {
 
     public RoutineFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

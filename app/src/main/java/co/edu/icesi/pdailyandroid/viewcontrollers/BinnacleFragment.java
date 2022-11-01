@@ -19,7 +19,6 @@ import co.edu.icesi.pdailyandroid.model.datatype.INotification;
 import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFollowUp;
 import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationGame;
 
-
 public class BinnacleFragment extends Fragment {
 
     private NotificationsAdapter adapter;

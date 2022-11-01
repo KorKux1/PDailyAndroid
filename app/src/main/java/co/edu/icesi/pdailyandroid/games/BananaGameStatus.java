@@ -2,7 +2,6 @@ package co.edu.icesi.pdailyandroid.games;
 
 public class BananaGameStatus {
 
-
     static final int GAME_WON_RIGHT = 100;
     static final int GAME_WON_LEFT = 101;
     static final int GAME_INIT = 102;
@@ -15,7 +14,6 @@ public class BananaGameStatus {
     private int gameState = GAME_INIT;
 
     private OnGameStatusObserver observer;
-
 
     private int rightTouches = 0;
     private int leftTouches = 0;
@@ -121,7 +119,6 @@ public class BananaGameStatus {
     public long getLeftDuration() {
         return leftTime;
     }
-
 
     public interface OnGameStatusObserver {
         void onGameWonRight();

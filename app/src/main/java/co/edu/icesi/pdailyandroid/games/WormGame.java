@@ -65,7 +65,6 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
         buttonder = findViewById(R.id.buttonder);
         buttonizq = findViewById(R.id.buttonizq);
 
-
         normalStateFrames = new int[23];
         normalStateFrames[0] = R.drawable.gusano0;
         normalStateFrames[1] = R.drawable.gusano1;
@@ -141,7 +140,6 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
                 }
         );
 
-
         View.OnClickListener listener = (v) -> {
             status.increaseErrors();
         };
@@ -165,7 +163,6 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
         findViewById(R.id.instructionsContainer).setVisibility(View.VISIBLE);
         findViewById(R.id.gameContainer).setVisibility(View.GONE);
         instructionText.setText("Use el dedo índice de la mano derecha");
-
 
         instructionsSprite.setSide(WormGameSurface.RIGHT);
         instructionsSprite.start();
@@ -249,7 +246,6 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
          */
     }
 
-
     @Override
     public void onGameStart() {
         findViewById(R.id.mainContainer).setVisibility(View.GONE);
@@ -320,7 +316,6 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
 
                                             int radio = 300;
 
-
                                             ArrayList<float[]> coords = new ArrayList<>();
                                             for (double angle = 0; angle < 2 * Math.PI; angle = angle + 0.015) {
                                                 double x = radio * Math.cos(angle);
@@ -349,7 +344,6 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
                                             gusanito.setX(coords.get(coordRandom)[0]);
                                             gusanito.setY(coords.get(coordRandom)[1]);
 
-
                                             gusanito.setBackgroundResource(normalStateFrames[0]);
                                             gusanito.setVisibility(View.VISIBLE);
                                             status.addTimeStamp();
@@ -364,11 +358,9 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
                             }
                         }
 
-
                     }
                 }
         ).start();
-
 
         new Thread(
                 () -> {
@@ -387,7 +379,6 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
                     }
                 }
         ).start();
-
 
     }
 

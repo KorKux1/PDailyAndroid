@@ -15,12 +15,10 @@ import co.edu.icesi.pdailyandroid.R;
 
 public class BananaGame extends AppCompatActivity implements BananaGameStatus.OnGameStatusObserver {
 
-
     private ImageView bananita;
     private BananaGameSurface instructionSprite;
     private TextView instructionText;
     private int[] bananaFrames;
-
 
     private BananaGameStatus status;
 
@@ -42,7 +40,6 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
         status.setObserver(this);
 
         bananaFrames = new int[22];
-
 
         bananaFrames[0] = R.drawable.banana1;
         bananaFrames[1] = R.drawable.banana2;
@@ -143,7 +140,6 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
     }
 
-
     @Override
     public void onGameWonRight() {
         runOnUiThread(() -> {
@@ -216,7 +212,6 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
                             break;
                         }
 
-
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException e) {
@@ -261,7 +256,6 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
                             status.notifyVictoryLeft();
                             break;
                         }
-
 
                         try {
                             Thread.sleep(100);
@@ -323,6 +317,5 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
             ((TextView) findViewById(R.id.leftTimeText)).setText("" + status.getLeftDuration());
         });
     }
-
 
 }

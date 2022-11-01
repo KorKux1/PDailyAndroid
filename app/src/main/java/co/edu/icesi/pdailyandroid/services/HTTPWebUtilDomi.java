@@ -1,6 +1,5 @@
 package co.edu.icesi.pdailyandroid.services;
 
-
 import android.util.Base64;
 
 import java.io.BufferedWriter;
@@ -30,11 +29,9 @@ public class HTTPWebUtilDomi {
         headers.clear();
     }
 
-
     public void setListener(OnResponseListener listener) {
         this.listener = listener;
     }
-
 
     public void GETrequest(int callbackID, String url) {
         try {
@@ -84,7 +81,6 @@ public class HTTPWebUtilDomi {
             return ex.getLocalizedMessage();
         }
     }
-
 
     public void POSTrequest(int callbackID, String url, String json) {
         try {
@@ -159,7 +155,6 @@ public class HTTPWebUtilDomi {
         }
     }
 
-
     public void PUTrequest(int callbackID, String url, String json) {
         try {
             URL page = new URL(url);
@@ -232,7 +227,6 @@ public class HTTPWebUtilDomi {
 
     }
 
-
     public void DELETErequest(int callbackID, String url) {
         try {
             URL page = new URL(url);
@@ -297,7 +291,6 @@ public class HTTPWebUtilDomi {
         String base64 = android.util.Base64.encodeToString(auth.getBytes(), Base64.DEFAULT);
         headers.put("Authorization", "Basic " + base64);
     }
-
 
     public interface OnResponseListener {
         void onResponse(int callbackID, String response);

@@ -72,9 +72,7 @@ public class FCMService extends FirebaseMessagingService {
         }
         */
 
-
     }
-
 
     @Override
     public void onNewToken(String token) {

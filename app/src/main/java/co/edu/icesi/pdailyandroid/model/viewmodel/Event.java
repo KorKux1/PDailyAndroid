@@ -13,7 +13,6 @@ public class Event {
         intensity = 1;
     }
 
-
     public String getName() {
         return name;
     }

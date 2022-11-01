@@ -1,6 +1,5 @@
 package co.edu.icesi.pdailyandroid.model.dto;
 
-
 import java.util.ArrayList;
 
 public class SchedulePlanDTO {

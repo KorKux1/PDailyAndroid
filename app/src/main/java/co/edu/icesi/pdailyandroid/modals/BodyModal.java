@@ -16,7 +16,6 @@ import co.edu.icesi.pdailyandroid.R;
 
 public class BodyModal extends AppCompatActivity {
 
-
     private static final String PIERNA_IZQUIERDA_FRONTAL = "6b3f6738-b471-40d5-acd9-3d8dfd7e3854";
     private static final String PIERNA_DERECHA_FRONTAL = "e64a9508-0031-42f4-86af-1925188b3488";
     private static final String PIERNA_DERECHA_TRASERA = "fb625c59-ca31-4007-ade2-14863cc9ebd4";
@@ -38,7 +37,6 @@ public class BodyModal extends AppCompatActivity {
     private static final String PALMA_MANO_IZQUIERDA = "4cde7fa8-4e24-4cef-8cc1-78090ae85a94";
     private static final String MANO_IZQUIERDA_EXTERIOR = "03800d04-b814-4833-be69-d35b742c41a9";
 
-
     private Button turnButton;
     private Button finishButton;
     private ImageView bodyImage;
@@ -47,7 +45,6 @@ public class BodyModal extends AppCompatActivity {
     private boolean bodyIsFront = true;
 
     private ArrayList<String> zones;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +57,6 @@ public class BodyModal extends AppCompatActivity {
         finishButton = findViewById(R.id.finishButton);
         bodyImage = findViewById(R.id.bodyImage);
         zones = new ArrayList<>();
-
 
         turnButton.setOnClickListener((v) -> {
             bodyIsFront = !bodyIsFront;

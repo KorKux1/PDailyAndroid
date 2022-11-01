@@ -31,7 +31,6 @@ import co.edu.icesi.pdailyandroid.services.SessionManager;
 import co.edu.icesi.pdailyandroid.services.WebserviceConsumer;
 import co.edu.icesi.pdailyandroid.viewmodel.EventViewModel;
 
-
 public class EventFragment extends Fragment implements IntensityView.onValueListener {
 
     private static final int HOUR_MODAL_CALLBACK = 100;

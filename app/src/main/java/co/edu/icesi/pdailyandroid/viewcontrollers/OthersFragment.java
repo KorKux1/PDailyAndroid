@@ -14,7 +14,6 @@ import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.OthersAdapter;
 import co.edu.icesi.pdailyandroid.viewmodel.OtherViewModel;
 
-
 public class OthersFragment extends Fragment {
 
     private ListView othersTable;
@@ -24,7 +23,6 @@ public class OthersFragment extends Fragment {
     public OthersFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +45,5 @@ public class OthersFragment extends Fragment {
         out.add(s2);
         return out;
     }
-
 
 }

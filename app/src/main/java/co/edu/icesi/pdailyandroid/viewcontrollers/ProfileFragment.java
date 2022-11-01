@@ -22,7 +22,6 @@ import co.edu.icesi.pdailyandroid.model.viewmodel.AnimicTypes;
 import co.edu.icesi.pdailyandroid.services.SessionManager;
 import co.edu.icesi.pdailyandroid.services.WebserviceConsumer;
 
-
 public class ProfileFragment extends Fragment {
 
     private TextView statusMessage;

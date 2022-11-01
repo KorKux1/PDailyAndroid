@@ -33,7 +33,6 @@ public class WormGameStatus {
         observer.onGameStart();
     }
 
-
     public void notifyGameInit() {
         resetGameTime();
         resetPointsAndErrors();

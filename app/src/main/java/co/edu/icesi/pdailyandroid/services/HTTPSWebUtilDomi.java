@@ -1,6 +1,5 @@
 package co.edu.icesi.pdailyandroid.services;
 
-
 import android.util.Base64;
 import android.util.Log;
 
@@ -271,7 +270,6 @@ public class HTTPSWebUtilDomi {
 
     }
 
-
     public void DELETErequest(int callbackID, String url) {
         try {
             URL page = new URL(url);
@@ -301,7 +299,6 @@ public class HTTPSWebUtilDomi {
         }
 
     }
-
 
     public String syncDELETErequest(String url) {
         try {

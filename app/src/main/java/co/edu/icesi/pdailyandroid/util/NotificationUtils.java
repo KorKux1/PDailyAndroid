@@ -12,7 +12,6 @@ import androidx.core.app.NotificationCompat;
 
 import co.edu.icesi.pdailyandroid.R;
 
-
 public class NotificationUtils {
 
     public static final String CHANNEL_ID = "PDaily";

@@ -204,7 +204,6 @@ public class WormGameSurface extends SurfaceView implements Runnable {
         handFramesRight[85] = R.drawable.rightwormins85;
         handFramesRight[86] = R.drawable.rightwormins86;
 
-
         handFrames = new int[87];
         handFrames[0] = R.drawable.leftwormins0;
         handFrames[1] = R.drawable.leftwormins1;

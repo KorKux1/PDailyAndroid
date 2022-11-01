@@ -203,7 +203,6 @@ public class BananaGameSurface extends SurfaceView implements Runnable {
         handFramesRight[85] = R.drawable.rightbananains85;
         handFramesRight[86] = R.drawable.rightbananains86;
 
-
         handFrames = new int[87];
         handFrames[0] = R.drawable.leftbananains0;
         handFrames[1] = R.drawable.leftbananains1;

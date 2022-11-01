@@ -23,7 +23,6 @@ import co.edu.icesi.pdailyandroid.model.dto.ScheduleTimeDTO;
 import co.edu.icesi.pdailyandroid.model.dto.SchedulesCollectionDTO;
 import co.edu.icesi.pdailyandroid.receivers.broadcast.AlarmReceiver;
 
-
 public class LevoFragment extends Fragment {
     private DashBoard parentActivity;
     private LevoAdapter adapter;

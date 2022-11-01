@@ -27,7 +27,6 @@ import co.edu.icesi.pdailyandroid.model.dto.ScheduleTimeDTO;
 import co.edu.icesi.pdailyandroid.receivers.broadcast.AlarmReceiver;
 import co.edu.icesi.pdailyandroid.util.DateUtils;
 
-
 public class FoodFragment extends Fragment implements View.OnClickListener, HourDialog.OnHourChoose {
 
     public static final int ALARM_BREAKFAST = 0;

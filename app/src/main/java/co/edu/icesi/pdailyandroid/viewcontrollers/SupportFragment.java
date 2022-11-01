@@ -29,7 +29,6 @@ public class SupportFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,7 +63,6 @@ public class SupportFragment extends Fragment {
                 "}");
         inputURL.setText("http://118709758ce4.ngrok.io/event/food");
 
-
         EditText outputREST = v.findViewById(R.id.outputREST);
 
         v.findViewById(R.id.inputX).setOnClickListener(
@@ -78,7 +76,6 @@ public class SupportFragment extends Fragment {
                 }
         );
 
-
         v.findViewById(R.id.sendBTN).setOnClickListener(
                 view -> {
                     new Thread(
@@ -89,7 +86,6 @@ public class SupportFragment extends Fragment {
                                 httpsutil.setHeader("Content-Type", "application/json");
                                 httpsutil.setHeader("pdaily-tenant", Constants.PDAILY_PASSWORD);
                                 httpsutil.setBasicAuth("admin", "admin");
-
 
                                 HTTPWebUtilDomi httputil = new HTTPWebUtilDomi();
                                 httputil.setHeader("Content-Type", "application/json");
@@ -118,15 +114,12 @@ public class SupportFragment extends Fragment {
                                         break;
                                 }
 
-
                             }
                     ).start();
                 }
         );
 
-
         return v;
     }
-
 
 }
