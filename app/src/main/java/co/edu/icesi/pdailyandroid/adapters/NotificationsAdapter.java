@@ -1,6 +1,5 @@
 package co.edu.icesi.pdailyandroid.adapters;
 
-import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -16,9 +15,9 @@ import java.util.Date;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.app.App;
-import co.edu.icesi.pdailyandroid.localdatabase.DataHandler;
 import co.edu.icesi.pdailyandroid.games.BananaGame;
 import co.edu.icesi.pdailyandroid.games.WormGame;
+import co.edu.icesi.pdailyandroid.localdatabase.DataHandler;
 import co.edu.icesi.pdailyandroid.model.datatype.INotification;
 import co.edu.icesi.pdailyandroid.model.dto.FoodEventDTO;
 import co.edu.icesi.pdailyandroid.model.session.SessionData;

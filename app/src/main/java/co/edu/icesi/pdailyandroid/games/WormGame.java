@@ -1,7 +1,5 @@
 package co.edu.icesi.pdailyandroid.games;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,12 +11,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import java.util.ArrayList;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import co.edu.icesi.pdailyandroid.R;
 
-public class WormGame extends AppCompatActivity implements WormGameStatus.OnGameStatusObserver{
+public class WormGame extends AppCompatActivity implements WormGameStatus.OnGameStatusObserver {
 
     private ImageView gusanito;
     private TextView timerText;
@@ -39,9 +39,9 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
 
     private RelativeLayout gameContainer;
     private WormGameSurface instructionsSprite;
+    private int frame = 0;
+    private boolean isNormalState = true;
 
-
-    
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +66,6 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
         buttonizq = findViewById(R.id.buttonizq);
 
 
-
-      
-        
         normalStateFrames = new int[23];
         normalStateFrames[0] = R.drawable.gusano0;
         normalStateFrames[1] = R.drawable.gusano1;
@@ -109,7 +106,7 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
         gusanito.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    if(isNormalState) status.increasePoints();
+                    if (isNormalState) status.increasePoints();
                     isNormalState = false;
                     break;
 
@@ -126,19 +123,19 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
         );
 
         buttonder.setOnClickListener(
-                (v)->{
+                (v) -> {
                     status.notifyGameInstructionsRight();
                 }
         );
 
         buttonizq.setOnClickListener(
-                (v)->{
+                (v) -> {
                     status.notifyGameInstructionsLeft();
                 }
         );
 
         instructionsSprite.setOnClickListener(
-                (v)->{
+                (v) -> {
                     instructionsSprite.pause();
                     status.notifyGameStart();
                 }
@@ -152,11 +149,6 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
         timerText.setOnClickListener(listener);
 
     }
-
-
-    private int frame = 0;
-    private boolean isNormalState = true;
-
 
     @Override
     public void onGameInit() {
@@ -292,7 +284,7 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
                         while (!isNormalState && status.getGameState() == WormGameStatus.INGAME) {
 
                             runOnUiThread(() -> {
-                                if (!isNormalState && frame>=0 && frame<exploteStateFrames.length) {
+                                if (!isNormalState && frame >= 0 && frame < exploteStateFrames.length) {
                                     gusanito.setBackgroundResource(exploteStateFrames[frame]);
                                 }
 
@@ -301,7 +293,7 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
                             if (frame >= exploteStateFrames.length) {
                                 isNormalState = true;
                                 frame = 0;
-                                runOnUiThread(()->{
+                                runOnUiThread(() -> {
                                     gusanito.setVisibility(View.GONE);
                                 });
 
@@ -317,27 +309,27 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
                                             //double areaY = (gusanito.getHeight()/2+60) + (gameContainer.getHeight()- 1.7*(gusanito.getHeight()) )*Math.random();
 
                                             float limMinX = 0;
-                                            float limMaxX = gameContainer.getWidth()-gusanito.getWidth()-60;
-                                            float limMinY = gusanito.getHeight()/2+60;
-                                            float limMaxY = (float) ((gusanito.getHeight()/2+60) + (gameContainer.getHeight()- 1.7*(gusanito.getHeight())));
+                                            float limMaxX = gameContainer.getWidth() - gusanito.getWidth() - 60;
+                                            float limMinY = gusanito.getHeight() / 2 + 60;
+                                            float limMaxY = (float) ((gusanito.getHeight() / 2 + 60) + (gameContainer.getHeight() - 1.7 * (gusanito.getHeight())));
 
-                                            Log.e(">>>","X"+limMinX);
-                                            Log.e(">>>","X"+limMaxX);
-                                            Log.e(">>>","Y"+limMinY);
-                                            Log.e(">>>","Y"+limMaxY);
+                                            Log.e(">>>", "X" + limMinX);
+                                            Log.e(">>>", "X" + limMaxX);
+                                            Log.e(">>>", "Y" + limMinY);
+                                            Log.e(">>>", "Y" + limMaxY);
 
                                             int radio = 300;
 
 
                                             ArrayList<float[]> coords = new ArrayList<>();
-                                            for(double angle=0 ; angle<2*Math.PI ; angle = angle + 0.015){
+                                            for (double angle = 0; angle < 2 * Math.PI; angle = angle + 0.015) {
                                                 double x = radio * Math.cos(angle);
                                                 double y = radio * Math.sin(angle);
-                                                float newX = (float) (gusanito.getX()+x);
-                                                float newY = (float) (gusanito.getY()+y);
+                                                float newX = (float) (gusanito.getX() + x);
+                                                float newY = (float) (gusanito.getY() + y);
 
-                                                if(newX>limMinX && newX<limMaxX && newY>limMinY && newY<limMaxY){
-                                                    coords.add(new float[]{newX,newY});
+                                                if (newX > limMinX && newX < limMaxX && newY > limMinY && newY < limMaxY) {
+                                                    coords.add(new float[]{newX, newY});
                                                 }
                                             }
 
@@ -353,7 +345,7 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
                                             }while (newX<limMinX || newX>limMaxX || newY<limMinY || newY>limMaxY);
                                             */
 
-                                            int coordRandom = (int)(Math.random()*coords.size());
+                                            int coordRandom = (int) (Math.random() * coords.size());
                                             gusanito.setX(coords.get(coordRandom)[0]);
                                             gusanito.setY(coords.get(coordRandom)[1]);
 
@@ -378,10 +370,9 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
         ).start();
 
 
-
         new Thread(
-                ()->{
-                    while(status.getGameState() == WormGameStatus.INGAME) {
+                () -> {
+                    while (status.getGameState() == WormGameStatus.INGAME) {
                         runOnUiThread(
                                 () -> {
                                     timerText.setText("" + status.getGameTime());
@@ -413,10 +404,10 @@ public class WormGame extends AppCompatActivity implements WormGameStatus.OnGame
         findViewById(R.id.instructionsContainer).setVisibility(View.GONE);
         findViewById(R.id.gameContainer).setVisibility(View.GONE);
         runOnUiThread(
-                ()->{
-                    errorsText.setText(""+status.getErrors());
-                    pointsText.setText(""+status.getPoints());
-                    reactionText.setText(""+status.calculateMean());
+                () -> {
+                    errorsText.setText("" + status.getErrors());
+                    pointsText.setText("" + status.getPoints());
+                    reactionText.setText("" + status.calculateMean());
                 }
         );
 

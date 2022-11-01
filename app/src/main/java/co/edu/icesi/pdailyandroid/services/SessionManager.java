@@ -1,8 +1,8 @@
 package co.edu.icesi.pdailyandroid.services;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.Context;
 
 import com.google.gson.Gson;
 
@@ -15,11 +15,10 @@ public class SessionManager {
     private static final String PREF_KEY_PATIENT_ID = "PatientId";
     private static final String PREF_KEY_USER_NAME = "UserName";
     private static final String PREF_KEY_TOKEN = "Token";
-    private SharedPreferences loginPreferences;
-    private Editor loginEditor;
-
     private static final String PREF_SCHEDULES_NAME = "SchedulesInformation";
     private static final String PREF_KEY_SCHEDULES = "Schedules";
+    private SharedPreferences loginPreferences;
+    private Editor loginEditor;
     private SharedPreferences schedulesPreferences;
     private Editor schedulesEditor;
 

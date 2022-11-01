@@ -4,7 +4,6 @@ package co.edu.icesi.pdailyandroid.services;
 import android.util.Base64;
 import android.util.Log;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -66,11 +65,11 @@ public class HTTPSWebUtilDomi {
         }
     }
 
-    public void setHeader(String clave, String valor){
+    public void setHeader(String clave, String valor) {
         headers.put(clave, valor);
     }
 
-    public void clearHeaders(){
+    public void clearHeaders() {
         headers.clear();
     }
 
@@ -97,7 +96,7 @@ public class HTTPSWebUtilDomi {
             connection.disconnect();
             String response = new String(baos.toByteArray(), "UTF-8");
             if (listener != null) listener.onResponse(callbackID, response);
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
@@ -121,13 +120,13 @@ public class HTTPSWebUtilDomi {
             connection.disconnect();
             String response = new String(baos.toByteArray(), "UTF-8");
             return response;
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
             return ex.getLocalizedMessage();
         }
     }
 
-    public String syncPOSTRequest(String url, String json){
+    public String syncPOSTRequest(String url, String json) {
         try {
             URL page = new URL(url);
             HttpsURLConnection connection = (HttpsURLConnection) page.openConnection();
@@ -158,7 +157,7 @@ public class HTTPSWebUtilDomi {
             connection.disconnect();
             String response = new String(baos.toByteArray(), "UTF-8");
             return response;
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
             return null;
         }
@@ -195,7 +194,7 @@ public class HTTPSWebUtilDomi {
             connection.disconnect();
             String response = new String(baos.toByteArray(), "UTF-8");
             if (listener != null) listener.onResponse(callbackID, response);
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
@@ -230,7 +229,7 @@ public class HTTPSWebUtilDomi {
             connection.disconnect();
             String response = new String(baos.toByteArray(), "UTF-8");
             if (listener != null) listener.onResponse(callbackID, response);
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
 
@@ -266,13 +265,11 @@ public class HTTPSWebUtilDomi {
             connection.disconnect();
             String response = new String(baos.toByteArray(), "UTF-8");
             return response;
-        }catch (IOException ex){
+        } catch (IOException ex) {
             return ex.getLocalizedMessage();
         }
 
     }
-
-
 
 
     public void DELETErequest(int callbackID, String url) {
@@ -299,7 +296,7 @@ public class HTTPSWebUtilDomi {
 
             String response = new String(baos.toByteArray(), "UTF-8");
             if (listener != null) listener.onResponse(callbackID, response);
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
 
@@ -329,19 +326,19 @@ public class HTTPSWebUtilDomi {
             connection.disconnect();
             String response = new String(baos.toByteArray(), "UTF-8");
             return response;
-        }catch (IOException ex){
+        } catch (IOException ex) {
             return ex.getLocalizedMessage();
         }
 
     }
 
-    public void POSTtoFCM(String API_KEY, String data){
+    public void POSTtoFCM(String API_KEY, String data) {
         try {
             URL page = new URL("https://fcm.googleapis.com/fcm/send");
             HttpsURLConnection connection = (HttpsURLConnection) page.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
-            connection.setRequestProperty("Authorization", "key="+API_KEY);
+            connection.setRequestProperty("Authorization", "key=" + API_KEY);
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
@@ -364,8 +361,8 @@ public class HTTPSWebUtilDomi {
             os.close();
             connection.disconnect();
             String response = new String(baos.toByteArray(), "UTF-8");
-            Log.e(">>>",response);
-        }catch (IOException ex){
+            Log.e(">>>", response);
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
@@ -384,17 +381,17 @@ public class HTTPSWebUtilDomi {
             is.close();
             fos.close();
             connection.disconnect();
-            Log.e(">>>","Foto descargada!");
+            Log.e(">>>", "Foto descargada!");
 
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     public void setBasicAuth(String user, String pass) {
-        String auth = user+":"+pass;
+        String auth = user + ":" + pass;
         String base64 = android.util.Base64.encodeToString(auth.getBytes(), Base64.DEFAULT);
-        headers.put("Authorization","Basic "+base64);
+        headers.put("Authorization", "Basic " + base64);
     }
 
     public interface OnResponseListener {

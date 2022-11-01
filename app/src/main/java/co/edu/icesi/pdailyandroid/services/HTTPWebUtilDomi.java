@@ -2,7 +2,6 @@ package co.edu.icesi.pdailyandroid.services;
 
 
 import android.util.Base64;
-import android.util.Log;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -13,8 +12,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
-
-import co.edu.icesi.pdailyandroid.util.Constants;
 
 public class HTTPWebUtilDomi {
 
@@ -296,9 +293,9 @@ public class HTTPWebUtilDomi {
     }
 
     public void setBasicAuth(String user, String pass) {
-        String auth = user+":"+pass;
+        String auth = user + ":" + pass;
         String base64 = android.util.Base64.encodeToString(auth.getBytes(), Base64.DEFAULT);
-        headers.put("Authorization","Basic "+base64);
+        headers.put("Authorization", "Basic " + base64);
     }
 
 

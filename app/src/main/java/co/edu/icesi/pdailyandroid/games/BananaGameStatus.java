@@ -26,7 +26,7 @@ public class BananaGameStatus {
     private long rightTime = 0;
     private long leftTime = 0;
 
-    public void setObserver(OnGameStatusObserver observer){
+    public void setObserver(OnGameStatusObserver observer) {
         this.observer = observer;
     }
 
@@ -85,9 +85,9 @@ public class BananaGameStatus {
     }
 
     public void increaseRightPoints() {
-        if(gameState == INGAMERIGHT){
+        if (gameState == INGAMERIGHT) {
             rightTouches++;
-            if(rightTouches == 1) startRightTime = System.currentTimeMillis();
+            if (rightTouches == 1) startRightTime = System.currentTimeMillis();
         }
     }
 
@@ -104,9 +104,9 @@ public class BananaGameStatus {
     }
 
     public void increaseLeftPoints() {
-        if(gameState == INGAMELEFT){
+        if (gameState == INGAMELEFT) {
             leftTouches++;
-            if(leftTouches == 1) startLeftTime = System.currentTimeMillis();
+            if (leftTouches == 1) startLeftTime = System.currentTimeMillis();
         }
     }
 
@@ -123,14 +123,21 @@ public class BananaGameStatus {
     }
 
 
-    public interface OnGameStatusObserver{
+    public interface OnGameStatusObserver {
         void onGameWonRight();
+
         void onGameWonLeft();
+
         void onGameInit();
+
         void onGameStartRight();
+
         void onGameStartLeft();
+
         void onGameInstructionsRight();
+
         void onGameInstructionsLeft();
+
         void onGameFinish();
     }
 }

@@ -19,15 +19,15 @@ public class DataHandler extends SQLiteOpenHelper {
 
     private static DataHandler instance = null;
 
+    private DataHandler(Context context) {
+        super(context, NAME, null, VERSION);
+    }
+
     public static DataHandler getInstance(Context context) {
         if (instance == null) {
             instance = new DataHandler(context);
         }
         return instance;
-    }
-
-    private DataHandler(Context context) {
-        super(context, NAME, null, VERSION);
     }
 
     @Override

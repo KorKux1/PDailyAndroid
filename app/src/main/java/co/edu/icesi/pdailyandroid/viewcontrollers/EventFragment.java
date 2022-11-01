@@ -3,14 +3,13 @@ package co.edu.icesi.pdailyandroid.viewcontrollers;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -23,13 +22,13 @@ import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.EventsAdapter;
 import co.edu.icesi.pdailyandroid.misc.customview.IntensityView;
 import co.edu.icesi.pdailyandroid.modals.BodyModal;
-import co.edu.icesi.pdailyandroid.model.dto.EventDTO;
 import co.edu.icesi.pdailyandroid.modals.RangeHourModal;
+import co.edu.icesi.pdailyandroid.model.dto.EventDTO;
 import co.edu.icesi.pdailyandroid.model.session.SessionData;
+import co.edu.icesi.pdailyandroid.model.temporals.EventTemporal;
 import co.edu.icesi.pdailyandroid.model.viewmodel.Event;
 import co.edu.icesi.pdailyandroid.services.SessionManager;
 import co.edu.icesi.pdailyandroid.services.WebserviceConsumer;
-import co.edu.icesi.pdailyandroid.model.temporals.EventTemporal;
 import co.edu.icesi.pdailyandroid.viewmodel.EventViewModel;
 
 

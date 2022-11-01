@@ -1,6 +1,6 @@
 package co.edu.icesi.pdailyandroid.model.redux.actions;
 
-public class AddItemAction implements Action{
+public class AddItemAction implements Action {
 
     private final String value;
 

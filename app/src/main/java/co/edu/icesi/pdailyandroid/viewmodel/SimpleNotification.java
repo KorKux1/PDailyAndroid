@@ -22,6 +22,12 @@ public class SimpleNotification implements Serializable {
         this.type = notificationType;
     }
 
+    public static SimpleNotification bind(NotificationFollowUp notification) {
+
+        String title = notification.getType() == NotificationType.FOOD ? "Alimentación" : "Medicamento";
+        return new SimpleNotification(title, notification.getName(), notification.getDate(), notification.getType());
+    }
+
     public String getTitle() {
         return title;
     }
@@ -48,11 +54,5 @@ public class SimpleNotification implements Serializable {
 
     public NotificationType getType() {
         return type;
-    }
-
-    public static SimpleNotification bind(NotificationFollowUp notification) {
-
-        String title = notification.getType() == NotificationType.FOOD ? "Alimentación" : "Medicamento";
-        return new SimpleNotification(title, notification.getName(), notification.getDate(), notification.getType());
     }
 }

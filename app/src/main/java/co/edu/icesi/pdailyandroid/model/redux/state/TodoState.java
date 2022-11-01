@@ -1,4 +1,5 @@
 package co.edu.icesi.pdailyandroid.model.redux.state;
+
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ public class TodoState {
     }
 
     public TodoState withItems(List<String> items) {
-        if(items.equals(this.items)) {
+        if (items.equals(this.items)) {
             return this;
         } else {
             return new TodoState(items);

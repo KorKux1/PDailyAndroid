@@ -2,13 +2,13 @@ package co.edu.icesi.pdailyandroid.misc.customview;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.fragment.app.Fragment;
 
 import co.edu.icesi.pdailyandroid.R;
 
@@ -17,7 +17,7 @@ public class IntensityView extends Fragment {
 
     private float initY = 0;
     private View root;
-    private int value=10;
+    private int value = 10;
     private int height;
     private int faceHeight;
     private int indicatorHeight;
@@ -65,7 +65,7 @@ public class IntensityView extends Fragment {
                                 indicatorView.setY(faceView.getY() + faceHeight / 2 - indicatorHeight / 2);
                             }
 
-                            value = 11-(11 - 1 - (int) (9 * (faceView.getY()+faceHeight / 4) / (height - faceHeight)));
+                            value = 11 - (11 - 1 - (int) (9 * (faceView.getY() + faceHeight / 4) / (height - faceHeight)));
 
                             refreshView();
 
@@ -80,7 +80,7 @@ public class IntensityView extends Fragment {
         deselect();
 
 
-        root.post(()->{
+        root.post(() -> {
             faceHeight = faceView.getHeight();
             indicatorHeight = indicatorView.getHeight();
             height = root.getHeight();
@@ -135,37 +135,33 @@ public class IntensityView extends Fragment {
     }
 
 
-    public void setValue(int value){
+    public void setValue(int value) {
         this.value = value;
-        float y = -1/9f * (((11-value) -10)*(height - faceHeight) + 2.25f*faceHeight) + faceHeight/4;
-        faceView.setY( y );
+        float y = -1 / 9f * (((11 - value) - 10) * (height - faceHeight) + 2.25f * faceHeight) + faceHeight / 4;
+        faceView.setY(y);
         indicatorView.setY(y + faceHeight / 2 - indicatorHeight / 2);
         refreshView();
     }
 
 
-
-
-    public void deselect(){
-        if(root!= null) {
+    public void deselect() {
+        if (root != null) {
             root.animate().alpha(0.1f);
         }
     }
 
-    public void select(){
-        if(root!= null){
+    public void select() {
+        if (root != null) {
             root.animate().alpha(1f);
         }
     }
 
-
-
-    public interface onValueListener{
-        void onValue(int value);
+    public void setListener(onValueListener listener) {
+        this.listener = listener;
     }
 
-    public void setListener(onValueListener listener){
-        this.listener = listener;
+    public interface onValueListener {
+        void onValue(int value);
     }
 
 }

@@ -1,17 +1,18 @@
 package co.edu.icesi.pdailyandroid.modals;
 
-import androidx.appcompat.app.AppCompatActivity;
-import co.edu.icesi.pdailyandroid.R;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+
+import co.edu.icesi.pdailyandroid.R;
 
 public class BodyModal extends AppCompatActivity {
 
@@ -48,8 +49,6 @@ public class BodyModal extends AppCompatActivity {
     private ArrayList<String> zones;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,100 +62,117 @@ public class BodyModal extends AppCompatActivity {
         zones = new ArrayList<>();
 
 
-        turnButton.setOnClickListener((v)->{
+        turnButton.setOnClickListener((v) -> {
             bodyIsFront = !bodyIsFront;
-            bodyImage.setImageResource(bodyIsFront?R.drawable.cuerpo1a:R.drawable.cuerpo1b);
+            bodyImage.setImageResource(bodyIsFront ? R.drawable.cuerpo1a : R.drawable.cuerpo1b);
             showIndicators();
         });
 
-        finishButton.setOnClickListener((v)->{
+        finishButton.setOnClickListener((v) -> {
             Intent i = new Intent();
             i.putExtra("name", name);
-            i.putExtra( "bodyList", new Gson().toJson(zones) );
+            i.putExtra("bodyList", new Gson().toJson(zones));
             setResult(RESULT_OK, i);
             finish();
         });
         showIndicators();
     }
 
-    public void onZoneClick(View b){
+    public void onZoneClick(View b) {
         Button button = (Button) b;
         String zone = null;
-        switch (button.getId()){
+        switch (button.getId()) {
             case R.id.zone0:
-                if(bodyIsFront) zone = ROSTRO;
+                if (bodyIsFront) zone = ROSTRO;
                 else zone = CABEZA_TRASERA;
                 break;
             case R.id.zone1:
-                if(bodyIsFront) zone = TRONCO;
+                if (bodyIsFront) zone = TRONCO;
                 else zone = ESPALDA;
                 break;
             case R.id.zone2:
-                if(bodyIsFront) zone = BRAZO_DERECHO_FRONTAL;
+                if (bodyIsFront) zone = BRAZO_DERECHO_FRONTAL;
                 else zone = BRAZO_DERECHO_TRASERO;
                 break;
             case R.id.zone3:
-                if(bodyIsFront) zone = BRAZO_IZQUIERDO_FRONTAL;
+                if (bodyIsFront) zone = BRAZO_IZQUIERDO_FRONTAL;
                 else zone = BRAZO_IZQUIERDO_TRASERO;
                 break;
             case R.id.zone4:
-                if(bodyIsFront) zone = MANO_DERECHA_EXTERIOR;
+                if (bodyIsFront) zone = MANO_DERECHA_EXTERIOR;
                 else zone = PALMA_MANO_DERECHA;
                 break;
             case R.id.zone5:
-                if(bodyIsFront) zone = MANO_IZQUIERDA_EXTERIOR;
+                if (bodyIsFront) zone = MANO_IZQUIERDA_EXTERIOR;
                 else zone = PALMA_MANO_IZQUIERDA;
                 break;
             case R.id.zone6:
-                if(bodyIsFront) zone = PIERNA_DERECHA_FRONTAL;
+                if (bodyIsFront) zone = PIERNA_DERECHA_FRONTAL;
                 else zone = PIERNA_DERECHA_TRASERA;
                 break;
             case R.id.zone7:
-                if(bodyIsFront) zone = PIERNA_IZQUIERDA_FRONTAL;
+                if (bodyIsFront) zone = PIERNA_IZQUIERDA_FRONTAL;
                 else zone = PIERNA_IZQUIERDA_TRASERA;
                 break;
             case R.id.zone8:
-                if(bodyIsFront) zone = PIE_DERECHO_FRONTAL;
+                if (bodyIsFront) zone = PIE_DERECHO_FRONTAL;
                 else zone = PIE_DERECHO_TRASERO;
                 break;
             case R.id.zone9:
-                if(bodyIsFront) zone = PIE_IZQUIERDO_FRONTAL;
+                if (bodyIsFront) zone = PIE_IZQUIERDO_FRONTAL;
                 else zone = PIE_IZQUIERDO_TRASERO;
                 break;
         }
-        if(zones.contains(zone)){
+        if (zones.contains(zone)) {
             int index = zones.indexOf(zone);
-            zones.remove( index );
-        }else{
-            zones.add( zone );
+            zones.remove(index);
+        } else {
+            zones.add(zone);
         }
         showIndicators();
     }
 
     private void showIndicators() {
         hideAllIndicators();
-        if(bodyIsFront){
-            if(zones.contains(ROSTRO)) findViewById(R.id.indicator0).setVisibility(View.VISIBLE);
-            if(zones.contains(TRONCO)) findViewById(R.id.indicator1).setVisibility(View.VISIBLE);
-            if(zones.contains(BRAZO_DERECHO_FRONTAL)) findViewById(R.id.indicator2).setVisibility(View.VISIBLE);
-            if(zones.contains(BRAZO_IZQUIERDO_FRONTAL)) findViewById(R.id.indicator3).setVisibility(View.VISIBLE);
-            if(zones.contains(MANO_DERECHA_EXTERIOR)) findViewById(R.id.indicator4).setVisibility(View.VISIBLE);
-            if(zones.contains(MANO_IZQUIERDA_EXTERIOR)) findViewById(R.id.indicator5).setVisibility(View.VISIBLE);
-            if(zones.contains(PIERNA_DERECHA_FRONTAL)) findViewById(R.id.indicator6).setVisibility(View.VISIBLE);
-            if(zones.contains(PIERNA_IZQUIERDA_FRONTAL)) findViewById(R.id.indicator7).setVisibility(View.VISIBLE);
-            if(zones.contains(PIE_DERECHO_FRONTAL)) findViewById(R.id.indicator8).setVisibility(View.VISIBLE);
-            if(zones.contains(PIE_IZQUIERDO_FRONTAL)) findViewById(R.id.indicator9).setVisibility(View.VISIBLE);
-        }else{
-            if(zones.contains(CABEZA_TRASERA)) findViewById(R.id.indicator0).setVisibility(View.VISIBLE);
-            if(zones.contains(ESPALDA)) findViewById(R.id.indicator1).setVisibility(View.VISIBLE);
-            if(zones.contains(BRAZO_DERECHO_TRASERO)) findViewById(R.id.indicator2).setVisibility(View.VISIBLE);
-            if(zones.contains(BRAZO_IZQUIERDO_TRASERO)) findViewById(R.id.indicator3).setVisibility(View.VISIBLE);
-            if(zones.contains(PALMA_MANO_DERECHA)) findViewById(R.id.indicator4).setVisibility(View.VISIBLE);
-            if(zones.contains(PALMA_MANO_IZQUIERDA)) findViewById(R.id.indicator5).setVisibility(View.VISIBLE);
-            if(zones.contains(PIERNA_DERECHA_TRASERA)) findViewById(R.id.indicator6).setVisibility(View.VISIBLE);
-            if(zones.contains(PIERNA_IZQUIERDA_TRASERA)) findViewById(R.id.indicator7).setVisibility(View.VISIBLE);
-            if(zones.contains(PIE_DERECHO_TRASERO)) findViewById(R.id.indicator8).setVisibility(View.VISIBLE);
-            if(zones.contains(PIE_IZQUIERDO_TRASERO)) findViewById(R.id.indicator9).setVisibility(View.VISIBLE);
+        if (bodyIsFront) {
+            if (zones.contains(ROSTRO)) findViewById(R.id.indicator0).setVisibility(View.VISIBLE);
+            if (zones.contains(TRONCO)) findViewById(R.id.indicator1).setVisibility(View.VISIBLE);
+            if (zones.contains(BRAZO_DERECHO_FRONTAL))
+                findViewById(R.id.indicator2).setVisibility(View.VISIBLE);
+            if (zones.contains(BRAZO_IZQUIERDO_FRONTAL))
+                findViewById(R.id.indicator3).setVisibility(View.VISIBLE);
+            if (zones.contains(MANO_DERECHA_EXTERIOR))
+                findViewById(R.id.indicator4).setVisibility(View.VISIBLE);
+            if (zones.contains(MANO_IZQUIERDA_EXTERIOR))
+                findViewById(R.id.indicator5).setVisibility(View.VISIBLE);
+            if (zones.contains(PIERNA_DERECHA_FRONTAL))
+                findViewById(R.id.indicator6).setVisibility(View.VISIBLE);
+            if (zones.contains(PIERNA_IZQUIERDA_FRONTAL))
+                findViewById(R.id.indicator7).setVisibility(View.VISIBLE);
+            if (zones.contains(PIE_DERECHO_FRONTAL))
+                findViewById(R.id.indicator8).setVisibility(View.VISIBLE);
+            if (zones.contains(PIE_IZQUIERDO_FRONTAL))
+                findViewById(R.id.indicator9).setVisibility(View.VISIBLE);
+        } else {
+            if (zones.contains(CABEZA_TRASERA))
+                findViewById(R.id.indicator0).setVisibility(View.VISIBLE);
+            if (zones.contains(ESPALDA)) findViewById(R.id.indicator1).setVisibility(View.VISIBLE);
+            if (zones.contains(BRAZO_DERECHO_TRASERO))
+                findViewById(R.id.indicator2).setVisibility(View.VISIBLE);
+            if (zones.contains(BRAZO_IZQUIERDO_TRASERO))
+                findViewById(R.id.indicator3).setVisibility(View.VISIBLE);
+            if (zones.contains(PALMA_MANO_DERECHA))
+                findViewById(R.id.indicator4).setVisibility(View.VISIBLE);
+            if (zones.contains(PALMA_MANO_IZQUIERDA))
+                findViewById(R.id.indicator5).setVisibility(View.VISIBLE);
+            if (zones.contains(PIERNA_DERECHA_TRASERA))
+                findViewById(R.id.indicator6).setVisibility(View.VISIBLE);
+            if (zones.contains(PIERNA_IZQUIERDA_TRASERA))
+                findViewById(R.id.indicator7).setVisibility(View.VISIBLE);
+            if (zones.contains(PIE_DERECHO_TRASERO))
+                findViewById(R.id.indicator8).setVisibility(View.VISIBLE);
+            if (zones.contains(PIE_IZQUIERDO_TRASERO))
+                findViewById(R.id.indicator9).setVisibility(View.VISIBLE);
         }
     }
 

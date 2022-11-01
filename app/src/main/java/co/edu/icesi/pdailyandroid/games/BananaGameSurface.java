@@ -13,15 +13,15 @@ import android.view.SurfaceView;
 
 import co.edu.icesi.pdailyandroid.R;
 
-public class BananaGameSurface extends SurfaceView implements Runnable{
+public class BananaGameSurface extends SurfaceView implements Runnable {
 
     public static final int LEFT = 0;
     public static final int RIGHT = 1;
+    private static final double ASPECT_RATIO = 1.77;
     private Thread thread;
     private SurfaceHolder holder;
     private boolean playing = true;
     private int[] handFrames, handFramesRight;
-    private static final double ASPECT_RATIO = 1.77;
     private int handFrame = 0;
     private int side = LEFT;
 
@@ -45,12 +45,12 @@ public class BananaGameSurface extends SurfaceView implements Runnable{
         init();
     }
 
-    public void init(){
+    public void init() {
         holder = this.getHolder();
         loadSprites();
     }
 
-    public void start(){
+    public void start() {
         handFrame = 0;
         playing = true;
         this.thread = new Thread(this);
@@ -59,12 +59,13 @@ public class BananaGameSurface extends SurfaceView implements Runnable{
 
     @Override
     public void run() {
-        while(!draw()){}
+        while (!draw()) {
+        }
 
         this.setAlpha(1);
 
         sleep(400);
-        while(playing){
+        while (playing) {
             draw();
             sleep(1);
             update();
@@ -74,19 +75,19 @@ public class BananaGameSurface extends SurfaceView implements Runnable{
     private void update() {
         handFrame++;
         handFrame++;
-        if(handFrame >= handFramesRight.length){
-            handFrame=0;
+        if (handFrame >= handFramesRight.length) {
+            handFrame = 0;
         }
     }
 
     public boolean draw() {
-        if(!holder.getSurface().isValid()) {
+        if (!holder.getSurface().isValid()) {
             return false;
-        }else {
+        } else {
             Canvas canvas = holder.lockCanvas();
             if (canvas != null) {
                 canvas.drawColor(Color.WHITE);
-                Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), (side == LEFT)?handFrames[handFrame]:handFramesRight[handFrame]);
+                Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), (side == LEFT) ? handFrames[handFrame] : handFramesRight[handFrame]);
                 Paint paint = new Paint();
                 canvas.drawBitmap(bitmap, null, new Rect(0, 0, canvas.getWidth(), (int) (ASPECT_RATIO * canvas.getWidth())), paint);
                 holder.unlockCanvasAndPost(canvas);
@@ -96,7 +97,7 @@ public class BananaGameSurface extends SurfaceView implements Runnable{
 
     }
 
-    public void sleep(long millis){
+    public void sleep(long millis) {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
@@ -104,7 +105,7 @@ public class BananaGameSurface extends SurfaceView implements Runnable{
         }
     }
 
-    public void loadSprites(){
+    public void loadSprites() {
         handFramesRight = new int[87];
         handFramesRight[0] = R.drawable.rightbananains0;
         handFramesRight[1] = R.drawable.rightbananains1;

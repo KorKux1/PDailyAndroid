@@ -1,13 +1,13 @@
 package co.edu.icesi.pdailyandroid.viewcontrollers;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import co.edu.icesi.pdailyandroid.R;
+import androidx.fragment.app.Fragment;
 
+import co.edu.icesi.pdailyandroid.R;
 
 
 public class RoutineFragment extends Fragment {

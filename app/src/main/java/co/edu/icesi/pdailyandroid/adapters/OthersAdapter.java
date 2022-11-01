@@ -5,13 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import co.edu.icesi.pdailyandroid.R;
-import co.edu.icesi.pdailyandroid.viewmodel.EventViewModel;
 import co.edu.icesi.pdailyandroid.viewmodel.OtherViewModel;
 
 public class OthersAdapter extends BaseAdapter {

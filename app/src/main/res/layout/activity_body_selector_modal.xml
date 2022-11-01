@@ -43,10 +43,10 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="151dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/bodyImage"
         app:layout_constraintStart_toStartOf="@+id/bodyImage"
         app:layout_constraintTop_toTopOf="@+id/bodyImage"
-        android:visibility="gone"
         app:srcCompat="@drawable/cerrarventana" />
 
     <ImageView
@@ -55,9 +55,9 @@
         android:layout_height="35dp"
         android:layout_marginTop="192dp"
         android:layout_marginEnd="8dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/bodyImage"
         app:layout_constraintTop_toTopOf="@+id/bodyImage"
-        android:visibility="gone"
         app:srcCompat="@drawable/cerrarventana" />
 
     <ImageView
@@ -66,9 +66,9 @@
         android:layout_height="35dp"
         android:layout_marginTop="270dp"
         android:layout_marginEnd="2dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/bodyImage"
         app:layout_constraintTop_toTopOf="@+id/bodyImage"
-        android:visibility="gone"
         app:srcCompat="@drawable/cerrarventana" />
 
     <ImageView
@@ -77,9 +77,9 @@
         android:layout_height="35dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="270dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/bodyImage"
         app:layout_constraintTop_toTopOf="@+id/bodyImage"
-        android:visibility="gone"
         app:srcCompat="@drawable/cerrarventana" />
 
     <ImageView
@@ -88,9 +88,9 @@
         android:layout_height="35dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="192dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/bodyImage"
         app:layout_constraintTop_toTopOf="@+id/bodyImage"
-        android:visibility="gone"
         app:srcCompat="@drawable/cerrarventana" />
 
     <ImageView
@@ -99,9 +99,9 @@
         android:layout_height="35dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="350dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/bodyImage"
         app:layout_constraintTop_toTopOf="@+id/bodyImage"
-        android:visibility="gone"
         app:srcCompat="@drawable/cerrarventana" />
 
     <ImageView
@@ -110,9 +110,9 @@
         android:layout_height="35dp"
         android:layout_marginTop="350dp"
         android:layout_marginEnd="48dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/bodyImage"
         app:layout_constraintTop_toTopOf="@+id/bodyImage"
-        android:visibility="gone"
         app:srcCompat="@drawable/cerrarventana" />
 
     <ImageView
@@ -121,9 +121,9 @@
         android:layout_height="35dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="460dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/bodyImage"
         app:layout_constraintTop_toTopOf="@+id/bodyImage"
-        android:visibility="gone"
         app:srcCompat="@drawable/cerrarventana" />
 
     <ImageView
@@ -131,10 +131,10 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="8dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/bodyImage"
         app:layout_constraintStart_toStartOf="@+id/bodyImage"
         app:layout_constraintTop_toTopOf="@+id/bodyImage"
-        android:visibility="gone"
         app:srcCompat="@drawable/cerrarventana" />
 
     <ImageView
@@ -143,9 +143,9 @@
         android:layout_height="35dp"
         android:layout_marginTop="460dp"
         android:layout_marginEnd="45dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/bodyImage"
         app:layout_constraintTop_toTopOf="@+id/bodyImage"
-        android:visibility="gone"
         app:srcCompat="@drawable/cerrarventana" />
 
     <Button

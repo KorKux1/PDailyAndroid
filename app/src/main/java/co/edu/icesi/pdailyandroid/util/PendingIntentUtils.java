@@ -7,7 +7,7 @@ import co.edu.icesi.pdailyandroid.app.App;
 
 public class PendingIntentUtils {
 
-    public static boolean isPendingIntentRegistered(int requestCode, Intent intent){
+    public static boolean isPendingIntentRegistered(int requestCode, Intent intent) {
         return PendingIntent.getBroadcast(App.getAppContext(), requestCode, intent, PendingIntent.FLAG_NO_CREATE) != null;
     }
 

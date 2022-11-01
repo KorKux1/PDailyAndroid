@@ -5,14 +5,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,10 +21,10 @@ import java.util.Date;
 import co.edu.icesi.pdailyandroid.DashBoard;
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.app.App;
+import co.edu.icesi.pdailyandroid.misc.dialogs.HourDialog;
 import co.edu.icesi.pdailyandroid.model.dto.FoodScheduleDTO;
 import co.edu.icesi.pdailyandroid.model.dto.ScheduleTimeDTO;
 import co.edu.icesi.pdailyandroid.receivers.broadcast.AlarmReceiver;
-import co.edu.icesi.pdailyandroid.misc.dialogs.HourDialog;
 import co.edu.icesi.pdailyandroid.util.DateUtils;
 
 
@@ -34,17 +33,14 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
     public static final int ALARM_BREAKFAST = 0;
     public static final int ALARM_LUNCH = 1;
     public static final int ALARM_DINNER = 2;
-
+    TextView breakfast_hour;
+    TextView lunch_hour;
+    TextView dinner_hour;
     private AlarmManager alarmMgr;
     private Intent breakfastIntent;
     private Intent lunchIntent;
     private Intent dinnerIntent;
-
     private DashBoard parentActivity;
-
-    TextView breakfast_hour;
-    TextView lunch_hour;
-    TextView dinner_hour;
 
     public FoodFragment() {
         // Required empty public constructor

@@ -47,6 +47,6 @@ public class SessionData {
 
     public boolean IsValid() {
         return this.userId != null && this.patientId != null &&
-            this.userName != null && this.token != null;
+                this.userName != null && this.token != null;
     }
 }

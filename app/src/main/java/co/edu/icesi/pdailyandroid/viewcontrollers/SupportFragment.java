@@ -1,39 +1,27 @@
 package co.edu.icesi.pdailyandroid.viewcontrollers;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.fragment.app.Fragment;
+
 import com.google.gson.Gson;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.UUID;
 
 import co.edu.icesi.pdailyandroid.R;
-import co.edu.icesi.pdailyandroid.games.BananaGame;
-import co.edu.icesi.pdailyandroid.games.WormGame;
 import co.edu.icesi.pdailyandroid.model.dto.FcmDTO;
 import co.edu.icesi.pdailyandroid.model.dto.FoodDTO;
 import co.edu.icesi.pdailyandroid.services.HTTPSWebUtilDomi;
 import co.edu.icesi.pdailyandroid.services.HTTPWebUtilDomi;
 import co.edu.icesi.pdailyandroid.util.Constants;
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class SupportFragment extends Fragment {
 
@@ -72,7 +60,7 @@ public class SupportFragment extends Fragment {
 
         inputREST.setText("{\n" +
                 "    \"patientId\": \"DF20D5BD-F16A-48B0-9922-0D5E537DCB24\",\n" +
-                "    \"date\": "+ Calendar.getInstance().getTime().getTime() +"\n" +
+                "    \"date\": " + Calendar.getInstance().getTime().getTime() + "\n" +
                 "}");
         inputURL.setText("http://118709758ce4.ngrok.io/event/food");
 
@@ -100,13 +88,13 @@ public class SupportFragment extends Fragment {
                                 HTTPSWebUtilDomi httpsutil = new HTTPSWebUtilDomi();
                                 httpsutil.setHeader("Content-Type", "application/json");
                                 httpsutil.setHeader("pdaily-tenant", Constants.PDAILY_PASSWORD);
-                                httpsutil.setBasicAuth("admin","admin");
+                                httpsutil.setBasicAuth("admin", "admin");
 
 
                                 HTTPWebUtilDomi httputil = new HTTPWebUtilDomi();
                                 httputil.setHeader("Content-Type", "application/json");
                                 httputil.setHeader("pdaily-tenant", Constants.PDAILY_PASSWORD);
-                                httputil.setBasicAuth("admin","admin");
+                                httputil.setBasicAuth("admin", "admin");
 
                                 String json = inputREST.getText().toString().trim().replace("\n", "");
                                 Log.e(">>>", json);
@@ -139,7 +127,6 @@ public class SupportFragment extends Fragment {
 
         return v;
     }
-
 
 
 }

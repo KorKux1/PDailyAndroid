@@ -1,7 +1,5 @@
 package co.edu.icesi.pdailyandroid.games;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +9,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import co.edu.icesi.pdailyandroid.R;
 
-public class BananaGame extends AppCompatActivity implements BananaGameStatus.OnGameStatusObserver{
-
+public class BananaGame extends AppCompatActivity implements BananaGameStatus.OnGameStatusObserver {
 
 
     private ImageView bananita;
@@ -26,8 +25,10 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
     private BananaGameStatus status;
 
     private boolean leftFirst = false;
-
-
+    private int frame = 0;
+    private long delayTime = 0;
+    private boolean signal = false;
+    private int handFrame = 0;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -67,12 +68,12 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
         bananaFrames[21] = R.drawable.banana22;
 
         bananita.setOnTouchListener((v, event) -> {
-            switch (event.getAction()){
+            switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     frame++;
                     delayTime = 0;
-                    if(frame>=bananaFrames.length-1){
-                        frame = bananaFrames.length-1;
+                    if (frame >= bananaFrames.length - 1) {
+                        frame = bananaFrames.length - 1;
                     }
                     status.increaseRightPoints();
                     status.increaseLeftPoints();
@@ -101,45 +102,35 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
         status.notifyInit();
     }
 
-    private int frame = 0;
-    private long delayTime = 0;
-    private boolean signal = false;
-
-
-
-    public void kickOffGame(View view){
+    public void kickOffGame(View view) {
 
     }
 
-    public void goToInstructionsRight(View view){
+    public void goToInstructionsRight(View view) {
         leftFirst = false;
         status.notifyGameInstructionsRight();
     }
 
-    public void goToInstructionsLeft(View view){
+    public void goToInstructionsLeft(View view) {
         leftFirst = true;
         status.notifyGameInstructionsLeft();
     }
 
-
-    private int handFrame = 0;
-
-
-    public void tryAgain(View view){
-        switch (status.getStatus()){
+    public void tryAgain(View view) {
+        switch (status.getStatus()) {
 
             case BananaGameStatus.GAME_WON_RIGHT:
-                if(leftFirst){
+                if (leftFirst) {
                     status.notifyFinish();
-                }else{
+                } else {
                     status.notifyGameInstructionsLeft();
                 }
                 break;
 
             case BananaGameStatus.GAME_WON_LEFT:
-                if(leftFirst){
+                if (leftFirst) {
                     status.notifyGameInstructionsRight();
-                }else{
+                } else {
                     status.notifyFinish();
                 }
                 break;
@@ -153,10 +144,9 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
     }
 
 
-
     @Override
     public void onGameWonRight() {
-        runOnUiThread(()->{
+        runOnUiThread(() -> {
             findViewById(R.id.gameContainer).setVisibility(View.VISIBLE);
             findViewById(R.id.resultsContainer).setVisibility(View.GONE);
             findViewById(R.id.buttonContainer).setVisibility(View.GONE);
@@ -168,7 +158,7 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
     @Override
     public void onGameWonLeft() {
-        runOnUiThread(()->{
+        runOnUiThread(() -> {
             findViewById(R.id.gameContainer).setVisibility(View.VISIBLE);
             findViewById(R.id.resultsContainer).setVisibility(View.GONE);
             findViewById(R.id.buttonContainer).setVisibility(View.GONE);
@@ -181,7 +171,7 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
     @Override
     public void onGameInit() {
         frame = 0;
-        runOnUiThread(()-> {
+        runOnUiThread(() -> {
             findViewById(R.id.gameContainer).setVisibility(View.GONE);
             findViewById(R.id.resultsContainer).setVisibility(View.GONE);
             findViewById(R.id.buttonContainer).setVisibility(View.VISIBLE);
@@ -194,7 +184,7 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
     public void onGameStartRight() {
         status.restoreRightPoints();
 
-        runOnUiThread(()->{
+        runOnUiThread(() -> {
             findViewById(R.id.gameContainer).setVisibility(View.VISIBLE);
             findViewById(R.id.resultsContainer).setVisibility(View.GONE);
             findViewById(R.id.buttonContainer).setVisibility(View.GONE);
@@ -206,25 +196,25 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
                 () -> {
                     frame = 0;
                     while (status.getStatus() == BananaGameStatus.INGAMERIGHT) {
-                        while(bananita.getVisibility() == View.GONE){}
+                        while (bananita.getVisibility() == View.GONE) {
+                        }
 
                         runOnUiThread(
-                                () -> bananita.setBackgroundResource(bananaFrames[(frame>=bananaFrames.length || frame<0) ? 0 : frame])
+                                () -> bananita.setBackgroundResource(bananaFrames[(frame >= bananaFrames.length || frame < 0) ? 0 : frame])
                         );
-                        delayTime+=1;
-                        Log.e(">>>","delay: "+delayTime);
-                        if(delayTime>10){
+                        delayTime += 1;
+                        Log.e(">>>", "delay: " + delayTime);
+                        if (delayTime > 10) {
                             frame--;
-                            if(frame<=0){
+                            if (frame <= 0) {
                                 frame = 0;
                             }
                         }
 
-                        if(frame >= bananaFrames.length-1){
+                        if (frame >= bananaFrames.length - 1) {
                             status.notifyVictoryRight();
                             break;
                         }
-
 
 
                         try {
@@ -239,7 +229,7 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
     @Override
     public void onGameStartLeft() {
-        runOnUiThread(()->{
+        runOnUiThread(() -> {
             findViewById(R.id.gameContainer).setVisibility(View.VISIBLE);
             findViewById(R.id.resultsContainer).setVisibility(View.GONE);
             findViewById(R.id.buttonContainer).setVisibility(View.GONE);
@@ -252,25 +242,25 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
                 () -> {
                     frame = 0;
                     while (status.getStatus() == BananaGameStatus.INGAMELEFT) {
-                        while(bananita.getVisibility() == View.GONE){}
+                        while (bananita.getVisibility() == View.GONE) {
+                        }
 
                         runOnUiThread(
-                                () -> bananita.setBackgroundResource(bananaFrames[(frame>=bananaFrames.length || frame<0) ? 0 : frame])
+                                () -> bananita.setBackgroundResource(bananaFrames[(frame >= bananaFrames.length || frame < 0) ? 0 : frame])
                         );
-                        delayTime+=1;
-                        Log.e(">>>","delay: "+delayTime);
-                        if(delayTime>10){
+                        delayTime += 1;
+                        Log.e(">>>", "delay: " + delayTime);
+                        if (delayTime > 10) {
                             frame--;
-                            if(frame<=0){
+                            if (frame <= 0) {
                                 frame = 0;
                             }
                         }
 
-                        if(frame >= bananaFrames.length-1){
+                        if (frame >= bananaFrames.length - 1) {
                             status.notifyVictoryLeft();
                             break;
                         }
-
 
 
                         try {
@@ -318,7 +308,7 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
 
     @Override
     public void onGameFinish() {
-        runOnUiThread(()->{
+        runOnUiThread(() -> {
             findViewById(R.id.gameContainer).setVisibility(View.GONE);
             findViewById(R.id.resultsContainer).setVisibility(View.VISIBLE);
             findViewById(R.id.buttonContainer).setVisibility(View.GONE);
@@ -326,11 +316,11 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
             findViewById(R.id.gameOverContainer).setVisibility(View.VISIBLE);
 
             ((Button) findViewById(R.id.tryagain)).setText("Intentarlo de nuevo");
-            ((TextView) findViewById(R.id.rightTouchesText)).setText(""+status.getRightTouches());
-            ((TextView) findViewById(R.id.leftTouchesText)).setText(""+status.getLeftTouches());
+            ((TextView) findViewById(R.id.rightTouchesText)).setText("" + status.getRightTouches());
+            ((TextView) findViewById(R.id.leftTouchesText)).setText("" + status.getLeftTouches());
 
-            ((TextView) findViewById(R.id.rightTimeText)).setText(""+status.getRightDuration());
-            ((TextView) findViewById(R.id.leftTimeText)).setText(""+status.getLeftDuration());
+            ((TextView) findViewById(R.id.rightTimeText)).setText("" + status.getRightDuration());
+            ((TextView) findViewById(R.id.leftTimeText)).setText("" + status.getLeftDuration());
         });
     }
 

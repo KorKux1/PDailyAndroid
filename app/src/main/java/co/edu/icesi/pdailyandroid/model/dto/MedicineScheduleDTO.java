@@ -117,7 +117,7 @@ public class MedicineScheduleDTO {
         return isEquals;
     }
 
-    public String getTypeString(){
+    public String getTypeString() {
         DecimalFormat df = new DecimalFormat("0.#####");
         return String.format("%s x%s%s", getTypeLabel(), df.format(getTypeQuantity()), getTypeUnits());
     }

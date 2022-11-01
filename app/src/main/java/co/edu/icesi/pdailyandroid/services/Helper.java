@@ -14,6 +14,7 @@ import co.edu.icesi.pdailyandroid.app.App;
 public final class Helper {
 
     private static final String TAG = "Helper";
+
     public static String getConfigValue(String name) {
         Resources resources = App.getAppContext().getResources();
         try {

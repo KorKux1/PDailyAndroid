@@ -20,11 +20,11 @@ public class WormGameStatus {
 
     private ArrayList<Long> timestamps;
 
-    public WormGameStatus(){
+    public WormGameStatus() {
         timestamps = new ArrayList<>();
     }
 
-    public void setObserver(OnGameStatusObserver observer){
+    public void setObserver(OnGameStatusObserver observer) {
         this.observer = observer;
     }
 
@@ -54,16 +54,16 @@ public class WormGameStatus {
     public long calculateMean() {
         int size = timestamps.size();
 
-        if(size <= 1){
+        if (size <= 1) {
             return 0;
         }
 
         long acu = 0;
-        for(int i=1 ; i<size ; i=i+2){
-            long time = timestamps.get(i) - timestamps.get(i-1);
+        for (int i = 1; i < size; i = i + 2) {
+            long time = timestamps.get(i) - timestamps.get(i - 1);
             acu += time;
         }
-        return acu/(size/2);
+        return acu / (size / 2);
     }
 
     public void notifyGameInstructionsRight() {
@@ -76,32 +76,23 @@ public class WormGameStatus {
         observer.onGameInstructionsLeft();
     }
 
-
-    public interface OnGameStatusObserver{
-        void onGameInit();
-        void onGameInstructionsRight();
-        void onGameInstructionsLeft();
-        void onGameStart();
-        void onGameOver();
-    }
-
-    public int getGameTime(){
+    public int getGameTime() {
         return gameTime;
     }
 
-    public void decreaseGameTime(){
+    public void decreaseGameTime() {
         gameTime--;
-        if(gameTime <= -1) {
+        if (gameTime <= -1) {
             gameState = GAME_OVER;
             observer.onGameOver();
         }
     }
 
-    public void resetGameTime(){
+    public void resetGameTime() {
         gameTime = 10;
     }
 
-    public int getGameState(){
+    public int getGameState() {
         return gameState;
     }
 
@@ -113,19 +104,32 @@ public class WormGameStatus {
         return errors;
     }
 
-    public void increasePoints(){
-        if(gameState == INGAME) {
+    public void increasePoints() {
+        if (gameState == INGAME) {
             addTimeStamp();
             points++;
         }
     }
-    public void increaseErrors(){
-        if(gameState == INGAME){
+
+    public void increaseErrors() {
+        if (gameState == INGAME) {
             errors++;
         }
     }
 
-    public void resetTimestamps(){
+    public void resetTimestamps() {
         timestamps.clear();
+    }
+
+    public interface OnGameStatusObserver {
+        void onGameInit();
+
+        void onGameInstructionsRight();
+
+        void onGameInstructionsLeft();
+
+        void onGameStart();
+
+        void onGameOver();
     }
 }

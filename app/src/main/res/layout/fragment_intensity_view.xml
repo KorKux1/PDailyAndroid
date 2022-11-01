@@ -1,53 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
 
 
-
-
-    <LinearLayout android:layout_height="match_parent"
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center">
 
         <ImageView
-            android:layout_marginLeft="40dp"
-            android:scaleY="-1"
-            android:src="@drawable/gradauto"
-            android:scaleType="fitXY"
             android:layout_width="60dp"
             android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="40dp"
             android:background="#fff"
-            android:layout_alignParentRight="true"/>
+            android:scaleType="fitXY"
+            android:scaleY="-1"
+            android:src="@drawable/gradauto" />
 
     </LinearLayout>
 
 
-    <LinearLayout android:layout_height="match_parent"
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="bottom|center_horizontal">
 
         <ImageView
-            android:layout_marginLeft="40dp"
+            android:id="@+id/faceView"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/rostro10"
-            android:id="@+id/faceView"/>
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/rostro10" />
 
     </LinearLayout>
 
-    <LinearLayout android:layout_height="match_parent"
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="bottom|center_horizontal">
 
         <ImageView
             android:id="@+id/indicatorView"
-            android:layout_marginRight="80dp"
             android:layout_width="45dp"
             android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="80dp"
             android:layout_marginBottom="20dp"
-            android:src="@drawable/n10"
-            android:layout_alignParentRight="true"/>
+            android:src="@drawable/n10" />
 
     </LinearLayout>
 

@@ -1,13 +1,13 @@
 package co.edu.icesi.pdailyandroid.modals;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -31,6 +31,9 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
     private Button nextButton, backButton;
 
     private int[] congelamiento, temblor, tropezones, lentificacion, discinesias, caidas;
+    private int contador = 0;
+    private boolean animLive = true;
+    private boolean animPause = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,35 +197,35 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
         caidas[16] = R.drawable.cai16;
         caidas[17] = R.drawable.cai17;
         caidas[18] = R.drawable.cai18;
-        
+
 
         event = (EventViewModel) getIntent().getExtras().getSerializable("event");
 
 
         fromhour.setOnClickListener(
-            (v)->{
-                animPause = true;
-                HourDialog dialog = new HourDialog();
-                dialog.setOriginView(v);
-                dialog.setHour( ( (TextView) v ).getText().toString() );
-                dialog.setOnHourChooseListener(this);
-                dialog.show(getSupportFragmentManager(), "hourDialog");
-            }
-        );
-
-        tohour.setOnClickListener(
-                (v)->{
+                (v) -> {
                     animPause = true;
                     HourDialog dialog = new HourDialog();
                     dialog.setOriginView(v);
-                    dialog.setHour( ( (TextView) v ).getText().toString() );
+                    dialog.setHour(((TextView) v).getText().toString());
+                    dialog.setOnHourChooseListener(this);
+                    dialog.show(getSupportFragmentManager(), "hourDialog");
+                }
+        );
+
+        tohour.setOnClickListener(
+                (v) -> {
+                    animPause = true;
+                    HourDialog dialog = new HourDialog();
+                    dialog.setOriginView(v);
+                    dialog.setHour(((TextView) v).getText().toString());
                     dialog.setOnHourChooseListener(this);
                     dialog.show(getSupportFragmentManager(), "hourDialog");
                 }
         );
 
         nextButton.setOnClickListener(
-                (v)->{
+                (v) -> {
                     Intent i = new Intent();
                     i.putExtra("title", titleEvent.getText().toString());
                     i.putExtra("from", calendarFrom.getTime().getTime());
@@ -233,13 +236,13 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
         );
 
         backButton.setOnClickListener(
-                (v)->{
+                (v) -> {
                     onBackPressed();
                 }
         );
 
         titleEvent.setText(event.getName());
-        switch (event.getName()){
+        switch (event.getName()) {
             case "Congelamiento":
                 runAnimation(congelamiento);
                 break;
@@ -262,33 +265,29 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
 
     }
 
-
-    private int contador = 0;
-    private boolean animLive = true;
-    private boolean animPause = false;
-
     public void runAnimation(int[] array) {
         new Thread(() -> {
-                try {
-                    while (animLive) {
+            try {
+                while (animLive) {
 
-                        runOnUiThread(() -> {
-                            modalImage.setImageResource(array[contador]);
-                        });
+                    runOnUiThread(() -> {
+                        modalImage.setImageResource(array[contador]);
+                    });
 
-                        Thread.sleep(100);
+                    Thread.sleep(100);
 
-                        contador += 1;
-                        if (contador >= array.length) {
-                            contador = 0;
-                            Thread.sleep(500);
-                        }
-                        while(animPause){}
+                    contador += 1;
+                    if (contador >= array.length) {
+                        contador = 0;
+                        Thread.sleep(500);
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    while (animPause) {
+                    }
                 }
-            }).start();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
 
     }
 
@@ -302,7 +301,7 @@ public class RangeHourModal extends AppCompatActivity implements HourDialog.OnHo
     public void onHour(View view, Date datetime) {
         animPause = false;
         TextView destinationView = (TextView) view;
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.fromhour:
                 calendarFrom.setTime(datetime);
                 destinationView.setText(DateUtils.getHourString(calendarFrom));

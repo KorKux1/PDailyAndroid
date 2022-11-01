@@ -7,8 +7,8 @@ import co.edu.icesi.pdailyandroid.model.datatype.INotification;
 public class NotificationGame implements Serializable, INotification {
 
 
-    public static final int BANANA_GAME_ID=0;
-    public static final int WORM_GAME_ID=1;
+    public static final int BANANA_GAME_ID = 0;
+    public static final int WORM_GAME_ID = 1;
     private int id;
     private String name;
     private String date;

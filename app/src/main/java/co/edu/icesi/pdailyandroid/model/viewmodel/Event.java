@@ -2,8 +2,6 @@ package co.edu.icesi.pdailyandroid.model.viewmodel;
 
 import java.util.ArrayList;
 
-import androidx.annotation.Nullable;
-
 public class Event {
     private String name;
     private long from;

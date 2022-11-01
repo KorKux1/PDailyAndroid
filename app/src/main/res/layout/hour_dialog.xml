@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#333333"
     android:gravity="center"
-    android:background="#333333">
+    android:orientation="vertical">
 
     <TimePicker
+        android:id="@+id/timepicker"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/timepicker">
+        android:layout_height="wrap_content">
 
     </TimePicker>
 
     <Button
+        android:id="@+id/okButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#00ffffff"
         android:text="OK"
-        android:textSize="24sp"
         android:textColor="#fff"
-        android:id="@+id/okButton"
-        android:background="#00ffffff"/>
+        android:textSize="24sp" />
 
 </LinearLayout>

@@ -6,13 +6,12 @@ import java.util.List;
 import co.edu.icesi.pdailyandroid.model.redux.actions.Action;
 import co.edu.icesi.pdailyandroid.model.redux.reducer.Reducer;
 
-public class Store <S>{
+public class Store<S> {
+    List<Subscriber<S>> subscribers = new ArrayList<>();
     private S currentState;
     private Reducer<S> reducer;
 
-    List<Subscriber<S>> subscribers = new ArrayList<>();
-
-    public Store(S initialState, Reducer<S> rootReducer){
+    public Store(S initialState, Reducer<S> rootReducer) {
         this.currentState = initialState;
         this.reducer = rootReducer;
     }
@@ -22,7 +21,7 @@ public class Store <S>{
     }
 
     private void notifySubscribers() {
-        for(int i=0 ; i<subscribers.size() ; i++){
+        for (int i = 0; i < subscribers.size(); i++) {
             Subscriber subscriber = subscribers.get(i);
             subscriber.onChange(this.currentState);
         }
