@@ -45,8 +45,6 @@
             android:name=".games.WormGame"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
-
-
         </activity>
         <activity
             android:name=".games.BananaGame"

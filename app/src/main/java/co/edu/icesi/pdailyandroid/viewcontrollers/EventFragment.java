@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
@@ -17,7 +18,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
-import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.EventsAdapter;
 import co.edu.icesi.pdailyandroid.misc.customview.IntensityView;
@@ -41,7 +41,7 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
     private ArrayList<EventViewModel> events;
     private EventsAdapter adapter;
     private Fragment intensityView;
-    private CircularProgressButton saveBtn;
+    private Button saveBtn;
 
     public EventFragment() {
         events = createArray();
@@ -99,8 +99,6 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
         saveBtn.setOnClickListener(
                 (view) -> {
                     if (saveBtn.getVisibility() == View.VISIBLE) {
-                        saveBtn.startAnimation();
-
                         SessionManager sessionManager = new SessionManager(
                                 getActivity().getApplicationContext());
                         SessionData sessionData = sessionManager.loadLoginData();
@@ -124,7 +122,6 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
                                                     saveBtn.setScaleX(1);
                                                     saveBtn.setScaleY(1);
                                                     saveBtn.setAlpha(1);
-                                                    saveBtn.revertAnimation();
                                                 }
                                         );
 

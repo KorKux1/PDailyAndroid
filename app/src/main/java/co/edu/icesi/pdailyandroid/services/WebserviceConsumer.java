@@ -13,10 +13,6 @@ import co.edu.icesi.pdailyandroid.util.Constants;
 
 public class WebserviceConsumer {
 
-    public static final String URL_EVENTS = Helper.getConfigValue("url_events");
-    public static final String URL_FOOD = Helper.getConfigValue("url_food");
-    public static final String URL_ANIMIC = Helper.getConfigValue("url_animic");
-
     private OnResponseListener listener;
     private Thread process;
 
