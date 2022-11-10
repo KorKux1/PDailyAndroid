@@ -153,12 +153,12 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
 
     private ArrayList<EventViewModel> createArray() {
         ArrayList<EventViewModel> out = new ArrayList<>();
-        EventViewModel s1 = new EventViewModel("Congelamiento", false);
-        EventViewModel s2 = new EventViewModel("Lentificación", false);
-        EventViewModel s3 = new EventViewModel("Discinesias", false);
-        EventViewModel s4 = new EventViewModel("Temblor", false);
-        EventViewModel s5 = new EventViewModel("Tropezones", false);
-        EventViewModel s6 = new EventViewModel("Caídas", false);
+        EventViewModel s1 = new EventViewModel(getString(R.string.freezing), false);
+        EventViewModel s2 = new EventViewModel(getString(R.string.slowdown), false);
+        EventViewModel s3 = new EventViewModel(getString(R.string.dyskinesias), false);
+        EventViewModel s4 = new EventViewModel(getString(R.string.tremor), false);
+        EventViewModel s5 = new EventViewModel(getString(R.string.stumbles), false);
+        EventViewModel s6 = new EventViewModel(getString(R.string.falls), false);
         out.add(s1);
         out.add(s2);
         out.add(s3);
@@ -226,7 +226,7 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
 
                 if (!sessionManager.getMoodInstructionsShown()) {
                     sessionManager.setMoodInstructionsShown();
-                    Snackbar.make(getView().findViewById(R.id.snackContainer), "Mueva el rostro a la derecha para indicar cómo se siente", Snackbar.LENGTH_INDEFINITE)
+                    Snackbar.make(getView().findViewById(R.id.snackContainer), getString(R.string.moveface), Snackbar.LENGTH_INDEFINITE)
                         .setAction("OK", view2 -> { }).show();
                 }
                 String name = data.getExtras().getString("name");

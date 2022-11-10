@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void authenticate(View v) {
         Button button = (Button) v;
-        button.setText("Cargando...");
+        button.setText(R.string.loading);
         button.setBackgroundColor(Color.parseColor("#AAAAAA"));
         button.setEnabled(false);
         new Thread(() -> {
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     errorHint.setVisibility(View.VISIBLE);
                 }
 
-                button.setText("INICIAR SESIÓN");
+                button.setText(R.string.login);
                 button.setEnabled(true);
                 button.setBackgroundColor(Color.parseColor("#ff0099cc"));
             });

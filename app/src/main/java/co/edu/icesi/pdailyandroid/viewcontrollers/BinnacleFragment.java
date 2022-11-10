@@ -50,9 +50,9 @@ public class BinnacleFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String date = sdf.format(Calendar.getInstance().getTime());
         NotificationGame bananaGame = new NotificationGame(
-                NotificationGame.BANANA_GAME_ID, "Vamos a jugar con la banana", date);
+                NotificationGame.BANANA_GAME_ID, getString(R.string.letsplaybanana), date);
         NotificationGame wormGame = new NotificationGame(
-                NotificationGame.WORM_GAME_ID, "Vamos a jugar con los gusanos", date);
+                NotificationGame.WORM_GAME_ID, getString(R.string.letsplayworms), date);
 
         ArrayList<INotification> info = new ArrayList<>(foodFollowUps);
         info.addAll(levoFollowUps);

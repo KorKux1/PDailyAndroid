@@ -4,4 +4,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="msg_token_fmt">token</string>
+    <string name="loading">Cargando...</string>
+    <string name="login">INICIAR SESIÓN</string>
+    <string name="letsplaybanana">Vamos a jugar con la banana</string>
+    <string name="letsplayworms">Vamos a jugar con los gusanos</string>
+    <string name="freezing">Congelamiento</string>
+    <string name="slowdown">Lentificación</string>
+    <string name="dyskinesias">Discinesias</string>
+    <string name="tremor">Temblor</string>
+    <string name="stumbles">Tropezones</string>
+    <string name="falls">Caídas</string>
+    <string name="moveface">Mueva el rostro a la derecha para indicar cómo se siente</string>
 </resources>
