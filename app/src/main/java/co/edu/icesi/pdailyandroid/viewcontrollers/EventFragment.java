@@ -47,12 +47,12 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
     private SessionManager sessionManager;
 
     public EventFragment() {
-        events = createArray();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        events = createArray();
         sessionManager = ((DashBoard) getActivity()).getSessionManager();
 
         // Inflate the layout for this fragment
@@ -153,18 +153,12 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
 
     private ArrayList<EventViewModel> createArray() {
         ArrayList<EventViewModel> out = new ArrayList<>();
-        EventViewModel s1 = new EventViewModel(getString(R.string.freezing), false);
-        EventViewModel s2 = new EventViewModel(getString(R.string.slowdown), false);
-        EventViewModel s3 = new EventViewModel(getString(R.string.dyskinesias), false);
-        EventViewModel s4 = new EventViewModel(getString(R.string.tremor), false);
-        EventViewModel s5 = new EventViewModel(getString(R.string.stumbles), false);
-        EventViewModel s6 = new EventViewModel(getString(R.string.falls), false);
-        out.add(s1);
-        out.add(s2);
-        out.add(s3);
-        out.add(s4);
-        out.add(s5);
-        out.add(s6);
+        out.add(new EventViewModel(getString(R.string.freezing), false));
+        out.add(new EventViewModel(getString(R.string.slowdown), false));
+        out.add(new EventViewModel(getString(R.string.dyskinesias), false));
+        out.add(new EventViewModel(getString(R.string.tremor), false));
+        out.add(new EventViewModel(getString(R.string.stumbles), false));
+        out.add(new EventViewModel(getString(R.string.falls), false));
         return out;
     }
 
