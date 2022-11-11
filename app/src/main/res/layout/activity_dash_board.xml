@@ -33,7 +33,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/bitacorainactivo"
-                android:onClick="doDashboardAction" />
+                android:onClick="doNavigateToActivityAction" />
         </LinearLayout>
 
         <LinearLayout
@@ -48,7 +48,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/levodopainactivo"
-                android:onClick="doDashboardAction" />
+                android:onClick="doNavigateToActivityAction" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +63,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/otrosinactivo"
-                android:onClick="doDashboardAction"
+                android:onClick="doNavigateToActivityAction"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -78,8 +78,8 @@
                 android:id="@+id/profileButton"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/rostrof"
-                android:onClick="doDashboardAction" />
+                android:background="@drawable/perfilinactivo"
+                android:onClick="doNavigateToActivityAction" />
         </LinearLayout>
 
     </LinearLayout>
@@ -109,7 +109,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/comidainactivo"
-                android:onClick="doDashboardAction" />
+                android:onClick="doNavigateToActivityAction" />
         </LinearLayout>
 
         <LinearLayout
@@ -124,7 +124,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/rutinainactivo"
-                android:onClick="doDashboardAction"
+                android:onClick="doNavigateToActivityAction"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -140,7 +140,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/apoyoinactivo"
-                android:onClick="doDashboardAction"
+                android:onClick="doNavigateToActivityAction"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -156,7 +156,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/eventosinactivo"
-                android:onClick="doDashboardAction" />
+                android:onClick="doNavigateToActivityAction" />
         </LinearLayout>
 
     </LinearLayout>

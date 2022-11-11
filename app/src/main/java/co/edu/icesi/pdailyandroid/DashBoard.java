@@ -24,18 +24,17 @@ public class DashBoard extends AppCompatActivity {
     private UserInfoService userInfoService;
 
     private Button foodButton;
+    private Fragment foodFragment;
     private Button profileButton;
+    private Fragment profileFragment;
     private Button levoButton;
+    private Fragment levoFragment;
     private Button binButton;
+    private Fragment binFragment;
     private Button eventsButton;
+    private Fragment eventFragment;
 
     private Fragment actualFragment;
-
-    private Fragment binFragment;
-    private Fragment levoFragment;
-    private Fragment profileFragment;
-    private Fragment foodFragment;
-    private Fragment eventFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,67 +45,54 @@ public class DashBoard extends AppCompatActivity {
         userInfoService = new UserInfoService(sessionManager);
 
         foodButton = findViewById(R.id.foodButton);
-        profileButton = findViewById(R.id.profileButton);
-        levoButton = findViewById(R.id.levoButton);
-        binButton = findViewById(R.id.binButton);
-        eventsButton = findViewById(R.id.eventsButton);
-
-        binFragment = new BinnacleFragment();
-        levoFragment = new LevoFragment();
-        profileFragment = new ProfileFragment();
         foodFragment = new FoodFragment();
+        profileButton = findViewById(R.id.profileButton);
+        profileFragment = new ProfileFragment();
+        levoButton = findViewById(R.id.levoButton);
+        levoFragment = new LevoFragment();
+        binButton = findViewById(R.id.binButton);
+        binFragment = new BinnacleFragment();
+        eventsButton = findViewById(R.id.eventsButton);
         eventFragment = new EventFragment();
 
-        loadFragment(profileFragment);
+        navigateToFragment(profileButton);
     }
 
-    public void doDashboardAction(View sender) {
-        Fragment fragmentToLoad = null;
-        Button buttonToEnable = null;
-        int backgroundToApply = 0;
+    public void doNavigateToActivityAction(View sender) {
+        navigateToFragment((Button) sender);
+    }
 
-        // Load fragment and mark button as selected
-        if (sender.equals(binButton)) {
-            fragmentToLoad = binFragment;
-            buttonToEnable = binButton;
-            backgroundToApply = R.drawable.bitacoraactivo;
-        } else if (sender.equals(levoButton)) {
-            fragmentToLoad = levoFragment;
-            buttonToEnable = levoButton;
-            backgroundToApply = R.drawable.levodopaactivo;
-        } else if (sender.equals(profileButton)) {
-            fragmentToLoad = profileFragment;
-            // the profile page does not have different icons
-        } else if (sender.equals(foodButton)) {
-            fragmentToLoad = foodFragment;
-            buttonToEnable = foodButton;
-            backgroundToApply = R.drawable.comidaactivo;
-        } else if (sender.equals(eventsButton)) {
-            fragmentToLoad = eventFragment;
-            buttonToEnable = eventsButton;
-            backgroundToApply = R.drawable.eventosactivo;
+    private void navigateToFragment(Button button) {
+        if (button.equals(binButton)) {
+            navigateToFragment(binFragment, binButton, R.drawable.bitacoraactivo);
+        } else if (button.equals(levoButton)) {
+            navigateToFragment(levoFragment, levoButton, R.drawable.levodopaactivo);
+        } else if (button.equals(profileButton)) {
+            navigateToFragment(profileFragment, profileButton, R.drawable.perfilactivo);
+        } else if (button.equals(foodButton)) {
+            navigateToFragment(foodFragment, foodButton, R.drawable.comidaactivo);
+        } else if (button.equals(eventsButton)) {
+            navigateToFragment(eventFragment, eventsButton, R.drawable.eventosactivo);
         }
+    }
 
-        loadFragment(fragmentToLoad);
-
-        // Unselect all
+    private void navigateToFragment(Fragment fragment, Button button, int icon) {
+        loadFragment(fragment);
+        profileButton.setBackgroundResource(R.drawable.perfilinactivo);
         foodButton.setBackgroundResource(R.drawable.comidainactivo);
         levoButton.setBackgroundResource(R.drawable.levodopainactivo);
         binButton.setBackgroundResource(R.drawable.bitacorainactivo);
         eventsButton.setBackgroundResource(R.drawable.eventosinactivo);
-
-        if (buttonToEnable != null) {
-            buttonToEnable.setBackgroundResource(backgroundToApply);
-        }
+        button.setBackgroundResource(icon);
     }
 
-    public void loadFragment(Fragment fragment) {
-        if (actualFragment != null && actualFragment.equals(fragment)) return;
-
-        actualFragment = fragment;
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout, actualFragment);
-        ft.commit();
+    private void loadFragment(Fragment fragment) {
+        if (!fragment.equals(actualFragment)) {
+            actualFragment = fragment;
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frameLayout, actualFragment);
+            ft.commit();
+        }
     }
 
     public SessionManager getSessionManager() {
@@ -115,6 +101,6 @@ public class DashBoard extends AppCompatActivity {
 
     public Thread getUpdateUserDataThread(Consumer<Boolean> callback) {
         return new Thread(() ->
-                callback.accept(userInfoService.updateSchedulesCollectionFromServer()));
+            callback.accept(userInfoService.updateSchedulesCollectionFromServer()));
     }
 }
