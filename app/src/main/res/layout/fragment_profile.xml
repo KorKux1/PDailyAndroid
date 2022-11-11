@@ -196,7 +196,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:text="Bien. Algunos sintomas pero mejorando"
+            android:text=""
             android:textAlignment="center"
             android:textColor="#000"
             android:textSize="20sp"

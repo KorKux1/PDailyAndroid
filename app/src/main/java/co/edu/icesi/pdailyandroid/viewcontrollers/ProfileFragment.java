@@ -2,7 +2,6 @@ package co.edu.icesi.pdailyandroid.viewcontrollers;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +23,12 @@ import co.edu.icesi.pdailyandroid.services.WebserviceConsumer;
 
 public class ProfileFragment extends Fragment {
 
+    private ConstraintLayout messageContainer;
+
     private TextView statusMessage;
     private ImageView statusFace;
-    private ConstraintLayout messageContainer;
+    private Button sendBtn;
+
     private Button statusBtn2;
     private Button statusBtn3;
     private Button statusBtn4;
@@ -36,9 +38,9 @@ public class ProfileFragment extends Fragment {
     private Button statusBtn8;
     private Button statusBtn9;
     private Button statusBtn10;
-    private Button sendBtn;
+
     private int statusValue;
-    private boolean control = true;
+    private int statusIcon;
 
     private AnimicTypes types;
 
@@ -49,11 +51,11 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
+        messageContainer = v.findViewById(R.id.messageContainer);
         statusMessage = v.findViewById(R.id.statusMessage);
         statusFace = v.findViewById(R.id.statusFace);
-        messageContainer = v.findViewById(R.id.messageContainer);
+        sendBtn = v.findViewById(R.id.sendBtn);
         statusBtn2 = v.findViewById(R.id.statusBtn2);
         statusBtn3 = v.findViewById(R.id.statusBtn3);
         statusBtn4 = v.findViewById(R.id.statusBtn4);
@@ -63,7 +65,6 @@ public class ProfileFragment extends Fragment {
         statusBtn8 = v.findViewById(R.id.statusBtn8);
         statusBtn9 = v.findViewById(R.id.statusBtn9);
         statusBtn10 = v.findViewById(R.id.statusBtn10);
-        sendBtn = v.findViewById(R.id.sendBtn);
 
         statusBtn2.setOnClickListener(this::doStatusAssess);
         statusBtn3.setOnClickListener(this::doStatusAssess);
@@ -78,66 +79,69 @@ public class ProfileFragment extends Fragment {
         types = AnimicTypes.getReference();
 
         sendBtn.setOnClickListener(view -> {
-                    sendBtn.setText("...");
-                    SessionManager sessionManager = new SessionManager(
-                            getActivity().getApplicationContext());
-                    SessionData sessionData = sessionManager.loadLoginData();
-                    AnimicEventDTO eventDTO = new AnimicEventDTO(
-                            sessionData.getPatientId(),
-                            types.getTypeIDByScore(statusValue),
-                            new Date(System.currentTimeMillis()));
-                    WebserviceConsumer consumer = new WebserviceConsumer();
-                    consumer.postAnimic(eventDTO, sessionData.getToken())
-                            .withEndAction(response ->
-                                    getActivity().runOnUiThread(
-                                            () -> sendBtn.setText("Enviar"))
-                            ).execute();
-                }
-        );
-
-        statusBtn10.post(() -> {
-            Log.e(">>>", statusBtn10.getY() + "");
-            doStatusAssess(statusBtn10);
+            sendBtn.setText("...");
+            sendBtn.setEnabled(false);
+            SessionManager sessionManager = new SessionManager(
+                getActivity().getApplicationContext());
+            SessionData sessionData = sessionManager.loadLoginData();
+            AnimicEventDTO eventDTO = new AnimicEventDTO(
+                sessionData.getPatientId(),
+                types.getTypeIDByScore(statusValue),
+                new Date(System.currentTimeMillis()));
+            WebserviceConsumer consumer = new WebserviceConsumer();
+            consumer.postAnimic(eventDTO, sessionData.getToken())
+                .withEndAction(response ->
+                    getActivity().runOnUiThread(
+                        () -> {
+                            sendBtn.setText(null);
+                            sendBtn.setBackgroundResource(R.drawable.chulo_btn);
+                        })
+                ).execute();
         });
+
+        statusBtn10.post(() -> doStatusAssess(statusBtn10));
 
         return v;
     }
 
     public void doStatusAssess(View sender) {
-
         deselectAll();
 
         if (sender.equals(statusBtn2)) {
             statusValue = 9;
-            statusFace.setImageResource(R.drawable.rostro9);
+            statusIcon = R.drawable.rostro9;
         } else if (sender.equals(statusBtn3)) {
             statusValue = 8;
-            statusFace.setImageResource(R.drawable.rostro8);
+            statusIcon = R.drawable.rostro8;
         } else if (sender.equals(statusBtn4)) {
             statusValue = 7;
-            statusFace.setImageResource(R.drawable.rostro7);
+            statusIcon = R.drawable.rostro7;
         } else if (sender.equals(statusBtn5)) {
             statusValue = 6;
-            statusFace.setImageResource(R.drawable.rostro6);
+            statusIcon = R.drawable.rostro6;
         } else if (sender.equals(statusBtn6)) {
             statusValue = 5;
-            statusFace.setImageResource(R.drawable.rostro5);
+            statusIcon = R.drawable.rostro5;
         } else if (sender.equals(statusBtn7)) {
             statusValue = 4;
-            statusFace.setImageResource(R.drawable.rostro4);
+            statusIcon = R.drawable.rostro4;
         } else if (sender.equals(statusBtn8)) {
             statusValue = 3;
-            statusFace.setImageResource(R.drawable.rostro3);
+            statusIcon = R.drawable.rostro3;
         } else if (sender.equals(statusBtn9)) {
             statusValue = 2;
-            statusFace.setImageResource(R.drawable.rostro2);
+            statusIcon = R.drawable.rostro2;
         } else if (sender.equals(statusBtn10)) {
             statusValue = 1;
-            statusFace.setImageResource(R.drawable.rostro1);
+            statusIcon = R.drawable.rostro1;
         }
-        statusMessage.setText(types.getLabelByScore(statusValue));
 
+        statusMessage.setText(types.getLabelByScore(statusValue));
+        statusFace.setImageResource(statusIcon);
         sender.setBackgroundColor(Color.WHITE);
+        sendBtn.setEnabled(true);
+        sendBtn.setText(R.string.send);
+        sendBtn.setBackgroundColor(Color.rgb(0, 153, 204));
 
         if (statusValue < 5) {
             messageContainer.setY(sender.getY() + sender.getHeight() / 2);
@@ -150,7 +154,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    public void deselectAll() {
+    private void deselectAll() {
         statusBtn10.setBackgroundColor(Color.rgb(24, 255, 0));
         statusBtn9.setBackgroundColor(Color.rgb(116, 255, 0));
         statusBtn8.setBackgroundColor(Color.rgb(158, 255, 0));
