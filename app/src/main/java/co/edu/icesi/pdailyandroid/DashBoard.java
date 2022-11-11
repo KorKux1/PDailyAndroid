@@ -23,14 +23,14 @@ public class DashBoard extends AppCompatActivity {
     private SessionManager sessionManager;
     private UserInfoService userInfoService;
 
-    private Button foodButton;
-    private Fragment foodFragment;
-    private Button profileButton;
-    private Fragment profileFragment;
-    private Button levoButton;
-    private Fragment levoFragment;
     private Button binButton;
     private Fragment binFragment;
+    private Button levoButton;
+    private Fragment levoFragment;
+    private Button profileButton;
+    private Fragment profileFragment;
+    private Button foodButton;
+    private Fragment foodFragment;
     private Button eventsButton;
     private Fragment eventFragment;
 
@@ -44,14 +44,14 @@ public class DashBoard extends AppCompatActivity {
         sessionManager = new SessionManager(getApplicationContext());
         userInfoService = new UserInfoService(sessionManager);
 
-        foodButton = findViewById(R.id.foodButton);
-        foodFragment = new FoodFragment();
-        profileButton = findViewById(R.id.profileButton);
-        profileFragment = new ProfileFragment();
-        levoButton = findViewById(R.id.levoButton);
-        levoFragment = new LevoFragment();
         binButton = findViewById(R.id.binButton);
         binFragment = new BinnacleFragment();
+        levoButton = findViewById(R.id.levoButton);
+        levoFragment = new LevoFragment();
+        profileButton = findViewById(R.id.profileButton);
+        profileFragment = new ProfileFragment();
+        foodButton = findViewById(R.id.foodButton);
+        foodFragment = new FoodFragment();
         eventsButton = findViewById(R.id.eventsButton);
         eventFragment = new EventFragment();
 
@@ -78,10 +78,10 @@ public class DashBoard extends AppCompatActivity {
 
     private void navigateToFragment(Fragment fragment, Button button, int icon) {
         loadFragment(fragment);
+        binButton.setBackgroundResource(R.drawable.bitacorainactivo);
+        levoButton.setBackgroundResource(R.drawable.levodopainactivo);
         profileButton.setBackgroundResource(R.drawable.perfilinactivo);
         foodButton.setBackgroundResource(R.drawable.comidainactivo);
-        levoButton.setBackgroundResource(R.drawable.levodopainactivo);
-        binButton.setBackgroundResource(R.drawable.bitacorainactivo);
         eventsButton.setBackgroundResource(R.drawable.eventosinactivo);
         button.setBackgroundResource(icon);
     }
