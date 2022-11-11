@@ -213,7 +213,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#ff0099cc"
-        android:text="Enviar"
+        android:text="@string/send"
         android:textColor="#FFF"
         tools:layout_editor_absoluteX="131dp"
         tools:layout_editor_absoluteY="193dp" />

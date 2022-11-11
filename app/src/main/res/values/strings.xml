@@ -15,4 +15,5 @@
     <string name="stumbles">Tropezones</string>
     <string name="falls">Caídas</string>
     <string name="moveface">Mueva el rostro a la derecha para indicar cómo se siente</string>
+    <string name="send">Enviar</string>
 </resources>
