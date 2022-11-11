@@ -34,44 +34,43 @@ public class IntensityView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_intensity_view, container, false);
 
         faceView = root.findViewById(R.id.faceView);
         indicatorView = root.findViewById(R.id.indicatorView);
 
         faceView.setOnTouchListener(
-                (view, event) -> {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            initY = event.getY();
-                            break;
-                        case MotionEvent.ACTION_MOVE:
+            (view, event) -> {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        initY = event.getY();
+                        break;
 
-                            faceView.setY(view.getY() + event.getY() - initY);
+                    case MotionEvent.ACTION_MOVE:
+                        faceView.setY(view.getY() + event.getY() - initY);
+                        indicatorView.setY(faceView.getY() + faceHeight / 2 - indicatorHeight / 2);
+
+                        if (faceView.getY() < 0) {
+                            faceView.setY(0);
                             indicatorView.setY(faceView.getY() + faceHeight / 2 - indicatorHeight / 2);
+                        }
+                        if (faceView.getY() > height - faceHeight) {
+                            faceView.setY(height - faceHeight);
+                            indicatorView.setY(faceView.getY() + faceHeight / 2 - indicatorHeight / 2);
+                        }
 
-                            if (faceView.getY() < 0) {
-                                faceView.setY(0);
-                                indicatorView.setY(faceView.getY() + faceHeight / 2 - indicatorHeight / 2);
-                            }
-                            if (faceView.getY() > height - faceHeight) {
-                                faceView.setY(height - faceHeight);
-                                indicatorView.setY(faceView.getY() + faceHeight / 2 - indicatorHeight / 2);
-                            }
+                        value = 11 - (11 - 1 - (int) (9 * (faceView.getY() + faceHeight / 4) / (height - faceHeight)));
+                        refreshView();
+                        break;
 
-                            value = 11 - (11 - 1 - (int) (9 * (faceView.getY() + faceHeight / 4) / (height - faceHeight)));
-
-                            refreshView();
-
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            listener.onValue(value);
-                            break;
-                    }
-                    return true;
+                    case MotionEvent.ACTION_UP:
+                        listener.onValue(value);
+                        break;
                 }
+                return true;
+            }
         );
+
         deselect();
 
         root.post(() -> {
@@ -79,53 +78,48 @@ public class IntensityView extends Fragment {
             indicatorHeight = indicatorView.getHeight();
             height = root.getHeight();
         });
+
         return root;
     }
 
     private void refreshView() {
         switch (value) {
             case 1:
-                indicatorView.setImageResource(R.drawable.n1);
-                faceView.setImageResource(R.drawable.rostro1);
+                setIcons(R.drawable.n1, R.drawable.rostro1);
                 break;
             case 2:
-                indicatorView.setImageResource(R.drawable.n2);
-                faceView.setImageResource(R.drawable.rostro2);
+                setIcons(R.drawable.n2, R.drawable.rostro2);
                 break;
             case 3:
-                indicatorView.setImageResource(R.drawable.n3);
-                faceView.setImageResource(R.drawable.rostro3);
+                setIcons(R.drawable.n3, R.drawable.rostro3);
                 break;
             case 4:
-                indicatorView.setImageResource(R.drawable.n4);
-                faceView.setImageResource(R.drawable.rostro4);
+                setIcons(R.drawable.n4, R.drawable.rostro4);
                 break;
             case 5:
-                indicatorView.setImageResource(R.drawable.n5);
-                faceView.setImageResource(R.drawable.rostro5);
+                setIcons(R.drawable.n5, R.drawable.rostro5);
                 break;
             case 6:
-                indicatorView.setImageResource(R.drawable.n6);
-                faceView.setImageResource(R.drawable.rostro6);
+                setIcons(R.drawable.n6, R.drawable.rostro6);
                 break;
             case 7:
-                indicatorView.setImageResource(R.drawable.n7);
-                faceView.setImageResource(R.drawable.rostro7);
+                setIcons(R.drawable.n7, R.drawable.rostro7);
                 break;
             case 8:
-                indicatorView.setImageResource(R.drawable.n8);
-                faceView.setImageResource(R.drawable.rostro8);
+                setIcons(R.drawable.n8, R.drawable.rostro8);
                 break;
             case 9:
-                indicatorView.setImageResource(R.drawable.n9);
-                faceView.setImageResource(R.drawable.rostro9);
+                setIcons(R.drawable.n9, R.drawable.rostro9);
                 break;
             case 10:
-                indicatorView.setImageResource(R.drawable.n10);
-                faceView.setImageResource(R.drawable.rostro10);
+                setIcons(R.drawable.n10, R.drawable.rostro10);
                 break;
-
         }
+    }
+
+    private void setIcons(int indicatorIcon, int faceIcon) {
+        indicatorView.setImageResource(indicatorIcon);
+        faceView.setImageResource(faceIcon);
     }
 
     public void setValue(int value) {
@@ -137,15 +131,11 @@ public class IntensityView extends Fragment {
     }
 
     public void deselect() {
-        if (root != null) {
-            root.animate().alpha(0.1f);
-        }
+        root.animate().alpha(0.1f);
     }
 
     public void select() {
-        if (root != null) {
-            root.animate().alpha(1f);
-        }
+        root.animate().alpha(1f);
     }
 
     public void setListener(onValueListener listener) {
@@ -155,5 +145,4 @@ public class IntensityView extends Fragment {
     public interface onValueListener {
         void onValue(int value);
     }
-
 }
