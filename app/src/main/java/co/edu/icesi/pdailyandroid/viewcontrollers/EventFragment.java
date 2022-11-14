@@ -70,7 +70,7 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
         saveBtn = v.findViewById(R.id.saveBtn);
         checkImage = v.findViewById(R.id.checkImage);
 
-        eventsTable.setOnItemClickListener(
+        eventsTable.setOnItemLongClickListener(
             (parent, view, position, id) -> {
                 EventViewModel event = adapter.select(position);
                 view.setAlpha(0);
@@ -85,10 +85,11 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
                     ((IntensityView) intensityView).deselect();
                     ((IntensityView) intensityView).setValue(1);
                 }
+                return true;
             }
         );
 
-        eventsTable.setOnItemLongClickListener(
+        eventsTable.setOnItemClickListener(
             (parent, view, position, id) -> {
                 EventViewModel event = adapter.select(position);
                 view.setAlpha(0);
@@ -98,7 +99,6 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
                 Intent i = new Intent(getContext(), RangeHourModal.class);
                 i.putExtra("event", event);
                 startActivityForResult(i, HOUR_MODAL_CALLBACK);
-                return true;
             }
         );
 
@@ -142,7 +142,7 @@ public class EventFragment extends Fragment implements IntensityView.onValueList
             if (!sessionManager.getMoodInstructionsShown()) {
                 Snackbar.make(
                         v.findViewById(R.id.snackContainer),
-                        "Click sostenido para registrar un síntoma",
+                        "Click para registrar un síntoma; sostenido para ver",
                         Snackbar.LENGTH_INDEFINITE)
                     .setAction("OK", view -> { }).show();
             }
