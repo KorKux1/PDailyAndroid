@@ -47,17 +47,8 @@ public class BinnacleFragment extends Fragment {
         ArrayList<NotificationFollowUp> foodFollowUps = db.getAllFoodNotifications();
         ArrayList<NotificationFollowUp> levoFollowUps = db.getAllLevoNotifications();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String date = sdf.format(Calendar.getInstance().getTime());
-        NotificationGame bananaGame = new NotificationGame(
-                NotificationGame.BANANA_GAME_ID, getString(R.string.letsplaybanana), date);
-        NotificationGame wormGame = new NotificationGame(
-                NotificationGame.WORM_GAME_ID, getString(R.string.letsplayworms), date);
-
         ArrayList<INotification> info = new ArrayList<>(foodFollowUps);
         info.addAll(levoFollowUps);
-        info.add(bananaGame);
-        info.add(wormGame);
 
         notifications.addAll(info);
         adapter.notifyDataSetChanged();
