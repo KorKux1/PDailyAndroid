@@ -28,12 +28,6 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/binButton"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/bitacorainactivo"
-                android:onClick="doNavigateToActivityAction" />
         </LinearLayout>
 
         <LinearLayout
@@ -43,12 +37,6 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/levoButton"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/levodopainactivo"
-                android:onClick="doNavigateToActivityAction" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,10 +63,10 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/profileButton"
+                android:id="@+id/binButton"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/perfilinactivo"
+                android:background="@drawable/bitacorainactivo"
                 android:onClick="doNavigateToActivityAction" />
         </LinearLayout>
 
@@ -105,10 +93,10 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/foodButton"
+                android:id="@+id/profileButton"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/comidainactivo"
+                android:background="@drawable/perfilinactivo"
                 android:onClick="doNavigateToActivityAction" />
         </LinearLayout>
 
@@ -126,6 +114,14 @@
                 android:background="@drawable/rutinainactivo"
                 android:onClick="doNavigateToActivityAction"
                 android:visibility="gone" />
+
+            <Button
+                android:id="@+id/levoButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/levodopainactivo"
+                android:onClick="doNavigateToActivityAction" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -142,6 +138,14 @@
                 android:background="@drawable/apoyoinactivo"
                 android:onClick="doNavigateToActivityAction"
                 android:visibility="gone" />
+
+            <Button
+                android:id="@+id/foodButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/comidainactivo"
+                android:onClick="doNavigateToActivityAction" />
+
         </LinearLayout>
 
         <LinearLayout
