@@ -7,8 +7,8 @@ android {
     defaultConfig {
         applicationId "co.edu.icesi.pdailyandroid"
         minSdkVersion 26
-        targetSdkVersion 31
-        versionCode 3
+        targetSdkVersion 33
+        versionCode 4
         versionName "1.2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
