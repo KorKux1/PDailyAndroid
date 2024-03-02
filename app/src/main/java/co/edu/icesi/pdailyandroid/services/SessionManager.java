@@ -23,12 +23,12 @@ public class SessionManager {
     private static final String PREF_USAGE_NAME = "UsageInformation";
     private static final String PREF_KEY_MOOD_INSTRUCTIONS = "MoodInstructionsShown";
     // Editors
-    private SharedPreferences loginPreferences;
-    private Editor loginEditor;
-    private SharedPreferences schedulesPreferences;
-    private Editor schedulesEditor;
-    private SharedPreferences usagePreferences;
-    private Editor usageEditor;
+    private final SharedPreferences loginPreferences;
+    private final Editor loginEditor;
+    private final SharedPreferences schedulesPreferences;
+    private final Editor schedulesEditor;
+    private final SharedPreferences usagePreferences;
+    private final Editor usageEditor;
 
     public SessionManager(Context context) {
         loginPreferences = context.getSharedPreferences(PREF_LOGIN_NAME, Context.MODE_PRIVATE);

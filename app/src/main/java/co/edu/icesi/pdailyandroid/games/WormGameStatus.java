@@ -18,7 +18,7 @@ public class WormGameStatus {
     private int points = 0;
     private int errors = 0;
 
-    private ArrayList<Long> timestamps;
+    private final ArrayList<Long> timestamps;
 
     public WormGameStatus() {
         timestamps = new ArrayList<>();

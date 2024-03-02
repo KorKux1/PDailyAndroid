@@ -8,6 +8,13 @@
     tools:context=".DashBoard">
 
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
@@ -156,11 +163,28 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/videoButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/rutinainactivo"
+                android:onClick="doNavigateToActivityAction" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
                 android:id="@+id/eventsButton"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/eventosinactivo"
                 android:onClick="doNavigateToActivityAction" />
+
         </LinearLayout>
 
     </LinearLayout>

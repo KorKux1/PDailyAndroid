@@ -1,0 +1,16 @@
+
+b
+java:S1192&"GDefine a constant instead of duplicating this literal "PDaily" 4 times.(©Μ«ϋÿÿÿÿ
+t
+java:S1104"^Make notificationNumber a static final constant or non-public and provide accessors if needed.(…Μ Σ
+N
+java:S1444"8Make this "public static notificationNumber" field final(…Μ Σ
+7	java:S131!""Add a default case to this switch.(ά•
+Q
+java:S2696#"6Make the enclosing method "static" or remove this set.(ΣµρΘϋÿÿÿÿ
+Q
+java:S2696)"6Make the enclosing method "static" or remove this set.(ί«γώÿÿÿÿ
+L
+java:S2696/"6Make the enclosing method "static" or remove this set.(ιήή
+Q
+java:S26965"6Make the enclosing method "static" or remove this set.(†®Η„όÿÿÿÿ

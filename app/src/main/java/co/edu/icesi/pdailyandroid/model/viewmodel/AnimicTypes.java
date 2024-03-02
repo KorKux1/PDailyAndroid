@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public class AnimicTypes {
 
-    private HashMap<Integer, String> animicLabels;
-    private HashMap<Integer, String> animicTypes;
+    private final HashMap<Integer, String> animicLabels;
+    private final HashMap<Integer, String> animicTypes;
 
     public AnimicTypes() {
         animicLabels = new HashMap<>();

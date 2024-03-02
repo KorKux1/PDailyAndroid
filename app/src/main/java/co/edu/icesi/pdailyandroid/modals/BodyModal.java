@@ -120,8 +120,7 @@ public class BodyModal extends AppCompatActivity {
                 break;
         }
         if (zones.contains(zone)) {
-            int index = zones.indexOf(zone);
-            zones.remove(index);
+            zones.remove(zone);
         } else {
             zones.add(zone);
         }

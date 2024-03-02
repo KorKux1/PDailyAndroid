@@ -25,8 +25,8 @@ public class BananaGame extends AppCompatActivity implements BananaGameStatus.On
     private boolean leftFirst = false;
     private int frame = 0;
     private long delayTime = 0;
-    private boolean signal = false;
-    private int handFrame = 0;
+    private final boolean signal = false;
+    private final int handFrame = 0;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override

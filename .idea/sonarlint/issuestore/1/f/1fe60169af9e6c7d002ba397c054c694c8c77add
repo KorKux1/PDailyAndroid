@@ -1,0 +1,21 @@
+
+ó
+java:S11861"ÄAdd a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¡√ª∏
+o
+java:S1450)"ZRemove the "eventsTable" field and declare it as a local variable in the relevant methods.(àÒ¬]
+Y
+java:S1874e">Remove this use of "startActivityForResult"; it is deprecated.(éˆîŒ˚ˇˇˇˇ
+M
+java:S1611j"2Remove the parentheses around the "view" parameter(ªÌƒˆˇˇˇˇˇ
+B
+java:S1602z",Remove useless curly braces around statement(ö◊–‘
+â
+java:S3252í"mUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_INDEFINITE".(˙ü™ ¸ˇˇˇˇ
+f
+java:S1874 "JDon't override a deprecated method or explicitly mark it as "@Deprecated".(…ŒÕÔ˝ˇˇˇˇ
+G
+java:S1874◊"+Remove this use of "get"; it is deprecated.(˜–‹˜˘ˇˇˇˇ
+U
+java:S1874ÿ">Remove this use of "startActivityForResult"; it is deprecated.(Ò“‚õ
+Ñ
+java:S3252ﬂ"mUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_INDEFINITE".(€≈◊»

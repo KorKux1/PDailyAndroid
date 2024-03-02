@@ -63,7 +63,7 @@ public class LevoFragment extends Fragment {
     private void setupLevoAlarms(ArrayList<MedicineScheduleDTO> schedules) {
         // Alarms with id from 100 to 200 are for levo. Try to cancel all.
         for (int i = 100; i < 200; i++) {
-            PendingIntent levoPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), i, levoIntent, 0);
+            PendingIntent levoPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), i, levoIntent, PendingIntent.FLAG_IMMUTABLE);
             alarmMgr.cancel(levoPendingIntent);
         }
 
@@ -74,7 +74,7 @@ public class LevoFragment extends Fragment {
             for (int i = 0; i < times.size(); i++) {
                 int alarmId = 100 + i;
                 ScheduleTimeDTO time = times.get(i);
-                PendingIntent levoPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), alarmId, levoIntent, 0);
+                PendingIntent levoPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), alarmId, levoIntent, PendingIntent.FLAG_IMMUTABLE);
                 alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getCalendarRepresentation().getTimeInMillis(), AlarmManager.INTERVAL_DAY, levoPendingIntent);
             }
         }

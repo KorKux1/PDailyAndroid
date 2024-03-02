@@ -16,7 +16,7 @@ import co.edu.icesi.pdailyandroid.viewmodel.EventViewModel;
 
 public class EventsAdapter extends BaseAdapter {
 
-    private ArrayList<EventViewModel> events;
+    private final ArrayList<EventViewModel> events;
     private int markedPosition = -1;
 
     public EventsAdapter(ArrayList<EventViewModel> events) {

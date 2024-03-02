@@ -10,12 +10,13 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 public class HTTPWebUtilDomi {
 
     private OnResponseListener listener;
-    private HashMap<String, String> headers;
+    private final HashMap<String, String> headers;
 
     public HTTPWebUtilDomi() {
         headers = new HashMap<>();
@@ -50,7 +51,7 @@ public class HTTPWebUtilDomi {
             is.close();
             baos.close();
             connection.disconnect();
-            String response = new String(baos.toByteArray(), "UTF-8");
+            String response = baos.toString(StandardCharsets.UTF_8);
             if (listener != null) listener.onResponse(callbackID, response);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -74,7 +75,7 @@ public class HTTPWebUtilDomi {
             is.close();
             baos.close();
             connection.disconnect();
-            String response = new String(baos.toByteArray(), "UTF-8");
+            String response = baos.toString(StandardCharsets.UTF_8);
             return response;
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -94,7 +95,7 @@ public class HTTPWebUtilDomi {
             connection.setDoOutput(true);
 
             OutputStream os = connection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
 
             writer.write(json);
             writer.flush();
@@ -111,7 +112,7 @@ public class HTTPWebUtilDomi {
             baos.close();
             os.close();
             connection.disconnect();
-            String response = new String(baos.toByteArray(), "UTF-8");
+            String response = baos.toString(StandardCharsets.UTF_8);
             if (listener != null) listener.onResponse(callbackID, response);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -130,7 +131,7 @@ public class HTTPWebUtilDomi {
             connection.setDoOutput(true);
 
             OutputStream os = connection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
 
             writer.write(json);
             writer.flush();
@@ -147,7 +148,7 @@ public class HTTPWebUtilDomi {
             baos.close();
             os.close();
             connection.disconnect();
-            String response = new String(baos.toByteArray(), "UTF-8");
+            String response = baos.toString(StandardCharsets.UTF_8);
             return response;
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -166,7 +167,7 @@ public class HTTPWebUtilDomi {
             connection.setDoOutput(true);
 
             OutputStream os = connection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
 
             writer.write(json);
             writer.flush();
@@ -183,7 +184,7 @@ public class HTTPWebUtilDomi {
             baos.close();
             os.close();
             connection.disconnect();
-            String response = new String(baos.toByteArray(), "UTF-8");
+            String response = baos.toString(StandardCharsets.UTF_8);
             if (listener != null) listener.onResponse(callbackID, response);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -202,7 +203,7 @@ public class HTTPWebUtilDomi {
             connection.setDoOutput(true);
 
             OutputStream os = connection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
 
             writer.write(json);
             writer.flush();
@@ -219,7 +220,7 @@ public class HTTPWebUtilDomi {
             baos.close();
             os.close();
             connection.disconnect();
-            String response = new String(baos.toByteArray(), "UTF-8");
+            String response = baos.toString(StandardCharsets.UTF_8);
             return response;
         } catch (IOException ex) {
             return ex.getLocalizedMessage();
@@ -249,7 +250,7 @@ public class HTTPWebUtilDomi {
             baos.close();
             connection.disconnect();
 
-            String response = new String(baos.toByteArray(), "UTF-8");
+            String response = baos.toString(StandardCharsets.UTF_8);
             if (listener != null) listener.onResponse(callbackID, response);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -278,7 +279,7 @@ public class HTTPWebUtilDomi {
             is.close();
             baos.close();
             connection.disconnect();
-            String response = new String(baos.toByteArray(), "UTF-8");
+            String response = baos.toString(StandardCharsets.UTF_8);
             return response;
         } catch (IOException ex) {
             return ex.getLocalizedMessage();

@@ -29,7 +29,7 @@ import co.edu.icesi.pdailyandroid.services.WebserviceConsumer;
 
 public class NotificationsAdapter extends BaseAdapter {
 
-    private ArrayList<INotification> notifications;
+    private final ArrayList<INotification> notifications;
 
     public NotificationsAdapter(ArrayList<INotification> simpleNotifications) {
         this.notifications = simpleNotifications;

@@ -14,7 +14,7 @@ import co.edu.icesi.pdailyandroid.viewmodel.OtherViewModel;
 
 public class OthersAdapter extends BaseAdapter {
 
-    private ArrayList<OtherViewModel> others;
+    private final ArrayList<OtherViewModel> others;
 
     public OthersAdapter(ArrayList<OtherViewModel> others) {
         this.others = others;

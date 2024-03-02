@@ -1,9 +1,12 @@
 package co.edu.icesi.pdailyandroid.viewcontrollers;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -25,6 +28,7 @@ import co.edu.icesi.pdailyandroid.misc.dialogs.HourDialog;
 import co.edu.icesi.pdailyandroid.model.dto.FoodScheduleDTO;
 import co.edu.icesi.pdailyandroid.model.dto.ScheduleTimeDTO;
 import co.edu.icesi.pdailyandroid.receivers.broadcast.AlarmReceiver;
+import co.edu.icesi.pdailyandroid.receivers.broadcast.NotificationReceiver;
 import co.edu.icesi.pdailyandroid.util.DateUtils;
 
 public class FoodFragment extends Fragment implements View.OnClickListener, HourDialog.OnHourChoose {
@@ -75,9 +79,9 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
     }
 
     private void setupFoodAlarms(FoodScheduleDTO schedule, boolean updateAlarms) {
-        PendingIntent breakfastPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_BREAKFAST, breakfastIntent, 0);
-        PendingIntent lunchPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_LUNCH, lunchIntent, 0);
-        PendingIntent dinnerPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_DINNER, dinnerIntent, 0);
+        PendingIntent breakfastPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_BREAKFAST, breakfastIntent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent lunchPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_LUNCH, lunchIntent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent dinnerPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_DINNER, dinnerIntent, PendingIntent.FLAG_IMMUTABLE);
 
         if (schedule == null) {
             // Disable alarms. Allow custom values
@@ -101,13 +105,45 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
         lunch_hour.setText(lunch.get12HString().toUpperCase());
         dinner_hour.setText(dinner.get12HString().toUpperCase());
 
+        //AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intentBreakfast = new Intent(getContext(), NotificationReceiver.class);
+        intentBreakfast.putExtra("type", "Breakfast");
+        intentBreakfast.putExtra("notification_title", "Título de la Notificación");
+        intentBreakfast.putExtra("notification_text", "Texto de la Notificación");
+
+        Intent intentLunch= new Intent(getContext(), NotificationReceiver.class);
+        intentLunch.putExtra("type", "Breakfast");
+        intentLunch.putExtra("notification_title", "Título de la Notificación");
+        intentLunch.putExtra("notification_text", "Texto de la Notificación");
+
+        Intent intentDinner= new Intent(getContext(), NotificationReceiver.class);
+        intentDinner.putExtra("type", "Breakfast");
+        intentDinner.putExtra("notification_title", "Título de la Notificación");
+        intentDinner.putExtra("notification_text", "Texto de la Notificación");
+
+        int flag = 0;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            flag = PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;
+        }
+        else {
+            flag = PendingIntent.FLAG_UPDATE_CURRENT;
+        }
+
+        PendingIntent pendingIntentBreakfast = PendingIntent.getBroadcast(getContext(), 0, intentBreakfast, flag);
+        PendingIntent pendingIntentLunch = PendingIntent.getBroadcast(getContext(), 0, intentBreakfast, flag);
+        PendingIntent pendingIntentDinner = PendingIntent.getBroadcast(getContext(), 0, intentDinner, flag);
+
+
+
+
         if (updateAlarms) {
             alarmMgr.cancel(breakfastPendingIntent);
             alarmMgr.cancel(lunchPendingIntent);
             alarmMgr.cancel(dinnerPendingIntent);
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, breakfast.getCalendarRepresentation().getTimeInMillis(), AlarmManager.INTERVAL_DAY, breakfastPendingIntent);
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, lunch.getCalendarRepresentation().getTimeInMillis(), AlarmManager.INTERVAL_DAY, lunchPendingIntent);
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, dinner.getCalendarRepresentation().getTimeInMillis(), AlarmManager.INTERVAL_DAY, dinnerPendingIntent);
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, breakfast.getCalendarRepresentation().getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntentBreakfast);
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, lunch.getCalendarRepresentation().getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntentLunch);
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, dinner.getCalendarRepresentation().getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntentDinner);
         }
     }
 
@@ -139,19 +175,19 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
         switch (tv.getId()) {
             case R.id.breakfast_hour:
                 PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putString("FOOD01", tv.getText().toString()).apply();
-                PendingIntent breakfastPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_BREAKFAST, breakfastIntent, 0);
+                PendingIntent breakfastPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_BREAKFAST, breakfastIntent, PendingIntent.FLAG_IMMUTABLE);
                 alarmMgr.cancel(breakfastPendingIntent);
                 alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, breakfastPendingIntent);
                 break;
             case R.id.lunch_hour:
                 PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putString("FOOD02", tv.getText().toString()).apply();
-                PendingIntent lunchPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_LUNCH, lunchIntent, 0);
+                PendingIntent lunchPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_LUNCH, lunchIntent, PendingIntent.FLAG_IMMUTABLE);
                 alarmMgr.cancel(lunchPendingIntent);
                 alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, lunchPendingIntent);
                 break;
             case R.id.dinner_hour:
                 PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putString("FOOD03", tv.getText().toString()).apply();
-                PendingIntent dinnerPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_DINNER, dinnerIntent, 0);
+                PendingIntent dinnerPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_DINNER, dinnerIntent, PendingIntent.FLAG_IMMUTABLE);
                 alarmMgr.cancel(dinnerPendingIntent);
                 alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, dinnerPendingIntent);
                 break;
@@ -167,7 +203,7 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
                 ArrayList<FoodScheduleDTO> newSchedules = parentActivity.getSessionManager().loadSchedulesData().getFoodSchedules();
                 FoodScheduleDTO newSchedule = newSchedules != null && !newSchedules.isEmpty() ? newSchedules.get(0) : null;
                 // TODO: bug. current schedules loaded previously. are null only the first time
-                boolean updateAlarms = newSchedule != null ? !newSchedule.equals(currentSchedule) : false;
+                boolean updateAlarms = newSchedule != null && !newSchedule.equals(currentSchedule);
                 getActivity().runOnUiThread(() -> setupFoodAlarms(newSchedule, updateAlarms));
             } else {
                 getActivity().runOnUiThread(() -> setupFoodAlarms(currentSchedule, false));

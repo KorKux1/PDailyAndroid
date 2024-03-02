@@ -38,17 +38,15 @@ public class FCMService extends FirebaseMessagingService {
 
         Gson gson = new Gson();
         GenericDTO generic = gson.fromJson(json, GenericDTO.class);
-        switch (generic.getType()) {
-            case "food":
-                FoodDTO foodDTO = gson.fromJson(json, FoodDTO.class);
-                NotificationFollowUp foodFollowUp = new NotificationFollowUp(
-                        foodDTO.getId(),
-                        "Ya comió?",
-                        "Julio",
-                        NotificationType.FOOD
-                );
-                DataHandler.getInstance(this).insertFoodNotification(foodFollowUp);
-                break;
+        if ("food".equals(generic.getType())) {
+            FoodDTO foodDTO = gson.fromJson(json, FoodDTO.class);
+            NotificationFollowUp foodFollowUp = new NotificationFollowUp(
+                    foodDTO.getId(),
+                    "Ya comió?",
+                    "Julio",
+                    NotificationType.FOOD
+            );
+            DataHandler.getInstance(this).insertFoodNotification(foodFollowUp);
         }
 
         /*

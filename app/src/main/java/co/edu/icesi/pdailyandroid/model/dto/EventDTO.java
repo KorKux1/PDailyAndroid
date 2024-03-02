@@ -11,7 +11,7 @@ import co.edu.icesi.pdailyandroid.model.viewmodel.Event;
 
 public class EventDTO {
 
-    private static Map<String, String> eventTable = new HashMap<String, String>() {{
+    private static final Map<String, String> eventTable = new HashMap<String, String>() {{
         put("Congelamiento", "94525afd-e8a2-4a16-9627-9bd129640575");
         put("Lentificación", "211aeb2a-3c33-42b8-b779-fae2fa793fe4");
         put("Discinesias", "a3a6fffa-6b90-4072-a1fa-481eceef99a4");

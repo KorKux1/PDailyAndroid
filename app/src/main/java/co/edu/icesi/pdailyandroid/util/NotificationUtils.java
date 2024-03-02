@@ -64,19 +64,25 @@ public class NotificationUtils {
     public static Notification createSimpleNotification(Context context, int id, String title, String msg, Intent intentAction) {
         NotificationManager manager;
         manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        int flag = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel canal = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, CHANNEL_IMPORTANCE);
             manager.createNotificationChannel(canal);
+            flag = PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;
         }
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, intentAction, PendingIntent.FLAG_UPDATE_CURRENT);
+        else {
+            flag = PendingIntent.FLAG_UPDATE_CURRENT;
+        }
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intentAction, flag);
         NotificationCompat.Builder builder = new NotificationCompat
                 .Builder(context, CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(msg)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setDefaults(Notification.FLAG_FOREGROUND_SERVICE)
-                .setVibrate(new long[]{0L})
-                .setPriority(NotificationCompat.PRIORITY_MIN)
+                .setSmallIcon(R.drawable.logopdaily)
+//                .setDefaults(Notification.FLAG_FOREGROUND_SERVICE)
+//                .setVibrate(new long[]{0L})
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 

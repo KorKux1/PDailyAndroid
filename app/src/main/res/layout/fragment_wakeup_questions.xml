@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/fragment_wakeup_questions"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp"
+            >
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Cómo amaneciste, dormiste bien? "
+                android:textColor="#fff"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                />
+
+            <RadioGroup
+                android:id="@+id/radioGroup1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                >
+
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Si"
+                    android:textColor="#fff"
+                    android:textColorHighlight="#fff"
+                    android:buttonTint="@color/white"
+                    android:textSize="18dp"
+
+                    />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="No"
+                    android:textColor="#fff"
+                    android:buttonTint="@color/white"
+                    android:textSize="18dp"
+                    />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Tuviste pesadillas?"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                />
+
+            <RadioGroup
+                android:id="@+id/radioGroup2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                >
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Si"
+                    android:textColor="#fff"
+                    android:buttonTint="@color/white"
+                    android:textSize="18dp"
+                    />
+
+                <RadioButton
+                    android:id="@+id/radioButton4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="No"
+                    android:textColor="#fff"
+                    android:buttonTint="@color/white"
+                    android:textSize="18dp"
+                    />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Te levantaste durante la noche?"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                />
+
+            <RadioGroup
+                android:id="@+id/radioGroup3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                >
+
+                <RadioButton
+                    android:id="@+id/radioButton5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Si"
+                    android:textColor="#fff"
+                    android:buttonTint="@color/white"
+                    android:textSize="18dp"
+                    />
+
+                <RadioButton
+                    android:id="@+id/radioButton6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="No" android:textColor="#fff"
+                    android:buttonTint="@color/white"
+                    android:textSize="18dp"
+                    />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/enviar"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Enviar"
+                android:textColor="#fff"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp"
+                />
+        </LinearLayout>
+
+</ScrollView>

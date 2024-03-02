@@ -8,7 +8,7 @@ import co.edu.icesi.pdailyandroid.util.Constants;
 
 public class AuthService {
 
-    private SessionManager sessionManager;
+    private final SessionManager sessionManager;
 
     public AuthService(SessionManager sessionManager) {
         this.sessionManager = sessionManager;

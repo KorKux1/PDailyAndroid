@@ -4,10 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.core.content.ContextCompat;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.UUID;
 
+import co.edu.icesi.pdailyandroid.WakeUpQuestionsActivity;
 import co.edu.icesi.pdailyandroid.app.App;
 import co.edu.icesi.pdailyandroid.localdatabase.DataHandler;
 import co.edu.icesi.pdailyandroid.model.viewmodel.NotificationFollowUp;
@@ -23,7 +26,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String date = sdf.format(Calendar.getInstance().getTime());
         String type = intent.getExtras().getString("type", "NONE");
-        Intent i = new Intent(context, ActionReceiver.class);
+        Intent i = new Intent(context, WakeUpQuestionsActivity.class);
+        i.putExtra("openFragment", "fragment_food");
+        ContextCompat.startForegroundService(context, i);
 
         switch (type) {
             case "FOOD01":

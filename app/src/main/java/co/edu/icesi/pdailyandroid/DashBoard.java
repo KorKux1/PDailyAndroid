@@ -1,22 +1,33 @@
 package co.edu.icesi.pdailyandroid;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.util.function.Consumer;
 
+import co.edu.icesi.pdailyandroid.receivers.broadcast.NotificationReceiver;
 import co.edu.icesi.pdailyandroid.services.SessionManager;
 import co.edu.icesi.pdailyandroid.services.UserInfoService;
 import co.edu.icesi.pdailyandroid.viewcontrollers.BinnacleFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.EventFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.FoodFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.LevoFragment;
+import co.edu.icesi.pdailyandroid.viewcontrollers.NotificationPermissionFragment;
 import co.edu.icesi.pdailyandroid.viewcontrollers.ProfileFragment;
+import co.edu.icesi.pdailyandroid.viewcontrollers.VideoFragment;
+
 
 public class DashBoard extends AppCompatActivity {
 
@@ -25,16 +36,24 @@ public class DashBoard extends AppCompatActivity {
 
     private Button binButton;
     private Fragment binFragment;
+
     private Button levoButton;
     private Fragment levoFragment;
+
     private Button profileButton;
     private Fragment profileFragment;
+
     private Button foodButton;
     private Fragment foodFragment;
+
     private Button eventsButton;
     private Fragment eventFragment;
 
+    private Button videoButton;
+    private Fragment videoFragment;
+
     private Fragment actualFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +65,22 @@ public class DashBoard extends AppCompatActivity {
 
         binButton = findViewById(R.id.binButton);
         binFragment = new BinnacleFragment();
+
         levoButton = findViewById(R.id.levoButton);
         levoFragment = new LevoFragment();
+
         profileButton = findViewById(R.id.profileButton);
         profileFragment = new ProfileFragment();
+
         foodButton = findViewById(R.id.foodButton);
         foodFragment = new FoodFragment();
+
         eventsButton = findViewById(R.id.eventsButton);
         eventFragment = new EventFragment();
+
+        videoButton = findViewById(R.id.videoButton);
+        videoFragment = new VideoFragment();
+
 
         navigateToFragment(profileButton);
     }
@@ -73,6 +100,8 @@ public class DashBoard extends AppCompatActivity {
             navigateToFragment(foodFragment, foodButton, R.drawable.comidaactivo);
         } else if (button.equals(eventsButton)) {
             navigateToFragment(eventFragment, eventsButton, R.drawable.eventosactivo);
+        } else if (button.equals(videoButton)) {
+            navigateToFragment(videoFragment, videoButton, R.drawable.rutinaactivo);
         }
     }
 
@@ -83,6 +112,7 @@ public class DashBoard extends AppCompatActivity {
         profileButton.setBackgroundResource(R.drawable.perfilinactivo);
         foodButton.setBackgroundResource(R.drawable.comidainactivo);
         eventsButton.setBackgroundResource(R.drawable.eventosinactivo);
+        videoButton.setBackgroundResource(R.drawable.rutinainactivo);
         button.setBackgroundResource(icon);
     }
 
@@ -102,5 +132,56 @@ public class DashBoard extends AppCompatActivity {
     public Thread getUpdateUserDataThread(Consumer<Boolean> callback) {
         return new Thread(() ->
             callback.accept(userInfoService.updateSchedulesCollectionFromServer()));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                checkNotificationPermissions();
+            }
+        });
+    }
+
+    private void checkNotificationPermissions() {
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        boolean areNotificationsEnabled = notificationManager.areNotificationsEnabled();
+        if (!areNotificationsEnabled) {
+            // Navega al fragmento que muestra el AlertDialog
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new NotificationPermissionFragment())
+                    .commit();
+        } else {
+            setupRecurringNotification();
+        }
+    }
+
+
+    private void setupRecurringNotification(){
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        intent.putExtra("type", "WAKEUP");
+        intent.putExtra("title", "¿Cómo te sientes hoy?");
+        intent.putExtra("contextText", "¡Es hora de responder las preguntas!");
+        int flag = 0;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            flag = PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT;
+        }
+        else {
+            flag = PendingIntent.FLAG_UPDATE_CURRENT;
+        }
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 99999, intent, flag);
+
+        // Obtiene el AlarmManager
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        long startTime = System.currentTimeMillis(); // tiempo de inicio
+        long repeatTime = 30 * 1000; // repite cada 15 minutos
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, startTime, repeatTime, pendingIntent);
     }
 }

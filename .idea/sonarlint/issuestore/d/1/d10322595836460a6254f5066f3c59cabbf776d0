@@ -1,0 +1,15 @@
+
+U
+java:S1118":Add a private constructor to hide the implicit public one.(Ğ…òŒûÿÿÿÿ
+œ
+java:S1186%"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(–íşÿÿÿÿ
+œ
+java:S1186("€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¸™ˆÕıÿÿÿÿ
+<
+java:S1168""&Return an empty array instead of null.(¥¹ï
+[
+java:S4830%"@Enable server certificate validation on this SSL/TLS connection.(–íşÿÿÿÿ
+[
+java:S4830("@Enable server certificate validation on this SSL/TLS connection.(¸™ˆÕıÿÿÿÿ
+G
+java:S4423,",Change this code to use a stronger protocol.(êßö ûÿÿÿÿ

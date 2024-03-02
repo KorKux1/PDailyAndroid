@@ -15,7 +15,7 @@ import co.edu.icesi.pdailyandroid.model.dto.MedicineScheduleDTO;
 
 public class LevoAdapter extends BaseAdapter {
 
-    private ArrayList<MedicineScheduleDTO> schedules;
+    private final ArrayList<MedicineScheduleDTO> schedules;
 
     public LevoAdapter(ArrayList<MedicineScheduleDTO> others) {
         this.schedules = others;

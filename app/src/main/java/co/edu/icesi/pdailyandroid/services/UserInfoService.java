@@ -7,7 +7,7 @@ import co.edu.icesi.pdailyandroid.model.session.SessionData;
 import co.edu.icesi.pdailyandroid.util.Constants;
 
 public class UserInfoService {
-    private SessionManager sessionManager;
+    private final SessionManager sessionManager;
 
     public UserInfoService(SessionManager sessionManager) {
         this.sessionManager = sessionManager;

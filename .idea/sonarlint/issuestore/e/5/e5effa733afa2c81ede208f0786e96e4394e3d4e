@@ -1,0 +1,50 @@
+
+w
+java:S1192o"\Define a constant instead of duplicating this literal "TÃ­tulo de la NotificaciÃ³n" 3 times.(€Ê¤¨øÿÿÿÿ
+]
+java:S1192?"GDefine a constant instead of duplicating this literal "FOOD03" 3 times.(å×‰€
+b
+java:S1192>"GDefine a constant instead of duplicating this literal "FOOD02" 3 times.(üéúÿÿÿÿÿ
+`
+java:S1192n"JDefine a constant instead of duplicating this literal "Breakfast" 3 times.(Ò ã÷
+u
+java:S1192p"ZDefine a constant instead of duplicating this literal "Texto de la NotificaciÃ³n" 3 times.(ùáÖšúÿÿÿÿ
+n
+java:S1192o"SDefine a constant instead of duplicating this literal "notification_title" 3 times.(€Ê¤¨øÿÿÿÿ
+]
+java:S1192="GDefine a constant instead of duplicating this literal "FOOD01" 3 times.(›°´¤
+m
+java:S1192p"RDefine a constant instead of duplicating this literal "notification_text" 3 times.(ùáÖšúÿÿÿÿ
+m	java:S116'"YRename this field "breakfast_hour" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÓÔf
+j	java:S116("URename this field "lunch_hour" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿©óÍ
+p	java:S116)"VRename this field "dinner_hour" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ïíüøÿÿÿÿ
+O
+java:S1874="9Remove this use of "PreferenceManager"; it is deprecated.(›°´¤
+Y
+java:S1874="CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(›°´¤
+T
+java:S1874>"9Remove this use of "PreferenceManager"; it is deprecated.(üéúÿÿÿÿÿ
+^
+java:S1874>"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(üéúÿÿÿÿÿ
+O
+java:S1874?"9Remove this use of "PreferenceManager"; it is deprecated.(å×‰€
+Y
+java:S1874?"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(å×‰€
+Q	java:S125l"<This block of commented-out lines of code should be removed.(´Æô‚
+8	java:S131¯""Add a default case to this switch.(‹€Éÿ
+U
+java:S1874±"9Remove this use of "PreferenceManager"; it is deprecated.(»§ë½ıÿÿÿÿ
+_
+java:S1874±"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(»§ë½ıÿÿÿÿ
+U
+java:S1874·"9Remove this use of "PreferenceManager"; it is deprecated.(è‡Àúşÿÿÿÿ
+_
+java:S1874·"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(è‡Àúşÿÿÿÿ
+U
+java:S1874½"9Remove this use of "PreferenceManager"; it is deprecated.(ÜÖ¢ıÿÿÿÿ
+_
+java:S1874½"CRemove this use of "getDefaultSharedPreferences"; it is deprecated.(ÜÖ¢ıÿÿÿÿ
+L
+java:S1611É"5Remove the parentheses around the "updated" parameter(øü³Ä
+I
+java:S1135Í"2Complete the task associated to this TODO comment.(ëŸØÁ
