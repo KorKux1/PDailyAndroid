@@ -18,4 +18,7 @@
     <string name="send">Enviar</string>
     <string name="no_notifications">No tienes notificaciones</string>
     <string name="no_medicines">Aún no tienes medicinas recetadas</string>
+    <string name="statusTitle">Registro de Síntomas</string>
+    <string name="statusSubtitle">Selecciona tu estado de salud actual tocando uno de los colores y luego presiona \"Registrar Sintomas\" para guardar tu respuesta.</string>
+    <string name="register_symptoms">Registrar Sintomas</string>
 </resources>

@@ -5,6 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/statusTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/statusTitle"
+        android:textAlignment="center"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/statusSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/statusSubtitle"
+        android:textAlignment="center"
+        android:textColor="#FFF"
+        android:textSize="12sp"
+        android:paddingVertical="5dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusTitle"
+        >
+
+    </TextView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="70dp"
@@ -12,9 +45,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/statusSubtitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        >
 
         <Button
             android:id="@+id/statusBtn10"
@@ -142,7 +176,9 @@
         android:background="?attr/colorBackgroundFloating"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/statusSubtitle"
+        app:layout_constraintBottom_toTopOf="@+id/sendBtn"
+        >
 
         <View
             android:id="@+id/view3"
@@ -213,8 +249,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#ff0099cc"
-        android:text="@string/send"
+        android:text="@string/register_symptoms"
+        android:padding="10dp"
         android:textColor="#FFF"
         tools:layout_editor_absoluteX="131dp"
-        tools:layout_editor_absoluteY="193dp" />
+        tools:layout_editor_absoluteY="250dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

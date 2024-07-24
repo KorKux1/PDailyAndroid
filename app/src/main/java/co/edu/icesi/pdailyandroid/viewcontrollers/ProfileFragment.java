@@ -140,10 +140,14 @@ public class ProfileFragment extends Fragment {
         statusFace.setImageResource(statusIcon);
         sender.setBackgroundColor(Color.WHITE);
         sendBtn.setEnabled(true);
-        sendBtn.setText(R.string.send);
+        sendBtn.setText(R.string.register_symptoms);
         sendBtn.setBackgroundColor(Color.rgb(0, 153, 204));
 
-        if (statusValue < 5) {
+        if (statusValue == 1){
+            messageContainer.setY(sender.getY() + sender.getHeight() + 50);
+            sendBtn.setX(messageContainer.getX() + messageContainer.getWidth() / 2 - sendBtn.getWidth() / 2);
+            sendBtn.setY(messageContainer.getY() + messageContainer.getHeight() + 50);
+        } else if  (statusValue < 5) {
             messageContainer.setY(sender.getY() + sender.getHeight() / 2);
             sendBtn.setX(messageContainer.getX() + messageContainer.getWidth() / 2 - sendBtn.getWidth() / 2);
             sendBtn.setY(messageContainer.getY() + messageContainer.getHeight() + 24);
