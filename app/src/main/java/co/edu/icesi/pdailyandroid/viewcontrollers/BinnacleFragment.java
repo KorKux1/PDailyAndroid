@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.adapters.NotificationsAdapter;
@@ -33,10 +35,21 @@ public class BinnacleFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_binnacle, container, false);
         ListView notificationTable = v.findViewById(R.id.notificationTable);
+        TextView noNotifications = v.findViewById(R.id.noNotificationsTextView);
+
         notifications = new ArrayList<>();
         adapter = new NotificationsAdapter(notifications);
         notificationTable.setAdapter(adapter);
         loadNotificationsList();
+
+        if (notifications.isEmpty()) {
+            noNotifications.setVisibility(View.VISIBLE);
+            notificationTable.setVisibility(View.GONE);
+        } else {
+            noNotifications.setVisibility(View.GONE);
+            notificationTable.setVisibility(View.VISIBLE);
+        }
+
         return v;
     }
 
@@ -52,5 +65,6 @@ public class BinnacleFragment extends Fragment {
 
         notifications.addAll(info);
         adapter.notifyDataSetChanged();
+
     }
 }

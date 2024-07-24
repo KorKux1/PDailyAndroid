@@ -15,6 +15,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.util.Calendar;
 import java.util.function.Consumer;
 
 import co.edu.icesi.pdailyandroid.receivers.broadcast.NotificationReceiver;
@@ -179,9 +180,21 @@ public class DashBoard extends AppCompatActivity {
         // Obtiene el AlarmManager
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        long startTime = System.currentTimeMillis(); // tiempo de inicio
-        long repeatTime = 30 * 1000; // repite cada 15 minutos
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, startTime, repeatTime, pendingIntent);
+        if (Calendar.getInstance().after(calendar)) {
+            calendar.add(Calendar.DATE, 1);
+        }
+
+        // long startTime = System.currentTimeMillis(); // tiempo de inicio
+        // long repeatTime = 30 * 1000; // repite cada 15 minutos
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+
+        // alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, startTime, repeatTime, pendingIntent);
     }
 }

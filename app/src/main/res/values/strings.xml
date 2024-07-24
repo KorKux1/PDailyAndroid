@@ -16,4 +16,6 @@
     <string name="falls">Caídas</string>
     <string name="moveface">Mueva el rostro a la derecha para indicar cómo se siente</string>
     <string name="send">Enviar</string>
+    <string name="no_notifications">No tienes notificaciones</string>
+    <string name="no_medicines">Aún no tienes medicinas recetadas</string>
 </resources>

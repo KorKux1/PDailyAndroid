@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -40,6 +41,7 @@ public class LevoFragment extends Fragment {
         parentActivity = (DashBoard) getActivity();
         View v = inflater.inflate(R.layout.fragment_levo, container, false);
         ListView levoTable = v.findViewById(R.id.levoTable);
+        TextView noMedicinesTextView = v.findViewById(R.id.noMedicinesTextView);
 
         alarmMgr = (AlarmManager) App.getAppContext().getSystemService(Context.ALARM_SERVICE);
         levoIntent = new Intent(App.getAppContext(), AlarmReceiver.class);
@@ -49,6 +51,16 @@ public class LevoFragment extends Fragment {
         adapter = new LevoAdapter(list);
         levoTable.setAdapter(adapter);
         updateList();
+
+        if (list.isEmpty()) {
+            noMedicinesTextView.setVisibility(View.VISIBLE);
+            levoTable.setVisibility(View.GONE);
+        } else {
+            noMedicinesTextView.setVisibility(View.GONE);
+            levoTable.setVisibility(View.VISIBLE);
+        }
+
+
         return v;
     }
 
