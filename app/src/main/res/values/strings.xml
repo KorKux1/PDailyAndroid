@@ -21,4 +21,6 @@
     <string name="statusTitle">Registro de Síntomas</string>
     <string name="statusSubtitle">Selecciona tu estado de salud actual tocando uno de los colores y luego presiona \"Registrar Sintomas\" para guardar tu respuesta.</string>
     <string name="register_symptoms">Registrar Sintomas</string>
+    <string name="foodTile">Alarmas de Comidas</string>
+    <string name="foodSubtitle">Ajusta las alarmas para recordar tus comidas diarias y mantener un horario saludable.</string>
 </resources>

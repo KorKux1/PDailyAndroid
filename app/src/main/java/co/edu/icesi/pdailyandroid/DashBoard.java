@@ -18,6 +18,8 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.Calendar;
 import java.util.function.Consumer;
 
+import co.edu.icesi.pdailyandroid.games.BananaGame;
+import co.edu.icesi.pdailyandroid.games.WormGame;
 import co.edu.icesi.pdailyandroid.receivers.broadcast.NotificationReceiver;
 import co.edu.icesi.pdailyandroid.services.SessionManager;
 import co.edu.icesi.pdailyandroid.services.UserInfoService;
@@ -81,6 +83,19 @@ public class DashBoard extends AppCompatActivity {
 
         videoButton = findViewById(R.id.videoButton);
         videoFragment = new VideoFragment();
+
+        Button bananaGameButton = findViewById(R.id.bananaGameButton);
+        Button wormGameButton = findViewById(R.id.wormGameButton);
+
+        bananaGameButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, BananaGame.class);
+            startActivity(intent);
+        });
+
+        wormGameButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, WormGame.class);
+            startActivity(intent);
+        });
 
 
         navigateToFragment(profileButton);

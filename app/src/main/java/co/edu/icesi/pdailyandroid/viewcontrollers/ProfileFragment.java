@@ -144,7 +144,7 @@ public class ProfileFragment extends Fragment {
         sendBtn.setBackgroundColor(Color.rgb(0, 153, 204));
 
         if (statusValue == 1){
-            messageContainer.setY(sender.getY() + sender.getHeight() + 50);
+            messageContainer.setY(sender.getY() + sender.getHeight() + 60);
             sendBtn.setX(messageContainer.getX() + messageContainer.getWidth() / 2 - sendBtn.getWidth() / 2);
             sendBtn.setY(messageContainer.getY() + messageContainer.getHeight() + 50);
         } else if  (statusValue < 5) {
