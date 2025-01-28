@@ -3,8 +3,6 @@
 Rapp/src/main/java/co/edu/icesi/pdailyandroid/model/viewmodel/NotificationType.java,b\2\b26187b619a0b90149e278cff2dfd632331f054b
 Ñ
 Tapp/src/main/java/co/edu/icesi/pdailyandroid/receivers/broadcast/ActionReceiver.java,e\2\e25347317b71cec9f2be13c5e2f5d18f7b64e11d
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 v
 Fapp/src/main/java/co/edu/icesi/pdailyandroid/services/AuthService.java,7\d\7d14e1ff8301c919fa2be20eea49d919bb4d6a17
 x
@@ -27,25 +25,32 @@ Kapp/src/main/java/co/edu/icesi/pdailyandroid/services/PDailyHttpClient.java,d\
 Sapp/src/main/java/co/edu/icesi/pdailyandroid/receivers/broadcast/AlarmReceiver.java,e\6\e6bf953d37b6933d47cfebcf085070067dc65fbd
 x
 Happ/src/main/java/co/edu/icesi/pdailyandroid/util/NotificationUtils.java,8\d\8dc7f72ce105f713d82ad72e9e8e1f5e4642adac
-Å
-Qapp/src/main/java/co/edu/icesi/pdailyandroid/viewcontrollers/ProfileFragment.java,1\5\15f55715bc6214dcd001d4b6cae3ff70dd52fa91
-Ç
-Rapp/src/main/java/co/edu/icesi/pdailyandroid/viewcontrollers/BinnacleFragment.java,8\5\8585484f3a658a297a3496ce9d6b874e61c1ab9d
 
 Oapp/src/main/java/co/edu/icesi/pdailyandroid/viewcontrollers/EventFragment.java,1\f\1fe60169af9e6c7d002ba397c054c694c8c77add
-ê
-`app/src/main/java/co/edu/icesi/pdailyandroid/viewcontrollers/NotificationPermissionFragment.java,1\7\1739aa885e5607a9709f484ec054f26b4078fb06
-~
-Napp/src/main/java/co/edu/icesi/pdailyandroid/viewcontrollers/LevoFragment.java,7\a\7a7239733d04c55b58709130a4876f9b261de793
 i
 9app/src/main/java/co/edu/icesi/pdailyandroid/app/App.java,1\9\1922a58e1e25cb28ffdb87619e82a1a190d97e53
-@
-app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
-
-Oapp/src/main/java/co/edu/icesi/pdailyandroid/viewcontrollers/VideoFragment.java,8\a\8a402b8c1487090d51a1d4ab9352a7adc96396ed
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 A
 gradle.properties,2\a\2afbb999f001938c88fa43fc2ef52abf0f8213e4
+ê
+`app/src/main/java/co/edu/icesi/pdailyandroid/viewcontrollers/NotificationPermissionFragment.java,1\7\1739aa885e5607a9709f484ec054f26b4078fb06
+Å
+Qapp/src/main/java/co/edu/icesi/pdailyandroid/viewcontrollers/ProfileFragment.java,1\5\15f55715bc6214dcd001d4b6cae3ff70dd52fa91
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+
+Oapp/src/main/java/co/edu/icesi/pdailyandroid/adapters/NotificationsAdapter.java,7\0\709a090df3195d58590d030fab0072d26c34b7b8
+p
+@app/src/main/java/co/edu/icesi/pdailyandroid/games/WormGame.java,7\5\752126faa6b93bace792df19b289d9ff27e8a6ce
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+r
+Bapp/src/main/java/co/edu/icesi/pdailyandroid/games/BananaGame.java,8\6\860f3fe401c53091bf3d0566b209a0473b3b628c
 k
 ;app/src/main/java/co/edu/icesi/pdailyandroid/DashBoard.java,2\8\288fb9e50b9bf862d6eb4236f23d305bd69d340f
+Ç
+Rapp/src/main/java/co/edu/icesi/pdailyandroid/viewcontrollers/BinnacleFragment.java,8\5\8585484f3a658a297a3496ce9d6b874e61c1ab9d

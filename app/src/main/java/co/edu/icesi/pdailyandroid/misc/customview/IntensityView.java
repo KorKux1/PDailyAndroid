@@ -59,7 +59,9 @@ public class IntensityView extends Fragment {
                             indicatorView.setY(faceView.getY() + faceHeight / 2 - indicatorHeight / 2);
                         }
 
-                        value = 11 - (11 - 1 - (int) (9 * (faceView.getY() + faceHeight / 4) / (height - faceHeight)));
+                        // value = 11 - (11 - 1 - (int) (9 * (faceView.getY() + faceHeight / 4) / (height - faceHeight)));
+                        // value = 1 + (int) (9 * faceView.getY() / (height - faceHeight));
+                        value = 10 - (int) (9 * faceView.getY() / (height - faceHeight));
                         refreshView();
                         break;
 
@@ -77,6 +79,7 @@ public class IntensityView extends Fragment {
             faceHeight = faceView.getHeight();
             indicatorHeight = indicatorView.getHeight();
             height = root.getHeight();
+            setValue(value);
         });
 
         return root;
@@ -124,7 +127,9 @@ public class IntensityView extends Fragment {
 
     public void setValue(int value) {
         this.value = value;
-        float y = -1 / 9f * (((11 - value) - 10) * (height - faceHeight) + 2.25f * faceHeight) + faceHeight / 4;
+        //float y = -1 / 9f * (((11 - value) - 10) * (height - faceHeight) + 2.25f * faceHeight) + faceHeight / 4;
+        // float y = (value - 1) * (height - faceHeight) / 9f;
+        float y = (10 - value) * (height - faceHeight) / 9f;
         faceView.setY(y);
         indicatorView.setY(y + faceHeight / 2 - indicatorHeight / 2);
         refreshView();

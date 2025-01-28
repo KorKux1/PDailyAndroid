@@ -60,16 +60,10 @@ public class NotificationsAdapter extends BaseAdapter {
             NotificationFollowUp noti = (NotificationFollowUp) notifications.get(position);
 
             row = inflater.inflate(R.layout.notificationfoodcell, null, false);
-            TextView notificationtitle = row.findViewById(R.id.notificationtitle);
             TextView notificationmessage = row.findViewById(R.id.notificationmessage);
             TextView notificationDate = row.findViewById(R.id.notificationdate);
             Button notificationButton = row.findViewById(R.id.notificationButton);
 
-            if (noti.getType() == NotificationType.FOOD) {
-                notificationtitle.setText("Alimentación");
-            } else if (noti.getType() == NotificationType.LEVO) {
-                notificationtitle.setText("Medicina");
-            }
 
             notificationmessage.setText(noti.getName());
             notificationDate.setText(noti.getDate());
@@ -102,12 +96,10 @@ public class NotificationsAdapter extends BaseAdapter {
             NotificationGame noti = (NotificationGame) notifications.get(position);
 
             row = inflater.inflate(R.layout.notificationgamecell, null, false);
-            TextView notificationtitle = row.findViewById(R.id.notificationtitle);
             TextView notificationmessage = row.findViewById(R.id.notificationmessage);
             TextView notificationDate = row.findViewById(R.id.notificationdate);
             Button notificationButton = row.findViewById(R.id.notificationButton);
 
-            notificationtitle.setText("Actividad");
             notificationmessage.setText(noti.getName());
             notificationDate.setText(noti.getDate().split(" ")[0] + "\n" + noti.getDate().split(" ")[1]);
             notificationButton.setText("JUGAR");

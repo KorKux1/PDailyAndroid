@@ -10,7 +10,7 @@ public class Event {
     private ArrayList<String> bodyParts;
 
     public Event() {
-        intensity = 1;
+        intensity = 10;
     }
 
     public String getName() {
