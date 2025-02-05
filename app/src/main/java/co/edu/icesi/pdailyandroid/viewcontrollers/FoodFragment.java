@@ -1,6 +1,5 @@
 package co.edu.icesi.pdailyandroid.viewcontrollers;
 
-import static androidx.core.content.ContextCompat.getSystemService;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -9,21 +8,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Objects;
-
 import co.edu.icesi.pdailyandroid.DashBoard;
 import co.edu.icesi.pdailyandroid.R;
 import co.edu.icesi.pdailyandroid.app.App;
@@ -61,6 +57,10 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
         lunch_hour = v.findViewById(R.id.lunch_hour);
         dinner_hour = v.findViewById(R.id.dinner_hour);
 
+        ConstraintLayout breakfastLayout = v.findViewById(R.id.constraintLayout);
+        ConstraintLayout lunchLayout = v.findViewById(R.id.constraintLayout2);
+        ConstraintLayout dinnerLayout = v.findViewById(R.id.constraintLayout3);
+
         if (getActivity() != null) {
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("food_schedule_preferences", Context.MODE_PRIVATE);
             breakfast_hour.setText(sharedPreferences.getString("FOOD01", "-"));
@@ -68,10 +68,9 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
             dinner_hour.setText(sharedPreferences.getString("FOOD03", "-"));
         }
 
-        breakfast_hour.setOnClickListener(this);
-        lunch_hour.setOnClickListener(this);
-        dinner_hour.setOnClickListener(this);
-
+        breakfastLayout.setOnClickListener(this);
+        lunchLayout.setOnClickListener(this);
+        dinnerLayout.setOnClickListener(this);
         alarmMgr = (AlarmManager) App.getAppContext().getSystemService(Context.ALARM_SERVICE);
 
         breakfastIntent = new Intent(App.getAppContext(), AlarmReceiver.class);
@@ -151,10 +150,16 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
 
     @Override
     public void onClick(View v) {
-        ArrayList<FoodScheduleDTO> schedules = parentActivity.getSessionManager().loadSchedulesData().getFoodSchedules();
-        if (schedules == null || schedules.isEmpty()) {
-            // Allow to setup hours if no schedules are defined from the server
-            showHourDialog(v);
+        switch (v.getId()) {
+            case R.id.constraintLayout:
+                showHourDialog(breakfast_hour);
+                break;
+            case R.id.constraintLayout2:
+                showHourDialog(lunch_hour);
+                break;
+            case R.id.constraintLayout3:
+                showHourDialog(dinner_hour);
+                break;
         }
     }
 
@@ -189,7 +194,6 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
                     } else {
                         alarmMgr.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), breakfastPendingIntent);
                     }
-                    Log.d("FoodFragment", "Breakfast alarm set for: " + calendar.getTime());
                     break;
                 case R.id.lunch_hour:
                     editor.putString("FOOD02", tv.getText().toString()).apply();
@@ -200,8 +204,6 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
                     } else {
                         alarmMgr.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), lunchPendingIntent);
                     }
-                    Log.d("FoodFragment", "Lunch alarm set for: " + calendar.getTime());
-
                     break;
                 case R.id.dinner_hour:
                     editor.putString("FOOD03", tv.getText().toString()).apply();
@@ -212,11 +214,8 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
                     } else {
                         alarmMgr.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), dinnerPendingIntent);
                     }
-                    Log.d("FoodFragment", "Dinner alarm set for: " + calendar.getTime());
                     break;
             }
-        } else {
-            Log.e("FoodFragment", "Activity is null");
         }
     }
 
