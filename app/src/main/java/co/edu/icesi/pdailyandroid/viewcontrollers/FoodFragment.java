@@ -6,9 +6,11 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Objects;
 
 import co.edu.icesi.pdailyandroid.DashBoard;
 import co.edu.icesi.pdailyandroid.R;
@@ -58,9 +61,12 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
         lunch_hour = v.findViewById(R.id.lunch_hour);
         dinner_hour = v.findViewById(R.id.dinner_hour);
 
-        breakfast_hour.setText(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FOOD01", "-"));
-        lunch_hour.setText(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FOOD02", "-"));
-        dinner_hour.setText(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("FOOD03", "-"));
+        if (getActivity() != null) {
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("food_schedule_preferences", Context.MODE_PRIVATE);
+            breakfast_hour.setText(sharedPreferences.getString("FOOD01", "-"));
+            lunch_hour.setText(sharedPreferences.getString("FOOD02", "-"));
+            dinner_hour.setText(sharedPreferences.getString("FOOD03", "-"));
+        }
 
         breakfast_hour.setOnClickListener(this);
         lunch_hour.setOnClickListener(this);
@@ -105,7 +111,6 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
         lunch_hour.setText(lunch.get12HString().toUpperCase());
         dinner_hour.setText(dinner.get12HString().toUpperCase());
 
-        //AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
         Intent intentBreakfast = new Intent(getContext(), NotificationReceiver.class);
         intentBreakfast.putExtra("type", "Breakfast");
         intentBreakfast.putExtra("notification_title", "Título de la Notificación");
@@ -133,9 +138,6 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
         PendingIntent pendingIntentBreakfast = PendingIntent.getBroadcast(getContext(), 0, intentBreakfast, flag);
         PendingIntent pendingIntentLunch = PendingIntent.getBroadcast(getContext(), 0, intentBreakfast, flag);
         PendingIntent pendingIntentDinner = PendingIntent.getBroadcast(getContext(), 0, intentDinner, flag);
-
-
-
 
         if (updateAlarms) {
             alarmMgr.cancel(breakfastPendingIntent);
@@ -172,25 +174,49 @@ public class FoodFragment extends Fragment implements View.OnClickListener, Hour
         String hourStr = DateUtils.getHourString(calendar);
         tv.setText(hourStr);
 
-        switch (tv.getId()) {
-            case R.id.breakfast_hour:
-                PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putString("FOOD01", tv.getText().toString()).apply();
-                PendingIntent breakfastPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_BREAKFAST, breakfastIntent, PendingIntent.FLAG_IMMUTABLE);
-                alarmMgr.cancel(breakfastPendingIntent);
-                alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, breakfastPendingIntent);
-                break;
-            case R.id.lunch_hour:
-                PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putString("FOOD02", tv.getText().toString()).apply();
-                PendingIntent lunchPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_LUNCH, lunchIntent, PendingIntent.FLAG_IMMUTABLE);
-                alarmMgr.cancel(lunchPendingIntent);
-                alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, lunchPendingIntent);
-                break;
-            case R.id.dinner_hour:
-                PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putString("FOOD03", tv.getText().toString()).apply();
-                PendingIntent dinnerPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_DINNER, dinnerIntent, PendingIntent.FLAG_IMMUTABLE);
-                alarmMgr.cancel(dinnerPendingIntent);
-                alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, dinnerPendingIntent);
-                break;
+        if (getActivity() != null) {
+
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("food_schedule_preferences", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            switch (tv.getId()) {
+                case R.id.breakfast_hour:
+                    editor.putString("FOOD01", tv.getText().toString()).apply();
+                    PendingIntent breakfastPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_BREAKFAST, breakfastIntent, PendingIntent.FLAG_IMMUTABLE);
+                    alarmMgr.cancel(breakfastPendingIntent);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), breakfastPendingIntent);
+                    } else {
+                        alarmMgr.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), breakfastPendingIntent);
+                    }
+                    Log.d("FoodFragment", "Breakfast alarm set for: " + calendar.getTime());
+                    break;
+                case R.id.lunch_hour:
+                    editor.putString("FOOD02", tv.getText().toString()).apply();
+                    PendingIntent lunchPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_LUNCH, lunchIntent, PendingIntent.FLAG_IMMUTABLE);
+                    alarmMgr.cancel(lunchPendingIntent);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), lunchPendingIntent);
+                    } else {
+                        alarmMgr.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), lunchPendingIntent);
+                    }
+                    Log.d("FoodFragment", "Lunch alarm set for: " + calendar.getTime());
+
+                    break;
+                case R.id.dinner_hour:
+                    editor.putString("FOOD03", tv.getText().toString()).apply();
+                    PendingIntent dinnerPendingIntent = PendingIntent.getBroadcast(App.getAppContext(), ALARM_DINNER, dinnerIntent, PendingIntent.FLAG_IMMUTABLE);
+                    alarmMgr.cancel(dinnerPendingIntent);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), dinnerPendingIntent);
+                    } else {
+                        alarmMgr.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), dinnerPendingIntent);
+                    }
+                    Log.d("FoodFragment", "Dinner alarm set for: " + calendar.getTime());
+                    break;
+            }
+        } else {
+            Log.e("FoodFragment", "Activity is null");
         }
     }
 
